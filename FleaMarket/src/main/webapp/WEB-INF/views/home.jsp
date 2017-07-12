@@ -83,8 +83,10 @@ footer {
 											data-dismiss="modal">&times;</button>
 										<h4 class="modal-title w3-text-blue">Join Us</h4>
 									</div>
+									
 									<div class="modal-body ">
 										<center>
+										<form action="join" method="POST">
 											<table class="w3-text-blue" style="padding: 15px;">
 												<tr>
 													<td>이름</td>
@@ -108,11 +110,12 @@ footer {
 									</div>
 									<div class="modal-footer ">
 										<button type="button" class="btn btn-default w3-text-blue"
-											data-dismiss="modal">Join</button>
+											data-dismiss="modal" onClick="submit" id="join">Join</button>
 										<button type="button" class="btn btn-default w3-text-blue"
 											data-dismiss="modal">Close</button>
 
 									</div>
+									</form>
 								</div>
 							</div>
 						</div>
