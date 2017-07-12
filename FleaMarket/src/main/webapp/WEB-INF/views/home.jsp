@@ -69,7 +69,7 @@ footer {
 					<li>
 						<button type="button" class="btn w3-light-blue w3-text-white"
 							data-toggle="modal" data-target="#myModal">
-
+<!-- sdf -->
 							<span style="font-size: 20px; margin-top: 5px;"
 								class="glyphicon glyphicon-user"></span> Join Us
 						</button> <!-- Modal -->
