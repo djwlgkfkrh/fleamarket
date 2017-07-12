@@ -61,11 +61,17 @@ footer {
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right">
-					<li class="w3-text-white" style="font-size: 15px;margin-top: 13px;">ID</li>
-					<li> <input  type="text" class="w3-input w3-light-blue" style="border-bottom:1px solid #ffffff!important"size="5" class="w3-light-blue"/></li>
-					
-					<li class="w3-text-white"style="font-size: 15px;margin-top: 13px;">PW </li>
-					<li><input type="password" class="w3-input w3-light-blue" style="border-bottom:1px solid #ffffff!important" size="5" class="w3-light-blue"/></li>
+					<li class="w3-text-white"
+						style="font-size: 15px; margin-top: 13px;">ID</li>
+					<li><input type="text" class="w3-input w3-light-blue"
+						style="border-bottom: 1px solid #ffffff !important" size="5"
+						class="w3-light-blue" /></li>
+
+					<li class="w3-text-white"
+						style="font-size: 15px; margin-top: 13px;">PW</li>
+					<li><input type="password" class="w3-input w3-light-blue"
+						style="border-bottom: 1px solid #ffffff !important" size="5"
+						class="w3-light-blue" /></li>
 					<li><a href="#" class="w3-text-white"><span
 							class="glyphicon glyphicon-log-in w3-text-white"></span> Login</a></li>
 					<li>
@@ -83,36 +89,37 @@ footer {
 											data-dismiss="modal">&times;</button>
 										<h4 class="modal-title w3-text-blue">Join Us</h4>
 									</div>
-									<div class="modal-body ">
-										<center>
-											<table class="w3-text-blue" style="padding: 15px;">
-												<tr>
-													<td>이름</td>
-													<td><input type="text" size="20" name="name" />
-												</tr>
-												<tr>
-													<td>아이디</td>
-													<td><input type="text" size="20" name="id" />
-												</tr>
-												<tr>
-													<td>닉네임</td>
-													<td><input type="text" size="20" name="nickname" />
-												</tr>
-												<tr>
-													<td>비밀번호</td>
-													<td><input type="password" size="20" name="password" />
-												</tr>
+									<form action="/join" method="post">
+										<div class="modal-body ">
+											<center>
+												<table class="w3-text-blue" style="padding: 15px;">
+													<tr>
+														<td>이름</td>
+														<td><input type="text" size="20" name="name" />
+													</tr>
+													<tr>
+														<td>아이디</td>
+														<td><input type="text" size="20" name="id" />
+													</tr>
+													<tr>
+														<td>닉네임</td>
+														<td><input type="text" size="20" name="nick" />
+													</tr>
+													<tr>
+														<td>비밀번호</td>
+														<td><input type="password" size="20" name="pw" />
+													</tr>
 
-											</table>
-										</center>
-									</div>
-									<div class="modal-footer ">
-										<button type="button" class="btn btn-default w3-text-blue"
-											data-dismiss="modal">Join</button>
-										<button type="button" class="btn btn-default w3-text-blue"
-											data-dismiss="modal">Close</button>
-
-									</div>
+												</table>
+											</center>
+										</div>
+										<div class="modal-footer ">
+											<input type="submit" value="Join"
+												class="btn btn-default w3-text-blue"  />
+											<button type="button" class="btn btn-default w3-text-blue"
+												data-dismiss="modal">Close</button>
+										</div>
+									</form>
 								</div>
 							</div>
 						</div>
