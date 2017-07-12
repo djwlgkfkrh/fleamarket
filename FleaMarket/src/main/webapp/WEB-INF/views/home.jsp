@@ -61,15 +61,17 @@ footer {
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right">
-					<li>ID <input type="text" size="7" class="w3-light-blue"/></li>
+					<li class="w3-text-white" style="font-size: 15px;margin-top: 13px;">ID</li>
+					<li> <input  type="text" class="w3-input w3-light-blue" style="border-bottom:1px solid #ffffff!important"size="5" class="w3-light-blue"/></li>
 					
-					<li>PW <input type="text" size="7" class="w3-light-blue"/></li>
+					<li class="w3-text-white"style="font-size: 15px;margin-top: 13px;">PW </li>
+					<li><input type="password" class="w3-input w3-light-blue" style="border-bottom:1px solid #ffffff!important" size="5" class="w3-light-blue"/></li>
 					<li><a href="#" class="w3-text-white"><span
 							class="glyphicon glyphicon-log-in w3-text-white"></span> Login</a></li>
 					<li>
 						<button type="button" class="btn w3-light-blue w3-text-white"
 							data-toggle="modal" data-target="#myModal">
-<!-- sdf -->
+
 							<span style="font-size: 20px; margin-top: 5px;"
 								class="glyphicon glyphicon-user"></span> Join Us
 						</button> <!-- Modal -->
