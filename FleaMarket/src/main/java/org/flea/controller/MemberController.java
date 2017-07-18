@@ -22,9 +22,19 @@ public class MemberController {
 	  private MemberService service;
 
 	  @RequestMapping(value = "/join", method = RequestMethod.POST)
-	  public void join(MemberVO member, Model model) throws Exception {
+	  public String join(MemberVO member, Model model) throws Exception {
 
 	    logger.info("join post ...........");
 	    service.join(member);
+	    return "redirect:/";
+	  }
+	  
+	  @RequestMapping(value = "/login", method = RequestMethod.POST)
+	  public String login(MemberVO member, Model model) throws Exception {
+
+	    logger.info("login post ...........");
+	 
+	    model.addAttribute("member",service.login(member));
+	    return "login1";
 	  }
 }

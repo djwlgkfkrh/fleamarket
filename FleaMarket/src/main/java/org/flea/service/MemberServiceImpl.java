@@ -1,5 +1,7 @@
 package org.flea.service;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.flea.domain.MemberVO;
@@ -15,6 +17,12 @@ public class MemberServiceImpl implements MemberService {
 	public void join(MemberVO member) throws Exception {
 		// TODO Auto-generated method stub
 		dao.join(member);
+	}
+
+	@Override
+	public MemberVO login(MemberVO member) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.login(member);
 	}
 
 }

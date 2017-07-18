@@ -1,5 +1,7 @@
 package org.flea.persistence;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -16,6 +18,12 @@ public class MemberDAOImpl implements MemberDAO {
 	public void join(MemberVO member) throws Exception {
 		// TODO Auto-generated method stub
 		 session.insert(namespace + ".join", member);
+	}
+
+	@Override
+	public MemberVO login(MemberVO member) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectOne(namespace+".login",member);
 	}
 
 }
