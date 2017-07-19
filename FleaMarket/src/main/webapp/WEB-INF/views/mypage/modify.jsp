@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp"%>
-<!--  zjalt dos vntl-->
+
 <div class="container-fluid bg-3 text-center" style="max-width: 1400px">
 	<h3>마이 페이지 </h3>
 	<br>
