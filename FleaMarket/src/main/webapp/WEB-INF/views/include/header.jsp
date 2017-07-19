@@ -2,6 +2,11 @@
 	pageEncoding="UTF-8"%>
 <%@ page session="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%-- <c:if test="${userinfo == null }">
+	<%
+		response.sendRedirect("/");
+	%>
+</c:if> --%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -51,13 +56,15 @@ footer {
 					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand  w3-text-white " href="#">Flea Market</a>
+				<a class="navbar-brand  w3-text-white " href="/">Flea Market</a>
 			</div>
 			<div class="collapse navbar-collapse " id="myNavbar">
 				<ul class="nav navbar-nav ">
+				<li><a class="w3-text-white" href="/mypage">마이페이지</a></li>
 					<li><a class="w3-text-white" href="/salelist">삽니다</a></li>
 					<li><a class="w3-text-white" href="#">팝니다</a></li>
 					<li><a class="w3-text-white" href="#">사기꾼list</a></li>
+					<li><a class="w3-text-white" href="#">Mypage</a></li>
 				</ul>
 
 

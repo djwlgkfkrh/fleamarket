@@ -1,8 +1,10 @@
 package org.flea.controller;
 
+import java.io.PrintWriter;
+import java.util.Locale;
+
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletResponse;
 
 import org.flea.domain.UserVO;
 import org.flea.service.UserService;
@@ -16,49 +18,59 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
-@SessionAttributes("userinfo") //  MemberVO ¼¼¼Ç
+@SessionAttributes("userinfo") // MemberVO ï¿½ï¿½ï¿½ï¿½
 @Controller
 @RequestMapping("")
 public class UserController {
 
-	  private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
-	  @Inject
-	  private UserService service;
+	@Inject
+	private UserService service;
 
-	  @RequestMapping(value = "/join", method = RequestMethod.POST)
-	  public String join(UserVO user, Model model) throws Exception {
+	@RequestMapping(value = "/join", method = RequestMethod.POST)
+	public String join(UserVO user, Model model) throws Exception {
 
-	    logger.info("join post ...........");
-	    service.join(user);
-	    return "redirect:/";
-	  }
-	  
-	  @RequestMapping(value = "/login", method = RequestMethod.POST)
-	  public String login(@ModelAttribute UserVO user, Model model) throws Exception {
+		logger.info("join post ...........");
+		service.join(user);
+		return "redirect:/";
+	}
 
-	    logger.info("login post ...........");
-	    UserVO userinfo=service.login(user);
-	    model.addAttribute("userinfo", userinfo);
-	    return "redirect:/";
-	  }
-	  
-	  @RequestMapping(value = "/logout", method = RequestMethod.POST)
-	  public String logout(UserVO user, Model model,SessionStatus sessionStatus ) throws Exception {
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public String login(@ModelAttribute UserVO user, HttpServletResponse response, Model model) throws Exception {
 
-	    logger.info("logout post ...........");
-	 
-	   // model.addAttribute("user",service.login(user));
-	    sessionStatus.setComplete();
-	    return "redirect:/";
-	  }
-	  
-	  
-	  //UI °Ë»ç¿ë ÀÓ½Ã¹æÆí controller
-	  @RequestMapping(value = "/salelist", method = RequestMethod.GET)
-	  public void salelist(Model model) throws Exception {
+		logger.info("login post ...........");
+		String url;
+		UserVO userinfo = service.login(user);
+		if (userinfo == null)
+			url = "error/login_error";
+		else {
+			model.addAttribute("userinfo", userinfo);
+			url = "redirect:/";
+		}
+		return url;
+	}
 
-	    logger.info("sale boardlist ...........");
-	  }
-	  
+	@RequestMapping(value = "/logout", method = RequestMethod.POST)
+	public String logout(UserVO user, Model model, SessionStatus sessionStatus) throws Exception {
+
+		logger.info("logout post ...........");
+
+		// model.addAttribute("user",service.login(user));
+		sessionStatus.setComplete();
+		return "redirect:/";
+	}
+
+	// UI ï¿½Ë»ï¿½ï¿½ ï¿½Ó½Ã¹ï¿½ï¿½ï¿½ controller
+	@RequestMapping(value = "/salelist", method = RequestMethod.GET)
+	public void salelist(Model model) throws Exception {
+
+		logger.info("sale boardlist ...........");
+	}
+
+	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
+	public String mypage(Locale locale, Model model) {
+		logger.info("Welcome Modify! The client locale is {}.", locale);
+		return "mypage/mypage";
+	}
 }
