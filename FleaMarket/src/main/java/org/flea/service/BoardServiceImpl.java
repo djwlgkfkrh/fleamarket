@@ -12,7 +12,7 @@ import javax.inject.Inject;
 
 @Service
 public class BoardServiceImpl implements BoardService{
-
+//sdf
 	@Inject
 	private BoardDAO dao;
 	
