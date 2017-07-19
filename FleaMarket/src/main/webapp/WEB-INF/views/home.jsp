@@ -16,7 +16,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					
+					<!-- sdf -->
 				<c:forEach items="${list}" var="board">
 					<tr >
 					<td style="width: 100px; ">${board.boardkey}</td>
