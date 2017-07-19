@@ -58,6 +58,7 @@ footer {
 					<li><a class="w3-text-white" href="/salelist">삽니다</a></li>
 					<li><a class="w3-text-white" href="#">팝니다</a></li>
 					<li><a class="w3-text-white" href="#">사기꾼list</a></li>
+					<li><a class="w3-text-white" href="#">Mypage</a></li>
 				</ul>
 
 
