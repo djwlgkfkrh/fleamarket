@@ -17,19 +17,19 @@
 				<tbody>
 				<tr>
 					<td>아이디</td>
-					<td>${sessionScope.userinfo.id}</td>
+					<td>${userinfo.id}</td>
 				</tr>
 				<tr>
 					<td>이름</td>
-					<td>${sessionScope.userinfo.name}</td>
+					<td>${userinfo.name}</td>
 				</tr>
 				<tr>
 					<td>닉네임</td>
-					<td>${sessionScope.userinfo.nickname}</td>
+					<td>${userinfo.nickname}</td>
 				</tr>
 				<tr>
 					<td>포인트</td>
-					<td>${sessionScope.userinfo.point}</td>
+					<td>${userinfo.point}</td>
 				</tr>
 				<tr>
 					<td colspan="2"><button id="modify">정보수정</button></td>
@@ -112,16 +112,5 @@
 </div>
 <br>
 <br>
-<script>
-	$(document).ready(
-			function() {
-				
-				$('#modify').on("click", function(evt) {
 
-					self.location = "modify";
-
-				});
-
-			});
-</script>
 <%@include file="include/footer.jsp"%>
