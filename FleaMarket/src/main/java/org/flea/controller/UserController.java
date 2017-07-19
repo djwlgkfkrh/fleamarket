@@ -1,6 +1,8 @@
 package org.flea.controller;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.flea.domain.UserVO;
 import org.flea.service.UserService;
@@ -33,20 +35,19 @@ public class UserController {
 	  }
 	  
 	  @RequestMapping(value = "/login", method = RequestMethod.POST)
-	  public String login(@ModelAttribute UserVO user,  Model model) throws Exception {
+	  public String login(@ModelAttribute UserVO user, Model model) throws Exception {
 
 	    logger.info("login post ...........");
-	   
 	    UserVO userinfo=service.login(user);
 	    model.addAttribute("userinfo", userinfo);
-	    return "login";
+	    return "redirect:/";
 	  }
 	  
 	  @RequestMapping(value = "/logout", method = RequestMethod.POST)
 	  public String logout(UserVO user, Model model,SessionStatus sessionStatus ) throws Exception {
 
 	    logger.info("logout post ...........");
-	 //logout 구현하기session 만료 구현하기!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	 
 	   // model.addAttribute("user",service.login(user));
 	    sessionStatus.setComplete();
 	    return "redirect:/";
