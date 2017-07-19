@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  
+  <mapper namespace="org.flea.mappers.BoardMapper">
+  
+  <select id="read" resultType="com.ex.domain.BoardVO">
+	select boardpic,boardtxt from board where userkey=#{userkey}
+	</select>
+	
+	<insert id="create">
+		insert into board (userkey, boardpic, boardtxt)
+		values (#{userkey}, #{boardpic}, #{boardtxt})
+	</insert>
+	
+	<delete id="delete">
+	delete from board where boardkey = #{boardkey}
+	</delete>
+  
+  </mapper>
