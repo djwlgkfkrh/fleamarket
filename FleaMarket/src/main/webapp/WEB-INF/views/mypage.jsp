@@ -17,19 +17,19 @@
 				<tbody>
 				<tr>
 					<td>아이디</td>
-					<td>id--</td>
+					<td>${sessionScope.userinfo.id}</td>
 				</tr>
 				<tr>
 					<td>이름</td>
-					<td>name--</td>
+					<td>${sessionScope.userinfo.name}</td>
 				</tr>
 				<tr>
 					<td>닉네임</td>
-					<td>nick--</td>
+					<td>${sessionScope.userinfo.nickname}</td>
 				</tr>
 				<tr>
 					<td>포인트</td>
-					<td>point--</td>
+					<td>${sessionScope.userinfo.point}</td>
 				</tr>
 				<tr>
 					<td colspan="2"><button id="modify">정보수정</button></td>
