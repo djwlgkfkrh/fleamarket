@@ -34,10 +34,27 @@ public class BoardServiceImpl implements BoardService{
 
 
 
+
 	@Override
-	public void read(BoardVO vo) throws Exception {
+	public void readMain(BoardVO vo) throws Exception {
 		// TODO Auto-generated method stub
-		dao.read(vo);
+		dao.readMain(vo);
+	}
+
+
+
+	@Override
+	public void readSale(BoardVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		dao.readSale(vo);
+	}
+
+
+
+	@Override
+	public void readBuy(BoardVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		dao.readBuy(vo);
 	}
 
 }

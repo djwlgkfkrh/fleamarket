@@ -3,7 +3,6 @@ package org.flea.persistence;
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
-// import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import org.flea.domain.BoardVO;
@@ -21,16 +20,30 @@ public class BoardDAOImpl implements BoardDAO{
 	private SqlSession session;
 	
 	
-	private static String namespace = "com.ex.Mapper.BoardMapper";
+	private static String namespace = "org.flea.Mapper.BoardMapper";
 	
-	
-
 	@Override
-	public void read(BoardVO vo) throws Exception {
+	public void readMain(BoardVO vo) throws Exception {
 		// TODO Auto-generated method stub
-		session.insert(namespace + ".read", vo);
+		session.selectOne(namespace+ ".readMain", vo);
 		
 	}
+
+	@Override
+	public void readSale(BoardVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		session.selectOne(namespace+ ".readSale", vo);
+		
+	}
+
+	@Override
+	public void readBuy(BoardVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		session.selectOne(namespace+ ".readBuy", vo);
+		
+	}
+
+
 
 	@Override
 	public void create(BoardVO vo) throws Exception {
@@ -50,5 +63,6 @@ public class BoardDAOImpl implements BoardDAO{
 		// TODO Auto-generated method stub
 		
 	}
+
 
 }
