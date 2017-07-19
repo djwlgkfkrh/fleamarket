@@ -1,6 +1,7 @@
 package org.flea.controller;
 
 import java.io.PrintWriter;
+import java.util.Locale;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
@@ -60,11 +61,10 @@ public class UserController {
 		return "redirect:/";
 	}
 
-	// UI 검사용 임시방편 controller
-	@RequestMapping(value = "/salelist", method = RequestMethod.GET)
-	public void salelist(Model model) throws Exception {
-
-		logger.info("sale boardlist ...........");
+	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
+	public String mypage(Model model) {
+		logger.info("MyPage................");
+		return "mypage/mypage";
 	}
 
 }

@@ -60,11 +60,11 @@ footer {
 			</div>
 			<div class="collapse navbar-collapse " id="myNavbar">
 				<ul class="nav navbar-nav ">
-				<li><a class="w3-text-white" href="/mypage">마이페이지</a></li>
-					<li><a class="w3-text-white" href="/salelist">삽니다</a></li>
+				
+					<li><a class="w3-text-white" href="/board/salelist">삽니다</a></li>
 					<li><a class="w3-text-white" href="#">팝니다</a></li>
 					<li><a class="w3-text-white" href="#">사기꾼list</a></li>
-					<li><a class="w3-text-white" href="#">Mypage</a></li>
+					<li><a class="w3-text-white" href="/mypage">마이페이지</a></li>
 				</ul>
 
 

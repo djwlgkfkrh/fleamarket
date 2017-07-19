@@ -16,7 +16,7 @@ import org.flea.domain.UserVO;
 import org.flea.service.BoardService;
 
 @Controller
-//@RequestMapping("/main")
+@RequestMapping("/board/*")
 public class BoardController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
@@ -27,25 +27,10 @@ public class BoardController {
 	
 	
 	
-	/* 글 읽는 부분  => 메인 / 팝니다 / 삽니다  시작 ======================================= */
+	/* 글 읽는 부분  => 메인 / 팝니다 / 삽니다  시작 ======================================= 
 
 	
 	
-	// readMain : 메인에서 글읽기 
-	@RequestMapping(value = "", method = { RequestMethod.GET, RequestMethod.POST })
-	public String readMain(Model model, UserVO vo, HttpServletRequest request) throws Exception {
-
-		HttpSession session = request.getSession(); // 세션 선언하고 가져오는 부분
-		UserVO usersession = (UserVO) session.getAttribute("userinfo"); // session에서 ""에 해당하는 세션을 가져옴
-		
-		System.out.println("id check : " + usersession.getId()); // 세션으로 현재 User의 Id 확인
-
-		
-		logger.info("main post ...........");
-		//model.addAttribute(service.read(vo); // 모델로 하면 새로고침하면 사라짐 
-
-		return "main";
-	}
 	
 	// readSale : 팝니다 에서 글읽기 
 	@RequestMapping(value = "", method = { RequestMethod.GET, RequestMethod.POST })
@@ -63,18 +48,18 @@ public class BoardController {
 	}
 	
 	// readBuy : 삽니다 에서 글읽기 
-	@RequestMapping(value = "", method = { RequestMethod.GET, RequestMethod.POST })
-	public String readMBuy(Model model, UserVO vo, HttpServletRequest request) throws Exception {
+	@RequestMapping(value = "/salelist", method = { RequestMethod.GET, RequestMethod.POST })
+	public void salelist(Model model, UserVO vo, HttpServletRequest request) throws Exception {
 
 		HttpSession session = request.getSession(); // 세션 선언하고 가져오는 부분
 		UserVO usersession = (UserVO) session.getAttribute("userinfo"); // session에서 ""에 해당하는 세션을 가져옴
 		
 		System.out.println("id check : " + usersession.getId()); // 세션으로 현재 User의 Id 확인
 		
-		logger.info("main post ...........");
+		logger.info("salelist post ...........");
 		//model.addAttribute("list", service.read(useridx.getUserkey())); // 모델로 하면 새로고침하면 사라짐 
 
-		return "main";
+		
 	}
 	
 	/* 글 읽는 부분  => 메인 / 팝니다 / 삽니다  끝 ======================================= */
@@ -83,7 +68,7 @@ public class BoardController {
 	
 		
 	
-	/* 글 쓰는 부분 => 팝니다 / 삽니다   시작  ==========================================  */
+	/* 글 쓰는 부분 => 팝니다 / 삽니다   시작  ==========================================  
 	
 	
 	// createGET : 세션정보로 글 작성 세션GET

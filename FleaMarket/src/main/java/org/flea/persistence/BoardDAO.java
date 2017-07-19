@@ -5,8 +5,9 @@ import java.util.List;
 import org.flea.domain.BoardVO;
 
 public interface BoardDAO {
+	
 
-	// public List<BoardVO> show(int userkey) throws Exception; // 글 리스트 출력용
+	public List<BoardVO> show() throws Exception; //메인페이지 글 리스트 출력용
 
 	public void read(BoardVO vo) throws Exception; //글 읽기
 
