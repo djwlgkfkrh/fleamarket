@@ -52,100 +52,23 @@ footer {
 				<a class="navbar-brand  w3-text-white " href="#">Flea Market</a>
 			</div>
 			<div class="collapse navbar-collapse " id="myNavbar">
-
 				<ul class="nav navbar-nav ">
 					<li><a class="w3-text-white" href="#">About</a></li>
 					<li><a class="w3-text-white" href="#">About</a></li>
 					<li><a class="w3-text-white" href="#">Gallery</a></li>
 					<li><a class="w3-text-white" href="#">Contact</a></li>
 				</ul>
-				<div class=" nav " style="float:right">
-				<form action="/login" method="post">
-					<ul class=" nav navbar-nav">
 
-						<li class="w3-text-white"
-							style="font-size: 15px; margin-top: 13px;">
-							
-							ID</li>
-						<li><input type="text" class="w3-input w3-light-blue"
-							name="id" style="border-bottom: 1px solid #ffffff !important"
-							size="5" class="w3-light-blue" /></li>
 
-						<li class="w3-text-white"
-							style="font-size: 15px; margin-top: 13px;">PW</li>
-						<li><input type="password" class="w3-input w3-light-blue"
-							name="pw" style="border-bottom: 1px solid #ffffff !important"
-							size="5" class="w3-light-blue" /></li>
-
-						<li>
-							<button type="submit" class="btn w3-light-blue w3-text-white">
-								<span style="font-size: 20px; margin-top: 5px;"
-									class="glyphicon glyphicon-log-in"></span> Login</input>
-						</li>
-
+			
+					<ul class=" nav navbar-nav navbar-right">
+					<li class="w3-text-white"
+							style="font-size: 15px; margin-top: 13px;">${user.nickname}님 환영합니다.</li>
 					</ul>
-				</form>
-				
-				
-				<ul class="nav  navbar-nav" style="float:right!important">
-					<li>
-						<button type="button" class="btn w3-light-blue w3-text-white"
-							data-toggle="modal" data-target="#myModal">
-
-							<span style="font-size: 20px; margin-top: 5px;"
-								class="glyphicon glyphicon-user"></span> Join Us
-						</button> <!-- Modal -->
-					</li>
-
-					<div class="modal fade" id="myModal" role="dialog">
-						<div class="modal-dialog modal-lg">
-							<div class="w3-modal-content" style="width: 400px !important">
-								<div class="modal-header ">
-									<button type="button" class="close w3-text-white"
-										data-dismiss="modal">&times;</button>
-									<h4 class="modal-title w3-text-blue">Join Us</h4>
-								</div>
-								<form action="/join" method="post">
-									<div class="modal-body ">
-										<center>
-											<table class="w3-text-blue" style="padding: 15px;">
-												<tr>
-													<td>이름</td>
-													<td><input type="text" size="20" name="name" />
-												</tr>
-												<tr>
-													<td>아이디</td>
-													<td><input type="text" size="20" name="id" />
-												</tr>
-												<tr>
-													<td>닉네임</td>
-													<td><input type="text" size="20" name="nickname" />
-												</tr>
-												<tr>
-													<td>비밀번호</td>
-													<td><input type="password" size="20" name="pw" />
-												</tr>
-
-											</table>
-										</center>
-									</div>
-									<div class="modal-footer ">
-										<input type="submit" value="Join"
-											class="btn btn-default w3-text-blue" />
-										<button type="button" class="btn btn-default w3-text-blue"
-											data-dismiss="modal">Close</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-
-
-
-				</ul>
-</div>
+			
 			</div>
 		</div>
+		
 	</nav>
 
 	<div class="jumbotron">

@@ -35,6 +35,6 @@ public class UserController {
 	    logger.info("login post ...........");
 	 
 	    model.addAttribute("user",service.login(user));
-	    return "login1";
+	    return "login";
 	  }
 }
