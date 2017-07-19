@@ -6,10 +6,36 @@
   
   <mapper namespace="org.flea.mappers.BoardMapper">
   
-  <select id="read" resultType="com.ex.domain.BoardVO">
-	select boardpic,boardtxt from board where userkey=#{userkey}
+  
+  <!-- Read 시작 -->
+  
+  <select id="readMain" resultType="org.flea.domain.BoardVO">
+	select title, group1, group2, text, regdate, viewcnt, salestate,gpsX, gpsY 
+	from board
+	where boardrkey=#{boardkey} 
 	</select>
 	
+	
+	<select id="readSale" resultType="org.flea.domain.BoardVO">
+	select title, group1, group2, text, regdate, viewcnt, salestate, gpsX, gpsY 
+	from board
+	where (select boardkey
+	from sale
+	where boardrkey=#{boardkey})
+	</select>
+	
+	<select id="readBuy" resultType="org.flea.domain.BoardVO">
+	select title, group1, group2, text, regdate, viewcnt, salestate, gpsX, gpsY
+	from board
+	where(select boardkey
+	from buy
+	where boardrkey=#{boardkey})
+	</select>
+	
+	<!-- Read 끝 -->
+	
+	
+
 	<insert id="create">
 		insert into board (userkey, boardpic, boardtxt)
 		values (#{userkey}, #{boardpic}, #{boardtxt})
