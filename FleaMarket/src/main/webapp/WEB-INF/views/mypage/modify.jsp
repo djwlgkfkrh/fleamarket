@@ -1,13 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@include file="include/header.jsp"%>
+<%@include file="../include/header.jsp"%>
 
 <div class="container-fluid bg-3 text-center" style="max-width: 1400px">
 	<h3>마이 페이지 </h3>
 	<br>
 	<div class="row">
 		<div class="col-sm-4">
-		<form action="/mypage/modify">
 			<table class="table">
 				<thead>
 				<tr>
@@ -31,12 +30,8 @@
 					<td>포인트</td>
 					<td>point--</td>
 				</tr>
-				<tr>
-					<td colspan="2"><button id="modify">정보수정</button></td>
-				</tr>
 				</tbody>
 			</table>
-			</form>
 		</div>
 		<div class="col-sm-6">
 			<p>활동 내역</p>
@@ -112,16 +107,5 @@
 </div>
 <br>
 <br>
-<script>
-	$(document).ready(
-			function() {
-				
-				$('#modify').on("click", function(evt) {
 
-					self.location = "modify";
-
-				});
-
-			});
-</script>
-<%@include file="include/footer.jsp"%>
+<%@include file="../include/footer.jsp"%>
