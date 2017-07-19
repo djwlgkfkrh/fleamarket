@@ -1,6 +1,7 @@
 package org.flea.controller;
 
 import java.io.PrintWriter;
+import java.util.Locale;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
-@SessionAttributes("userinfo") // MemberVO ¼¼¼Ç
+@SessionAttributes("userinfo") // MemberVO ï¿½ï¿½ï¿½ï¿½
 @Controller
 @RequestMapping("")
 public class UserController {
@@ -60,11 +61,16 @@ public class UserController {
 		return "redirect:/";
 	}
 
-	// UI °Ë»ç¿ë ÀÓ½Ã¹æÆí controller
+	// UI ï¿½Ë»ï¿½ï¿½ ï¿½Ó½Ã¹ï¿½ï¿½ï¿½ controller
 	@RequestMapping(value = "/salelist", method = RequestMethod.GET)
 	public void salelist(Model model) throws Exception {
 
 		logger.info("sale boardlist ...........");
 	}
 
+	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
+	public String mypage(Locale locale, Model model) {
+		logger.info("Welcome Modify! The client locale is {}.", locale);
+		return "mypage/mypage";
+	}
 }
