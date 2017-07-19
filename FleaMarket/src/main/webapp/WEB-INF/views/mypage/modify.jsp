@@ -32,7 +32,7 @@
 				</tr>
 				</tbody>
 			</table>
-			<button id="modify">완료</button><button id="modify">취소</button>
+			<button id="modify">완료</button><button id="modify">취소2</button>
 		</div>
 		<div class="col-sm-6">
 			<p>활동 내역</p>
