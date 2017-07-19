@@ -5,12 +5,14 @@ import org.springframework.stereotype.Service;
 import org.flea.domain.BoardVO;
 import org.flea.persistence.BoardDAO;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 
 @Service
 public class BoardServiceImpl implements BoardService{
-
+//sdf
 	@Inject
 	private BoardDAO dao;
 	
@@ -38,6 +40,22 @@ public class BoardServiceImpl implements BoardService{
 	public void read(BoardVO vo) throws Exception {
 		// TODO Auto-generated method stub
 		dao.read(vo);
+	}
+
+
+
+	@Override
+	public List<BoardVO> show() throws Exception {
+		// TODO Auto-generated method stub
+		return dao.show();
+	}
+
+
+
+	@Override
+	public void modify(BoardVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

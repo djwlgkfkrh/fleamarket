@@ -1,5 +1,7 @@
 package org.flea.persistence;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -21,7 +23,7 @@ public class BoardDAOImpl implements BoardDAO{
 	private SqlSession session;
 	
 	
-	private static String namespace = "com.ex.Mapper.BoardMapper";
+	private static String namespace = "org.flea.mappers.BoardMapper";
 	
 	
 
@@ -49,6 +51,12 @@ public class BoardDAOImpl implements BoardDAO{
 	public void delete(BoardVO vo) throws Exception {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public List<BoardVO> show() throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectList(namespace + ".show");
 	}
 
 }

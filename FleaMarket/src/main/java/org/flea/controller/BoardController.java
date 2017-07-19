@@ -16,7 +16,7 @@ import org.flea.domain.UserVO;
 import org.flea.service.BoardService;
 
 @Controller
-//@RequestMapping("/main")
+@RequestMapping("/board/*")
 public class BoardController {
 /*	
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
@@ -24,13 +24,8 @@ public class BoardController {
 	@Inject
 	private BoardService service;
 	
-	
-	
-	
-	 �� �д� �κ�  => ���� / �˴ϴ� / ��ϴ�  ���� ======================================= 
 
-	
-	
+
 	// readMain : ���ο��� ���б� 
 	@RequestMapping(value = "", method = { RequestMethod.GET, RequestMethod.POST })
 	public String readMain(Model model, UserVO vo, HttpServletRequest request) throws Exception {
@@ -46,6 +41,7 @@ public class BoardController {
 
 		return "main";
 	}
+
 	
 	// readSale : �˴ϴ� ���� ���б� 
 	@RequestMapping(value = "", method = { RequestMethod.GET, RequestMethod.POST })
@@ -62,19 +58,22 @@ public class BoardController {
 		return "main";
 	}
 	
+
 	// readBuy : ��ϴ� ���� ���б� 
-	@RequestMapping(value = "", method = { RequestMethod.GET, RequestMethod.POST })
-	public String readMBuy(Model model, UserVO vo, HttpServletRequest request) throws Exception {
+	@RequestMapping(value = "/salelist", method = { RequestMethod.GET, RequestMethod.POST })
+	public void salelist(Model model, UserVO vo, HttpServletRequest request) throws Exception {
+
 
 		HttpSession session = request.getSession(); // ���� �����ϰ� �������� �κ�
 		UserVO usersession = (UserVO) session.getAttribute("userinfo"); // session���� ""�� �ش��ϴ� ������ ������
 		
 		System.out.println("id check : " + usersession.getId()); // �������� ���� User�� Id Ȯ��
 		
-		logger.info("main post ...........");
+		logger.info("salelist post ...........");
 		//model.addAttribute("list", service.read(useridx.getUserkey())); // �𵨷� �ϸ� ���ΰ�ħ�ϸ� ����� 
 
-		return "main";
+
+		
 	}
 	
 	 �� �д� �κ�  => ���� / �˴ϴ� / ��ϴ�  �� ======================================= 
@@ -83,7 +82,9 @@ public class BoardController {
 	
 		
 	
-	 �� ���� �κ� => �˴ϴ� / ��ϴ�   ����  ==========================================  
+
+	/* �� ���� �κ� => �˴ϴ� / ��ϴ�   ����  ==========================================  
+
 	
 	
 	// createGET : ���������� �� �ۼ� ����GET

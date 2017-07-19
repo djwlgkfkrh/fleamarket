@@ -2,47 +2,51 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
-  
-  <mapper namespace="org.flea.mappers.BoardMapper">
-  
-  
-  <!-- Read 시작 -->
-  
-  <select id="readMain" resultType="org.flea.domain.BoardVO">
-	select title, group1, group2, text, regdate, viewcnt, salestate,gpsX, gpsY 
-	from board
-	where boardrkey=#{boardkey} 
+
+
+<mapper namespace="org.flea.mappers.BoardMapper">
+
+	<!-- 메인페이지 글읽기 -->
+	<select id="show" resultType="org.flea.domain.BoardVO">
+		select boardkey, title,  regdate, viewcnt, salestate from board order by boardkey desc,
+		regdate desc
 	</select>
-	
-	
+	<!-- Read 시작 -->
+
+	<select id="readMain" resultType="org.flea.domain.BoardVO">
+		select title, group1, group2, text, regdate, viewcnt, salestate,gpsX, gpsY
+		from board
+		where boardrkey=#{boardkey}
+	</select>
+
+
 	<select id="readSale" resultType="org.flea.domain.BoardVO">
-	select title, group1, group2, text, regdate, viewcnt, salestate, gpsX, gpsY 
-	from board
-	where (select boardkey
-	from sale
-	where boardrkey=#{boardkey})
+		select title, group1, group2, text, regdate, viewcnt, salestate, gpsX, gpsY
+		from board
+		where (select boardkey
+		from sale
+		where boardrkey=#{boardkey})
 	</select>
-	
+
 	<select id="readBuy" resultType="org.flea.domain.BoardVO">
-	select title, group1, group2, text, regdate, viewcnt, salestate, gpsX, gpsY
-	from board
-	where(select boardkey
-	from buy
-	where boardrkey=#{boardkey})
+		select title, group1, group2, text, regdate, viewcnt, salestate, gpsX, gpsY
+		from board
+		where(select boardkey
+		from buy
+		where boardrkey=#{boardkey})
 	</select>
-	
+
 	<!-- Read 끝 -->
-	
-	
+
+
 
 	<insert id="create">
 		insert into board (userkey, boardpic, boardtxt)
 		values (#{userkey}, #{boardpic}, #{boardtxt})
 	</insert>
-	
+
 	<delete id="delete">
-	delete from board where boardkey = #{boardkey}
+		delete from board where boardkey = #{boardkey}
 	</delete>
-  
-  </mapper>
+
+</mapper>
