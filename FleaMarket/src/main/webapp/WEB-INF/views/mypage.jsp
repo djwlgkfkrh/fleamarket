@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="include/header.jsp"%>
@@ -8,7 +7,7 @@
 	<br>
 	<div class="row">
 		<div class="col-sm-3">
-			<p>${list.ukey}</p>
+			
 			<img src="https://placehold.it/150x80?text=IMAGE"
 				class="img-responsive" style="width: 100%" alt="Image">
 		</div>

@@ -1,5 +1,7 @@
 package org.flea.controller;
 
+import java.util.Locale;
+
 import javax.inject.Inject;
 
 import org.flea.domain.MemberVO;
@@ -37,4 +39,12 @@ public class MemberController {
 	    model.addAttribute("member",service.login(member));
 	    return "login1";
 	  }
+	  
+	  @RequestMapping(value = "/mypage", method = RequestMethod.GET)
+	  public void mypage( Model model) {
+		  logger.info("my ...........");
+
+
+		     }
+
 }
