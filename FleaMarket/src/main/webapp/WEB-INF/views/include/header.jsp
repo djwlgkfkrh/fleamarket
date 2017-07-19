@@ -59,13 +59,13 @@ footer {
 					<li><a class="w3-text-white" href="#">Gallery</a></li>
 					<li><a class="w3-text-white" href="#">Contact</a></li>
 				</ul>
-				
+				<div class=" nav " style="float:right">
 				<form action="/login" method="post">
-					<ul class="nav navbar-nav ">
+					<ul class=" nav navbar-nav">
 
 						<li class="w3-text-white"
 							style="font-size: 15px; margin-top: 13px;">
-							<% for(int i=0;i<118;i++)  %>&nbsp;	
+							
 							ID</li>
 						<li><input type="text" class="w3-input w3-light-blue"
 							name="id" style="border-bottom: 1px solid #ffffff !important"
@@ -87,7 +87,7 @@ footer {
 				</form>
 				
 				
-				<ul class="nav navbar-nav navbar-right">
+				<ul class="nav  navbar-nav" style="float:right!important">
 					<li>
 						<button type="button" class="btn w3-light-blue w3-text-white"
 							data-toggle="modal" data-target="#myModal">
@@ -119,7 +119,7 @@ footer {
 												</tr>
 												<tr>
 													<td>닉네임</td>
-													<td><input type="text" size="20" name="nick" />
+													<td><input type="text" size="20" name="nickname" />
 												</tr>
 												<tr>
 													<td>비밀번호</td>
@@ -143,7 +143,7 @@ footer {
 
 
 				</ul>
-
+</div>
 			</div>
 		</div>
 	</nav>
