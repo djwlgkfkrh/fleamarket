@@ -8,10 +8,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
-
+@SessionAttributes("userinfo") //  MemberVO 세션
 @Controller
 @RequestMapping("")
 public class UserController {
@@ -30,11 +33,31 @@ public class UserController {
 	  }
 	  
 	  @RequestMapping(value = "/login", method = RequestMethod.POST)
-	  public String login(UserVO user, Model model) throws Exception {
+	  public String login(@ModelAttribute UserVO user,  Model model) throws Exception {
 
 	    logger.info("login post ...........");
-	 
-	    model.addAttribute("user",service.login(user));
+	   
+	    UserVO userinfo=service.login(user);
+	    model.addAttribute("userinfo", userinfo);
 	    return "login";
 	  }
+	  
+	  @RequestMapping(value = "/logout", method = RequestMethod.POST)
+	  public String logout(UserVO user, Model model,SessionStatus sessionStatus ) throws Exception {
+
+	    logger.info("logout post ...........");
+	 //logout 구현하기session 만료 구현하기!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	   // model.addAttribute("user",service.login(user));
+	    sessionStatus.setComplete();
+	    return "redirect:/";
+	  }
+	  
+	  
+	  //UI 검사용 임시방편 controller
+	  @RequestMapping(value = "/salelist", method = RequestMethod.GET)
+	  public void salelist(Model model) throws Exception {
+
+	    logger.info("sale boardlist ...........");
+	  }
+	  
 }
