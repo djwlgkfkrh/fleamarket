@@ -50,4 +50,12 @@ public class BoardServiceImpl implements BoardService{
 		return dao.show();
 	}
 
+
+
+	@Override
+	public void modify(BoardVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
