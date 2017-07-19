@@ -19,17 +19,15 @@ import org.flea.service.BoardService;
 //@RequestMapping("/main")
 public class BoardController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+/*	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
 	@Inject
 	private BoardService service;
 	
 	
 	
-	
-	/* read Main / Sale / Buy start ======================================= */
+	 read Main / Sale / Buy start ======================================= 
 
-	
 	
 	// readMain : 메인에서 글읽기 
 	@RequestMapping(value = "", method = { RequestMethod.GET, RequestMethod.POST })
@@ -77,13 +75,13 @@ public class BoardController {
 		return "main";
 	}
 	
-	/* read Main / Sale / Buy end ======================================= */
+	 read Main / Sale / Buy end ======================================= 
 	
 	
 	
 		
 	
-	/* 글 쓰는 부분 => 팝니다 / 삽니다   시작  ==========================================  */
+	 Write => Sale / Buy Start ==========================================  
 	
 	
 	// createGET : 세션정보로 글 작성 세션GET
@@ -121,8 +119,8 @@ public class BoardController {
 	
 	
 	
-	/* 글 쓰는 부분 => 팝니다 / 삽니다   끝  ==========================================  */
-	
+	 Write => Sale / Buy end==========================================  
+	*/
 	
 /*	@RequestMapping(value = "/setting", method = RequestMethod.GET) // 세팅버튼 누르면 세션화면으로 가는부분
 	public String settingGET(MemberVO vo, HttpServletRequest request) throws Exception {
