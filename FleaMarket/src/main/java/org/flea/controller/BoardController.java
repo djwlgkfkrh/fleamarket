@@ -18,7 +18,7 @@ import org.flea.service.BoardService;
 @Controller
 //@RequestMapping("/main")
 public class BoardController {
-	
+/*	
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
 	@Inject
@@ -27,70 +27,70 @@ public class BoardController {
 	
 	
 	
-	/* ±Û ÀÐ´Â ºÎºÐ  => ¸ÞÀÎ / ÆË´Ï´Ù / »ð´Ï´Ù  ½ÃÀÛ ======================================= */
+	 ï¿½ï¿½ ï¿½Ð´ï¿½ ï¿½Îºï¿½  => ï¿½ï¿½ï¿½ï¿½ / ï¿½Ë´Ï´ï¿½ / ï¿½ï¿½Ï´ï¿½  ï¿½ï¿½ï¿½ï¿½ ======================================= 
 
 	
 	
-	// readMain : ¸ÞÀÎ¿¡¼­ ±ÛÀÐ±â 
+	// readMain : ï¿½ï¿½ï¿½Î¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ð±ï¿½ 
 	@RequestMapping(value = "", method = { RequestMethod.GET, RequestMethod.POST })
 	public String readMain(Model model, UserVO vo, HttpServletRequest request) throws Exception {
 
-		HttpSession session = request.getSession(); // ¼¼¼Ç ¼±¾ðÇÏ°í °¡Á®¿À´Â ºÎºÐ
-		UserVO usersession = (UserVO) session.getAttribute("userinfo"); // session¿¡¼­ ""¿¡ ÇØ´çÇÏ´Â ¼¼¼ÇÀ» °¡Á®¿È
+		HttpSession session = request.getSession(); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½
+		UserVO usersession = (UserVO) session.getAttribute("userinfo"); // sessionï¿½ï¿½ï¿½ï¿½ ""ï¿½ï¿½ ï¿½Ø´ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		
-		System.out.println("id check : " + usersession.getId()); // ¼¼¼ÇÀ¸·Î ÇöÀç UserÀÇ Id È®ÀÎ
+		System.out.println("id check : " + usersession.getId()); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Userï¿½ï¿½ Id È®ï¿½ï¿½
 
 		
 		logger.info("main post ...........");
-		//model.addAttribute(service.read(vo); // ¸ðµ¨·Î ÇÏ¸é »õ·Î°íÄ§ÇÏ¸é »ç¶óÁü 
+		//model.addAttribute(service.read(vo); // ï¿½ðµ¨·ï¿½ ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½Î°ï¿½Ä§ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ 
 
 		return "main";
 	}
 	
-	// readSale : ÆË´Ï´Ù ¿¡¼­ ±ÛÀÐ±â 
+	// readSale : ï¿½Ë´Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ð±ï¿½ 
 	@RequestMapping(value = "", method = { RequestMethod.GET, RequestMethod.POST })
 	public String readSale(Model model, UserVO vo, HttpServletRequest request) throws Exception {
 
-		HttpSession session = request.getSession(); // ¼¼¼Ç ¼±¾ðÇÏ°í °¡Á®¿À´Â ºÎºÐ
-		UserVO usersession = (UserVO) session.getAttribute("userinfo"); // session¿¡¼­ ""¿¡ ÇØ´çÇÏ´Â ¼¼¼ÇÀ» °¡Á®¿È
+		HttpSession session = request.getSession(); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½
+		UserVO usersession = (UserVO) session.getAttribute("userinfo"); // sessionï¿½ï¿½ï¿½ï¿½ ""ï¿½ï¿½ ï¿½Ø´ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		
-		System.out.println("id check : " + usersession.getId()); // ¼¼¼ÇÀ¸·Î ÇöÀç UserÀÇ Id È®ÀÎ
+		System.out.println("id check : " + usersession.getId()); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Userï¿½ï¿½ Id È®ï¿½ï¿½
 		
 		logger.info("main post ...........");
-		//model.addAttribute("list", service.read(useridx.getUserkey())); // ¸ðµ¨·Î ÇÏ¸é »õ·Î°íÄ§ÇÏ¸é »ç¶óÁü 
+		//model.addAttribute("list", service.read(useridx.getUserkey())); // ï¿½ðµ¨·ï¿½ ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½Î°ï¿½Ä§ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ 
 
 		return "main";
 	}
 	
-	// readBuy : »ð´Ï´Ù ¿¡¼­ ±ÛÀÐ±â 
+	// readBuy : ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ð±ï¿½ 
 	@RequestMapping(value = "", method = { RequestMethod.GET, RequestMethod.POST })
 	public String readMBuy(Model model, UserVO vo, HttpServletRequest request) throws Exception {
 
-		HttpSession session = request.getSession(); // ¼¼¼Ç ¼±¾ðÇÏ°í °¡Á®¿À´Â ºÎºÐ
-		UserVO usersession = (UserVO) session.getAttribute("userinfo"); // session¿¡¼­ ""¿¡ ÇØ´çÇÏ´Â ¼¼¼ÇÀ» °¡Á®¿È
+		HttpSession session = request.getSession(); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½
+		UserVO usersession = (UserVO) session.getAttribute("userinfo"); // sessionï¿½ï¿½ï¿½ï¿½ ""ï¿½ï¿½ ï¿½Ø´ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		
-		System.out.println("id check : " + usersession.getId()); // ¼¼¼ÇÀ¸·Î ÇöÀç UserÀÇ Id È®ÀÎ
+		System.out.println("id check : " + usersession.getId()); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Userï¿½ï¿½ Id È®ï¿½ï¿½
 		
 		logger.info("main post ...........");
-		//model.addAttribute("list", service.read(useridx.getUserkey())); // ¸ðµ¨·Î ÇÏ¸é »õ·Î°íÄ§ÇÏ¸é »ç¶óÁü 
+		//model.addAttribute("list", service.read(useridx.getUserkey())); // ï¿½ðµ¨·ï¿½ ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½Î°ï¿½Ä§ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ 
 
 		return "main";
 	}
 	
-	/* ±Û ÀÐ´Â ºÎºÐ  => ¸ÞÀÎ / ÆË´Ï´Ù / »ð´Ï´Ù  ³¡ ======================================= */
+	 ï¿½ï¿½ ï¿½Ð´ï¿½ ï¿½Îºï¿½  => ï¿½ï¿½ï¿½ï¿½ / ï¿½Ë´Ï´ï¿½ / ï¿½ï¿½Ï´ï¿½  ï¿½ï¿½ ======================================= 
 	
 	
 	
 		
 	
-	/* ±Û ¾²´Â ºÎºÐ => ÆË´Ï´Ù / »ð´Ï´Ù   ½ÃÀÛ  ==========================================  */
+	 ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½ => ï¿½Ë´Ï´ï¿½ / ï¿½ï¿½Ï´ï¿½   ï¿½ï¿½ï¿½ï¿½  ==========================================  
 	
 	
-	// createGET : ¼¼¼ÇÁ¤º¸·Î ±Û ÀÛ¼º ¼¼¼ÇGET
-	@RequestMapping(value = "/post", method = { RequestMethod.GET }) // ¼¼¼ÇÀ¸·Î ±Û ÀÛ¼º ¼¼¼ÇGET
+	// createGET : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Û¼ï¿½ ï¿½ï¿½ï¿½ï¿½GET
+	@RequestMapping(value = "/post", method = { RequestMethod.GET }) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Û¼ï¿½ ï¿½ï¿½ï¿½ï¿½GET
 	public String createGET(BoardVO vo, HttpServletRequest request) throws Exception {
 
-		HttpSession session = request.getSession(); // ¼¼¼Ç ¼±¾ðÇÏ°í °¡Á®¿À´Â ºÎºÐ
+		HttpSession session = request.getSession(); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½
 		UserVO usersession = (UserVO) session.getAttribute("userinfo");
 		vo.setUserkey(usersession.getUserkey());
 
@@ -100,11 +100,11 @@ public class BoardController {
 	}
 	
 
-	// createPOST : ¼¼¼ÇÁ¤º¸·Î ±Û ÀÛ¼º ¼¼¼Ç POST
-	@RequestMapping(value = "/post", method = { RequestMethod.POST }) // °¡Á®¿Â ¼¼¼ÇÀ¸·Î ±Û ÀÛ¼º POST
+	// createPOST : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Û¼ï¿½ ï¿½ï¿½ï¿½ï¿½ POST
+	@RequestMapping(value = "/post", method = { RequestMethod.POST }) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Û¼ï¿½ POST
 	public String createPOST(HttpServletRequest request,BoardVO vo) throws Exception {
 		
-		HttpSession session = request.getSession(); // ¼¼¼Ç ¼±¾ðÇÏ°í °¡Á®¿À´Â ºÎºÐ
+		HttpSession session = request.getSession(); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½
 		UserVO usersession = (UserVO) session.getAttribute("userinfo");
 		vo.setUserkey(usersession.getUserkey());
 		
@@ -121,27 +121,27 @@ public class BoardController {
 	
 	
 	
-	/* ±Û ¾²´Â ºÎºÐ => ÆË´Ï´Ù / »ð´Ï´Ù   ³¡  ==========================================  */
+	 ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½ => ï¿½Ë´Ï´ï¿½ / ï¿½ï¿½Ï´ï¿½   ï¿½ï¿½  ==========================================  
 	
 	
-/*	@RequestMapping(value = "/setting", method = RequestMethod.GET) // ¼¼ÆÃ¹öÆ° ´©¸£¸é ¼¼¼ÇÈ­¸éÀ¸·Î °¡´ÂºÎºÐ
+	@RequestMapping(value = "/setting", method = RequestMethod.GET) // ï¿½ï¿½ï¿½Ã¹ï¿½Æ° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½È­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ÂºÎºï¿½
 	public String settingGET(MemberVO vo, HttpServletRequest request) throws Exception {
 
-		HttpSession session = request.getSession(); // ¼¼¼Ç ¼±¾ðÇÏ°í °¡Á®¿À´Â ºÎºÐ
+		HttpSession session = request.getSession(); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½
 		MemberVO useridx = (MemberVO) session.getAttribute("userinfo");
-		vo.setUserid(useridx.getUserid()); // ¿©±â´Â userkey´ë½Å id·Î.. 
+		vo.setUserid(useridx.getUserid()); // ï¿½ï¿½ï¿½ï¿½ï¿½ userkeyï¿½ï¿½ï¿½ idï¿½ï¿½.. 
 
 		logger.info("userinfo GET ...........");
 
 		return "setting";
-	}*/
+	}
 	
 	
 	
 	
-	/// delete ¹Ì¿Ï 
-/*	
-		delete ¹öÆ°µµ ¾øÀÌ... 
+	/// delete ï¿½Ì¿ï¿½ 
+	
+		delete ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½... 
 	@RequestMapping(value = "/deletePage", method = RequestMethod.POST) // 
 	  public String delete(@RequestParam("boardkey") int boardkey, BoardVO vo, RedirectAttributes rttr) throws Exception {
 
@@ -151,6 +151,6 @@ public class BoardController {
 
 	    return "redirect:/main";
 	  }
-	*/
-
+	
+*/
 }
