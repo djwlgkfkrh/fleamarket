@@ -1,21 +1,19 @@
 package org.flea.domain;
 
-public class MemberVO {
-	private Integer ukey;
+public class UserVO {
+	private Integer userkey ;
 	private String id;
 	private String pw;
 	private String name;
 	private Integer point;
-	private String nick;
+	private String nickname ;
 	private Integer cheater;
 	private Integer admin;
-
-	
-	public Integer getUkey() {
-		return ukey;
+	public Integer getUserkey() {
+		return userkey ;
 	}
-	public void setUkey(Integer ukey) {
-		this.ukey = ukey;
+	public void setUserkey(Integer userkey ) {
+		this.userkey  = userkey ;
 	}
 	public String getId() {
 		return id;
@@ -41,11 +39,11 @@ public class MemberVO {
 	public void setPoint(Integer point) {
 		this.point = point;
 	}
-	public String getNick() {
-		return nick;
+	public String getNickname() {
+		return nickname ;
 	}
-	public void setNick(String nick) {
-		this.nick = nick;
+	public void setNickname(String nickname ) {
+		this.nickname  = nickname ;
 	}
 	public Integer getCheater() {
 		return cheater;
@@ -59,6 +57,4 @@ public class MemberVO {
 	public void setAdmin(Integer admin) {
 		this.admin = admin;
 	}
-	
-
 }
