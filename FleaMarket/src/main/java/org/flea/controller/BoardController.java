@@ -28,11 +28,18 @@ public class BoardController {
 	public void salelist( Model model) throws Exception {
 		logger.info("salelist post ...........");
 		model.addAttribute("list", service.show());
-		//service.join(user);
-		//return "redirect:/";
 	}
 	
-	
+	@RequestMapping(value = "/spost", method = { RequestMethod.GET }) // 세션으로 글 작성 세션GET
+	public void createGET(BoardVO vo, HttpServletRequest request) throws Exception {
+
+		//HttpSession session = request.getSession(); // 세션 선언하고 가져오는 부분
+		//UserVO usersession = (UserVO) session.getAttribute("userinfo");
+		//vo.setUserkey(usersession.getUserkey());
+
+		logger.info("postGET ...........");
+
+	}
 	
 	/* 글 읽는 부분  => 메인 / 팝니다 / 삽니다  시작 ======================================= 
 
@@ -79,17 +86,7 @@ public class BoardController {
 	
 	
 	// createGET : 세션정보로 글 작성 세션GET
-	@RequestMapping(value = "/post", method = { RequestMethod.GET }) // 세션으로 글 작성 세션GET
-	public String createGET(BoardVO vo, HttpServletRequest request) throws Exception {
-
-		HttpSession session = request.getSession(); // 세션 선언하고 가져오는 부분
-		UserVO usersession = (UserVO) session.getAttribute("userinfo");
-		vo.setUserkey(usersession.getUserkey());
-
-		logger.info("postGET ...........");
-
-		return "post";
-	}
+	
 	
 
 	// createPOST : 세션정보로 글 작성 세션 POST

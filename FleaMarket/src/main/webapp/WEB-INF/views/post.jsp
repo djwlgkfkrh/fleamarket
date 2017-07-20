@@ -222,17 +222,16 @@ input[type=reset] {
 
 			<a
 				class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-grey w3-large"
-				href="javascript:void(0);" onclick="openNav()">
-				<i class="fa fa-bars"></i> </a> 
-				
-			<a href="#" class="w3-bar-item w3-padding-large">
-				<img src="resources/img/logo.png"></a>
+				href="javascript:void(0);" onclick="openNav()"> <i
+				class="fa fa-bars"></i>
+			</a> <a href="#" class="w3-bar-item w3-padding-large"> <img
+				src="resources/img/logo.png"></a>
 
 			<button class="btn btn-5 btn-5a w3-right">
 				<i class="material-icons" style="font-size: 30px; color: #ffffff">portrait</i>
 				<span>MY SNS</span>
 			</button>
-			
+
 		</div>
 	</div>
 
@@ -261,22 +260,24 @@ input[type=reset] {
 
 
 					<!--  포스팅 폼 시작  -->
-					<form action="/main/post" method="post" enctype="multipart/form-data">
+					<form action="/main/post" method="post"
+						enctype="multipart/form-data">
 						<div style="padding: 30px">
 
 							<!--  사진 첨부 버튼 시작  -->
-							
-							
-							<input type="file" name="file"/>
-								<!--  <button class="btn1">
+
+
+							<input type="file" name="file" />
+							<!--  <button class="btn1">
 								 <i class="material-icons" style="font-size: 36px; color: #f5ab2d">insert_photo</i>
 								 </button>
 								  -->
-							
+
 							<!--  사진 첨부 버튼 끝 -->
 
 							<!--  게시글 시작  -->
-							<textarea id="boardtxt" name="boardtxt" rows="25" cols="50" style="margin-top: 5px"></textarea>
+							<textarea id="boardtxt" name="boardtxt" rows="25" cols="50"
+								style="margin-top: 5px"></textarea>
 							<!--  게시글 끝 -->
 
 						</div>
@@ -284,8 +285,8 @@ input[type=reset] {
 						<div style="padding: 10px">
 
 							<center>
-								<input type="submit" value="Write" class="w3-button"> 
-								<input type="reset" value="Reset" class="w3-button">
+								<input type="submit" value="Write" class="w3-button"> <input
+									type="reset" value="Reset" class="w3-button">
 							</center>
 
 						</div>
@@ -312,7 +313,7 @@ input[type=reset] {
 	<br>
 	<br>
 	<br>
-	
+
 	<!-- Footer -->
 	<footer class="w3-container w3-padding-10"
 		style="background-color: #f5ab2d" align="center" color="#d3d3d3">
