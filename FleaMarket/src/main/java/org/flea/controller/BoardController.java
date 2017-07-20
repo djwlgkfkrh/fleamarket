@@ -24,6 +24,13 @@ public class BoardController {
 	@Inject
 	private BoardService service;
 	
+	@RequestMapping(value = "/salelist", method = {RequestMethod.POST,RequestMethod.GET})
+	public void salelist( Model model) throws Exception {
+		logger.info("salelist post ...........");
+		model.addAttribute("list", service.show());
+		//service.join(user);
+		//return "redirect:/";
+	}
 	
 	
 	
