@@ -10,7 +10,8 @@
 			<table class="table">
 				<thead>
 				<tr>
-					<th colspan="2">내 정보</th>
+					<th>내 정보</th>
+					<th><input type="button" value="비밀번호 변경"></th>
 				</tr>
 				</thead>
 				<tbody>
