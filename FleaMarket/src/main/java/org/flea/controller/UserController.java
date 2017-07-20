@@ -67,9 +67,4 @@ public class UserController {
 		return "mypage/mypage";
 	}
 
-	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
-	public String mypage(Locale locale, Model model) {
-		logger.info("Welcome Modify! The client locale is {}.", locale);
-		return "mypage/mypage";
-	}
 }

@@ -16,23 +16,23 @@
 				<tbody>
 				<tr>
 					<td>아이디</td>
-					<td>id--</td>
+					<td>${userinfo.id}</td>
 				</tr>
 				<tr>
 					<td>이름</td>
-					<td>name--</td>
+					<td>${userinfo.name}</td>
 				</tr>
 				<tr>
 					<td>닉네임</td>
-					<td>nick--</td>
+					<td><input type="text" name="nickname" value="${userinfo.nickname}"/></td>
 				</tr>
 				<tr>
 					<td>포인트</td>
-					<td>point--</td>
+					<td>${userinfo.point}</td>
 				</tr>
 				</tbody>
 			</table>
-			<button id="modify">완료</button><button id="modify">취소2</button>
+			<button id="modify">완료</button><button id="modify">취소</button>
 		</div>
 		<div class="col-sm-6">
 			<p>활동 내역</p>
