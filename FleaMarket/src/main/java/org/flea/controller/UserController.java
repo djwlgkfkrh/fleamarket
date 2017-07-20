@@ -66,5 +66,18 @@ public class UserController {
 		logger.info("MyPage................");
 		return "mypage/mypage";
 	}
+	@RequestMapping(value = "/mypage/modify", method = RequestMethod.GET)
+	public void modify(Locale locale, Model model) {
+		logger.info("Welcome Modify! The client locale is {}.", locale);
+
+	}
+
+	@RequestMapping(value = "/mypage/complete", method = RequestMethod.POST)
+	public String Complete(UserVO user, Model model) throws Exception {
+		logger.info("Mypage modify complete");
+		service.update(user);
+		model.addAttribute("userinfo", user);
+		return "redirect:/mypage";
+	}
 
 }

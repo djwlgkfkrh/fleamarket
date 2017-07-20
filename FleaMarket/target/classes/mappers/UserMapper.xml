@@ -9,11 +9,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		values(#{id},#{pw}, #{name}, #{nickname})
 	</insert>
 	<select id="login" resultType="org.flea.domain.UserVO">
-	select userkey,id,name,point, nickname from user where id=#{id} and pw=#{pw}
+		select userkey,id,name,point, nickname from user where id=#{id} and pw=#{pw}
 
 	</select>
-	
+
 	<update id="update">
-		update user set nickname = #{nickname} where id = #{id}
+		update user set nickname = #{nickname} where id =
+		#{id}
 	</update>
+
 </mapper>

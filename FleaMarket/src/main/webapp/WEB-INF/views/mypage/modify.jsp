@@ -7,6 +7,7 @@
 	<br>
 	<div class="row">
 		<div class="col-sm-4">
+		<form action="/mypage/complete" method="post">
 			<table class="table">
 				<thead>
 				<tr>
@@ -17,7 +18,7 @@
 				<tbody>
 				<tr>
 					<td>아이디</td>
-					<td>${userinfo.id}</td>
+					<td><input type="hidden" name="id" value="${userinfo.id}"/>${userinfo.id}</td>
 				</tr>
 				<tr>
 					<td>이름</td>
@@ -33,7 +34,8 @@
 				</tr>
 				</tbody>
 			</table>
-			<button type="submit" id="modify">완료</button><button id="modify">취소</button>
+			<input type="submit" value="완료"/><button id="cancle">취소</button>
+			</form>
 		</div>
 		<div class="col-sm-6">
 			<p>활동 내역</p>
@@ -110,7 +112,7 @@
 <br>
 <br>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 $(document).ready(function(){
 	
 	var formObj = $("form[role='form']");
@@ -124,5 +126,5 @@ $(document).ready(function(){
 	});
 });
 
-</script>
+</script> -->
 <%@include file="../include/footer.jsp"%>
