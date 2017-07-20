@@ -25,4 +25,10 @@ public class UserServiceImpl implements UserService {
 		return dao.login(user);
 	}
 
+	@Override
+	public void update(UserVO user) throws Exception {
+		// TODO Auto-generated method stub
+		dao.update(user);
+	}
+
 }

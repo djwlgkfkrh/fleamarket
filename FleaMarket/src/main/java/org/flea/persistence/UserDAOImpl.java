@@ -9,7 +9,8 @@ import org.flea.domain.UserVO;
 import org.springframework.stereotype.Repository;
 @Repository
 public class UserDAOImpl implements UserDAO {
-	 @Inject
+	
+	@Inject
 	  private SqlSession session;
 
 	  private static String namespace = "org.flea.mappers.UserMapper";
@@ -24,6 +25,12 @@ public class UserDAOImpl implements UserDAO {
 	public UserVO login(UserVO user) throws Exception {
 		// TODO Auto-generated method stub
 		return session.selectOne(namespace+".login",user);
+	}
+
+	@Override
+	public void update(UserVO user) throws Exception {
+		// TODO Auto-generated method stub
+		session.update(namespace+".update",user);
 	}
 
 }

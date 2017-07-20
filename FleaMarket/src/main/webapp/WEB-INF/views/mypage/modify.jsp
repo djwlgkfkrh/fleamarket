@@ -11,7 +11,7 @@
 				<thead>
 				<tr>
 					<th>내 정보</th>
-					<th><input type="button" value="비밀번호 변경"></th>
+					<th><button type="submit" id="pwModi">비밀번호 변경</button></th>
 				</tr>
 				</thead>
 				<tbody>
@@ -33,7 +33,7 @@
 				</tr>
 				</tbody>
 			</table>
-			<button id="modify">완료</button><button id="modify">취소</button>
+			<button type="submit" id="modify">완료</button><button id="modify">취소</button>
 		</div>
 		<div class="col-sm-6">
 			<p>활동 내역</p>
@@ -109,4 +109,20 @@
 </div>
 <br>
 <br>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	
+	var formObj = $("form[role='form']");
+	
+	console.log(formObj);
+	
+	$("#modify").on("click", function(){
+		formObj.attr("action", "/mypage/complete");
+		formObj.attr("method", "get");		
+		formObj.submit();
+	});
+});
+
+</script>
 <%@include file="../include/footer.jsp"%>
