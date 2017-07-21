@@ -51,7 +51,7 @@
 	<form action="/sboard/list" method="post">
 		<div style="padding: 10px">
 
-			<center>
+			<center><!-- 이전글/다음글 쿼리문 수정하기 -->
 				<a class="w3-button"
 					href=/sboard/read?boardkey=${board.boardkey}>▲이전글</a> <input
 					type="submit" value="목록으로" class="w3-button" /> <a
