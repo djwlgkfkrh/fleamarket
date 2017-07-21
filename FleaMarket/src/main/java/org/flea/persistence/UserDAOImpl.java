@@ -3,7 +3,9 @@ package org.flea.persistence;
 import java.util.List;
 
 import javax.inject.Inject;
-
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.flea.domain.UserVO;
 import org.springframework.stereotype.Repository;
@@ -31,6 +33,29 @@ public class UserDAOImpl implements UserDAO {
 	public void update(UserVO user) throws Exception {
 		// TODO Auto-generated method stub
 		session.update(namespace+".update",user);
+	}
+
+	@Override
+	public void delete(String id) throws Exception {
+		// TODO Auto-generated method stub
+		session.delete(namespace+".delete",id);
+	}
+
+	@Override
+	public void updatePw(UserVO user) throws Exception {
+		// TODO Auto-generated method stub
+		session.update(namespace+".updatePw",user);
+	}
+
+	@Override
+	public boolean checkPw(String mid, String mpw) throws Exception {
+		 boolean result = false;
+	        Map<String, String> map = new HashMap<String, String>();
+	        map.put("mid", mid);
+	        map.put("mpw", mpw);
+	        int count = session.selectOne(namespace+".checkPw", map);
+	        if(count == 1) result= true;
+	        return result;
 	}
 
 }

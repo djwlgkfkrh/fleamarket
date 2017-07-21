@@ -7,7 +7,7 @@
 	<br>
 	<div class="row">
 		<div class="col-sm-4">
-		<form action="/mypage/modify">
+		<form name="form1" method="get">
 			<table class="table">
 				<thead>
 				<tr>
@@ -32,7 +32,7 @@
 					<td>${userinfo.point}</td>
 				</tr>
 				<tr>
-					<td colspan="2"><button id="modify">정보수정</button></td>
+					<td colspan="2"><input type="button" id="modify" value="정보수정"/></td>
 				</tr>
 				</tbody>
 			</table>
@@ -112,5 +112,15 @@
 </div>
 <br>
 <br>
-
+<script>
+    $(document).ready(function(){
+        $("#modify").click(function(){
+            // 확인 대화상자    
+            if(confirm("수정하시겠습니까?")){
+                document.form1.action = "/mypage/modify";
+                document.form1.submit();
+            }
+        });
+    });
+</script>
 <%@include file="../include/footer.jsp"%>

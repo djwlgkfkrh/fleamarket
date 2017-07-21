@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -73,11 +74,24 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/mypage/complete", method = RequestMethod.POST)
-	public String Complete(UserVO user, Model model) throws Exception {
+	public String Complete(@ModelAttribute UserVO user, Model model) throws Exception {
 		logger.info("Mypage modify complete");
 		service.update(user);
 		model.addAttribute("userinfo", user);
 		return "redirect:/mypage";
 	}
-
+/*	@RequestParam String mid, @RequestParam String changepw, */
+	@RequestMapping(value = "/mypage/changePw", method = RequestMethod.POST)
+	public String changePw(@RequestParam String mid, @RequestParam String mpw,@ModelAttribute UserVO userinfo, Model model) throws Exception {
+		logger.info("Mypage modify complete");
+		// 비밀번호 체크
+        boolean result = service.checkPw(mid, mpw);
+        if(result){ // 비밀번호가 일치하면 수정 처리후, 마이페이지로
+            service.updatePw(userinfo);
+            logger.info("비밀번호 변경");
+            return "redirect:/mypage";
+        }else
+        	logger.info("되고있나@@@@@@"+result);
+        	return "error/pw_error";
+	}
 }

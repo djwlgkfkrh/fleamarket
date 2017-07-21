@@ -31,4 +31,22 @@ public class UserServiceImpl implements UserService {
 		dao.update(user);
 	}
 
+	@Override
+	public void delete(String id) throws Exception {
+		// TODO Auto-generated method stub
+		dao.delete(id);
+	}
+
+	@Override
+	public void updatePw(UserVO user) throws Exception {
+		// TODO Auto-generated method stub
+		dao.updatePw(user);
+	}
+
+	@Override
+	public boolean checkPw(String id, String pw) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.checkPw(id, pw);
+	}
+
 }

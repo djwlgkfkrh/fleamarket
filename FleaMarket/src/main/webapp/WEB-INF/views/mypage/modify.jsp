@@ -3,40 +3,90 @@
 <%@include file="../include/header.jsp"%>
 
 <div class="container-fluid bg-3 text-center" style="max-width: 1400px">
-	<h3>마이 페이지 </h3>
+	<h3>마이 페이지</h3>
 	<br>
 	<div class="row">
 		<div class="col-sm-4">
-		<form action="/mypage/complete" method="post">
-			<table class="table">
-				<thead>
-				<tr>
-					<th>내 정보</th>
-					<th><button type="submit" id="pwModi">비밀번호 변경</button></th>
-				</tr>
-				</thead>
-				<tbody>
-				<tr>
-					<td>아이디</td>
-					<td><input type="hidden" name="id" value="${userinfo.id}"/>${userinfo.id}</td>
-				</tr>
-				<tr>
-					<td>이름</td>
-					<td>${userinfo.name}</td>
-				</tr>
-				<tr>
-					<td>닉네임</td>
-					<td><input type="text" name="nickname" value="${userinfo.nickname}"/></td>
-				</tr>
-				<tr>
-					<td>포인트</td>
-					<td>${userinfo.point}</td>
-				</tr>
-				</tbody>
-			</table>
-			<input type="submit" value="완료"/><button id="cancle">취소</button>
+			<form role="form" action="/mypage/complete" method="post">
+				<table class="table">
+					<thead>
+						<tr>
+							<th colspan="2">내 정보</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>아이디</td>
+							<td><input type="hidden" name="id" value="${userinfo.id}" />${userinfo.id}</td>
+						</tr>
+						<tr>
+							<td>이름</td>
+							<td><input type="hidden" name="name"
+								value="${userinfo.name}" />${userinfo.name}</td>
+						</tr>
+						<tr>
+							<td>닉네임</td>
+							<td><input type="text" name="nickname"
+								value="${userinfo.nickname}" /></td>
+						</tr>
+						<tr>
+							<td>포인트</td>
+							<td><input type="hidden" name="point"
+								value="${userinfo.point}" />${userinfo.point}</td>
+						</tr>
+					</tbody>
+				</table>
+				<input type="submit" value="완료" />
+				<!-- <button type="button" id="cancle">취소</button> -->
+				<button type="button" id="pwmodify" data-toggle="modal"
+					data-target="#pwModal">비밀번호 변경</button>
+				<button type="button" id="deleteUser" data-toggle="modal"
+					data-target="#delModal">회원탈퇴</button>
 			</form>
 		</div>
+		<!--  비밀번호 변경 모달-->
+		<div class="modal fade" id="pwModal" role="dialog">
+			<div class="modal-dialog modal-lg">
+				<div class="w3-modal-content" style="width: 400px !important">
+					<div class="modal-header ">
+						<button type="button" class="close w3-text-white"
+							data-dismiss="modal">&times;</button>
+						<h4 class="modal-title w3-text-blue">비밀번호 변경</h4>
+					</div>
+					<form name="changePw" action="/mypage/changePw" method="post"
+						onSubmit="return checkIt()">
+						<div class="modal-body " style="float: center !important">
+							<input type="hidden" name="mid" value="${userinfo.id}" />
+							<input type="hidden" name="id" value="${userinfo.id}" />
+							<table class="w3-text-blue" style="padding: 15px;">
+								<tr>
+									<td>현재 비밀번호</td>
+									<td><input type="password" name="mpw"></td>
+								</tr>
+								<tr>
+									<td>변경할 비밀번호</td>
+									<td><input type="password" size="20" name="pw" />
+								</tr>
+								<tr>
+									<td>비밀번호 확인</td>
+									<td><input type="password" size="20" name="pw1" />
+								</tr>
+							</table>
+						</div>
+						<div class="modal-footer ">
+							<input type="submit" value="변경"
+								class="btn btn-default w3-text-blue" />
+							<button type="button" class="btn btn-default w3-text-blue"
+								data-dismiss="modal">Close</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<!-- 비밀번호 변경 모달 끝 -->
+
+
+
 		<div class="col-sm-6">
 			<p>활동 내역</p>
 			<p>총 게시글 : 개</p>
@@ -60,7 +110,7 @@
 					</tr>
 				</thead>
 				<tbody>
-				<%-- 	
+					<%-- 	
 				<c:forEach items="${board }" var="board">
 					<tr>
 					<td>${board.boardkey}</td>
@@ -78,32 +128,32 @@
 				<p>댓글 단 게시글</p>
 				<table class="table table-hover">
 					<thead>
-					<tr>
-						<th>글 번호</th>
-						<th>글 제목</th>
-						<th>조회수</th>
-						<th>날짜</th>
-					</tr>
-				</thead>
-				<tbody>
-					
-				</tbody>
+						<tr>
+							<th>글 번호</th>
+							<th>글 제목</th>
+							<th>조회수</th>
+							<th>날짜</th>
+						</tr>
+					</thead>
+					<tbody>
+
+					</tbody>
 				</table>
 			</div>
 			<div class="row">
 				<p>내 댓글</p>
 				<table class="table table-hover">
 					<thead>
-					<tr>
-						<th>글 번호</th>
-						<th>글 제목</th>
-						<th>조회수</th>
-						<th>날짜</th>
-					</tr>
-				</thead>
-				<tbody>
-					
-				</tbody>
+						<tr>
+							<th>글 번호</th>
+							<th>글 제목</th>
+							<th>조회수</th>
+							<th>날짜</th>
+						</tr>
+					</thead>
+					<tbody>
+
+					</tbody>
 				</table>
 			</div>
 		</div>
@@ -111,20 +161,20 @@
 </div>
 <br>
 <br>
-
-<!-- <script type="text/javascript">
-$(document).ready(function(){
+<script>
+	function checkIt() {
+		/* var pw=${userinfo.pw};
 	
-	var formObj = $("form[role='form']");
-	
-	console.log(formObj);
-	
-	$("#modify").on("click", function(){
-		formObj.attr("action", "/mypage/complete");
-		formObj.attr("method", "get");		
-		formObj.submit();
-	});
-});
-
-</script> -->
+		 if(document.changePw.mpw.value!=pw){
+             alert("joinform : 전화번호를 입력하지 않으셨습니다.");
+             return false;
+         } */
+		if (document.changePw.pw.value != document.changePw.pw1.value
+				|| document.changePw.pw.value == ""
+				|| document.changePw.pw1.value == "") {
+			alert("비밀번호를 동일하게 입력하세요.");
+			return false;
+		}
+	}
+</script>
 <%@include file="../include/footer.jsp"%>
