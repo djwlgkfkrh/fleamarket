@@ -2,11 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ page session="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%-- <c:if test="${userinfo == null }">
-	<%
-		response.sendRedirect("/");
-	%>
-</c:if> --%>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -61,7 +57,7 @@ footer {
 			<div class="collapse navbar-collapse " id="myNavbar">
 				<ul class="nav navbar-nav ">
 				
-					<li><a class="w3-text-white" href="/board/salelist">삽니다</a></li>
+					<li><a class="w3-text-white" href="/sboard/list">삽니다</a></li>
 					<li><a class="w3-text-white" href="#">팝니다</a></li>
 					<li><a class="w3-text-white" href="#">사기꾼list</a></li>
 					<li><a class="w3-text-white" href="/mypage">마이페이지</a></li>

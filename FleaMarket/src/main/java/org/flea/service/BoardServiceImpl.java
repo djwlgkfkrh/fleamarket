@@ -3,6 +3,7 @@ package org.flea.service;
 
 import org.springframework.stereotype.Service;
 import org.flea.domain.BoardVO;
+import org.flea.domain.SearchCriteria;
 import org.flea.persistence.BoardDAO;
 
 import java.util.List;
@@ -16,46 +17,25 @@ public class BoardServiceImpl implements BoardService{
 	@Inject
 	private BoardDAO dao;
 	
-	
-	
 	@Override
-	public void create(BoardVO vo) throws Exception {
-		
-		dao.create(vo);
-		
-	}
-
-
-
-	@Override
-	public void delete(BoardVO vo) throws Exception {
-	
-		dao.delete(vo);
-		
-	}
-
-
-
-	@Override
-	public void read(BoardVO vo) throws Exception {
+	public BoardVO read(Integer boardkey) throws Exception {
 		// TODO Auto-generated method stub
-		dao.read(vo);
-	}
-
-
-
-	@Override
-	public List<BoardVO> show() throws Exception {
-		// TODO Auto-generated method stub
-		return dao.show();
-	}
-
-
-
-	@Override
-	public void modify(BoardVO vo) throws Exception {
-		// TODO Auto-generated method stub
+		dao.updateViewCnt(boardkey);
+		return dao.read(boardkey);
 		
+	}
+	
+
+	@Override
+	public int listSearchCount(SearchCriteria cri) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.listSearchCount(cri);
+	}
+	
+	@Override
+	public List<BoardVO> listSearchCriteria(SearchCriteria cri) throws Exception {
+
+		return dao.listSearch(cri);
 	}
 
 }

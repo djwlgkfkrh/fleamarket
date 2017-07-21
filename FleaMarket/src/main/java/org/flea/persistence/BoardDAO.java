@@ -3,18 +3,16 @@ package org.flea.persistence;
 import java.util.List;
 
 import org.flea.domain.BoardVO;
+import org.flea.domain.SearchCriteria;
 
 public interface BoardDAO {
 	
+	public void updateViewCnt(Integer boardkey) throws Exception;
+	
+	
 
-	public List<BoardVO> show() throws Exception; //메인페이지 글 리스트 출력용
+	public BoardVO read(Integer boardkey) throws Exception; //글 읽기
 
-	public void read(BoardVO vo) throws Exception; //글 읽기
-
-	public void create(BoardVO vo) throws Exception; // 글 작성
-
-	public void modify(BoardVO vo) throws Exception; // 글 수정
-
-	public void delete(BoardVO vo) throws Exception; // 글 삭제
-
+	public int listSearchCount(SearchCriteria cri)throws Exception;
+	 public List<BoardVO> listSearch(SearchCriteria cri)throws Exception;
 }
