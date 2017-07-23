@@ -6,6 +6,7 @@
 
 <mapper namespace="org.flea.mappers.BoardMapper">
 	<!-- Read 시작 -->
+	
 	<update id="updateViewCnt">
 		update board set viewcnt = viewcnt +1 where boardkey
 		=#{boardkey}
@@ -15,7 +16,21 @@
 		group2, regdate, viewcnt,text
 		from board where boardkey = #{boardkey}
 	</select>
+	
+	<select id="listMy" resultType="org.flea.domain.BoardVO">
+		 select salestate, title, group1,
+		group2, regdate, viewcnt,text
+		from board where userkey = #{userkey}
+		
+		
+	<!-- 	SELECT * FROM  board
+	LEFT OUTER JOIN user
+	ON board.userkey = user.userkey
+	WHERE board.userkey = #{userkey}
+	LIMIT 1; -->
 
+	</select>
+	
 	
 
 	<select id="listSearchCount" resultType="int">
@@ -65,4 +80,6 @@
 			</if>
 		</if>
 	</sql>
+
+	
 </mapper>

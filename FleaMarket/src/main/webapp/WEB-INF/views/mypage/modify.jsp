@@ -56,8 +56,8 @@
 					<form name="changePw" action="/mypage/changePw" method="post"
 						onSubmit="return checkIt()">
 						<div class="modal-body " style="float: center !important">
-							<input type="hidden" name="mid" value="${userinfo.id}" />
-							<input type="hidden" name="id" value="${userinfo.id}" />
+							<input type="hidden" name="mid" value="${userinfo.id}" /> <input
+								type="hidden" name="id" value="${userinfo.id}" />
 							<table class="w3-text-blue" style="padding: 15px;">
 								<tr>
 									<td>현재 비밀번호</td>
@@ -84,7 +84,7 @@
 			</div>
 		</div>
 		<!-- 비밀번호 변경 모달 끝 -->
-		
+
 		<!--  회원탈퇴 모달-->
 		<div class="modal fade" id="delModal" role="dialog">
 			<div class="modal-dialog modal-lg">
@@ -141,16 +141,15 @@
 					</tr>
 				</thead>
 				<tbody>
-					<%-- 	
-				<c:forEach items="${board }" var="board">
-					<tr>
-					<td>${board.boardkey}</td>
-					<td><a href='/board/read?bno=${board.bno}'>${board.title}</a></td>
-					<td>${board.viewcnt}</td>
-					<td>${board.regdate}</td>
-					</tr>
+					<c:forEach items="${list }" var="board">
+						<tr>
+							<td>${board.boardkey}</td>
+							<td><a href='/sboard/read?boardkey=${board.boardkey}'>${board.title}</a></td>
+							<td>${board.viewcnt}</td>
+							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm"
+									value="${board.regdate}" /></td>
+						</tr>
 					</c:forEach>
-					 --%>
 				</tbody>
 			</table>
 		</div>
@@ -196,11 +195,11 @@
 	//비밀번호 변경 시 두번입력 확인
 	function checkIt() {
 		/* var pw=${userinfo.pw};
-	
+		
 		 if(document.changePw.mpw.value!=pw){
-             alert("joinform : 전화번호를 입력하지 않으셨습니다.");
-             return false;
-         } */
+		     alert("joinform : 전화번호를 입력하지 않으셨습니다.");
+		     return false;
+		 } */
 		if (document.changePw.pw.value != document.changePw.pw1.value
 				|| document.changePw.pw.value == ""
 				|| document.changePw.pw1.value == "") {
@@ -209,13 +208,13 @@
 		}
 	}
 	//회원탈퇴 확인 창
-	 $(document).ready(function(){
-	        $("#deleteUser").click(function(){   
-	            if(confirm("탈퇴하시겠습니까?")){
-	                document.deleteUserForm.action = "/mypage/deleteUser";
-	                document.deleteUserForm.submit();
-	            }
-	        });
-	    });
+	$(document).ready(function() {
+		$("#deleteUser").click(function() {
+			if (confirm("탈퇴하시겠습니까?")) {
+				document.deleteUserForm.action = "/mypage/deleteUser";
+				document.deleteUserForm.submit();
+			}
+		});
+	});
 </script>
 <%@include file="../include/footer.jsp"%>

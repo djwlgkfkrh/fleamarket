@@ -8,7 +8,7 @@ import org.flea.domain.SearchCriteria;
 public interface BoardService {
 	
 	public BoardVO read(Integer boardkey) throws Exception; // viewcnt update, and read page
-
+	public List<BoardVO> listMy(Integer userkey) throws Exception; 
 	public int listSearchCount(SearchCriteria cri) throws Exception;
 	 public List<BoardVO> listSearchCriteria(SearchCriteria cri) 
 		      throws Exception;

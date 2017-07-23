@@ -5,15 +5,10 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
-// import org.apache.ibatis.session.SqlSession;
-import org.springframework.stereotype.Repository;
-
 import org.flea.domain.BoardVO;
 import org.flea.domain.SearchCriteria;
-
-import javax.inject.Inject;
+// import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
-import org.apache.ibatis.session.SqlSession;
 
 
 
@@ -37,7 +32,11 @@ public class BoardDAOImpl implements BoardDAO{
 		
 	}
 
-	
+	@Override
+	public List<BoardVO> listMy(Integer userkey) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectList(namespace + ".listMy", userkey);
+	}
 
 	@Override
 	public int listSearchCount(SearchCriteria cri) throws Exception {

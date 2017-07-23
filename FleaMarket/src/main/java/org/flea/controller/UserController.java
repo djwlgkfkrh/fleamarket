@@ -4,8 +4,10 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.flea.domain.UserVO;
+import org.flea.service.BoardService;
 import org.flea.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +30,8 @@ public class UserController {
 
 	@Inject
 	private UserService service;
+	@Inject
+	private BoardService Bservice;
 
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
 	public String join(UserVO user, Model model) throws Exception {
@@ -63,8 +67,11 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
-	public String mypage(Model model) {
+	public String mypage(Model model,@ModelAttribute UserVO user,HttpSession session) throws Exception {
 		logger.info("MyPage................");
+		UserVO userinfo=(UserVO) session.getAttribute("userinfo");
+		logger.info("userinfo getUserkey()"+userinfo.getUserkey());
+		model.addAttribute("list", Bservice.listMy(userinfo.getUserkey()));
 		return "mypage/mypage";
 	}
 	@RequestMapping(value = "/mypage/modify", method = RequestMethod.GET)
