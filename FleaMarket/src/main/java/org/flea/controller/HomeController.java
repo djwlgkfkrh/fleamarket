@@ -6,7 +6,6 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.flea.service.BoardService;
 import org.slf4j.Logger;
