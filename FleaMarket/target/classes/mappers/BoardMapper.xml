@@ -5,48 +5,64 @@
 
 
 <mapper namespace="org.flea.mappers.BoardMapper">
-
-	<!-- 메인페이지 글읽기 -->
-	<select id="show" resultType="org.flea.domain.BoardVO">
-		select boardkey, title,  regdate, viewcnt, salestate from board order by boardkey desc,
-		regdate desc
-	</select>
 	<!-- Read 시작 -->
-
-	<select id="readMain" resultType="org.flea.domain.BoardVO">
-		select title, group1, group2, text, regdate, viewcnt, salestate,gpsX, gpsY
-		from board
-		where boardrkey=#{boardkey}
+	<update id="updateViewCnt">
+		update board set viewcnt = viewcnt +1 where boardkey
+		=#{boardkey}
+	</update>
+	<select id="read" resultType="org.flea.domain.BoardVO">
+		select salestate, title, group1,
+		group2, regdate, viewcnt,text
+		from board where boardkey = #{boardkey}
 	</select>
 
+	
 
-	<select id="readSale" resultType="org.flea.domain.BoardVO">
-		select title, group1, group2, text, regdate, viewcnt, salestate, gpsX, gpsY
-		from board
-		where (select boardkey
-		from sale
-		where boardrkey=#{boardkey})
+	<select id="listSearchCount" resultType="int">
+	 <![CDATA[ select count(boardkey) 
+		from board where boardkey > 0 ]]>
+		<include refid="search"></include>
 	</select>
 
-	<select id="readBuy" resultType="org.flea.domain.BoardVO">
-		select title, group1, group2, text, regdate, viewcnt, salestate, gpsX, gpsY
-		from board
-		where(select boardkey
-		from buy
-		where boardrkey=#{boardkey})
+	<select id="listSearch" resultType="BoardVO">
+		<![CDATA[  
+		  select * from board where boardkey > 0 
+		]]>
+		<include refid="search"></include>
+  
+			<![CDATA[    
+  				order by boardkey desc limit #{pageStart}, #{perPageNum} ]]>
 	</select>
-
-	<!-- Read 끝 -->
-
-
-
-	<insert id="create">
-		insert into board (userkey, boardpic, boardtxt)
-		values (#{userkey}, #{boardpic}, #{boardtxt})
-	</insert>
-
-	<delete id="delete">
-		delete from board where boardkey = #{boardkey}
-	</delete>
-
+	<sql id="search">
+		<if test="searchType != null">
+			<if test="searchType == 't'.toString()">
+				and title like CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType == 'c'.toString()">
+				and content like CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType == 'w'.toString()">
+				and writer like CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType == 'tc'.toString()">
+				and ( title like CONCAT('%', #{keyword}, '%') OR content
+				like
+				CONCAT('%', #{keyword}, '%'))
+			</if>
+			<if test="searchType == 'cw'.toString()">
+				and ( content like CONCAT('%', #{keyword}, '%') OR writer
+				like
+				CONCAT('%', #{keyword}, '%'))
+			</if>
+			<if test="searchType == 'tcw'.toString()">
+				and ( title like CONCAT('%', #{keyword}, '%')
+				OR
+				content
+				like CONCAT('%', #{keyword}, '%')
+				OR
+				writer like CONCAT('%',
+				#{keyword}, '%'))
+			</if>
+		</if>
+	</sql>
 </mapper>

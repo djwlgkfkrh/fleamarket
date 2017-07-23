@@ -40,8 +40,8 @@ public class HomeController {
 
 		String formattedDate = dateFormat.format(date);
 
-
-		model.addAttribute("list", service.show());
+		/*model.addAttribute("list", service.show());
+*/
 		
 		
 		return "home";

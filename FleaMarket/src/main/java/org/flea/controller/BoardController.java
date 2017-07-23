@@ -8,17 +8,22 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
+import org.springframework.web.bind.annotation.RequestParam;
+import org.flea.domain.PageMaker;
+import org.flea.domain.SearchCriteria;
 import org.flea.domain.BoardVO;
 import org.flea.domain.UserVO;
 import org.flea.service.BoardService;
 
 @Controller
-@RequestMapping("/board/*")
+@RequestMapping("/sboard/*")
 public class BoardController {
+
 /*	
+
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
 	@Inject
@@ -29,6 +34,7 @@ public class BoardController {
 	// readMain : ���ο��� ���б� 
 	@RequestMapping(value = "", method = { RequestMethod.GET, RequestMethod.POST })
 	public String readMain(Model model, UserVO vo, HttpServletRequest request) throws Exception {
+
 
 		HttpSession session = request.getSession(); // ���� �����ϰ� �������� �κ�
 		UserVO usersession = (UserVO) session.getAttribute("userinfo"); // session���� ""�� �ش��ϴ� ������ ������
@@ -46,6 +52,10 @@ public class BoardController {
 	// readSale : �˴ϴ� ���� ���б� 
 	@RequestMapping(value = "", method = { RequestMethod.GET, RequestMethod.POST })
 	public String readSale(Model model, UserVO vo, HttpServletRequest request) throws Exception {
+
+	@RequestMapping(value = "/list", method = { RequestMethod.POST, RequestMethod.GET })
+	public void salelist(@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception {
+
 
 		HttpSession session = request.getSession(); // ���� �����ϰ� �������� �κ�
 		UserVO usersession = (UserVO) session.getAttribute("userinfo"); // session���� ""�� �ش��ϴ� ������ ������
@@ -69,11 +79,21 @@ public class BoardController {
 		
 		System.out.println("id check : " + usersession.getId()); // �������� ���� User�� Id Ȯ��
 		
+
 		logger.info("salelist post ...........");
 		//model.addAttribute("list", service.read(useridx.getUserkey())); // �𵨷� �ϸ� ���ΰ�ħ�ϸ� ����� 
+		//model.addAttribute("list", service.show());
 
+		model.addAttribute("list", service.listSearchCriteria(cri));
 
-		
+	    PageMaker pageMaker = new PageMaker();
+	    pageMaker.setCri(cri);
+
+	    // pageMaker.setTotalCount(service.listCountCriteria(cri));
+	    pageMaker.setTotalCount(service.listSearchCount(cri));
+
+	    model.addAttribute("pageMaker", pageMaker);
+
 	}
 	
 	 �� �д� �κ�  => ���� / �˴ϴ� / ��ϴ�  �� ======================================= 
@@ -95,9 +115,16 @@ public class BoardController {
 		UserVO usersession = (UserVO) session.getAttribute("userinfo");
 		vo.setUserkey(usersession.getUserkey());
 
+	@RequestMapping(value = "/read", method = RequestMethod.GET)
+	public void read(@RequestParam("boardkey") int boardkey, Model model) throws Exception {
+		BoardVO boardinfo = service.read(boardkey);
+		model.addAttribute("boardinfo", boardinfo);
+	}
+
+	@RequestMapping(value = "/post", method = { RequestMethod.GET })
+	public void createGET(BoardVO vo, HttpServletRequest request) throws Exception {
 		logger.info("postGET ...........");
 
-		return "post";
 	}
 	
 
@@ -154,4 +181,5 @@ public class BoardController {
 	  }
 	
 */
+
 }

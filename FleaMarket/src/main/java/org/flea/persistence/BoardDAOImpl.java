@@ -9,6 +9,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import org.flea.domain.BoardVO;
+import org.flea.domain.SearchCriteria;
+
 import javax.inject.Inject;
 import org.springframework.stereotype.Repository;
 import org.apache.ibatis.session.SqlSession;
@@ -17,46 +19,35 @@ import org.apache.ibatis.session.SqlSession;
 
 @Repository
 public class BoardDAOImpl implements BoardDAO{
-	
-	
 	@Inject
 	private SqlSession session;
 	
-	
+
 	private static String namespace = "org.flea.mappers.BoardMapper";
 	
+	  @Override
+	  public void updateViewCnt(Integer boardkey) throws Exception {
+		  session.update(namespace+".updateViewCnt", boardkey);
+	  }
+
+	@Override
+	public BoardVO read(Integer boardkey) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectOne(namespace + ".read", boardkey);
+		
+	}
+
 	
 
 	@Override
-	public void read(BoardVO vo) throws Exception {
+	public int listSearchCount(SearchCriteria cri) throws Exception {
 		// TODO Auto-generated method stub
-		session.insert(namespace + ".read", vo);
-		
-	}
+		return session.selectOne(namespace + ".listSearchCount", cri);
+	}  
+	 @Override
+	  public List<BoardVO> listSearch(SearchCriteria cri) throws Exception {
 
-	@Override
-	public void create(BoardVO vo) throws Exception {
-		// TODO Auto-generated method stub
-		session.insert(namespace + ".create", vo);
-		
-	}
-
-	@Override
-	public void modify(BoardVO vo) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void delete(BoardVO vo) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public List<BoardVO> show() throws Exception {
-		// TODO Auto-generated method stub
-		return session.selectList(namespace + ".show");
-	}
+	    return session.selectList(namespace + ".listSearch", cri);
+	  }
 
 }
