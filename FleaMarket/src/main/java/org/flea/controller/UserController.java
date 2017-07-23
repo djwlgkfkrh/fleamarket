@@ -1,6 +1,5 @@
 package org.flea.controller;
 
-import java.io.PrintWriter;
 import java.util.Locale;
 
 import javax.inject.Inject;
@@ -12,10 +11,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
@@ -91,7 +90,7 @@ public class UserController {
             logger.info("비밀번호 변경");
             return "redirect:/mypage";
         }else
-        	logger.info("되고있나@@@@@@"+result);
+        	logger.info("되고있나"+result);
         	return "error/pw_error";
 	}
 }
