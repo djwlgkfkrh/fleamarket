@@ -1,6 +1,5 @@
 package org.flea.controller;
 
-import java.io.PrintWriter;
 import java.util.Locale;
 
 import javax.inject.Inject;
@@ -12,10 +11,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
@@ -91,7 +90,22 @@ public class UserController {
             logger.info("비밀번호 변경");
             return "redirect:/mypage";
         }else
-        	logger.info("되고있나@@@@@@"+result);
+        	logger.info("현재 비밀번호가 틀렸어"+result);
+        	return "error/pw_error";
+	}
+	
+	@RequestMapping(value = "/mypage/deleteUser", method = RequestMethod.POST)
+	public String deleteUser(@RequestParam String did, @RequestParam String dpw, Model model,SessionStatus sessionStatus) throws Exception {
+		logger.info("회원탈퇴 비밀번호 체크");
+		// 비밀번호 체크
+        boolean result = service.checkPw(did, dpw);
+        if(result){ // 비밀번호가 일치하면 수정 처리후, 마이페이지로
+            service.delete(did);
+            logger.info("회원탈퇴");
+            sessionStatus.setComplete();
+            return "redirect:/";
+        }else
+        	logger.info("현재 비밀번호가 틀렸어"+result);
         	return "error/pw_error";
 	}
 }

@@ -40,7 +40,7 @@
 				<!-- <button type="button" id="cancle">취소</button> -->
 				<button type="button" id="pwmodify" data-toggle="modal"
 					data-target="#pwModal">비밀번호 변경</button>
-				<button type="button" id="deleteUser" data-toggle="modal"
+				<button type="button" id="deletebtn" data-toggle="modal"
 					data-target="#delModal">회원탈퇴</button>
 			</form>
 		</div>
@@ -77,13 +77,44 @@
 							<input type="submit" value="변경"
 								class="btn btn-default w3-text-blue" />
 							<button type="button" class="btn btn-default w3-text-blue"
-								data-dismiss="modal">Close</button>
+								data-dismiss="modal">취소</button>
 						</div>
 					</form>
 				</div>
 			</div>
 		</div>
 		<!-- 비밀번호 변경 모달 끝 -->
+		
+		<!--  회원탈퇴 모달-->
+		<div class="modal fade" id="delModal" role="dialog">
+			<div class="modal-dialog modal-lg">
+				<div class="w3-modal-content" style="width: 400px !important">
+					<div class="modal-header ">
+						<button type="button" class="close w3-text-white"
+							data-dismiss="modal">&times;</button>
+						<h4 class="modal-title w3-text-blue">회원탈퇴</h4>
+					</div>
+					<form name="deleteUserForm" method="post">
+						<div class="modal-body " style="float: center !important">
+							<input type="hidden" name="did" value="${userinfo.id}" />
+							<table class="w3-text-blue" style="padding: 15px;">
+								<tr>
+									<td>현재 비밀번호</td>
+									<td><input type="password" name="dpw"></td>
+								</tr>
+							</table>
+						</div>
+						<div class="modal-footer ">
+							<input type="button" value="탈퇴" id="deleteUser"
+								class="btn btn-default w3-text-blue" />
+							<button type="button" class="btn btn-default w3-text-blue"
+								data-dismiss="modal">취소</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<!-- 회원탈퇴 모달 끝 -->
 
 
 
@@ -176,5 +207,14 @@
 			return false;
 		}
 	}
+	//회원탈퇴 확인 창
+	 $(document).ready(function(){
+	        $("#deleteUser").click(function(){   
+	            if(confirm("탈퇴하시겠습니까?")){
+	                document.deleteUserForm.action = "/mypage/deleteUser";
+	                document.deleteUserForm.submit();
+	            }
+	        });
+	    });
 </script>
 <%@include file="../include/footer.jsp"%>
