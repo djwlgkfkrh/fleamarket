@@ -193,6 +193,7 @@
 <br>
 <br>
 <script>
+	//비밀번호 변경 시 두번입력 확인
 	function checkIt() {
 		/* var pw=${userinfo.pw};
 	

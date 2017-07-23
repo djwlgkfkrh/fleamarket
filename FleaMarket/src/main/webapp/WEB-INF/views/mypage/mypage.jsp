@@ -11,7 +11,8 @@
 			<table class="table">
 				<thead>
 				<tr>
-					<th colspan="2">내 정보</th>
+					<th>내 정보 </th>
+					<th style="color: red;">${msg}</th>
 				</tr>
 				</thead>
 				<tbody>

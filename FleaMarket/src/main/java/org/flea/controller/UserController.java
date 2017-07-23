@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @SessionAttributes("userinfo") // MemberVO ����
 @Controller
@@ -81,13 +82,14 @@ public class UserController {
 	}
 /*	@RequestParam String mid, @RequestParam String changepw, */
 	@RequestMapping(value = "/mypage/changePw", method = RequestMethod.POST)
-	public String changePw(@RequestParam String mid, @RequestParam String mpw,@ModelAttribute UserVO userinfo, Model model) throws Exception {
+	public String changePw(@RequestParam String mid, @RequestParam String mpw,@ModelAttribute UserVO userinfo, RedirectAttributes rttr) throws Exception {
 		logger.info("Mypage modify complete");
 		// 비밀번호 체크
         boolean result = service.checkPw(mid, mpw);
         if(result){ // 비밀번호가 일치하면 수정 처리후, 마이페이지로
             service.updatePw(userinfo);
             logger.info("비밀번호 변경");
+            rttr.addFlashAttribute("msg", "비밀번호가 변경되었습니다.");
             return "redirect:/mypage";
         }else
         	logger.info("현재 비밀번호가 틀렸어"+result);
