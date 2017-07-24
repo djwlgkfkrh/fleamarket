@@ -13,6 +13,7 @@ public interface BoardDAO {
 
 	public BoardVO read(Integer boardkey) throws Exception; //�� �б�
 	public List<BoardVO> listMy(Integer userkey) throws Exception; 
+	public int listCount(Integer userkey) throws Exception; 
 
 	public int listSearchCount(SearchCriteria cri)throws Exception;
 	 public List<BoardVO> listSearch(SearchCriteria cri)throws Exception;

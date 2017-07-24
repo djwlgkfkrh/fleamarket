@@ -33,6 +33,12 @@ public class BoardServiceImpl implements BoardService{
 
 
 	@Override
+	public int listCount(Integer userkey) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.listCount(userkey);
+	}
+
+	@Override
 	public int listSearchCount(SearchCriteria cri) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.listSearchCount(cri);

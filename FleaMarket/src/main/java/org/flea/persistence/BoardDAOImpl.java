@@ -39,6 +39,12 @@ public class BoardDAOImpl implements BoardDAO{
 	}
 
 	@Override
+	public int listCount(Integer userkey) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectOne(namespace + ".listCount", userkey);
+	}
+
+	@Override
 	public int listSearchCount(SearchCriteria cri) throws Exception {
 		// TODO Auto-generated method stub
 		return session.selectOne(namespace + ".listSearchCount", cri);

@@ -43,7 +43,6 @@ footer {
 </style>
 </head>
 <body>
-
 	<nav class="navbar navbar-inverse w3-border-white">
 		<div class="container-fluid w3-light-blue ">
 			<div class="navbar-header ">

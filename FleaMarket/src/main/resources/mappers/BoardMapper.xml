@@ -30,6 +30,12 @@
 
 	</select>
 	
+	<select id="listCount" resultType="int">
+		 select count(*)
+		from board where userkey = #{userkey}
+
+	</select>
+	
 	
 
 	<select id="listSearchCount" resultType="int">

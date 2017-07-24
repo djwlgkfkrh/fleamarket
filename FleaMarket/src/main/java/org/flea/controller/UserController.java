@@ -68,8 +68,13 @@ public class UserController {
 	public String mypage(UserVO user,Model model,HttpSession session) throws Exception {
 		logger.info("MyPage................"+user.getUserkey());
 		user=(UserVO) session.getAttribute("userinfo");
+		if(user==null){
+			return "redirect:/";
+		}else{
 		model.addAttribute("list",bservice.listMy(user.getUserkey()));
+		model.addAttribute("mycount",bservice.listCount(user.getUserkey()));
 		return "mypage/mypage";
+		}
 	}
 	@RequestMapping(value = "/mypage/modify", method = RequestMethod.GET)
 	public void modify(UserVO user, Model model,HttpSession session)  throws Exception{
