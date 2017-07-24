@@ -15,8 +15,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<update id="update">
-		update user set id = #{id},name = #{name},nickname =
-		#{nickname},point = #{point}
+		update user set userkey = #{userkey},id = #{id},name = #{name},point = #{point},nickname = #{nickname}
 		where id = #{id}
 	</update>
 	

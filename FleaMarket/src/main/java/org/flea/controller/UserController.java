@@ -1,7 +1,5 @@
 package org.flea.controller;
 
-import java.util.Locale;
-
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -21,7 +19,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-@SessionAttributes("userinfo") // MemberVO ����
+@SessionAttributes("userinfo") // MemberVO ????
 @Controller
 @RequestMapping("")
 public class UserController {
@@ -31,7 +29,7 @@ public class UserController {
 	@Inject
 	private UserService service;
 	@Inject
-	private BoardService Bservice;
+	private BoardService bservice;
 
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
 	public String join(UserVO user, Model model) throws Exception {
@@ -67,29 +65,37 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
-	public String mypage(Model model,@ModelAttribute UserVO user,HttpSession session) throws Exception {
-		logger.info("MyPage................");
-		UserVO userinfo=(UserVO) session.getAttribute("userinfo");
-		logger.info("userinfo getUserkey()"+userinfo.getUserkey());
-		model.addAttribute("list", Bservice.listMy(userinfo.getUserkey()));
+	public String mypage(UserVO user,Model model,HttpSession session) throws Exception {
+		logger.info("MyPage................"+user.getUserkey());
+		user=(UserVO) session.getAttribute("userinfo");
+		model.addAttribute("list",bservice.listMy(user.getUserkey()));
 		return "mypage/mypage";
 	}
 	@RequestMapping(value = "/mypage/modify", method = RequestMethod.GET)
-	public void modify(Locale locale, Model model) {
-		logger.info("Welcome Modify! The client locale is {}.", locale);
+	public void modify(UserVO user, Model model,HttpSession session)  throws Exception{
+		logger.info("MyPage modify................");
+		user=(UserVO) session.getAttribute("userinfo");
+		model.addAttribute("list",bservice.listMy(user.getUserkey()));
 
 	}
-
+	//더럽게 짜증나네
 	@RequestMapping(value = "/mypage/complete", method = RequestMethod.POST)
-	public String Complete(@ModelAttribute UserVO user, Model model) throws Exception {
-		logger.info("Mypage modify complete");
-		service.update(user);
-		model.addAttribute("userinfo", user);
-		return "redirect:/mypage";
+		public String Complete(@ModelAttribute UserVO user, Model model) throws Exception {
+			logger.info("Mypage modify complete");
+			service.update(user);
+			
+			model.addAttribute("userinfo", user);
+			//session.setAttribute("userinfo", user);
+			
+			
+			/*//요거 있으면 반응을 안해
+			user=(UserVO) session.getAttribute("userinfo");
+			model.addAttribute("userinfo",user);*/
+			return "redirect:/mypage";
 	}
-/*	@RequestParam String mid, @RequestParam String changepw, */
+
 	@RequestMapping(value = "/mypage/changePw", method = RequestMethod.POST)
-	public String changePw(@RequestParam String mid, @RequestParam String mpw,@ModelAttribute UserVO userinfo, RedirectAttributes rttr) throws Exception {
+	public String changePw(@RequestParam String mid, @RequestParam String mpw,UserVO userinfo, RedirectAttributes rttr) throws Exception {
 		logger.info("Mypage modify complete");
 		// 비밀번호 체크
         boolean result = service.checkPw(mid, mpw);

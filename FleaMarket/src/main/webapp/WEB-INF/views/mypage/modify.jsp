@@ -8,6 +8,7 @@
 	<div class="row">
 		<div class="col-sm-4">
 			<form role="form" action="/mypage/complete" method="post">
+			<input type="hidden" name="userkey" value="${userinfo.userkey}" />
 				<table class="table">
 					<thead>
 						<tr>

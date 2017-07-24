@@ -18,8 +18,7 @@
 	</select>
 	
 	<select id="listMy" resultType="org.flea.domain.BoardVO">
-		 select salestate, title, group1,
-		group2, regdate, viewcnt,text
+		 select *
 		from board where userkey = #{userkey}
 		
 		

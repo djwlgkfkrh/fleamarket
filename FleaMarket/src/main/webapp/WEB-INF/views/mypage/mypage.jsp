@@ -8,6 +8,7 @@
 	<div class="row">
 		<div class="col-sm-4">
 			<form name="form1" method="get">
+			<input type="hidden" name="userkey" value="${userinfo.userkey}" />
 				<table class="table">
 					<thead>
 						<tr>
@@ -65,6 +66,7 @@
 				<tbody>
 
 					<c:forEach items="${list }" var="board">
+					
 						<tr>
 							<td>${board.boardkey}</td>
 							<td><a href='/sboard/read?boardkey=${board.boardkey}'>${board.title}</a></td>
