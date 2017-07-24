@@ -7,7 +7,8 @@
 <div class="container-fluid bg-3 text-center" style="max-width: 1400px">
 	<div class="row">
 		<h2 class="w3-text-grey w3-padding-16">
-			<i class="material-icons w3-margin-right w3-margin-left"></i>${boardinfo.title}</h2>
+			<i class="material-icons w3-margin-right w3-margin-left"></i>${boardinfo.title}
+		</h2>
 
 		<!--  포스팅 폼 시작  -->
 
@@ -46,25 +47,75 @@
 
 		</div>
 
-		<!--  게시글 끝 -->
-	</div>
-	<form action="/sboard/list" method="post">
-		<div style="padding: 10px">
 
-			<center><!-- 이전글/다음글 쿼리문 수정하기 -->
-				<a class="w3-button"
-					href=/sboard/read?boardkey=${board.boardkey}>▲이전글</a> <input
-					type="submit" value="목록으로" class="w3-button" /> <a
-					class="w3-button" href=/sboard/read?boardkey=${board.boardkey}>▼다음글</a>
-			</center>
+		<hr>
+
+		<div style="text-align: left !important; margin-left: 50px">
+			
+					<!--  댓글읽기 -->
+					<c:forEach items="${reply}" var="Comment">
+
+						<div>
+							<h4>
+								${Comment.userkey} <span class="w3-opacity w3-medium"> <fmt:formatDate
+										pattern="yyyy-MM-dd HH:mm" value="${Comment.regdate}" />
+								</span>
+							</h4>
+							<p style="margin-left: 10px">${Comment.context}
+						</div>
+
+					</c:forEach>
+				
+			<!--  댓글쓰기영역 -->
+
+			<div>
+				<c:choose>
+					<c:when test="${not empty sessionScope.userinfo}">
+						<div class="w3-row w3-section">
+							<form action="/reply" method="post">
+								<input type="hidden" name="boardkey"
+									value="${boardinfo.boardkey}" /><input type="hidden"
+									name="userkey" value="${userinfo.userkey}" /> <label
+									class="w3-text-blue"><br>댓글쓰기</label> <br>
+								<table>
+									<tr>
+										<td><textarea name="context"
+												class=" w3-border w3-light-grey" cols="100%"></textarea></td>
+										<td>&nbsp;&nbsp;&nbsp;&nbsp; <input class="w3-check"
+											type="checkbox" name="secret">비밀댓글
+										</td>
+										<td>&nbsp;&nbsp;&nbsp;&nbsp;
+											<button type="submit" class="w3-blue w3-button">등록</button>
+										</td>
+									</tr>
+								</table>
+							</form>
+						</div>
+					</c:when>
+				</c:choose>
+			</div>
 		</div>
-
-	</form>
-
-	<!--  포스팅 폼 끝 -->
-
-	<!-- End Right Column -->
+	</div>
 </div>
+<!--  게시글 끝 -->
+
+<form action="/sboard/list" method="post">
+	<div style="padding: 10px">
+
+		<center>
+			<!-- 이전글/다음글 쿼리문 수정하기 -->
+			<a class="w3-button" href=/sboard/read?boardkey=${board.boardkey}>▲이전글</a>
+			<input type="submit" value="목록으로" class="w3-button" /> <a
+				class="w3-button" href=/sboard/read?boardkey=${board.boardkey}>▼다음글</a>
+		</center>
+	</div>
+
+</form>
+
+<!--  포스팅 폼 끝 -->
+
+<!-- End Right Column -->
+
 
 
 

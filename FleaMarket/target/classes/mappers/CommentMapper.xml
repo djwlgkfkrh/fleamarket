@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="org.flea.mappers.CommentMapper">
+	<insert id="addReply">
+		insert into comment (boardkey, userkey, context,
+		secret)
+		values(#{boardkey},#{userkey}, #{context}, #{secret})
+	</insert>
+	
+	<select id="commentRead" resultType="org.flea.domain.CommentVO">
+		select userkey, context, regdate, secret from comment where boardkey=#{boardkey}
+	</select>
+	
+
+</mapper>

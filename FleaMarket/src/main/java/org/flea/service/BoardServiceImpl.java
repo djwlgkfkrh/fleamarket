@@ -3,6 +3,7 @@ package org.flea.service;
 
 import org.springframework.stereotype.Service;
 import org.flea.domain.BoardVO;
+import org.flea.domain.CommentVO;
 import org.flea.domain.SearchCriteria;
 import org.flea.persistence.BoardDAO;
 
@@ -13,7 +14,7 @@ import javax.inject.Inject;
 
 @Service
 public class BoardServiceImpl implements BoardService{
-//sdf
+
 	@Inject
 	private BoardDAO dao;
 	
@@ -37,5 +38,6 @@ public class BoardServiceImpl implements BoardService{
 
 		return dao.listSearch(cri);
 	}
+
 
 }

@@ -11,8 +11,8 @@
 		=#{boardkey}
 	</update>
 	<select id="read" resultType="org.flea.domain.BoardVO">
-		select salestate, title, group1,
-		group2, regdate, viewcnt,text
+		select salestate, title, group1, 
+		group2, regdate, viewcnt, text, boardkey
 		from board where boardkey = #{boardkey}
 	</select>
 
@@ -65,4 +65,6 @@
 			</if>
 		</if>
 	</sql>
+	
+	
 </mapper>
