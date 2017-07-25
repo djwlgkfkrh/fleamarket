@@ -10,10 +10,14 @@
 		secret)
 		values(#{boardkey},#{userkey}, #{context}, #{secret})
 	</insert>
-	
+
 	<select id="commentRead" resultType="org.flea.domain.CommentVO">
-		select userkey, context, regdate, secret from comment where boardkey=#{boardkey}
+		select userkey, context,
+		regdate, secret,commentkey from comment where boardkey=#{boardkey}
 	</select>
-	
+
+	<delete id="deleteReply">
+		delete from comment where commentkey=#{commentkey}
+	</delete>
 
 </mapper>

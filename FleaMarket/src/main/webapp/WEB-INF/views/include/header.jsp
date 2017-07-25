@@ -56,7 +56,7 @@ footer {
 			</div>
 			<div class="collapse navbar-collapse " id="myNavbar">
 				<ul class="nav navbar-nav ">
-				
+
 					<li><a class="w3-text-white" href="/sboard/list">삽니다</a></li>
 					<li><a class="w3-text-white" href="#">팝니다</a></li>
 					<li><a class="w3-text-white" href="#">사기꾼list</a></li>
@@ -69,17 +69,18 @@ footer {
 						<form action="/logout" method="post">
 							<ul class=" nav navbar-nav navbar-right">
 								<li class="w3-text-white"
-									style="font-size: 15px; margin-top: 13px;"> ${sessionScope.userinfo.nickname}님
-									환영합니다.</li>
+									style="font-size: 15px; margin-top: 13px;">
+									${sessionScope.userinfo.nickname}님 환영합니다.</li>
 								<li>
 									<button type="submit" class="btn w3-light-blue w3-text-white">
 										<span style="font-size: 20px; margin-top: 5px;"
-											class="glyphicon glyphicon-log-out"></span> Logout</button>
+											class="glyphicon glyphicon-log-out"></span> Logout
+									</button>
 								</li>
 							</ul>
 						</form>
 					</c:when>
-					
+
 					<c:otherwise>
 						<form action="/login" method="post">
 							<ul class=" nav navbar-nav navbar-right">
@@ -97,7 +98,8 @@ footer {
 								<li>
 									<button type="submit" class="btn w3-light-blue w3-text-white">
 										<span style="font-size: 20px; margin-top: 5px;"
-											class="glyphicon glyphicon-log-in"></span> Login</button>
+											class="glyphicon glyphicon-log-in"></span> Login
+									</button>
 								</li>
 
 								<li>
@@ -163,7 +165,7 @@ footer {
 
 	<div class="jumbotron">
 		<div class="container text-center">
-			<h1>My Portfolio</h1>
+			<h1>Flea Market</h1>
 			<p>Some text that represents "Me"...</p>
 		</div>
 	</div>

@@ -2,7 +2,11 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@include file="../include/header.jsp"%>
-
+<script>
+	function myFunction() {
+		document.getElementById("demo").innerHTML = "Hello World";
+	}
+</script>
 
 <div class="container-fluid bg-3 text-center" style="max-width: 1400px">
 	<div class="row">
@@ -25,7 +29,7 @@
 				<tr>
 					<td style="width: 100px;"><span class="w3-text-grey">작성자
 					</span></td>
-					<td colspan="2">${userinfo.nickname}</td>
+					<td colspan="2">${boarduser.nickname}</td>
 					<!--  사진 첨부 버튼 시작  -->
 				</tr>
 				<tr>
@@ -47,27 +51,54 @@
 
 		</div>
 
-
 		<hr>
-
+		<!--  댓글부분 -->
 		<div style="text-align: left !important; margin-left: 50px">
-			
-					<!--  댓글읽기 -->
-					<c:forEach items="${reply}" var="Comment">
 
-						<div>
+			<!--  댓글읽기 -->
+			<c:set var="uuserkey" value="${userinfo.userkey}" />
+			<c:set var="buserkey" value="${boardinfo.userkey}" />
+
+
+			<c:forEach items="${reply}" var="Comment">
+				<c:set var="cuserkey" value="${Comment.userkey}" />
+				<c:set var="secret" value="${Comment.secret}" />
+				<div>
+					<c:choose>
+						<c:when
+							test="${uuserkey==buserkey||uuserkey==cuserkey||secret==false}">
 							<h4>
 								${Comment.userkey} <span class="w3-opacity w3-medium"> <fmt:formatDate
 										pattern="yyyy-MM-dd HH:mm" value="${Comment.regdate}" />
 								</span>
+								<c:choose>
+									<c:when test="${cuserkey!=uuserkey&&uuserkey!=null}">
+										<span class="w3-opacity w3-medium"><a href="#">답글</a></span>
+									</c:when>
+									<c:when test="${cuserkey==uuserkey}">
+										<span class="w3-opacity w3-medium">
+											<button onclick="myFunction()">수정</button> | <a
+											href="/reply/delete?commentkey=${Comment.commentkey}&boardkey=${boardinfo.boardkey}">삭제</a>
+										</span>
+									</c:when>
+								</c:choose>
 							</h4>
-							<p style="margin-left: 10px">${Comment.context}
-						</div>
+							<p style="margin-left: 10px">${Comment.context}</p>
+							<div id="demo"></div>
+						</c:when>
+						<c:otherwise>
+							<p>
+								비밀 댓글입니다.<span class="w3-opacity w3-medium"> <fmt:formatDate
+										pattern="yyyy-MM-dd HH:mm" value="${Comment.regdate}" />
+								</span>
+							</p>
+						</c:otherwise>
+					</c:choose>
+				</div>
+				<hr style="border: dotted 0.5px; opacity: 0.1; width: 95%;">
+			</c:forEach>
 
-					</c:forEach>
-				
 			<!--  댓글쓰기영역 -->
-
 			<div>
 				<c:choose>
 					<c:when test="${not empty sessionScope.userinfo}">
@@ -101,22 +132,18 @@
 
 <form action="/sboard/list" method="post">
 	<div style="padding: 10px">
-
 		<center>
-			<!-- 이전글/다음글 쿼리문 수정하기 -->
-			<a class="w3-button" href=/sboard/read?boardkey=${board.boardkey}>▲이전글</a>
-			<input type="submit" value="목록으로" class="w3-button" /> <a
-				class="w3-button" href=/sboard/read?boardkey=${board.boardkey}>▼다음글</a>
+			<a class="w3-button"
+				href='/sboard/beforeread?boardkey=${boardinfo.boardkey}'>▼이전글</a> <input
+				type="submit" value="목록으로" class="w3-button" /> <a
+				class="w3-button"
+				href='/sboard/afterread?boardkey=${boardinfo.boardkey}'>▲다음글</a>
 		</center>
 	</div>
 
 </form>
 
-<!--  포스팅 폼 끝 -->
-
-<!-- End Right Column -->
-
-
+<!--   끝 -->
 
 
 <%@include file="../include/footer.jsp"%>

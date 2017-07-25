@@ -5,15 +5,11 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
-// import org.apache.ibatis.session.SqlSession;
-import org.springframework.stereotype.Repository;
-
 import org.flea.domain.BoardVO;
 import org.flea.domain.SearchCriteria;
-
-import javax.inject.Inject;
+import org.flea.domain.UserVO;
+// import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
-import org.apache.ibatis.session.SqlSession;
 
 @Repository
 public class BoardDAOImpl implements BoardDAO {
@@ -25,6 +21,12 @@ public class BoardDAOImpl implements BoardDAO {
 	@Override
 	public void updateViewCnt(Integer boardkey) throws Exception {
 		session.update(namespace + ".updateViewCnt", boardkey);
+	}
+
+	@Override
+	public UserVO find(Integer userkey) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectOne(namespace + ".find", userkey);
 	}
 
 	@Override
@@ -44,6 +46,18 @@ public class BoardDAOImpl implements BoardDAO {
 	public List<BoardVO> listSearch(SearchCriteria cri) throws Exception {
 
 		return session.selectList(namespace + ".listSearch", cri);
+	}
+
+	@Override
+	public int before(Integer boardkey) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectOne(namespace + ".before", boardkey);
+	}
+
+	@Override
+	public int after(Integer boardkey) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectOne(namespace + ".after", boardkey);
 	}
 
 }
