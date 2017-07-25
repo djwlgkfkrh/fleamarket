@@ -69,7 +69,7 @@ public class UserController {
 		logger.info("MyPage................"+user.getUserkey());
 		user=(UserVO) session.getAttribute("userinfo");
 		if(user==null){
-			return "redirect:/";
+			return "error/login_error";
 		}else{
 		model.addAttribute("list",bservice.listMy(user.getUserkey()));
 		model.addAttribute("mycount",bservice.listCount(user.getUserkey()));

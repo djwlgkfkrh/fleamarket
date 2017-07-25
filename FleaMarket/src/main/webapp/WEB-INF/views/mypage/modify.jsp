@@ -121,7 +121,7 @@
 
 		<div class="col-sm-6">
 			<p>활동 내역</p>
-			<p>총 게시글 : 개</p>
+			<p>총 게시글 :${mycount} 개</p>
 			<p>총 댓글 : 개</p>
 		</div>
 	</div>
