@@ -1,7 +1,5 @@
 package org.flea.service;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import org.flea.domain.UserVO;
@@ -23,6 +21,12 @@ public class UserServiceImpl implements UserService {
 	public UserVO login(UserVO user) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.login(user);
+	}
+
+	@Override
+	public boolean checkId(String id) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.checkId(id);
 	}
 
 	@Override

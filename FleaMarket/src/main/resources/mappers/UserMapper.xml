@@ -30,6 +30,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where id = #{id}
 	</update>
 	
+	<select id="checkId" resultType="int">
+		select
+		count(*)
+		from user
+		where id
+		= #{checkid}
+	</select>
+	
 	<select id="checkPw" resultType="int">
 		select
 		count(*)

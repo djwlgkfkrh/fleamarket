@@ -10,12 +10,16 @@ import org.flea.service.CommentService;
 import org.flea.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -33,6 +37,33 @@ public class UserController {
 	private BoardService bservice;
 	@Inject
 	private CommentService cservice;
+	
+	// 아이디 중복확인 창
+	@RequestMapping(value = "/IdCheck", method = RequestMethod.GET)
+	public void IdCheck(Model model) throws Exception {
+		
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/userIdCheck/{checkid}", method = RequestMethod.GET)
+	public ResponseEntity<String> userIdCheck(@PathVariable String checkid, Model model) throws Exception {
+		  logger.info("중복되는 아이디 있음"+checkid);
+		ResponseEntity<String> entity = null;
+		    try {
+		      boolean result = service.checkId(checkid);
+		      if(result){
+		      logger.info("중복되는 아이디 있음");
+		    	  entity = new ResponseEntity<String>("NO", HttpStatus.OK);}
+		      else{
+		      logger.info("중복되는 아이디 없음");
+		    	  entity = new ResponseEntity<String>("YES", HttpStatus.OK);}
+		    } catch (Exception e) {
+		      e.printStackTrace();
+		      entity = new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		    }
+		    return entity;	 
+	}
+	
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
 	public String join(UserVO user, Model model) throws Exception {
 

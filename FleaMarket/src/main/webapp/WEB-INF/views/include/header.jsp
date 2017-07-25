@@ -41,6 +41,54 @@ footer {
 	padding: 25px;
 }
 </style>
+<!--  회원가입 시 빈 항목 건드리기-->
+<script type="text/javascript">
+	// 회원가입 화면의 입력값들을 검사한다.
+	function checkValue() {
+		var form = document.joinUser;
+		
+		if (!form.name.value) {
+			alert("이름을 입력하세요.");
+			return false;
+			}
+
+		if (!form.id.value) {
+			alert("아이디를 입력하세요.");
+			return false;
+		}
+
+		if (form.idDuplication.value != "idCheck") {
+			alert("아이디 중복체크를 해주세요.");
+			return false;
+		}
+		
+		if (!form.nickname.value) {
+			alert("닉네임을 입력하세요.");
+			return false;
+			}
+		
+		if (!form.pw.value) {
+			alert("비밀번호를 입력하세요.");
+			return false;
+		}		
+	}
+
+		// 아이디 중복체크 화면open
+		function openIdChk() {
+
+			window.name = "parentForm";
+			window.open("/IdCheck", "chkForm",
+					"width=500, height=300, resizable = no, scrollbars = no");
+		}
+
+		// 아이디 입력창에 값 입력시 hidden에 idUncheck를 세팅한다.
+		// 이렇게 하는 이유는 중복체크 후 다시 아이디 창이 새로운 아이디를 입력했을 때
+		// 다시 중복체크를 하도록 한다.
+		function inputIdChk() {
+			document.userInfo.idDuplication.value = "idUncheck";
+		}
+</script>
+<!-- 회원가입시 체크사항 끝 -->
 </head>
 <body>
 	<nav class="navbar navbar-inverse w3-border-white">
@@ -68,17 +116,18 @@ footer {
 						<form action="/logout" method="post">
 							<ul class=" nav navbar-nav navbar-right">
 								<li class="w3-text-white"
-									style="font-size: 15px; margin-top: 13px;"> ${sessionScope.userinfo.nickname}님
-									환영합니다.</li>
+									style="font-size: 15px; margin-top: 13px;">
+									${sessionScope.userinfo.nickname}님 환영합니다.</li>
 								<li>
 									<button type="submit" class="btn w3-light-blue w3-text-white">
 										<span style="font-size: 20px; margin-top: 5px;"
-											class="glyphicon glyphicon-log-out"></span> Logout</button>
+											class="glyphicon glyphicon-log-out"></span> Logout
+									</button>
 								</li>
 							</ul>
 						</form>
 					</c:when>
-					
+
 					<c:otherwise>
 						<form action="/login" method="post">
 							<ul class=" nav navbar-nav navbar-right">
@@ -96,7 +145,8 @@ footer {
 								<li>
 									<button type="submit" class="btn w3-light-blue w3-text-white">
 										<span style="font-size: 20px; margin-top: 5px;"
-											class="glyphicon glyphicon-log-in"></span> Login</button>
+											class="glyphicon glyphicon-log-in"></span> Login
+									</button>
 								</li>
 
 								<li>
@@ -118,7 +168,8 @@ footer {
 											data-dismiss="modal">&times;</button>
 										<h4 class="modal-title w3-text-blue">Join Us</h4>
 									</div>
-									<form action="/join" method="post">
+									<form action="/join" method="post" name="joinUser"
+										onsubmit="return checkValue()">
 										<div class="modal-body " style="float: center !important">
 
 											<table class="w3-text-blue" style="padding: 15px;">
@@ -128,7 +179,10 @@ footer {
 												</tr>
 												<tr>
 													<td>아이디</td>
-													<td><input type="text" size="20" name="id" />
+													<td><input type="text" size="20" name="id" onkeydown="inputIdChk()" />
+													<input type="button" value="중복확인" onclick="openIdChk()"/>    
+                   								    <input type="hidden" name="idDuplication" value="idUncheck" />
+
 												</tr>
 												<tr>
 													<td>닉네임</td>
