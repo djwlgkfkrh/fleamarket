@@ -15,5 +15,23 @@
 		select userkey, context, regdate, secret from comment where boardkey=#{boardkey}
 	</select>
 	
+	<select id="listMy" resultType="org.flea.domain.CommentVO">
+		 select *
+		from comment where userkey = #{userkey}
+		
+		
+	<!-- 	SELECT * FROM  board
+	LEFT OUTER JOIN user
+	ON board.userkey = user.userkey
+	WHERE board.userkey = #{userkey}
+	LIMIT 1; -->
+
+	</select>
+	
+	<select id="commentMyCount" resultType="int">
+		 select count(*)
+		from comment where userkey = #{userkey}
+
+	</select>
 
 </mapper>

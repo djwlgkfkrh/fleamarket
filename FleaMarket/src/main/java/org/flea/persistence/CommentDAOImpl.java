@@ -27,4 +27,16 @@ public class CommentDAOImpl implements CommentDAO {
 		return session.selectList(namespace + ".commentRead", boardkey);
 	}
 
+	@Override
+	public List<CommentVO> listMy(Integer userkey) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectList(namespace + ".listMy", userkey);
+	}
+
+	@Override
+	public int commentCount(Integer userkey) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectOne(namespace + ".commentMyCount", userkey);
+	}
+
 }

@@ -8,7 +8,7 @@
 	<div class="row">
 		<div class="col-sm-4">
 			<form role="form" action="/mypage/complete" method="post">
-			<input type="hidden" name="userkey" value="${userinfo.userkey}" />
+				<input type="hidden" name="userkey" value="${userinfo.userkey}" />
 				<table class="table">
 					<thead>
 						<tr>
@@ -120,9 +120,9 @@
 
 
 		<div class="col-sm-6">
-			<p>활동 내역</p>
-			<p>총 게시글 :${mycount} 개</p>
-			<p>총 댓글 : 개</p>
+			<p><h4>활동 내역</h4></p>
+			<p>총 게시글 : ${mycount} 개</p>
+			<p>총 댓글 : ${c_mycount} 개</p>
 		</div>
 	</div>
 </div>
@@ -131,7 +131,7 @@
 <div class="container-fluid bg-3 text-center" style="max-width: 1400px">
 	<div class="row">
 		<div class="col-sm-6">
-			<p>내가 쓴 글</p>
+			<p><h4>내가 쓴 글</h4></p>
 			<table class="table table-hover">
 				<thead>
 					<tr>
@@ -142,7 +142,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach items="${list }" var="board">
+					<c:forEach items="${b_list }" var="board">
 						<tr>
 							<td>${board.boardkey}</td>
 							<td><a href='/sboard/read?boardkey=${board.boardkey}'>${board.title}</a></td>
@@ -156,7 +156,7 @@
 		</div>
 		<div class="col-sm-6">
 			<div class="row">
-				<p>댓글 단 게시글</p>
+				<p><h4>댓글 단 게시글</h4></p>
 				<table class="table table-hover">
 					<thead>
 						<tr>
@@ -172,7 +172,7 @@
 				</table>
 			</div>
 			<div class="row">
-				<p>내 댓글</p>
+				<p><h4>내 댓글</h4></p>
 				<table class="table table-hover">
 					<thead>
 						<tr>
@@ -183,7 +183,14 @@
 						</tr>
 					</thead>
 					<tbody>
-
+						<c:forEach items="${c_list }" var="comment">
+							<tr>
+								<td>${comment.boardkey}</td>
+								<td><a href='/sboard/read?boardkey=${comment.boardkey}'>${comment.context}</a></td>
+								<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm"
+										value="${comment.regdate}" /></td>
+							</tr>
+						</c:forEach>
 					</tbody>
 				</table>
 			</div>

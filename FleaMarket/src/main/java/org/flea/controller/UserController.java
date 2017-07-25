@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.flea.domain.UserVO;
 import org.flea.service.BoardService;
+import org.flea.service.CommentService;
 import org.flea.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +31,8 @@ public class UserController {
 	private UserService service;
 	@Inject
 	private BoardService bservice;
-
+	@Inject
+	private CommentService cservice;
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
 	public String join(UserVO user, Model model) throws Exception {
 
@@ -71,8 +73,10 @@ public class UserController {
 		if(user==null){
 			return "error/login_error";
 		}else{
-		model.addAttribute("list",bservice.listMy(user.getUserkey()));
-		model.addAttribute("mycount",bservice.listCount(user.getUserkey()));
+		model.addAttribute("b_list",bservice.listMy(user.getUserkey()));
+		model.addAttribute("c_list",cservice.listMy(user.getUserkey()));
+		model.addAttribute("b_mycount",bservice.listCount(user.getUserkey()));
+		model.addAttribute("c_mycount",cservice.commentCount(user.getUserkey()));
 		return "mypage/mypage";
 		}
 	}
@@ -80,7 +84,10 @@ public class UserController {
 	public void modify(UserVO user, Model model,HttpSession session)  throws Exception{
 		logger.info("MyPage modify................");
 		user=(UserVO) session.getAttribute("userinfo");
-		model.addAttribute("list",bservice.listMy(user.getUserkey()));
+		model.addAttribute("b_list",bservice.listMy(user.getUserkey()));
+		model.addAttribute("c_list",cservice.listMy(user.getUserkey()));
+		model.addAttribute("b_mycount",bservice.listCount(user.getUserkey()));
+		model.addAttribute("c_mycount",cservice.commentCount(user.getUserkey()));
 
 	}
 	//더럽게 짜증나네
