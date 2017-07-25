@@ -203,7 +203,7 @@
 	//비밀번호 변경 시 두번입력 확인
 	function checkIt() {
 		/* var pw=${userinfo.pw};
-		
+	현재 비밀번호도 바로 확인하게끔?
 		 if(document.changePw.mpw.value!=pw){
 		     alert("joinform : 전화번호를 입력하지 않으셨습니다.");
 		     return false;
