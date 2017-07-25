@@ -1,6 +1,7 @@
 package org.flea.service;
 
 
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class BoardServiceImpl implements BoardService{
-//sdf
+
 	@Inject
 	private BoardDAO dao;
 	
@@ -49,5 +50,6 @@ public class BoardServiceImpl implements BoardService{
 
 		return dao.listSearch(cri);
 	}
+
 
 }
