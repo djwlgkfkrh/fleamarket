@@ -20,12 +20,13 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	public List<CommentVO> commentRead(int boardkey) throws Exception {
+	public List<CommentVO> commentRead(Integer boardkey) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.commentRead(boardkey);
 	}
 
 	@Override
+
 	public List<CommentVO> listMy(Integer userkey) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.listMy(userkey);
@@ -35,6 +36,11 @@ public class CommentServiceImpl implements CommentService {
 	public int commentCount(Integer userkey) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.commentCount(userkey);
+	}
+	public void deleteReply(CommentVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		dao.deleteReply(vo);
+
 	}
 
 }

@@ -12,9 +12,11 @@
 		=#{boardkey}
 	</update>
 	<select id="read" resultType="org.flea.domain.BoardVO">
-		select salestate, title, group1, 
-		group2, regdate, viewcnt, text, boardkey
-		from board where boardkey = #{boardkey}
+		select salestate, title, group1,
+		group2, regdate, viewcnt, text, boardkey , userkey
+		from board where
+		boardkey =
+		#{boardkey}
 	</select>
 	
 	<select id="listMy" resultType="org.flea.domain.BoardVO">
@@ -36,8 +38,6 @@
 
 	</select>
 	
-	
-
 	<select id="listSearchCount" resultType="int">
 	 <![CDATA[ select count(boardkey) 
 		from board where boardkey > 0 ]]>
@@ -86,4 +86,18 @@
 		</if>
 	</sql>
 
+	<select id="after" resultType="int">
+	<![CDATA[  
+		select boardkey
+		from board where boardkey > #{boardkey} order by boardkey asc limit 1]]>
+	</select>
+	<select id="before" resultType="int">
+	<![CDATA[  
+		select boardkey from board where boardkey < #{boardkey} order by boardkey desc limit 1]]>
+	</select>
+
+	<select id="find" resultType="org.flea.domain.UserVO">
+		select userkey, id, name, nickname,
+		point, cheater from user where userkey=#{userkey}
+	</select>
 </mapper>

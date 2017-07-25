@@ -2,10 +2,12 @@ package org.flea.controller;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.flea.domain.BoardVO;
 import org.flea.domain.PageMaker;
 import org.flea.domain.SearchCriteria;
+import org.flea.domain.UserVO;
 import org.flea.service.BoardService;
 import org.flea.service.CommentService;
 import org.slf4j.Logger;
@@ -16,7 +18,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
+
+@SessionAttributes("userinfo") // MemberVO ����
 @Controller
 @RequestMapping("/sboard/*")
 public class BoardController {
@@ -33,7 +38,6 @@ public class BoardController {
 
 		logger.info("salelist post ...........");
 		// model.addAttribute("list", service.show());
-
 		// HttpSession session = request.getSession(); // 세션 선언하고 가져오는 부분
 		// UserVO usersession = (UserVO) session.getAttribute("userinfo");
 		// vo.setUserkey(usersession.getUserkey());
@@ -41,9 +45,7 @@ public class BoardController {
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
 
-		// pageMaker.setTotalCount(service.listCountCriteria(cri));
 		pageMaker.setTotalCount(service.listSearchCount(cri));
-
 		model.addAttribute("pageMaker", pageMaker);
 
 	}
@@ -72,12 +74,18 @@ public class BoardController {
 	 */
 
 	@RequestMapping(value = "/read", method = RequestMethod.GET)
-	public void read(@RequestParam("boardkey") int boardkey, Model model) throws Exception {
+	public void read(@RequestParam("boardkey") int boardkey, Model model,HttpSession session,HttpServletRequest request) throws Exception {
 		BoardVO boardinfo = service.read(boardkey);
 		model.addAttribute("boardinfo", boardinfo);
-
-		model.addAttribute("reply",cservice.commentRead(boardkey));
+		UserVO boarduser = service.find(boardinfo.getUserkey());
+		model.addAttribute("boarduser", boarduser);
 		
+		session=request.getSession(true);
+		UserVO userinfo = (UserVO) session.getAttribute("userinfo");
+		
+		
+		 model.addAttribute("reply",cservice.commentRead(boardkey));
+
 	}
 
 	/*
@@ -97,7 +105,7 @@ public class BoardController {
 	 * logger.info("postPOST ..........."); - - return "redirect:/main"; +
 	 */
 	@RequestMapping(value = "/post", method = { RequestMethod.GET })
-	public void createGET(BoardVO vo, HttpServletRequest request) throws Exception {
+	public void createGET(BoardVO vo) throws Exception {
 		logger.info("postGET ...........");
 	}
 	/*
@@ -121,4 +129,20 @@ public class BoardController {
 	 * return "redirect:/main"; - } -
 	 */
 
+
+	@RequestMapping(value = "/beforeread", method = { RequestMethod.GET, RequestMethod.POST })
+	public String beforeGET(@RequestParam("boardkey") int boardkey) throws Exception {
+
+		int b = service.before(boardkey);
+		return "redirect:/sboard/read?boardkey=" + b;
+	}
+
+	@RequestMapping(value = "/afterread", method = { RequestMethod.GET, RequestMethod.POST })
+	public String afterGET(@RequestParam("boardkey") int boardkey) throws Exception {
+
+		int b = service.after(boardkey);
+		return "redirect:/sboard/read?boardkey=" + b;
+	}
+
 }
+

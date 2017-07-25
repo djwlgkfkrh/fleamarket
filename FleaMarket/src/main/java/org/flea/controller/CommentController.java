@@ -28,11 +28,18 @@ public class CommentController {
 	private CommentService service;
 
 	@RequestMapping(value = "", method = RequestMethod.POST)
-	public String salelist(@RequestParam("boardkey") int boardkey,Model model, CommentVO vo) throws Exception {
-
+	public String addReply(@RequestParam("boardkey") int boardkey, Model model, CommentVO vo) throws Exception {
 		logger.info("reply post ...........");
 		service.addReply(vo);
-		return "redirect:/sboard/read?boardkey="+boardkey;
+		return "redirect:/sboard/read?boardkey=" + boardkey;
+
+	}
+
+	@RequestMapping(value = "/delete", method = { RequestMethod.POST, RequestMethod.GET })
+	public String delete(@RequestParam("boardkey") int boardkey, Model model, CommentVO vo) throws Exception {
+		logger.info("reply delete ...........");
+		service.deleteReply(vo);
+		return "redirect:/sboard/read?boardkey=" + boardkey;
 
 	}
 

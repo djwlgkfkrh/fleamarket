@@ -104,6 +104,7 @@ footer {
 			<div class="collapse navbar-collapse " id="myNavbar">
 
 				<ul class="nav navbar-nav ">
+
 					<li><a class="w3-text-white" href="/sboard/list">삽니다</a></li>
 					<li><a class="w3-text-white" href="#">팝니다</a></li>
 					<li><a class="w3-text-white" href="#">사기꾼list</a></li>
@@ -216,7 +217,7 @@ footer {
 
 	<div class="jumbotron">
 		<div class="container text-center">
-			<h1>My Portfolio</h1>
+			<h1>Flea Market</h1>
 			<p>Some text that represents "Me"...</p>
 		</div>
 	</div>
