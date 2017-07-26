@@ -1,27 +1,42 @@
 package org.flea.domain;
 
-
 import java.util.Date;
 
 public class BoardVO {
 
-	int boardkey; // °Ô½Ã±Û Å°
-	int userkey; // ÀÛ¼ºÀÚ Å°
+	int boardkey; // ï¿½Ô½Ã±ï¿½ Å°
+	int userkey; // ï¿½Û¼ï¿½ï¿½ï¿½ Å°
 
-	int salekey; // ÆË´Ï´Ù °Ô½Ã±Û Å°
-	int buykey; // »ð´Ï´Ù °Ô½Ã±Û Å°
+	int salekey; // ï¿½Ë´Ï´ï¿½ ï¿½Ô½Ã±ï¿½ Å°
+	int buykey; // ï¿½ï¿½Ï´ï¿½ ï¿½Ô½Ã±ï¿½ Å°
+	int commentcnt;
+	int group1; // ï¿½Ð·ï¿½1
+	int group2; // ï¿½Ð·ï¿½2
 
-	int group1; // ºÐ·ù1
-	int group2; // ºÐ·ù2
+	String title; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	String text; // ï¿½Û³ï¿½ï¿½ï¿½
+	Date regdate; // ï¿½Û¼ï¿½ï¿½ï¿½
+	int viewcnt; // ï¿½ï¿½È¸ï¿½ï¿½
+	int salestate; // ï¿½Ç¸Å»ï¿½ï¿½ï¿½
 
-	String title; // ±ÛÁ¦¸ñ
-	String text; // ±Û³»¿ë
-	Date regdate; // ÀÛ¼ºÀÏ
-	int viewcnt; // Á¶È¸¼ö
-	int salestate; // ÆÇ¸Å»óÅÂ
+	String gpsX; // GPS ï¿½ï¿½ï¿½ï¿½ ï¿½æµµ
+	String gpsY; // (floatï¿½ï¿½ ï¿½Ï¸ï¿½ ï¿½ï¿½È®ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Èµï¿½)
 
-	String gpsX; // GPS À§µµ °æµµ
-	String gpsY; // (float·Î ÇÏ¸é Á¤È®ÇÏ°Ô ÀúÀåÀÌ ¾ÈµÊ)
+	public int getBoardkey() {
+		return boardkey;
+	}
+
+	public void setBoardkey(int boardkey) {
+		this.boardkey = boardkey;
+	}
+
+	public int getUserkey() {
+		return userkey;
+	}
+
+	public void setUserkey(int userkey) {
+		this.userkey = userkey;
+	}
 
 	public int getSalekey() {
 		return salekey;
@@ -39,20 +54,12 @@ public class BoardVO {
 		this.buykey = buykey;
 	}
 
-	public int getBoardkey() {
-		return boardkey;
+	public int getCommentcnt() {
+		return commentcnt;
 	}
 
-	public void setBoardkey(int boardkey) {
-		this.boardkey = boardkey;
-	}
-
-	public int getUserkey() {
-		return userkey;
-	}
-
-	public void setUserkey(int userkey) {
-		this.userkey = userkey;
+	public void setCommentcnt(int commentcnt) {
+		this.commentcnt = commentcnt;
 	}
 
 	public int getGroup1() {

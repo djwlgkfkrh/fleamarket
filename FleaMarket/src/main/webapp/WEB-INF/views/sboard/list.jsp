@@ -26,7 +26,8 @@
 						<tr>
 							<td>${board.boardkey}</td>
 							<td>${board.salestate}</td>
-							<td><a href='/sboard/read?boardkey=${board.boardkey}'>${board.title}</a></td>
+							<td><a href='/sboard/read?boardkey=${board.boardkey}'>${board.title}
+							[<span style="color:red;"> ${board.commentcnt} </span>]</a></td>
 							<td>${board.viewcnt}</td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm"
 									value="${board.regdate}" /></td>

@@ -8,10 +8,11 @@ import org.flea.domain.UserVO;
 
 public interface BoardService {
 
-	
-	public BoardVO read(Integer boardkey) throws Exception; // viewcnt update, and read page
-	public List<BoardVO> listMy(Integer userkey) throws Exception; 
-	public int listCount(Integer userkey) throws Exception; 
+	public BoardVO read(Integer boardkey) throws Exception; // viewcnt update,
+															// and read page
+	public List<BoardVO> listMy(Integer userkey) throws Exception;
+
+	public int listCount(Integer userkey) throws Exception;
 
 	public UserVO find(Integer userkey) throws Exception;
 

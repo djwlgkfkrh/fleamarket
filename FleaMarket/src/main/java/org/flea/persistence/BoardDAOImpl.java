@@ -1,6 +1,8 @@
 package org.flea.persistence;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -70,6 +72,17 @@ public class BoardDAOImpl implements BoardDAO {
 	public int after(Integer boardkey) throws Exception {
 		// TODO Auto-generated method stub
 		return session.selectOne(namespace + ".after", boardkey);
+	}
+
+	@Override
+	public void updateCommentCnt(Integer boardkey, int amount) throws Exception {
+		// TODO Auto-generated method stub
+		 Map<String, Object> paramMap = new HashMap<String, Object>();
+
+		    paramMap.put("boardkey", boardkey);
+		    paramMap.put("amount", amount);
+
+		    session.update(namespace + ".updateCommentCnt", paramMap);
 	}
 
 }
