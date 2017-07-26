@@ -103,8 +103,14 @@
 	
 	
 	<insert id="create" >
-	insert into board (salestate, title, group1, group2, regdate, viewcnt, text, boardkey , userkey)
-	values (#{salestate}, #{title}, #{group1}, #{group2}, #{regdate}, #{viewcnt}, #{text}, #{boardkey} , #{userkey})
+	insert into board ( title, group1, group2,  text, userkey)
+	values ( #{title}, #{group1}, #{group2},  #{text}, #{userkey})
 	</insert>
+	
+	<select id="getboardKey" resultType="int">
+	select boardkey
+	from board
+	order by regdate desc limit 1
+	</select>
 	
 </mapper>

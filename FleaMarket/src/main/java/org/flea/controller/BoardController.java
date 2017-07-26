@@ -48,10 +48,7 @@ public class BoardController {
 	public void salelist(@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception {
 
 		logger.info("salelist post ...........");
-		// model.addAttribute("list", service.show());
-		// HttpSession session = request.getSession(); 
-		// UserVO usersession = (UserVO) session.getAttribute("userinfo");
-		// vo.setUserkey(usersession.getUserkey());
+	
 		model.addAttribute("list", service.listSearchCriteria(cri));
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
@@ -76,7 +73,8 @@ public class BoardController {
 		model.addAttribute("reply", cservice.commentRead(boardkey));
 
 		
-		// file : 다중파일로 바꾸기
+		// file : 다중파일로 바꾸기 
+		// 여기서 file이 있을때와 없을때로 또 나눠야함 
 
 		FileVO fileinfo = fileservice.postFile(filevo);
 		logger.info("FileVO 상태 : ======= service.postFile(vo) 완료 =========");
@@ -87,16 +85,18 @@ public class BoardController {
 	}
 
 	// from jsp to DB // Posting Page
-	@RequestMapping(value = "/post", method = { RequestMethod.GET }) // POST
-	public void createGET(BoardVO bvo, @RequestParam("file") MultipartFile multipartFile, HttpSession session ,HttpServletRequest request) throws Exception {
+	@RequestMapping(value = "/post", method = { RequestMethod.GET}) 
+	public void createGET() throws Exception {
+	}
+	
+	
+	@RequestMapping(value = "/post", method = {RequestMethod.POST }) // POST
+	public String createPOST(BoardVO bvo, @RequestParam("file") MultipartFile multipartFile) throws Exception {
+	
+		logger.info(" =======   createPOST 진입    ========");
 		
-		session = request.getSession(true);
-		UserVO userinfo = (UserVO) session.getAttribute("userinfo");
-		bvo.setUserkey(userinfo.getUserkey()); // set boardvo - userkey
-		
-		service.createPost(bvo); // post.jsp랑  controller랑 연결?
-		
-		
+		service.createPost(bvo); // post.jsp랑  controller랑 연결
+				
 		// file : 다중파일로 바꾸기
 		if (multipartFile.isEmpty()) {
 
@@ -106,13 +106,17 @@ public class BoardController {
 
 			logger.info("FileVO  상태 : ====   파일있음    =====");
 			FileVO filevo = FileUP.GetFile(multipartFile);
-			filevo.setBoardkey(bvo.getBoardkey()); // set FileVO - Boardkey
+			filevo.setBoardkey(service.getboardKey(bvo)); // set FileVO - Boardkey 이게 아직 null값임 
 			fileservice.saveFile(filevo); // service로 전달
 
 			logger.info("=======File service.saveFile(vo) 실행 완료 =====");
 
 		}
+	return "redirect:/sboard/list";
 	}
+	
+
+
 
 	@RequestMapping(value = "/beforeread", method = { RequestMethod.GET, RequestMethod.POST })
 	public String beforeGET(@RequestParam("boardkey") int boardkey) throws Exception {

@@ -27,4 +27,6 @@ public interface BoardDAO {
 	public int after(Integer boardkey) throws Exception;
 
 	public void createPost(BoardVO vo) throws Exception;
+	
+	public int getboardKey(BoardVO vo) throws Exception;
 }

@@ -11,10 +11,12 @@
 		</h2>
 
 		<!--  포스팅 폼 시작  -->
-		<form action="/sboard/list" method="post" enctype="multipart/form-data">
+		<form action="/sboard/post" method="post"
+			enctype="multipart/form-data">
 			<div style="padding: 30px">
 				<table class="w3-table w3-bordered w3-large">
 					<tr>
+						<!-- 
 						<td colspan="2"><span class="w3-text-grey">카테고리 선택</span></td>
 						<td><select class="w3-select w3-border" name="group1">
 								<option value="" disabled selected>Choose your option</option>
@@ -27,7 +29,9 @@
 								<option value="1">Option 1</option>
 								<option value="2">Option 2</option>
 								<option value="3">Option 3</option>
-						</select></td>
+						</select></td> -->
+						<td><input type="text" name="group1" /></td>
+						<td><input type="text" name="group2" /></td>
 					</tr>
 					<tr>
 						<td style="width: 100px;"><span class="w3-text-grey">제목
@@ -37,13 +41,14 @@
 					<tr>
 						<td style="width: 100px;"><span class="w3-text-grey">작성자
 						</span></td>
-						<td>${userinfo.nickname}</td>
+
+						<td>${userinfo.nickname}<input type="hidden"
+							value="${userinfo.userkey}" name="userkey" /></td>
 						<!--  사진 첨부 버튼 시작  -->
 					<tr>
 						<td><span class="w3-text-grey">사진첨부</td>
 						<td><input type="file" name="file" /></td>
-						<td><input type="file" name="file" /></td>
-						<td><input type="file" name="file" /></td>
+
 					</tr>
 				</table>
 				<!--  사진 첨부 버튼 끝 -->
