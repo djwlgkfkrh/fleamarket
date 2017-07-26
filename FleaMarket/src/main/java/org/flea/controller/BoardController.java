@@ -132,16 +132,25 @@ public class BoardController {
 
 	@RequestMapping(value = "/beforeread", method = { RequestMethod.GET, RequestMethod.POST })
 	public String beforeGET(@RequestParam("boardkey") int boardkey) throws Exception {
-
+		try{
 		int b = service.before(boardkey);
 		return "redirect:/sboard/read?boardkey=" + b;
+		}catch(Exception e){
+			e.printStackTrace();
+			return "error/nullPage_error";
+		}
 	}
 
 	@RequestMapping(value = "/afterread", method = { RequestMethod.GET, RequestMethod.POST })
 	public String afterGET(@RequestParam("boardkey") int boardkey) throws Exception {
-
+		try{
 		int b = service.after(boardkey);
 		return "redirect:/sboard/read?boardkey=" + b;
+		}catch(Exception e){
+			e.printStackTrace();
+			return "error/nullPage_error";
+		}
+		
 	}
 
 }
