@@ -30,7 +30,6 @@
 					<td style="width: 100px;"><span class="w3-text-grey">작성자
 					</span></td>
 					<td colspan="2">${boarduser.nickname}</td>
-					<!--  사진 첨부 버튼 시작  -->
 				</tr>
 				<tr>
 					<td><span class="w3-text-grey">작성날짜</span></td>
@@ -46,7 +45,9 @@
 
 			<br>
 			<div class="w3-input w3-border w3-round"
-				style="margin-top: 5px; width: 100%; min-height: 230px; text-align: left !important">${boardinfo.text}</div>
+				style="margin-top: 5px; width: 100%; min-height: 230px; text-align: left !important">${boardinfo.text}
+				<img src="${pageContext.request.contextPath}/images/${fileVO.fileData}">
+			</div>
 			<!--  게시글 끝 -->
 
 		</div>

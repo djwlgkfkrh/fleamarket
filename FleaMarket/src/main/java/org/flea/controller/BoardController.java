@@ -27,7 +27,6 @@ import org.flea.controller.UploadFile;
 import org.flea.domain.FileVO;
 import org.flea.service.FileService;
 
-
 @SessionAttributes("userinfo") // MemberVO
 @Controller
 @RequestMapping("/sboard/*")
@@ -39,13 +38,18 @@ public class BoardController {
 	private BoardService service;
 	@Inject
 	private CommentService cservice;
+	@Inject
+	private FileService fileservice;
+
+	UploadFile FileUP = new UploadFile();
+	PostFile filepost = new PostFile();
 
 	@RequestMapping(value = "/list", method = { RequestMethod.POST, RequestMethod.GET })
 	public void salelist(@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception {
 
 		logger.info("salelist post ...........");
 		// model.addAttribute("list", service.show());
-		// HttpSession session = request.getSession(); // �꽭�뀡 �꽑�뼵�븯怨� 媛��졇�삤�뒗 遺�遺�
+		// HttpSession session = request.getSession(); 
 		// UserVO usersession = (UserVO) session.getAttribute("userinfo");
 		// vo.setUserkey(usersession.getUserkey());
 		model.addAttribute("list", service.listSearchCriteria(cri));
@@ -57,35 +61,58 @@ public class BoardController {
 
 	}
 
-
-	
-	
 	@RequestMapping(value = "/read", method = RequestMethod.GET)
-	public void read(@RequestParam("boardkey") int boardkey, Model model,HttpSession session,HttpServletRequest request) throws Exception {
+	public void read(@RequestParam("boardkey") int boardkey, Model model, HttpSession session,
+			HttpServletRequest request, HttpServletResponse res, FileVO filevo) throws Exception {
+		
 		BoardVO boardinfo = service.read(boardkey);
 		model.addAttribute("boardinfo", boardinfo);
 		UserVO boarduser = service.find(boardinfo.getUserkey());
 		model.addAttribute("boarduser", boarduser);
-		
-		session=request.getSession(true);
+
+		session = request.getSession(true);
 		UserVO userinfo = (UserVO) session.getAttribute("userinfo");
+
+		model.addAttribute("reply", cservice.commentRead(boardkey));
+
 		
-		
-		 model.addAttribute("reply",cservice.commentRead(boardkey));
+		// file : 다중파일로 바꾸기
+
+		FileVO fileinfo = fileservice.postFile(filevo);
+		logger.info("FileVO 상태 : ======= service.postFile(vo) 완료 =========");
+
+		byte[] bytes = filepost.readFile(fileinfo.getFname());
+		filepost.write(res, fileinfo.getFileData());
 
 	}
 
-	
-	
-	
-	@RequestMapping(value = "/post", method = { RequestMethod.GET })
-	public void createGET(BoardVO vo) throws Exception {
-		logger.info("postGET ...........");
-	}
-	
-	
-	
+	// from jsp to DB // Posting Page
+	@RequestMapping(value = "/post", method = { RequestMethod.GET }) // POST
+	public void createGET(BoardVO bvo, @RequestParam("file") MultipartFile multipartFile, HttpSession session ,HttpServletRequest request) throws Exception {
+		
+		session = request.getSession(true);
+		UserVO userinfo = (UserVO) session.getAttribute("userinfo");
+		bvo.setUserkey(userinfo.getUserkey()); // set boardvo - userkey
+		
+		service.createPost(bvo); // post.jsp랑  controller랑 연결?
+		
+		
+		// file : 다중파일로 바꾸기
+		if (multipartFile.isEmpty()) {
 
+			logger.info("FileVO 상태 : ====   파일없음    =====");
+
+		} else {
+
+			logger.info("FileVO  상태 : ====   파일있음    =====");
+			FileVO filevo = FileUP.GetFile(multipartFile);
+			filevo.setBoardkey(bvo.getBoardkey()); // set FileVO - Boardkey
+			fileservice.saveFile(filevo); // service로 전달
+
+			logger.info("=======File service.saveFile(vo) 실행 완료 =====");
+
+		}
+	}
 
 	@RequestMapping(value = "/beforeread", method = { RequestMethod.GET, RequestMethod.POST })
 	public String beforeGET(@RequestParam("boardkey") int boardkey) throws Exception {
@@ -100,62 +127,5 @@ public class BoardController {
 		int b = service.after(boardkey);
 		return "redirect:/sboard/read?boardkey=" + b;
 	}
-	
-	
-	// File start
-	@Inject
-	FileService fileservice;
-
-	
-	UploadFile FileUP = new UploadFile();
-	PostFile filepost = new PostFile();
-
-	@RequestMapping("/uploadPage")
-	private String uploadView() {
-
-		logger.info(" =========FileVO 시작 =========");
-		return "upload";
-	}
-
-
-	@RequestMapping(value = "/upload", method = RequestMethod.POST)
-	private String upload(@RequestParam("File") MultipartFile multipartFile) throws Exception {
-
-		if (multipartFile.isEmpty()) {
-
-			logger.info("FileVO 상태 : ====   파일없음    =====");
-			return " ";
-
-		} else {
-
-			logger.info("FileVO  상태 : ====   파일있음    =====");
-			FileVO vo  = FileUP.GetFile(multipartFile);		
-			fileservice.saveFile(vo); // service로 전달
-
-			logger.info("=======File service.saveFile(vo) 실행 완료 =====");
-
-			return "redirect:/uploadComplete";
-		}
-	}
-
-
-	@RequestMapping("/uploadComplete")
-	private void PostImage(FileVO vo, HttpServletResponse res, Model model) throws Exception {
-
-
-		FileVO vo2 = fileservice.postFile(vo);
-		logger.info("FileVO 상태 : ======= service.postFile(vo) 완료 =========");
-		
-		byte[] bytes = filepost.readFile(vo2.getFname());
-		filepost.write(res, vo2.getFileData());
-		
-	}
-	
-	// File end
-	
-	
-	
-	
 
 }
-

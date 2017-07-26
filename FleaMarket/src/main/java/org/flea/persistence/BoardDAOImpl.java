@@ -72,4 +72,11 @@ public class BoardDAOImpl implements BoardDAO {
 		return session.selectOne(namespace + ".after", boardkey);
 	}
 
+	@Override
+	public void createPost(BoardVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		session.selectOne(namespace + ".create", vo.getBoardkey());
+		
+	}
+
 }

@@ -69,4 +69,11 @@ public class BoardServiceImpl implements BoardService {
 		return dao.after(boardkey);
 	}
 
+	@Override
+	public void createPost(BoardVO bvo) throws Exception {
+		// TODO Auto-generated method stub
+		
+		
+	}
+
 }

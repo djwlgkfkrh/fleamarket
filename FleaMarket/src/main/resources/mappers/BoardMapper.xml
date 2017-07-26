@@ -3,8 +3,8 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-
 <mapper namespace="org.flea.mappers.BoardMapper">
+
 	<!-- Read 시작 -->
 	
 	<update id="updateViewCnt">
@@ -100,4 +100,11 @@
 		select userkey, id, name, nickname,
 		point, cheater from user where userkey=#{userkey}
 	</select>
+	
+	
+	<insert id="create" >
+	insert into board (salestate, title, group1, group2, regdate, viewcnt, text, boardkey , userkey)
+	values (#{salestate}, #{title}, #{group1}, #{group2}, #{regdate}, #{viewcnt}, #{text}, #{boardkey} , #{userkey})
+	</insert>
+	
 </mapper>

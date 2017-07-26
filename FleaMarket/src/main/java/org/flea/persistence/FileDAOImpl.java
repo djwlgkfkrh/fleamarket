@@ -14,7 +14,7 @@ public class FileDAOImpl implements FileDAO{
 	@Inject
 	  private SqlSession session;
 
-	  private static String namespace = "com.ex.mappers.FileMapper";
+	  private static String namespace = "org.flea.mappers.FileMapper";
 
 	@Override
 	public void saveFile(FileVO vo) throws Exception {

@@ -9,6 +9,9 @@ public class FileVO {
 	public static final String IMAGE_DIR = "D:/images/"; // 저장될 경로 
 
 
+	private int boardkey;
+	private int filekey;
+	
 	private String fileid; // 파일 id
 
 	private String oname; //  파일  원래이름
@@ -23,7 +26,18 @@ public class FileVO {
 	
 	
 	
-	
+	public int getBoardkey() {
+		return boardkey;
+	}
+	public void setBoardkey(int boardkey) {
+		this.boardkey = boardkey;
+	}
+	public int getFilekey() {
+		return filekey;
+	}
+	public void setFilekey(int filekey) {
+		this.filekey = filekey;
+	}
 	public String getFileid() {
 		return fileid;
 	}

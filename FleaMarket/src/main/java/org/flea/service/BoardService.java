@@ -22,5 +22,7 @@ public interface BoardService {
 	public int before(Integer boardkey) throws Exception;
 
 	public int after(Integer boardkey) throws Exception;
+	
+	public void createPost(BoardVO bvo) throws Exception;
 
 }
