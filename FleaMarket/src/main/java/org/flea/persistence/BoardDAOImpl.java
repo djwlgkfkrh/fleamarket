@@ -84,5 +84,18 @@ public class BoardDAOImpl implements BoardDAO {
 
 		    session.update(namespace + ".updateCommentCnt", paramMap);
 	}
+	
+	public void createPost(BoardVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		session.insert(namespace + ".create", vo);
+		
+	}
+
+	@Override
+	public int getboardKey(BoardVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		
+		return session.selectOne(namespace + ".getboardKey", vo);
+	}
 
 }

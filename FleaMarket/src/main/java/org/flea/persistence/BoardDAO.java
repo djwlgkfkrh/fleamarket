@@ -12,7 +12,7 @@ public interface BoardDAO {
 
 	public UserVO find(Integer userkey) throws Exception;
 
-	public BoardVO read(Integer boardkey) throws Exception;
+	public BoardVO read(Integer boardkey) throws Exception; // �� �б�
 
 	public List<BoardVO> listMy(Integer userkey) throws Exception;
 
@@ -25,6 +25,11 @@ public interface BoardDAO {
 	public int before(Integer boardkey) throws Exception;
 
 	public int after(Integer boardkey) throws Exception;
-	
+
+	public void createPost(BoardVO vo) throws Exception;
+
 	public void updateCommentCnt(Integer boardkey, int amount)throws Exception;
+
+	public int getboardKey(BoardVO vo) throws Exception;
+
 }
