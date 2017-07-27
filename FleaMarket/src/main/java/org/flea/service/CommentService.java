@@ -12,6 +12,6 @@ public interface CommentService {
 
 	List<CommentVO> commentRead(Integer boardkey) throws Exception;
 
-	void deleteReply(CommentVO vo) throws Exception;
+	void deleteReply(Integer commentkey) throws Exception;
 
 }

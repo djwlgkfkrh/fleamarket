@@ -4,7 +4,7 @@
 <%@include file="../include/header.jsp"%>
 <script>
 	function myFunction() {
-		document.getElementById("demo").innerHTML = "Hello World";
+		document.getElementById("cmodify");
 	}
 </script>
 
@@ -15,7 +15,6 @@
 		</h2>
 
 		<!--  포스팅 폼 시작  -->
-
 		<div style="padding: 30px">
 			<table class="w3-table w3-bordered w3-large w3-centered">
 				<tr>
@@ -43,84 +42,37 @@
 					</span></td>
 				</tr>
 			</table>
-
 			<br>
 			<div class="w3-input w3-border w3-round"
 				style="margin-top: 5px; width: 100%; min-height: 230px; text-align: left !important">${boardinfo.text}</div>
 			<!--  게시글 끝 -->
-
 		</div>
 
 		<hr>
 		<!--  댓글부분 -->
 		<div style="text-align: left !important; margin-left: 50px">
 
-			<!--  댓글읽기 -->
-			<c:set var="uuserkey" value="${userinfo.userkey}" />
-			<c:set var="buserkey" value="${boardinfo.userkey}" />
+			<div id="listReply"></div>
 
-
-			<c:forEach items="${reply}" var="Comment">
-				<c:set var="cuserkey" value="${Comment.userkey}" />
-				<c:set var="secret" value="${Comment.secret}" />
-				<div>
-					<c:choose>
-						<c:when
-							test="${uuserkey==buserkey||uuserkey==cuserkey||secret==false}">
-							<h4>
-								${Comment.userkey} <span class="w3-opacity w3-medium"> <fmt:formatDate
-										pattern="yyyy-MM-dd HH:mm" value="${Comment.regdate}" />
-								</span>
-								<c:choose>
-									<c:when test="${cuserkey!=uuserkey&&uuserkey!=null}">
-										<span class="w3-opacity w3-medium"><a href="#">답글</a></span>
-									</c:when>
-									<c:when test="${cuserkey==uuserkey}">
-										<span class="w3-opacity w3-medium">
-											<button onclick="myFunction()">수정</button> | <a
-											href="/reply/delete?commentkey=${Comment.commentkey}&boardkey=${boardinfo.boardkey}">삭제</a>
-										</span>
-									</c:when>
-								</c:choose>
-							</h4>
-							<p style="margin-left: 10px">${Comment.context}</p>
-							<div id="demo"></div>
-						</c:when>
-						<c:otherwise>
-							<p>
-								비밀 댓글입니다.<span class="w3-opacity w3-medium"> <fmt:formatDate
-										pattern="yyyy-MM-dd HH:mm" value="${Comment.regdate}" />
-								</span>
-							</p>
-						</c:otherwise>
-					</c:choose>
-				</div>
-				<hr style="border: dotted 0.5px; opacity: 0.1; width: 95%;">
-			</c:forEach>
 
 			<!--  댓글쓰기영역 -->
 			<div>
 				<c:choose>
 					<c:when test="${not empty sessionScope.userinfo}">
 						<div class="w3-row w3-section">
-							<form action="/reply" method="post">
-								<input type="hidden" name="boardkey"
-									value="${boardinfo.boardkey}" /><input type="hidden"
-									name="userkey" value="${userinfo.userkey}" /> <label
-									class="w3-text-blue"><br>댓글쓰기</label> <br>
-								<table>
-									<tr>
-										<td><textarea name="context"
-												class=" w3-border w3-light-grey" cols="100%"></textarea></td>
-										<td>&nbsp;&nbsp;&nbsp;&nbsp; <input class="w3-check"
-											type="checkbox" name="secret">비밀댓글
-										</td>
-										<td>&nbsp;&nbsp;&nbsp;&nbsp;
-											<button type="submit" class="w3-blue w3-button">등록</button>
-										</td>
-									</tr>
-								</table>
-							</form>
+							<label class="w3-text-blue"><br>댓글쓰기</label> <br>
+							<table>
+								<tr>
+									<td><textarea name="context" id="context"
+											class=" w3-border w3-light-grey" cols="100%"></textarea></td>
+									<td>&nbsp;&nbsp;&nbsp;&nbsp; <input class="w3-check"
+										type="checkbox" id="secret" name="secret">비밀댓글
+									</td>
+									<td>&nbsp;&nbsp;&nbsp;&nbsp;
+										<button type="button" id="replyAdd" class="w3-blue w3-button">등록</button>
+									</td>
+								</tr>
+							</table>
 						</div>
 					</c:when>
 				</c:choose>
@@ -142,8 +94,63 @@
 	</div>
 
 </form>
-
+<h4 class="modal-title"></h4>
 <!--   끝 -->
 
+<script>
+	function replyDelete(commentkey) {
+		$.ajax({
+			type : 'POST',
+			url : '/reply/delete?commentkey=' + commentkey,
+			success : function() {
+				console.log("삭제 성공");
+				listReply();
+			}
+		});
+	}
+	$("#replyAdd").click(
+			function() {
+				var context = $('#context').val();
+				var boardkey = "${boardinfo.boardkey}";
+				var userkey = "${userinfo.userkey}";
+				var secret = $('input:checkbox[id="secret"]').is(":checked");
+				var vo = "boardkey=" + boardkey + "&context=" + context
+						+ "&userkey=" + userkey + "&secret=" + secret;
+				$.ajax({
+					type : 'post',
+					url : '/reply/addReply',
+					data : vo,
+					success : function() {
+						console.log("등록 성공");
+						listReply();
+					}
+				});
+			});
+
+	function listReply() {
+		console.log("list들어옴");
+		var boardkey = "${boardinfo.boardkey}";
+		$.ajax({
+			type : "get",
+			url : "/reply/list?boardkey=" + boardkey,
+			success : function() {
+				console.log("성공");
+				var output = "<table>";
+				for ( var i in result) {
+					output += "<tr>";
+					output += "<td> sssss </td>";
+					output += "<tr>";
+				}
+				output += "</table>";
+				$("#listReply").html(output);
+			}
+		});
+	}
+	function replyModify(commentkey, boardkey) {
+		document.replyForm.action = "/reply/modify?commentkey=" + commentkey
+				+ "&boardkey=" + boardkey;
+		document.replyForm.submit();
+	}
+</script>
 
 <%@include file="../include/footer.jsp"%>

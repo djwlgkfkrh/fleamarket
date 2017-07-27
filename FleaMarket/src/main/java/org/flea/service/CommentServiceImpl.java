@@ -28,9 +28,9 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	public void deleteReply(CommentVO vo) throws Exception {
+	public void deleteReply(Integer commentkey) throws Exception {
 		// TODO Auto-generated method stub
-		dao.deleteReply(vo);
+		dao.deleteReply(commentkey);
 	}
 
 }
