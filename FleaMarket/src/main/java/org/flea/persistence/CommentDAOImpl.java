@@ -34,9 +34,9 @@ public class CommentDAOImpl implements CommentDAO {
 	}
 
 	@Override
-	public void deleteReply(CommentVO vo) throws Exception {
+	public void deleteReply(Integer commentkey) throws Exception {
 		// TODO Auto-generated method stub
-		session.delete(namespace + ".deleteReply", vo);
+		session.delete(namespace + ".deleteReply", commentkey);
 	}
 
 	@Override

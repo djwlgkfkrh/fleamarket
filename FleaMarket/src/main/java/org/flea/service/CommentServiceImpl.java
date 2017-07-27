@@ -31,7 +31,6 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-
 	public List<CommentVO> listMy(Integer userkey) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.listMy(userkey);
@@ -43,10 +42,12 @@ public class CommentServiceImpl implements CommentService {
 		return dao.commentCount(userkey);
 	}
 
-	public void deleteReply(CommentVO vo) throws Exception {
+	public void deleteReply(Integer commentkey) throws Exception {
+
 		// TODO Auto-generated method stub
-		dao.deleteReply(vo);
-		boardDAO.updateCommentCnt(vo.getBoardkey(), -1);
+		dao.deleteReply(commentkey);
+		//리플 카운트 처리하려면 꼭 수정
+		//boardDAO.updateCommentCnt(commentkey.getBoardkey(), -1);
 
 	}
 
