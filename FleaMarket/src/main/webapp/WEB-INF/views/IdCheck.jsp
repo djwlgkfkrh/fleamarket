@@ -101,8 +101,8 @@
 		<br>
 		<div id="chk">
 			<form id="checkForm">
-				<input type="text" name="checkid" id="userId"> <input
-					type="button" value="중복확인" onclick="idCheck()">
+				<input type="text" name="checkid" id="userId">
+				 <input	type="button" value="중복확인" onclick="idCheck()">
 			</form>
 			<div id="msg"></div>
 			<br> <input id="cancelBtn" type="button" value="취소"

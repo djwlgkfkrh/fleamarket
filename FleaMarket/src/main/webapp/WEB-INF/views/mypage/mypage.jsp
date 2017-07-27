@@ -45,6 +45,7 @@
 			<p><h4>활동 내역</h4></p><br>
 			<p>총 게시글 :<span style="color:red;"> ${b_mycount}</span> 개</p>
 			<p>총 댓글 : <span style="color:red;">${c_mycount}</span> 개</p>
+			<p><input type="button" value="거래하기" onclick="openDeal()"/></p>
 		</div>
 	</div>
 </div>
@@ -133,5 +134,14 @@
 			}
 		});
 	});
+</script>
+<script type="text/javascript">
+	//거래화면 띄우기
+	function openDeal() {
+
+		window.name = "parentForm";
+		window.open("site/deal", "dealForm",
+				"width=600, height=650, resizable = no, scrollbars = no");
+	}
 </script>
 <%@include file="../include/footer.jsp"%>
