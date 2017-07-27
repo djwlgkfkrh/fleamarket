@@ -53,7 +53,7 @@ td {
 		parent.opener.userInfo.post1.value = str[0];
 		parent.opener.userInfo.post2.value = str[1];
 		parent.opener.userInfo.addr1.value = addr;
-		self.close();
+		parent.close()
 	}
 </script>
 </body>
