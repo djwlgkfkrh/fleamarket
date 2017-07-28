@@ -53,4 +53,11 @@ public class UserServiceImpl implements UserService {
 		return dao.checkPw(id, pw);
 	}
 
+	@Override
+	public void addInfo(UserVO user) throws Exception {
+		// TODO Auto-generated method stub
+		dao.addInfo(user);
+	}
+
+	
 }

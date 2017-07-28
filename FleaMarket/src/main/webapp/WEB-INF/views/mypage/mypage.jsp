@@ -41,11 +41,40 @@
 				</table>
 			</form>
 		</div>
-		<div class="col-sm-6">
-			<p><h4>활동 내역</h4></p><br>
-			<p>총 게시글 :<span style="color:red;"> ${b_mycount}</span> 개</p>
-			<p>총 댓글 : <span style="color:red;">${c_mycount}</span> 개</p>
-			<p><input type="button" value="거래하기" onclick="openDeal()"/></p>
+		<div class="col-sm-4">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th colspan="3">거래 내역</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach items="${b_list }" var="board">
+
+						<tr>
+							<td>${board.boardkey}</td>
+							<td><a href='/sboard/read?boardkey=${board.boardkey}'>${board.title}</a></td>
+							<td>거래상태</td>
+							
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</div>
+		<div class="col-sm-4">
+			<p>
+			<h4>활동 내역</h4>
+			</p>
+			<br>
+			<p>
+				총 게시글 :<span style="color: red;"> ${b_mycount}</span> 개
+			</p>
+			<p>
+				총 댓글 : <span style="color: red;">${c_mycount}</span> 개
+			</p>
+			<p>
+				<input type="button" value="거래하기" onclick="openDeal()" />
+			</p>
 		</div>
 	</div>
 </div>
@@ -54,7 +83,9 @@
 <div class="container-fluid bg-3 text-center" style="max-width: 1400px">
 	<div class="row">
 		<div class="col-sm-6">
-			<p><h4>내가 쓴 글</h4></p>
+			<p>
+			<h4>내가 쓴 글</h4>
+			</p>
 			<table class="table table-hover">
 				<thead>
 					<tr>
@@ -81,7 +112,9 @@
 		</div>
 		<div class="col-sm-6">
 			<div class="row">
-				<p><h4>댓글 단 게시글</h4></p>
+				<p>
+				<h4>댓글 단 게시글</h4>
+				</p>
 				<table class="table table-hover">
 					<thead>
 						<tr>
@@ -97,7 +130,9 @@
 				</table>
 			</div>
 			<div class="row">
-				<p><h4>내 댓글</h4></p>
+				<p>
+				<h4>내 댓글</h4>
+				</p>
 				<table class="table table-hover">
 					<thead>
 						<tr>
@@ -107,15 +142,15 @@
 						</tr>
 					</thead>
 					<tbody>
-					<c:forEach items="${c_list }" var="comment">
-						<tr>
-							<td>${comment.boardkey}</td>
-							<td><a href='/sboard/read?boardkey=${comment.boardkey}'>${comment.context}</a></td>
-							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm"
-									value="${comment.regdate}" /></td>
-						</tr>
-					</c:forEach>
-				</tbody>
+						<c:forEach items="${c_list }" var="comment">
+							<tr>
+								<td>${comment.boardkey}</td>
+								<td><a href='/sboard/read?boardkey=${comment.boardkey}'>${comment.context}</a></td>
+								<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm"
+										value="${comment.regdate}" /></td>
+							</tr>
+						</c:forEach>
+					</tbody>
 					</tbody>
 				</table>
 			</div>

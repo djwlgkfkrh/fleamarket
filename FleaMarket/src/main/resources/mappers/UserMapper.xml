@@ -45,4 +45,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where id
 		= #{mid} and pw = #{mpw}
 	</select>
+	
+	<update id="addInfo">
+		update user set address = #{address},phone =#{phone} ,zipcode = #{zipcode}
+		where userkey = #{userkey}
+	</update>
 </mapper>
