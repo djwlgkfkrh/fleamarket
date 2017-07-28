@@ -2,8 +2,10 @@ package org.flea.controller;
 
 import javax.inject.Inject;
 
+import org.flea.domain.BoardVO;
 import org.flea.domain.UserVO;
 import org.flea.domain.ZipcodeVO;
+import org.flea.service.BoardService;
 import org.flea.service.UserService;
 import org.flea.service.ZipcodeService;
 import org.slf4j.Logger;
@@ -24,12 +26,17 @@ public class SiteController {
 	@Inject
 	private UserService uservice;
 	@Inject
+	private BoardService bservice;
+	@Inject
 	private ZipcodeService service;
 
 	// 거래화면
 	@RequestMapping(value = "/deal", method = RequestMethod.GET)
-	public void dealView(Model model) throws Exception {
-
+	public void dealView(@RequestParam("boardkey") int boardkey, Model model) throws Exception {
+		BoardVO boardinfo = bservice.read(boardkey);
+		model.addAttribute("boardinfo", boardinfo);
+		UserVO boarduser = bservice.find(boardinfo.getUserkey());
+		model.addAttribute("boarduser", boarduser);
 	}
 
 	// 우편번호검색

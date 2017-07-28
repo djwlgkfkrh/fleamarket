@@ -49,15 +49,27 @@
 					</tr>
 				</thead>
 				<tbody>
+				
 					<c:forEach items="${b_list }" var="board">
-
+					<c:if test="${board.salestate==1}">
 						<tr>
-							<td>${board.boardkey}</td>
+							<td id="boardkey">${board.boardkey}</td>
 							<td><a href='/sboard/read?boardkey=${board.boardkey}'>${board.title}</a></td>
-							<td>거래상태</td>
+							<td><input type="button" value="거래 중" onclick="openDeal()" /></td>
 							
 						</tr>
+						</c:if>
+						<c:if test="${board.salestate==2}">
+						<tr>
+							<td>${board.boardkey}</td>
+							<td><%-- <a href='/sboard/read?boardkey=${board.boardkey}'> --%>${board.title}<!-- </a> --></td>
+							<td>거래완료</td>
+							
+						</tr>
+						</c:if>
 					</c:forEach>
+					
+					
 				</tbody>
 			</table>
 		</div>
@@ -72,9 +84,7 @@
 			<p>
 				총 댓글 : <span style="color: red;">${c_mycount}</span> 개
 			</p>
-			<p>
-				<input type="button" value="거래하기" onclick="openDeal()" />
-			</p>
+			
 		</div>
 	</div>
 </div>
@@ -169,14 +179,17 @@
 			}
 		});
 	});
-</script>
-<script type="text/javascript">
 	//거래화면 띄우기
 	function openDeal() {
-
+		var boardkey=$('#boardkey').html();
+		console.log(boardkey);
 		window.name = "parentForm";
-		window.open("site/deal", "dealForm",
+		window.open("site/deal?boardkey="+boardkey, "dealForm",
 				"width=600, height=650, resizable = no, scrollbars = no");
 	}
+</script>
+<script type="text/javascript">
+	
+	
 </script>
 <%@include file="../include/footer.jsp"%>

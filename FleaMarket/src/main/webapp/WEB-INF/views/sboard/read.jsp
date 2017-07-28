@@ -250,7 +250,7 @@
 	    form.rememo.focus();
 	} 
 
-	출처: http://forest71.tistory.com/49 [SW 개발이 좋은 사람]
+
 	function replyModify(commentkey) {
 		console.log("replyModify들어옴");
 		var vo = "context=" + context + +"&secret=" + secret;

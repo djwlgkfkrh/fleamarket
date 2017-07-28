@@ -114,8 +114,8 @@ var hp2=String($('#hphone3').val()).length;
 					</thead>
 					<tbody>
 						<tr>
-							<td>1</td>
-							<td>1</td>
+							<td>${boardinfo.title }</td>
+							<td>${boarduser.nickname }</td>
 						</tr>
 						<tr>
 							<td colspan="2"><strong>거래금액 : <input type="text"

@@ -1,8 +1,8 @@
 package org.flea.persistence;
 
-import org.flea.domain.SiteVO;
+import org.flea.domain.DealVO;
 
 public interface SiteDAO {
-public void createDeal(SiteVO vo) throws Exception;
+public void createDeal(DealVO vo) throws Exception;
 
 }

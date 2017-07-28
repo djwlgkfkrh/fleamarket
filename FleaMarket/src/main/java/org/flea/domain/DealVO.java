@@ -1,6 +1,6 @@
 package org.flea.domain;
 
-public class SiteVO {
+public class DealVO {
 	private Integer dealkey;
 	private Integer buyuserkey;
 	private Integer saleuserkey;
