@@ -2,10 +2,14 @@ package org.flea.controller;
 
 import javax.inject.Inject;
 
+import org.flea.domain.UserVO;
 import org.flea.domain.ZipcodeVO;
+import org.flea.service.UserService;
 import org.flea.service.ZipcodeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +21,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class SiteController {
 
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
-
+	@Inject
+	private UserService uservice;
 	@Inject
 	private ZipcodeService service;
 
@@ -36,7 +41,7 @@ public class SiteController {
 	// 우편번호검색
 	@RequestMapping(value = "/zipcodeList", method = RequestMethod.GET)
 	public void zipcodeListGET(ZipcodeVO vo, Model model) throws Exception {
-		
+
 	}
 
 	// 우편번호검색
@@ -47,7 +52,12 @@ public class SiteController {
 
 	// 거래화면
 	@RequestMapping(value = "/dealing", method = RequestMethod.POST)
-	public void dealing(Model model) throws Exception {
-
+	public ResponseEntity<String> dealing(UserVO user) throws Exception {
+		logger.info("dealing................");
+		
+		ResponseEntity<String> entity = null;
+		uservice.addInfo(user);
+		entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		return entity;
 	}
 }

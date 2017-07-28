@@ -50,9 +50,9 @@ td {
 		/*프레임으로 나누어진 브라우저에서 각각의 프레임은 
 		전체 브라우저를 parent로 접근이 가능하다.
 		opener.form1.post1.value=str[0];이렇게만 하면 전송이 안되죠? */
-		parent.opener.userInfo.post1.value = str[0];
-		parent.opener.userInfo.post2.value = str[1];
-		parent.opener.userInfo.addr1.value = addr;
+		parent.opener.post1.value = str[0];
+		parent.opener.post2.value = str[1];
+		parent.opener.addr1.value = addr;
 		parent.close()
 	}
 </script>

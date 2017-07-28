@@ -66,4 +66,10 @@ public class UserDAOImpl implements UserDAO {
 	        return result;
 	}
 
+	@Override
+	public void addInfo(UserVO user) throws Exception {
+		// TODO Auto-generated method stub
+		session.update(namespace+".addInfo",user);
+	}
+
 }

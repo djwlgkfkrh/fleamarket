@@ -12,6 +12,7 @@ public class UserVO {
 	private String address;
 	private Integer phone;
 	private Integer money;
+	private Integer zipcode;
 
 	public Integer getUserkey() {
 		return userkey;
@@ -99,6 +100,14 @@ public class UserVO {
 
 	public void setMoney(Integer money) {
 		this.money = money;
+	}
+
+	public Integer getZipcode() {
+		return zipcode;
+	}
+
+	public void setZipcode(Integer zipcode) {
+		this.zipcode = zipcode;
 	}
 
 }

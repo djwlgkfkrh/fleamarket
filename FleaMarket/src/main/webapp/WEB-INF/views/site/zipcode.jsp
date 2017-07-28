@@ -28,7 +28,7 @@
 			<tr>
 				<td align="center" height="100px"><input type="text"
 					name="dong" onKeyDown="enterKey()"> <input type="button"
-					value="검색" onClick="sendForm()"> <br> * 예) 신사 , 신사동</td>
+					value="검색" onClick="sendForm()"><br> * 동으로 검색하세요 <br> * 예) 신사 , 신사동</td>
 			</tr>
 			<tr>
 				<td><iframe name="result" frameborder="0" width="100%"
