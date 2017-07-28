@@ -30,11 +30,12 @@
 <script type="text/javascript">
 	function deal() {
 		if(checkValue()){
+		var money=$('#money').val();
 		var userkey="${userinfo.userkey}";
 		var address=$('#addr1').val()+$('#addr2').val();
 		var zipcode=$('#post1').val()+$('#post2').val();
 		var phone=$('#hphone1').val()+$('#hphone2').val()+$('#hphone3').val();
-		var vo="address="+address+"&zipcode="+zipcode+"&phone="+phone+"&userkey="+userkey;
+		var vo="address="+address+"&zipcode="+zipcode+"&phone="+phone+"&userkey="+userkey+"&money="+money;
 		console.log(vo);
 		if(confirm("거래하시겠습니까?")){
 		$.ajax({
@@ -82,7 +83,7 @@ var hp2=String($('#hphone3').val()).length;
 		}
 		
 		if (hp2 != 4) {
-			alert("4자리를 입력하세요.");
+			alert("뒤에 4자리를 입력하세요.");
 			return false;
 		}  
 		return true;
