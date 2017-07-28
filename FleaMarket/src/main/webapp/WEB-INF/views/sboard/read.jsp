@@ -1,19 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 <%@include file="../include/header.jsp"%>
-<script>
-	function myFunction() {
-		document.getElementById("cmodify");
-	}
-</script>
 
 <div class="container-fluid bg-3 text-center" style="max-width: 1400px">
 	<div class="row">
 		<h2 class="w3-text-grey w3-padding-16">
 			<i class="material-icons w3-margin-right w3-margin-left"></i>${boardinfo.title}
 		</h2>
-
 		<!--  포스팅 폼 시작  -->
 		<div style="padding: 30px">
 			<table class="w3-table w3-bordered w3-large w3-centered">
@@ -51,10 +47,8 @@
 		<hr>
 		<!--  댓글부분 -->
 		<div style="text-align: left !important; margin-left: 50px">
-
+			<button type="button" id="listReplyBtn" class="w3-blue w3-button">댓글보기</button>
 			<div id="listReply"></div>
-
-
 			<!--  댓글쓰기영역 -->
 			<div>
 				<c:choose>
@@ -83,73 +77,175 @@
 <!--  게시글 끝 -->
 
 <form action="/sboard/list" method="post">
-	<div style="padding: 10px">
-		<center>
-			<a class="w3-button"
-				href='/sboard/beforeread?boardkey=${boardinfo.boardkey}'>▼이전글</a> <input
-				type="submit" value="목록으로" class="w3-button" /> <a
-				class="w3-button"
-				href='/sboard/afterread?boardkey=${boardinfo.boardkey}'>▲다음글</a>
-		</center>
+	<div style="padding: 10px; align: center;">
+		<a class="w3-button"
+			href='/sboard/beforeread?boardkey=${boardinfo.boardkey}'>▼이전글</a> <input
+			type="submit" value="목록으로" class="w3-button" /> <a class="w3-button"
+			href='/sboard/afterread?boardkey=${boardinfo.boardkey}'>▲다음글</a>
 	</div>
 
 </form>
-<h4 class="modal-title"></h4>
+
 <!--   끝 -->
 
+<script id="replyread" type="text/x-handlebars-template"> 
+{{#each .}}
+<div>
+{{#isBoarduser userkey secret}}
+<h4>
+{{userkey}} <span class="w3-opacity w3-medium">{{prettifyDate regdate}}
+</span>
+{{#isMe userkey}}
+<span class="w3-opacity w3-medium"><a href="#">답글</a></span>
+{{/isMe}}
+
+{{#isMeq userkey}}
+<span class="w3-opacity w3-medium"> <a href="#"
+		onclick="replyModify({{commentkey}})">수정</a> | <a
+		href="#" onclick="replyDelete({{context}})">삭제</a>
+	</span>
+{{/isMeq}}
+<p style="margin-left: 10px">{{context}}</p>
+
+
+{{else}}
+<p>
+비밀 댓글입니다.<span class="w3-opacity w3-medium"> {{prettifyDate regdate}}
+	</span>
+</p>
+{{/isBoarduser}}
+</div>
+<hr style="border: dotted 0.5px; opacity: 0.1; width: 95%;">
+{{/each}}
+</script>
+
+
 <script>
-	function replyDelete(commentkey) {
+Handlebars.registerHelper('isMe', function(userkey,options) {
+
+	var uuserkey = "${userinfo.userkey}";
+	if (userkey!=uuserkey&&uuserkey!=null) {
+		return options.fn(this);
+	} else {
+		return options.inverse(this);
+	}
+});
+
+
+Handlebars.registerHelper('isMeq', function(userkey,options) {
+
+	var uuserkey = "${userinfo.userkey}";
+	if (userkey==uuserkey) {
+		return options.fn(this);
+	} else {
+		return options.inverse(this);
+	}
+});
+	Handlebars.registerHelper('isBoarduser', function(userkey,secret,options) {
+		var buserkey = "${boardinfo.userkey}";
+		var uuserkey = "${userinfo.userkey}";
+		if (buserkey == uuserkey||uuserkey==userkey||secret==false) {
+			return options.fn(this);
+			
+		} else {
+			return options.inverse(this);
+		}
+	});
+	Handlebars.registerHelper("prettifyDate", function(timeValue) {
+		var dateObj = new Date(timeValue);
+		var year = dateObj.getFullYear();
+		var month = dateObj.getMonth() + 1;
+		var date = dateObj.getDate();
+		return year + "/" + month + "/" + date;
+	});
+	$(document).ready(
+			function() {
+				$("#replyAdd").click(
+						function() {
+							var context = $('#context').val();
+							var boardkey = "${boardinfo.boardkey}";
+							var userkey = "${userinfo.userkey}";
+							var secret = $('input:checkbox[id="secret"]').is(
+									":checked");
+							var vo = "boardkey=" + boardkey + "&context="
+									+ context + "&userkey=" + userkey
+									+ "&secret=" + secret;
+							$.ajax({
+								type : 'post',
+								url : '/reply/addReply',
+								data : vo,
+								success : function(result) {
+									console.log("replyAdd 성공");
+									listReply();
+								}
+							});
+						});
+
+				var printData = function(replyArr, targetDiv,
+						handleBarTemplateName) {
+
+					console.log("printData 성공");
+					var template = Handlebars.compile(handleBarTemplateName
+							.html());
+					var html = template(replyArr);
+					targetDiv.html(html);
+
+				}
+
+				function replyDelete(commentkey) {
+					$.ajax({
+						type : 'POST',
+						url : '/reply/delete?commentkey=' + commentkey,
+						headers : {
+							"Content-Type" : "application/json",
+							"X-HTTP-Method-Override" : "POST"
+						},
+						success : function() {
+							console.log("삭제 성공");
+							listReply();
+						}
+					});
+				}
+				$("#listReplyBtn").click(function() {
+					console.log("listReplyBtn");
+					listReply();
+				});
+
+				function listReply() {
+					console.log("list들어옴");
+					var boardkey = "${boardinfo.boardkey}";
+					var uuserkey = "${userinfo.userkey}";
+					var buserkey = "${boardinfo.userkey}";
+					$.ajax({
+						type : "POST",
+						headers : {
+							"Content-Type" : "application/json",
+							"X-HTTP-Method-Override" : "POST"
+						},
+						url : "/reply/list?boardkey=" + boardkey,
+						success : function(result) {
+							for ( var i in result) {
+								printData(result, $("#listReply"),
+										$("#replyread"));
+							}
+						}
+
+					});
+				}
+			});
+	function replyModify(commentkey) {
 		$.ajax({
 			type : 'POST',
-			url : '/reply/delete?commentkey=' + commentkey,
+			url : '/reply/modify?commentkey=' + commentkey,
+			headers : {
+				"Content-Type" : "application/json",
+				"X-HTTP-Method-Override" : "POST"
+			},
 			success : function() {
 				console.log("삭제 성공");
 				listReply();
 			}
 		});
-	}
-	$("#replyAdd").click(
-			function() {
-				var context = $('#context').val();
-				var boardkey = "${boardinfo.boardkey}";
-				var userkey = "${userinfo.userkey}";
-				var secret = $('input:checkbox[id="secret"]').is(":checked");
-				var vo = "boardkey=" + boardkey + "&context=" + context
-						+ "&userkey=" + userkey + "&secret=" + secret;
-				$.ajax({
-					type : 'post',
-					url : '/reply/addReply',
-					data : vo,
-					success : function() {
-						console.log("등록 성공");
-						listReply();
-					}
-				});
-			});
-
-	function listReply() {
-		console.log("list들어옴");
-		var boardkey = "${boardinfo.boardkey}";
-		$.ajax({
-			type : "get",
-			url : "/reply/list?boardkey=" + boardkey,
-			success : function() {
-				console.log("성공");
-				var output = "<table>";
-				for ( var i in result) {
-					output += "<tr>";
-					output += "<td> sssss </td>";
-					output += "<tr>";
-				}
-				output += "</table>";
-				$("#listReply").html(output);
-			}
-		});
-	}
-	function replyModify(commentkey, boardkey) {
-		document.replyForm.action = "/reply/modify?commentkey=" + commentkey
-				+ "&boardkey=" + boardkey;
-		document.replyForm.submit();
 	}
 </script>
 
