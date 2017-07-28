@@ -14,9 +14,7 @@
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 	</properties>
 	<dependencies>
-	
-	
-	
+
 	<!-- 파일 처리하기 위한 dependency start -->
 
 		<!-- MultipartHttpServletRequset -->
@@ -35,8 +33,12 @@
 
 		<!-- 파일처리를 위한 dependency end -->
 		
-	
-	
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.8.6</version>
+		</dependency>
+
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -55,6 +57,7 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
+
 
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -85,6 +88,7 @@
 			<artifactId>mybatis-spring</artifactId>
 			<version>1.2.2</version>
 		</dependency>
+
 
 		<dependency>
 			<groupId>org.bgee.log4jdbc-log4j2</groupId>

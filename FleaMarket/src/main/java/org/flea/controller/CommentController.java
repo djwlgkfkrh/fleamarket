@@ -4,8 +4,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.flea.domain.SearchCriteria;
-import org.flea.service.BoardService;
+import org.flea.domain.CommentVO;
 import org.flea.service.CommentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,13 +12,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import org.flea.domain.CommentVO;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/reply/*")
@@ -30,12 +26,12 @@ public class CommentController {
 	@Inject
 	private CommentService service;
 
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ResponseEntity<List<CommentVO>> listReply(@RequestParam("boardkey") int boardkey, Model model)
-			throws Exception {
+	@ResponseBody
+	@RequestMapping(value = "/list", method = RequestMethod.POST)
+	public List<CommentVO> listReply(@RequestParam("boardkey") int boardkey, Model model) throws Exception {
 		logger.info("listReply post ...........");
-		ResponseEntity<List<CommentVO>> entity = null;
-		entity = new ResponseEntity<>(service.commentRead(boardkey), HttpStatus.OK);
+		List<CommentVO> entity = null;
+		entity = service.commentRead(boardkey);
 		return entity;
 
 	}
@@ -61,14 +57,15 @@ public class CommentController {
 
 		return entity;
 	}
-	/*
-	 * @RequestMapping(value = "/modify", method = { RequestMethod.POST,
-	 * RequestMethod.GET }) public String modify(@RequestParam("boardkey") int
-	 * boardkey, Model model, CommentVO vo) throws Exception {
-	 * logger.info("modify delete ..........."); service.modifyReply(vo); return
-	 * "redirect:/sboard/read?boardkey=" + boardkey;
-	 * 
-	 * }
-	 */
+
+	/*@RequestMapping(value = "/modify", method = { RequestMethod.POST, RequestMethod.GET })
+	public ResponseEntity<String> modify(@RequestParam("boardkey") int boardkey, Model model, CommentVO vo) throws Exception {
+		logger.info("reply modify  ...........");
+		ResponseEntity<String> entity = null;
+		service.modifyReply(vo);
+		entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		return entity;
+
+	}*/
 
 }
