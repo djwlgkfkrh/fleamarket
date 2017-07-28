@@ -33,4 +33,16 @@ public class CommentServiceImpl implements CommentService {
 		dao.deleteReply(commentkey);
 	}
 
+	@Override
+	public void modifyReply(CommentVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		dao.modifyReply(vo);
+	}
+
+	@Override
+	public void replySub(CommentVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		dao.replySub(vo);
+	}
+
 }

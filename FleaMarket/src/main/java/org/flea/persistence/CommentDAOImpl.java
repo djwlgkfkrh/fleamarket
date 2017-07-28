@@ -39,4 +39,16 @@ public class CommentDAOImpl implements CommentDAO {
 		session.delete(namespace + ".deleteReply", commentkey);
 	}
 
+	@Override
+	public void modifyReply(CommentVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		session.update(namespace + ".modifyReply", vo);
+	}
+
+	@Override
+	public void replySub(CommentVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		session.insert(namespace + ".replySub", vo);
+	}
+
 }

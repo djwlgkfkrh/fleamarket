@@ -10,4 +10,6 @@ public interface CommentDAO {
 
 	List<CommentVO> commentRead(Integer boardkey) throws Exception;
 	void deleteReply(Integer commentkey) throws Exception;
+	void modifyReply(CommentVO vo)throws Exception;
+	void replySub(CommentVO vo)throws Exception;
 }

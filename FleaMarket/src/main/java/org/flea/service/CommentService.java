@@ -14,4 +14,9 @@ public interface CommentService {
 
 	void deleteReply(Integer commentkey) throws Exception;
 
+	void modifyReply(CommentVO vo)throws Exception;
+
+	void replySub(CommentVO vo)throws Exception;
+
+
 }
