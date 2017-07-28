@@ -49,27 +49,31 @@
 					</tr>
 				</thead>
 				<tbody>
-				
-					<c:forEach items="${b_list }" var="board">
-					<c:if test="${board.salestate==1}">
-						<tr>
-							<td id="boardkey">${board.boardkey}</td>
-							<td><a href='/sboard/read?boardkey=${board.boardkey}'>${board.title}</a></td>
-							<td><input type="button" value="거래 중" onclick="openDeal()" /></td>
-							
-						</tr>
+					<c:set var="userkey" value="${userinfo.userkey }" />
+					<c:forEach items="${deal_list}" var="deal">
+
+						<c:set var="buyuserkey" value="${deal.buyuserkey}" />
+						<c:set var="saleuserkey" value="${deal.saleuserkey}" />
+						<c:if test="${buyuserkey==userkey}">
+							<tr>
+								<td id="boardkey">${deal.boardkey}</td>
+								<td><a href='/sboard/read?boardkey=${deal.boardkey}'>제목</a></td>
+								<td colspan="3"><input type="button" value="거래 중"
+									onclick="openDeal()" /></td>
+
+							</tr>
 						</c:if>
-						<c:if test="${board.salestate==2}">
-						<tr>
-							<td>${board.boardkey}</td>
-							<td><%-- <a href='/sboard/read?boardkey=${board.boardkey}'> --%>${board.title}<!-- </a> --></td>
-							<td>거래완료</td>
-							
-						</tr>
+						<c:if test="${saleuserkey==userkey}">
+							<tr>
+								<td id="boardkey">${deal.boardkey}</td>
+								<td><a href='/sboard/read?boardkey=${deal.boardkey}'>제목</a></td>
+								<td colspan="3"><input type="button" value="거래 중"
+									onclick="openDeal()" /></td>
+
+							</tr>
 						</c:if>
+
 					</c:forEach>
-					
-					
 				</tbody>
 			</table>
 		</div>
@@ -84,7 +88,7 @@
 			<p>
 				총 댓글 : <span style="color: red;">${c_mycount}</span> 개
 			</p>
-			
+
 		</div>
 	</div>
 </div>
@@ -181,15 +185,11 @@
 	});
 	//거래화면 띄우기
 	function openDeal() {
-		var boardkey=$('#boardkey').html();
+		var boardkey = $('#boardkey').html();
 		console.log(boardkey);
 		window.name = "parentForm";
-		window.open("site/deal?boardkey="+boardkey, "dealForm",
+		window.open("site/deal?boardkey=" + boardkey, "dealForm",
 				"width=600, height=650, resizable = no, scrollbars = no");
 	}
-</script>
-<script type="text/javascript">
-	
-	
 </script>
 <%@include file="../include/footer.jsp"%>

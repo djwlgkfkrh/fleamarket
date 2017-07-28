@@ -6,6 +6,7 @@ import org.flea.domain.BoardVO;
 import org.flea.domain.UserVO;
 import org.flea.domain.ZipcodeVO;
 import org.flea.service.BoardService;
+import org.flea.service.DealService;
 import org.flea.service.UserService;
 import org.flea.service.ZipcodeService;
 import org.slf4j.Logger;
@@ -29,6 +30,8 @@ public class SiteController {
 	private BoardService bservice;
 	@Inject
 	private ZipcodeService service;
+	@Inject
+	private DealService dservice;
 
 	// 거래화면
 	@RequestMapping(value = "/deal", method = RequestMethod.GET)
