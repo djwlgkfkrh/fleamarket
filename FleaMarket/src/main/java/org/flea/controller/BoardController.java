@@ -83,9 +83,6 @@ public class BoardController {
 		session=request.getSession(true);
 		UserVO userinfo = (UserVO) session.getAttribute("userinfo");
 		
-		
-		 model.addAttribute("reply",cservice.commentRead(boardkey));
-
 	}
 
 	/*

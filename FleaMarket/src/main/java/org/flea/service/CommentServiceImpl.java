@@ -43,10 +43,25 @@ public class CommentServiceImpl implements CommentService {
 		return dao.commentCount(userkey);
 	}
 
-	public void deleteReply(CommentVO vo) throws Exception {
+	public void deleteReply(Integer commentkey) throws Exception {
+
 		// TODO Auto-generated method stub
-		dao.deleteReply(vo);
-		boardDAO.updateCommentCnt(vo.getBoardkey(), -1);
+
+	//	boardDAO.updateCommentCnt(vo.getBoardkey(), -1);
+
+		dao.deleteReply(commentkey);
+	}
+
+	@Override
+	public void modifyReply(CommentVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		dao.modifyReply(vo);
+	}
+
+	@Override
+	public void replySub(CommentVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		dao.replySub(vo);
 
 	}
 
