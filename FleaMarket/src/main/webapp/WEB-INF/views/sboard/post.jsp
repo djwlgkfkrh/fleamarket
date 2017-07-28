@@ -48,6 +48,8 @@
 					<tr>
 						<td><span class="w3-text-grey">사진첨부</td>
 						<td><input type="file" name="file" /></td>
+						<td><input type="file" name="file" /></td>
+						<td><input type="file" name="file" /></td>
 
 					</tr>
 				</table>

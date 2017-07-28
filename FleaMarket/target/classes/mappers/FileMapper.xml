@@ -10,14 +10,14 @@
 
 
 	<insert id="addFile">
-		insert into file (boardkey, fileid, fname, oname, filetype, filesize, filepath, fileData)
-		values (#{boardkey}, #{fileid}, #{fname}, #{oname}, #{filetype}, #{filesize}, #{filepath}, #{fileData})
+		insert into file (boardkey, fname, oname, filetype, filesize, filepath, fileData)
+		values (#{boardkey}, #{fname}, #{oname}, #{filetype}, #{filesize}, #{filepath}, #{fileData})
 	</insert>
 
 	<select id="getFile" resultType="org.flea.domain.FileVO">
-		select boardkey, filekey, fileid, fname, oname, filetype, filesize, filepath, fileData
+		select filekey, fname, oname, filetype, filesize, filepath
 		from file
-		where filekey=#{filekey} <!-- 테스트 -->
+		where boardkey=#{boardkey} <!-- 테스트 -->
 	</select>
 
 

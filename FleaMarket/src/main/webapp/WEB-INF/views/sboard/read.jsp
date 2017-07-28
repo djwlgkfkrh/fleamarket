@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@include file="../include/header.jsp"%>
-<script>
-	function myFunction() {
-		document.getElementById("demo").innerHTML = "Hello World";
-	}
-</script>
+<%@ page isELIgnored="false"%>
+
+
+
 
 <div class="container-fluid bg-3 text-center" style="max-width: 1400px">
 	<div class="row">
@@ -39,15 +39,23 @@
 				<tr>
 					<td><span class="w3-text-grey">판매상태</span></td>
 					<td colspan="2"><span class="w3-text-grey">${boardinfo.salestate}
+
+						<div class="w3-input w3-border w3-round" style="margin-top: 5px; width: 100%; min-height: 230px; text-align: left !important">
+						${boardinfo.text}
+						<br><br>
+						
+						<c:forEach var="getFile" items="${fileinfo}"> 
+						<img src="${pageContext.request.contextPath}/resources/upload/${getFile.fname}" width="300" height="300"><br><br>
+						</c:forEach>
+		
+					
+							</div>
 					</span></td>
 				</tr>
 			</table>
 
 			<br>
-			<div class="w3-input w3-border w3-round"
-				style="margin-top: 5px; width: 100%; min-height: 230px; text-align: left !important">${boardinfo.text}
-				<img src="${pageContext.request.contextPath}/images/${fileVO.fileData}">
-			</div>
+
 			<!--  게시글 끝 -->
 
 		</div>

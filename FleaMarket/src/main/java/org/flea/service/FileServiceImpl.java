@@ -1,11 +1,12 @@
 package org.flea.service;
 
-import javax.inject.Inject;
+import java.util.List;
 
-import org.springframework.stereotype.Service;
+import javax.inject.Inject;
 
 import org.flea.domain.FileVO;
 import org.flea.persistence.FileDAO;
+import org.springframework.stereotype.Service;
 
 @Service
 public class FileServiceImpl implements FileService {
@@ -20,9 +21,11 @@ public class FileServiceImpl implements FileService {
 	}
 
 	@Override
-	public FileVO postFile(FileVO vo) throws Exception {
-		
-		return dao.postFile(vo);
+	public List<FileVO> postFile(int boardkey) throws Exception {
+
+		return dao.postFile(boardkey);
 	}
+
+
 
 }
