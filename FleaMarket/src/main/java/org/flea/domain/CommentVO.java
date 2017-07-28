@@ -9,6 +9,8 @@ public class CommentVO {
 	String context;
 	Date regdate;
 	boolean secret;
+	int parent_key;
+	
 	public int getUserkey() {
 		return userkey;
 	}
@@ -44,6 +46,12 @@ public class CommentVO {
 	}
 	public void setSecret(boolean secret) {
 		this.secret = secret;
+	}
+	public int getParent_key() {
+		return parent_key;
+	}
+	public void setParent_key(int parent_key) {
+		this.parent_key = parent_key;
 	}
 	
 }

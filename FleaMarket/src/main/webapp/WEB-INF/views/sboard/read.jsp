@@ -48,7 +48,9 @@
 		<hr>
 		<!--  댓글부분 -->
 		<div style="text-align: left !important; margin-left: 50px">
-			<button type="button" id="listReplyBtn" class="w3-blue w3-button">댓글보기</button>
+			<button type="button" onclick="listReplyBtn()"
+				class="w3-blue w3-button">댓글보기</button>
+			<br>
 			<div id="listReply"></div>
 			<!--  댓글쓰기영역 -->
 			<div>
@@ -64,7 +66,8 @@
 										type="checkbox" id="secret" name="secret">비밀댓글
 									</td>
 									<td>&nbsp;&nbsp;&nbsp;&nbsp;
-										<button type="button" id="replyAdd" class="w3-blue w3-button">등록</button>
+										<button type="button" onclick="replyAdd()"
+											class="w3-blue w3-button">등록</button>
 									</td>
 								</tr>
 							</table>
@@ -91,19 +94,19 @@
 
 <script id="replyread" type="text/x-handlebars-template"> 
 {{#each .}}
-<div>
+<div id="reply_div">
 {{#isBoarduser userkey secret}}
 <h4>
 {{userkey}} <span class="w3-opacity w3-medium">{{prettifyDate regdate}}
 </span>
 {{#isMe userkey}}
-<span class="w3-opacity w3-medium"><a href="#">답글</a></span>
+<span class="w3-opacity w3-medium"><a  onclick="replySub({{commentkey}})">답글</a></span>
 {{/isMe}}
 
 {{#isMeq userkey}}
-<span class="w3-opacity w3-medium"> <a href="#"
-		onclick="replyModify({{commentkey}})">수정</a> | <a
-		href="#" onclick="replyDelete({{context}})">삭제</a>
+<span class="w3-opacity w3-medium"> <a 
+		onclick="fn_replyUpdate({{commentkey}})">수정</a> | <a
+		 onclick="replyDelete({{commentkey}})">삭제</a>
 	</span>
 {{/isMeq}}
 <p style="margin-left: 10px">{{context}}</p>
@@ -122,36 +125,37 @@
 
 
 <script>
-Handlebars.registerHelper('isMe', function(userkey,options) {
+	Handlebars.registerHelper('isMe', function(userkey, options) {
 
-	var uuserkey = "${userinfo.userkey}";
-	if (userkey!=uuserkey&&uuserkey!=null) {
-		return options.fn(this);
-	} else {
-		return options.inverse(this);
-	}
-});
-
-
-Handlebars.registerHelper('isMeq', function(userkey,options) {
-
-	var uuserkey = "${userinfo.userkey}";
-	if (userkey==uuserkey) {
-		return options.fn(this);
-	} else {
-		return options.inverse(this);
-	}
-});
-	Handlebars.registerHelper('isBoarduser', function(userkey,secret,options) {
-		var buserkey = "${boardinfo.userkey}";
 		var uuserkey = "${userinfo.userkey}";
-		if (buserkey == uuserkey||uuserkey==userkey||secret==false) {
+		if (userkey != uuserkey && uuserkey != null) {
 			return options.fn(this);
-			
 		} else {
 			return options.inverse(this);
 		}
 	});
+
+	Handlebars.registerHelper('isMeq', function(userkey, options) {
+
+		var uuserkey = "${userinfo.userkey}";
+		if (userkey == uuserkey) {
+			return options.fn(this);
+		} else {
+			return options.inverse(this);
+		}
+	});
+	Handlebars.registerHelper('isBoarduser',
+			function(userkey, secret, options) {
+				var buserkey = "${boardinfo.userkey}";
+				var uuserkey = "${userinfo.userkey}";
+				if (buserkey == uuserkey || uuserkey == userkey
+						|| secret == false) {
+					return options.fn(this);
+
+				} else {
+					return options.inverse(this);
+				}
+			});
 	Handlebars.registerHelper("prettifyDate", function(timeValue) {
 		var dateObj = new Date(timeValue);
 		var year = dateObj.getFullYear();
@@ -159,91 +163,123 @@ Handlebars.registerHelper('isMeq', function(userkey,options) {
 		var date = dateObj.getDate();
 		return year + "/" + month + "/" + date;
 	});
-	$(document).ready(
-			function() {
-				$("#replyAdd").click(
-						function() {
-							var context = $('#context').val();
-							var boardkey = "${boardinfo.boardkey}";
-							var userkey = "${userinfo.userkey}";
-							var secret = $('input:checkbox[id="secret"]').is(
-									":checked");
-							var vo = "boardkey=" + boardkey + "&context="
-									+ context + "&userkey=" + userkey
-									+ "&secret=" + secret;
-							$.ajax({
-								type : 'post',
-								url : '/reply/addReply',
-								data : vo,
-								success : function(result) {
-									console.log("replyAdd 성공");
-									listReply();
-								}
-							});
-						});
 
-				var printData = function(replyArr, targetDiv,
-						handleBarTemplateName) {
+	function listReplyBtn() {
+		console.log("listReplyBtn");
+		listReply();
+	}
 
-					console.log("printData 성공");
-					var template = Handlebars.compile(handleBarTemplateName
-							.html());
-					var html = template(replyArr);
-					targetDiv.html(html);
-
-				}
-
-				function replyDelete(commentkey) {
-					$.ajax({
-						type : 'POST',
-						url : '/reply/delete?commentkey=' + commentkey,
-						headers : {
-							"Content-Type" : "application/json",
-							"X-HTTP-Method-Override" : "POST"
-						},
-						success : function() {
-							console.log("삭제 성공");
-							listReply();
-						}
-					});
-				}
-				$("#listReplyBtn").click(function() {
-					console.log("listReplyBtn");
-					listReply();
-				});
-
-				function listReply() {
-					console.log("list들어옴");
-					var boardkey = "${boardinfo.boardkey}";
-					var uuserkey = "${userinfo.userkey}";
-					var buserkey = "${boardinfo.userkey}";
-					$.ajax({
-						type : "POST",
-						headers : {
-							"Content-Type" : "application/json",
-							"X-HTTP-Method-Override" : "POST"
-						},
-						url : "/reply/list?boardkey=" + boardkey,
-						success : function(result) {
-							for ( var i in result) {
-								printData(result, $("#listReply"),
-										$("#replyread"));
-							}
-						}
-
-					});
-				}
-			});
-	function replyModify(commentkey) {
+	function replyAdd() {
+		var context = $('#context').val();
+		var boardkey = "${boardinfo.boardkey}";
+		var userkey = "${userinfo.userkey}";
+		var secret = $('input:checkbox[id="secret"]').is(":checked");
+		var vo = "boardkey=" + boardkey + "&context=" + context + "&userkey="
+				+ userkey + "&secret=" + secret;
 		$.ajax({
-			type : 'POST',
-			url : '/reply/modify?commentkey=' + commentkey,
+			type : 'post',
+			url : '/reply/addReply',
+			data : vo,
+			success : function(result) {
+				console.log("replyAdd 성공");
+				listReply();
+			}
+		});
+	}
+	function replyDelete(commentkey) {
+		console.log("replyDelete");
+		$.ajax({
+			type : 'delete',
+			url : '/reply/' + commentkey,
+			dataType : 'text',
+			headers : {
+				"Content-Type" : "application/json",
+				"X-HTTP-Method-Override" : "DELETE"
+			},
+			success : function(result) {
+				console.log("삭제 성공");
+				listReply();
+			}
+		});
+	}
+	var printData = function(replyArr, targetDiv, handleBarTemplateName) {
+		console.log("printData 성공");
+		var template = Handlebars.compile(handleBarTemplateName.html());
+		var html = template(replyArr);
+		targetDiv.html(html);
+
+	}
+
+	function listReply() {
+		console.log("list들어옴22");
+		var boardkey = "${boardinfo.boardkey}";
+		var uuserkey = "${userinfo.userkey}";
+		var buserkey = "${boardinfo.userkey}";
+		$.ajax({
+			type : "POST",
 			headers : {
 				"Content-Type" : "application/json",
 				"X-HTTP-Method-Override" : "POST"
 			},
+			url : "/reply/list?boardkey=" + boardkey,
+			success : function(result) {
+				for ( var i in result) {
+					printData(result, $("#listReply"), $("#replyread"));
+				}
+			}
+
+		});
+	}
+	function fn_replyUpdate(reno){
+	    var form = document.form2;
+	    var reply = document.getElementById("reply"+reno);
+	    var replyDiv = document.getElementById("replyDiv");
+	    replyDiv.style.display = "";
+	    
+	    if (updateReno) {
+	        document.body.appendChild(replyDiv);
+	        var oldReno = document.getElementById("reply"+updateReno);
+	        oldReno.innerText = updateRememo;
+	    } 
+	    
+	    form.reno.value=reno;
+	    form.rememo.value = reply.innerText;
+	    reply.innerText ="";
+	    reply.appendChild(replyDiv);
+	    updateReno   = reno;
+	    updateRememo = form.rememo.value;
+	    form.rememo.focus();
+	} 
+
+	출처: http://forest71.tistory.com/49 [SW 개발이 좋은 사람]
+	function replyModify(commentkey) {
+		console.log("replyModify들어옴");
+		var vo = "context=" + context + +"&secret=" + secret;
+		$.ajax({
+			type : 'put',
+			data : vo,
+			url : '/reply/' + commentkey,
 			success : function() {
-				console.log("삭제 성공");
+				console.log("수정 성공");
+				listReply();
+			}
+		});
+	}
+	
+	function replySub(commentkey) {
+		console.log("replySub들어옴");
+		//var context = $('#context').val();
+		var boardkey = "${boardinfo.boardkey}";
+		var userkey = "${userinfo.userkey}";
+		//var secret = $('input:checkbox[id="secret"]').is(":checked");
+		var vo = "boardkey=" + boardkey + "&userkey="+ userkey ;
+		
+		$.ajax({
+			type : 'post',
+			data : vo,
+			url : '/reply/replySub/' + commentkey,
+			success : function() {
+				console.log("replysub성공");
 				listReply();
 			}
 		});
