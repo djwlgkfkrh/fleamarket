@@ -26,6 +26,19 @@ public class FileServiceImpl implements FileService {
 		return dao.postFile(boardkey);
 	}
 
+	@Override
+	public void modifyFile(FileVO vo) throws Exception {
+		
+		dao.modifyFile(vo);
+		
+	}
+
+	@Override
+	public int getFileId(int boardkey) throws Exception {
+
+		return dao.getFileId(boardkey);
+	}
+
 
 
 }

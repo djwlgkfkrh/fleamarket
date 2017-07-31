@@ -86,4 +86,27 @@ public class BoardDAOImpl implements BoardDAO {
 		return session.selectOne(namespace + ".getboardKey", vo);
 	}
 
+	
+	@Override /* Board Delete*/
+	public void deleteBoard(Integer boardkey) throws Exception {
+		// TODO Auto-generated method stub
+		
+		session.delete(namespace + ".deleteBoard_Comment", boardkey);
+		session.delete(namespace + ".deleteBoard_File", boardkey);
+		session.delete(namespace + ".deleteBoard", boardkey);
+	}
+
+	@Override
+	public void modifyBoard(BoardVO vo) throws Exception {
+		
+		session.update(namespace + ".modifyBoard", vo);
+		
+	}
+	
+	
+	
+	
+	
+	
+
 }

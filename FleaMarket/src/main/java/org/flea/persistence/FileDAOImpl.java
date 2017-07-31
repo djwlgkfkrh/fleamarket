@@ -29,4 +29,17 @@ public class FileDAOImpl implements FileDAO{
 		return session.selectList(namespace + ".getFile", boardkey);
 	}
 
+	@Override
+	public void modifyFile(FileVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		session.update(namespace + ".modifyFile", vo);
+		
+	}
+
+	@Override
+	public int getFileId(int boardkey) throws Exception {
+		return session.selectOne(namespace + ".getFileId", boardkey);
+		
+	}
+
 }

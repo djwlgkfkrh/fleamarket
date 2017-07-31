@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@include file="../include/header.jsp"%>
 <%@ page isELIgnored="false"%>
@@ -39,17 +39,45 @@
 				<tr>
 					<td><span class="w3-text-grey">판매상태</span></td>
 					<td colspan="2"><span class="w3-text-grey">${boardinfo.salestate}
-
-						<div class="w3-input w3-border w3-round" style="margin-top: 5px; width: 100%; min-height: 230px; text-align: left !important">
-						${boardinfo.text}
-						<br><br>
-						
-						<c:forEach var="getFile" items="${fileinfo}"> 
-						<img src="${pageContext.request.contextPath}/resources/upload/${getFile.fname}" width="300" height="300"><br><br>
-						</c:forEach>
-		
 					
-							</div>
+					
+
+							<div class="w3-input w3-border w3-round"
+								style="margin-top: 5px; width: 100%; min-height: 230px; text-align: left !important">
+								<c:forEach var="getFile" items="${fileinfo}">
+									<img style="margin-left:36%;"
+										src="${pageContext.request.contextPath}/resources/upload/${getFile.fname}"
+										width="300" height="300">
+									<br>
+								</c:forEach>
+								<br><br> ${boardinfo.text} <br> <br>
+
+								
+							</div> <!-- 포스팅 글 수정/삭제 버튼 출력 시작  -->
+							<div>
+								<c:set var="userkey" value="${userinfo.userkey}" />
+								<c:set var="b_userkey" value="${boardinfo.userkey}" />
+
+									<table style="margin-left:80%">
+										<tr>
+											<td><c:if test="${userkey == b_userkey}">
+													<form action="./delete" method="post">
+														<input type="hidden" name="boardkey"
+															value="${boardinfo.boardkey}" />
+														<button class="w3-button w3-dark-grey">Delete</button>
+													</form></td>
+											<td>
+												<form action="./boardmodify">
+													<input type="hidden" name="boardkey" value="${boardinfo.boardkey}" />
+													<button class="w3-button w3-dark-grey">Modify</button>
+												</form> </c:if>
+											</td>
+										</tr>
+									</table>
+
+							</div> <!-- 포스팅 글 수정/삭제 버튼 출력 끝  -->
+
+
 					</span></td>
 				</tr>
 			</table>
@@ -86,8 +114,8 @@
 									</c:when>
 									<c:when test="${cuserkey==uuserkey}">
 										<span class="w3-opacity w3-medium">
-											<button onclick="myFunction()">수정</button> | <a
-											href="/reply/delete?commentkey=${Comment.commentkey}&boardkey=${boardinfo.boardkey}">삭제</a>
+											<button onclick="myFunction()">수정</button> | 
+											<a href="/reply/delete?commentkey=${Comment.commentkey}&boardkey=${boardinfo.boardkey}">삭제</a>
 										</span>
 									</c:when>
 								</c:choose>

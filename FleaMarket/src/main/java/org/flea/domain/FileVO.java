@@ -13,7 +13,7 @@ public class FileVO {
 	private int boardkey;
 	private int filekey;
 	
-	private String fileid; // 파일 id //
+	private int fileid; // 파일 id //
 
 	private String oname; //  파일  원래이름
 	private String fname; //  파일 저장된이름
@@ -50,10 +50,10 @@ public class FileVO {
 	public void setFilekey(int filekey) {
 		this.filekey = filekey;
 	}
-	public String getFileid() {
+	public int getFileid() {
 		return fileid;
 	}
-	public void setFileid(String fileid) {
+	public void setFileid(int fileid) {
 		this.fileid = fileid;
 	}
 	public String getOname() {

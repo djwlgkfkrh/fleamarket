@@ -82,4 +82,17 @@ public class BoardServiceImpl implements BoardService {
 		return dao.getboardKey(bvo);
 	}
 
+	@Override
+	public void deleteBoard(Integer boardkey) throws Exception {
+		
+		dao.deleteBoard(boardkey);
+	}
+
+	@Override
+	public void modifyBoard(BoardVO bvo) throws Exception {		
+	
+		dao.modifyBoard(bvo);
+		
+	}
+
 }

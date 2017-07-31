@@ -10,15 +10,36 @@
 
 
 	<insert id="addFile">
-		insert into file (boardkey, fname, oname, filetype, filesize, filepath, fileData)
-		values (#{boardkey}, #{fname}, #{oname}, #{filetype}, #{filesize}, #{filepath}, #{fileData})
+		insert into file (boardkey, fname, oname, fileid, filetype, filesize, filepath)
+		values (#{boardkey}, #{fname}, #{oname}, #{fileid}, #{filetype}, #{filesize}, #{filepath})
 	</insert>
 
 	<select id="getFile" resultType="org.flea.domain.FileVO">
-		select filekey, fname, oname, filetype, filesize, filepath
+		select filekey, fname, oname, fileid, filetype, filesize, filepath
 		from file
 		where boardkey=#{boardkey} <!-- 테스트 -->
 	</select>
+	
 
+	<update id="modifyFile">
+		update file
+		<set>
+		fname = #{fname}, 
+		oname = #{oname},
+		filetype = #{filetype}, 
+		filesize = #{filesize}, 
+		filepath = #{filepath}, 
+		fileData = #{fileData}
+		</set>
+		where boardkey=#{boardkey} and fileid=#{fileid}
+	</update>
+		
+	<select id="getFileId"  resultType="integer">
+	select max(fileid)
+	from file
+	where boardkey=#{boardkey}
+	</select>
+
+	
 
 </mapper>

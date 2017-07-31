@@ -29,4 +29,10 @@ public interface BoardDAO {
 	public void createPost(BoardVO vo) throws Exception;
 	
 	public int getboardKey(BoardVO vo) throws Exception;
+	
+	public void deleteBoard(Integer boardkey) throws Exception;
+	
+	public void modifyBoard(BoardVO vo) throws Exception;
+	
+	
 }

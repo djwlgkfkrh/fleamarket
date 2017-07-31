@@ -26,5 +26,9 @@ public interface BoardService {
 	public void createPost(BoardVO bvo) throws Exception;
 	
 	public int getboardKey(BoardVO bvo) throws Exception;
+	
+	public void deleteBoard(Integer boardkey) throws Exception;
+	
+	public void modifyBoard(BoardVO bvo) throws Exception;
 
 }
