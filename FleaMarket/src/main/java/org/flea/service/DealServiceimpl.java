@@ -25,4 +25,17 @@ public class DealServiceimpl implements DealService {
 		return dao.getDeal(userkey);
 	}
 
+	@Override
+	public int checkMoney(String dealkey, String money) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.checkMoney(dealkey, money);
+	}
+
+	@Override
+	public void remitMoney(Integer dealkey,Integer money) throws Exception {
+		// TODO Auto-generated method stub
+		dao.remitMoney(dealkey,money);
+	}
+
+	
 }

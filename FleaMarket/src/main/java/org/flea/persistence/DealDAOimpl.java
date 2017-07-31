@@ -1,6 +1,8 @@
 package org.flea.persistence;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -27,4 +29,24 @@ public class DealDAOimpl implements DealDAO {
 		return session.selectList(namespace + ".getDealList", userkey);
 	}
 
+	@Override
+	public int checkMoney(String dealkey, String money) throws Exception {
+		// TODO Auto-generated method stub
+		 Map<String, String> map = new HashMap<String, String>();
+	        map.put("dealkey", dealkey);
+	        map.put("money", money);
+	        int count = session.selectOne(namespace+".checkMoney", map);
+	        return count;
+	}
+
+	@Override
+	public void remitMoney(Integer dealkey,Integer money) throws Exception {
+		// TODO Auto-generated method stub
+		 Map<String, Integer> map = new HashMap<String, Integer>();
+	        map.put("dealkey", dealkey);
+	        map.put("money", money);
+		session.update(namespace+".remitMoney", map);
+	}
+
+	
 }

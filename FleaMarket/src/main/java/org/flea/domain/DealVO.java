@@ -7,6 +7,8 @@ public class DealVO {
 	private Integer boardkey;
 	private Integer deliverykey;
 	private Integer money;
+	private Integer remittance;
+	private Integer salestate;
 
 	public Integer getDealkey() {
 		return dealkey;
@@ -54,6 +56,22 @@ public class DealVO {
 
 	public void setMoney(Integer money) {
 		this.money = money;
+	}
+
+	public Integer getRemittance() {
+		return remittance;
+	}
+
+	public void setRemittance(Integer remittance) {
+		this.remittance = remittance;
+	}
+
+	public Integer getSalestate() {
+		return salestate;
+	}
+
+	public void setSalestate(Integer salestate) {
+		this.salestate = salestate;
 	}
 
 }

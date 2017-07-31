@@ -50,29 +50,35 @@
 				</thead>
 				<tbody>
 					<c:set var="userkey" value="${userinfo.userkey }" />
-					<c:forEach items="${deal_list}" var="deal">
-
+					<c:forEach items="${deal_list}" var="deal" varStatus="status">
 						<c:set var="buyuserkey" value="${deal.buyuserkey}" />
 						<c:set var="saleuserkey" value="${deal.saleuserkey}" />
-						<c:if test="${buyuserkey==userkey}">
+						<c:if test="${buyuserkey==userkey||saleuserkey==userkey}">
 							<tr>
-								<td id="boardkey">${deal.boardkey}</td>
+								<td id="boardkey${status.count}">${deal.boardkey}</td>
 								<td><a href='/sboard/read?boardkey=${deal.boardkey}'>제목</a></td>
-								<td colspan="3"><input type="button" value="거래 중"
-									onclick="openDeal()" /></td>
-
+								<td><input type="hidden" id="dealkey${status.count}" value="${deal.dealkey}" />
+								
+								<c:choose>
+								<c:when test="${deal.salestate eq 0}">
+								<input type="button" value="입금대기" id="step1"
+									onclick="openDeal(${status.count})" /></td>
+									</c:when>
+									<c:when test="${deal.salestate eq 1}">
+								<input type="button" value="배송대기" id="step2"
+									onclick="openDeal(${status.count})" /></td>
+									</c:when>
+									<c:when test="${deal.salestate eq 2}">
+								<input type="button" value="배송중" id="step3"
+									onclick="openDeal(${status.count})" /></td>
+									</c:when>
+									<c:when test="${deal.salestate eq 3}">
+								<input type="button" value="거래완료" id="step4"
+									onclick="openDeal(${status.count})" /></td>
+									</c:when>
+								</c:choose>
 							</tr>
 						</c:if>
-						<c:if test="${saleuserkey==userkey}">
-							<tr>
-								<td id="boardkey">${deal.boardkey}</td>
-								<td><a href='/sboard/read?boardkey=${deal.boardkey}'>제목</a></td>
-								<td colspan="3"><input type="button" value="거래 중"
-									onclick="openDeal()" /></td>
-
-							</tr>
-						</c:if>
-
 					</c:forEach>
 				</tbody>
 			</table>
@@ -183,12 +189,14 @@
 			}
 		});
 	});
+	
 	//거래화면 띄우기
-	function openDeal() {
-		var boardkey = $('#boardkey').html();
-		console.log(boardkey);
+	function openDeal(str) {
+		var boardkey = $('#boardkey'+str).html();
+		var dealkey = $('#dealkey'+str).val();
+			
 		window.name = "parentForm";
-		window.open("site/deal?boardkey=" + boardkey, "dealForm",
+		window.open("site/deal?boardkey=" + boardkey+"&dealkey="+dealkey, "dealForm",
 				"width=600, height=650, resizable = no, scrollbars = no");
 	}
 </script>

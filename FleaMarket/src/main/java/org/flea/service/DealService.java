@@ -8,4 +8,9 @@ public interface DealService {
 	public void createDeal(DealVO vo) throws Exception;
 
 	public List<DealVO> getDeal(Integer userkey) throws Exception;
+	
+	public int checkMoney(String dealkey,String money) throws Exception;
+	
+	public void remitMoney(Integer dealkey,Integer money) throws Exception;
+
 }
