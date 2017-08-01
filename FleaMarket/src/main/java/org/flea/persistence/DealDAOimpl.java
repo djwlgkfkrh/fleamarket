@@ -24,6 +24,12 @@ public class DealDAOimpl implements DealDAO {
 	}
 
 	@Override
+	public DealVO read(Integer dealkey) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectOne(namespace + ".read", dealkey);
+	}
+
+	@Override
 	public List<DealVO> getDeal(Integer userkey) throws Exception {
 		// TODO Auto-generated method stub
 		return session.selectList(namespace + ".getDealList", userkey);

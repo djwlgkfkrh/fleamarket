@@ -20,6 +20,12 @@ public class DealServiceimpl implements DealService {
 	}
 
 	@Override
+	public DealVO read(Integer dealkey) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.read(dealkey);
+	}
+
+	@Override
 	public List<DealVO> getDeal(Integer userkey) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.getDeal(userkey);

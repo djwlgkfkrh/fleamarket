@@ -97,8 +97,7 @@
 	</select>
 
 	<select id="find" resultType="org.flea.domain.UserVO">
-		select userkey, id, name, nickname,
-		point, cheater from user where userkey=#{userkey}
+		select * from user where userkey=#{userkey}
 	</select>
 	
 	<update id="updateCommentCnt">

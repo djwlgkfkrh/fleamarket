@@ -46,6 +46,7 @@
 			data : vo,
 			success : function(result) {
 				console.log("deal성공");
+				opener.parent.location.reload();
 				window.close();
 			}
 		});

@@ -95,4 +95,28 @@ public class SiteController {
 		    }
 		    return entity;
 	}
+	
+	// 배송대기화면
+		@RequestMapping(value = "/delivery", method = RequestMethod.GET)
+		public void delivery(@RequestParam int boardkey,@RequestParam int dealkey,@RequestParam int buyuserkey, Model model) throws Exception {
+			BoardVO boardinfo = bservice.read(boardkey);
+			model.addAttribute("boardinfo", boardinfo);
+			UserVO boarduser = bservice.find(boardinfo.getUserkey());
+			UserVO buyuser = bservice.find(buyuserkey);
+			model.addAttribute("boarduser", boarduser);
+			model.addAttribute("buyuser", buyuser);
+			model.addAttribute("deal_list",dservice.read(dealkey));
+		}
+		
+		// 배송정보 입력 처리
+		@RequestMapping(value = "/deliverying", method = RequestMethod.POST)
+		public ResponseEntity<String> deliverying(UserVO user,Integer dealkey,Integer money) throws Exception {
+			logger.info("deliverying................");
+			
+			ResponseEntity<String> entity = null;
+			uservice.addInfo(user);
+			dservice.remitMoney(dealkey,money);
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+			return entity;
+		}
 }
