@@ -11,7 +11,7 @@
 		</h2>
 
 		<!--  포스팅 폼 시작  -->
-		<form action="/sboard/post" method="post" enctype="multipart/form-data">
+		<form action="/sboard/buypost" method="post" enctype="multipart/form-data">
 			<div style="padding: 30px">
 				<table class="w3-table w3-bordered w3-large">
 					<tr>

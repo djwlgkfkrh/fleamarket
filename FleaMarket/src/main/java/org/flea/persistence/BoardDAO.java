@@ -18,9 +18,23 @@ public interface BoardDAO {
 
 	public int listCount(Integer userkey) throws Exception;
 
+	public List<BoardVO> listSearch(SearchCriteria cri) throws Exception;
+
 	public int listSearchCount(SearchCriteria cri) throws Exception;
 
-	public List<BoardVO> listSearch(SearchCriteria cri) throws Exception;
+	// sale Board, saleList
+	public void createSale(Integer boardkey) throws Exception;
+
+	public List<BoardVO> salelistSearch(SearchCriteria cri) throws Exception;
+
+	public int salelistSearchCount(SearchCriteria cri) throws Exception;
+
+	// buy Board , buyList
+	public void createBuy(Integer boardkey) throws Exception;
+
+	public List<BoardVO> buylistSearch(SearchCriteria cri) throws Exception;
+
+	public int buylistSearchCount(SearchCriteria cri) throws Exception;
 
 	public int before(Integer boardkey) throws Exception;
 
@@ -28,8 +42,20 @@ public interface BoardDAO {
 
 	public void createPost(BoardVO vo) throws Exception;
 
-	public void updateCommentCnt(Integer boardkey, int amount)throws Exception;
+	public void updateCommentCnt(Integer boardkey, int amount) throws Exception;
 
 	public int getboardKey(BoardVO vo) throws Exception;
+
+	public void deleteBoard(Integer boardkey) throws Exception;
+
+	public void deleteBuy(Integer boardkey) throws Exception;
+
+	public void deleteSale(Integer boardkey) throws Exception;
+
+	public void modifyBoard(BoardVO vo) throws Exception;
+
+	public int getSaleState(Integer boardkey) throws Exception;
+
+	public int getBuyState(Integer boardkey) throws Exception;
 
 }

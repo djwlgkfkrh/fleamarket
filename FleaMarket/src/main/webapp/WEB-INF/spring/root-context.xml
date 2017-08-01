@@ -20,7 +20,12 @@
 		<property name="username" value="root"></property>
 		<property name="password" value="1234"></property>
 	</bean>
-
+	<!-- MultipartResolver 설정 --> <!-- 스프링에서 파일업로드 기능을 구현해놓은 클래스 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="100000000" />
+		<property name="maxInMemorySize" value="100000000" />
+	</bean>
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="configLocation" value="classpath:/mybatis-config.xml"></property>

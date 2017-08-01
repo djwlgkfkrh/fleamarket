@@ -1,29 +1,41 @@
 package org.flea.domain;
 
+import java.io.File;
+
 import org.springframework.web.multipart.MultipartFile;
 
 public class FileVO {
 	
 /** * 업로드한 이미지 파일이 저장될 경로 */ 
 	
-	public static final String IMAGE_DIR = "D:/images/"; // 저장될 경로 
-
+	//public static final String IMAGE_DIR = "D:/images/"; // 저장될 경로 
 
 	private int boardkey;
 	private int filekey;
 	
-	private String fileid; // 파일 id
+	private int fileid; // 파일 id //
 
 	private String oname; //  파일  원래이름
 	private String fname; //  파일 저장된이름
 	
 	private String filepath; // 파일경로
-	private String filetype; // 확장자
-	private int filesize; // filesize
+	private String filetype; // 확장자 //
+	private int filesize; // filesize //
 	
-	private MultipartFile file; // 파일
+	private MultipartFile mfile[]; // MultipartFile
+	
+	private File file; // 파일
 	byte[ ] fileData; // 파일 stream 데이터 
 	
+	
+	
+	
+	public MultipartFile[] getMfile() {
+		return mfile;
+	}
+	public void setMfile(MultipartFile[] mfile) {
+		this.mfile = mfile;
+	}
 	
 	
 	public int getBoardkey() {
@@ -38,10 +50,10 @@ public class FileVO {
 	public void setFilekey(int filekey) {
 		this.filekey = filekey;
 	}
-	public String getFileid() {
+	public int getFileid() {
 		return fileid;
 	}
-	public void setFileid(String fileid) {
+	public void setFileid(int fileid) {
 		this.fileid = fileid;
 	}
 	public String getOname() {
@@ -74,10 +86,10 @@ public class FileVO {
 	public void setFilesize(int filesize) {
 		this.filesize = filesize;
 	}
-	public MultipartFile getFile() {
+	public File getFile() {
 		return file;
 	}
-	public void setFile(MultipartFile file) {
+	public void setFile(File file) {
 		this.file = file;
 	}
 	public byte[] getFileData() {

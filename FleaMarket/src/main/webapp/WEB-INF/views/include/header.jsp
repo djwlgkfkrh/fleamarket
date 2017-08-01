@@ -104,10 +104,17 @@ footer {
 			<div class="collapse navbar-collapse " id="myNavbar">
 
 				<ul class="nav navbar-nav ">
+<<<<<<< HEAD
 
 					<li><a class="w3-text-white" href="/sboard/list">삽니다</a></li>
 					<li><a class="w3-text-white" href="#">팝니다</a></li>
 					<li><a class="w3-text-white" href="#">사기꾼list</a></li>
+=======
+
+					<li><a class="w3-text-white" href="/sboard/buylist">삽니다</a></li>
+					<li><a class="w3-text-white" href="/sboard/salelist">팝니다</a></li>
+					<li><a class="w3-text-white" href="/sboard/list">사기꾼list</a></li>
+>>>>>>> refs/remotes/origin/master
 					<li><a class="w3-text-white" href="/mypage">마이페이지</a></li>
 				</ul>
 
