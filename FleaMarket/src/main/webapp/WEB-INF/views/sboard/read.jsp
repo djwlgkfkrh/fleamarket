@@ -1,21 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<<<<<<< HEAD
+pageEncoding="UTF-8"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@include file="../include/header.jsp"%>
+<%@ page isELIgnored="false"%>
 
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
-=======
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
->>>>>>> refs/remotes/origin/master
-<%@include file="../include/header.jsp"%>
-<<<<<<< HEAD
-=======
-<%@ page isELIgnored="false"%>
-
-
-
->>>>>>> refs/remotes/origin/master
 
 <div class="container-fluid bg-3 text-center" style="max-width: 1400px">
 	<div class="row">
@@ -96,13 +88,11 @@
 		<hr>
 		<!--  댓글부분 -->
 		<div style="text-align: left !important; margin-left: 50px">
-<<<<<<< HEAD
+
 			<button type="button" onclick="listReplyBtn()"
 				class="w3-blue w3-button">댓글보기</button>
 			<br>
 			<div id="listReply"></div>
-=======
-
 			<!--  댓글읽기 -->
 			<c:set var="uuserkey" value="${userinfo.userkey}" />
 			<c:set var="buserkey" value="${boardinfo.userkey}" />
@@ -146,7 +136,6 @@
 				<hr style="border: dotted 0.5px; opacity: 0.1; width: 95%;">
 			</c:forEach>
 
->>>>>>> refs/remotes/origin/master
 			<!--  댓글쓰기영역 -->
 			<div>
 				<c:choose>
@@ -176,13 +165,7 @@
 <!--  게시글 끝 -->
 <!--  select List -->
 <form action="/sboard/list" method="post">
-<<<<<<< HEAD
-	<div style="padding: 10px; align: center;">
-		<a class="w3-button"
-			href='/sboard/beforeread?boardkey=${boardinfo.boardkey}'>▼이전글</a> <input
-			type="submit" value="목록으로" class="w3-button" /> <a class="w3-button"
-			href='/sboard/afterread?boardkey=${boardinfo.boardkey}'>▲다음글</a>
-=======
+
  <input type="hidden" name="boardkey" value="${boardinfo.boardkey}" />
 	<div style="padding: 10px">
 		<center>
@@ -192,7 +175,6 @@
 				class="w3-button"
 				href='/sboard/afterread?boardkey=${boardinfo.boardkey}'>▲다음글</a>
 		</center>
->>>>>>> refs/remotes/origin/master
 	</div>
 
 </form>
