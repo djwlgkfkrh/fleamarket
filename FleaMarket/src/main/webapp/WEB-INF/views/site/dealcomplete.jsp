@@ -5,7 +5,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>구매자 정보</title>
+<title>거래 완료</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -33,10 +33,10 @@
 	//창 열릴때 자동으로 되니?
 	window.onload = function() {
 		// 실행할 자바스크립트 함수
-		var zipcode = '${buy.zipcode}';
+		var zipcode = '${buyuser.zipcode}';
 		var zip1 = zipcode.substr(0, 3);
 		var zip2 = zipcode.substr(3, 3);
-		var phone = '${buy.phone}';
+		var phone = '${buyuser.phone}';
 		var hp1 = phone.substr(0, 2);
 		var hp2 = phone.substr(2, 4);
 		var hp3 = phone.substr(6, 4);
@@ -48,25 +48,40 @@
 		
 
 	}
-
-	function delivery() {
-		var deliverykey=$('#deliveryNum').val();
-		var dealkey='${deal_list.dealkey}';
-		var vo="deliverykey="+deliverykey+"&dealkey="+dealkey;
+	//택배 조회
+	function checkdeliver() {
+		
+		var parcel=$('#parcel').val();
+		var url="";
+		if(parcel=="대한통운"){
+			url="https://www.doortodoor.co.kr/parcel/pa_004.jsp";
+		}else if(parcel=="한진택배"){
+			url="http://www.hanjin.co.kr/Delivery_html/inquiry/personal_inquiry.jsp";
+		}else if(parcel=="우체국택배"){
+			url="https://service.epost.go.kr/iservice/usr/trace/usrtrc001k01.jsp";
+		}
+		window.name = "parentForm";
+		window.open(url);
+	}
+	//물건 받았을때 거래완료
+	function complete() {
+		var money="${deal_list.money}";
+		var dealkey="${deal_list.dealkey}";
+		var userkey="${deal_list.saleuserkey}";
+		var vo="userkey="+userkey+"&money="+money+"&dealkey="+dealkey;
 		console.log(vo);
-		if(confirm("운송번호 맞나요?")){
+		if(confirm("물건을 받은게 맞나요?")){
 		$.ajax({
 			type : 'post',
-			url : '/site/deliverying',
+			url : '/site/complete',
 			data : vo,
 			success : function(result) {
-				console.log("delivery성공");
+				console.log("거래완료성공");
 				opener.parent.location.reload();
 				window.close();
 			}
 		});
 		}
-		
 	}
 </script>
 
@@ -78,6 +93,7 @@
 		<hr size="1" width="460">
 		<div id="chk">
 
+			<input type="hidden" name="id" value="${userinfo.id}" />
 			<table class="table" align="center">
 				<table class="table">
 					<thead>
@@ -112,7 +128,7 @@
 							</tr>
 							<tr>
 								<td colspan="2"><input id="addr1" name="addr1" type="text"
-									style="width: 310px;" readonly value="${buy.address }"/></td>
+									style="width: 310px;" readonly value="${buyuser.address }"/></td>
 							</tr>
 
 						</table>
@@ -129,13 +145,31 @@
 				</tr>
 			</table>
 <hr size="1" width="460">
-<c:set var="userkey" value="${userinfo.userkey }" />
-<c:set var="buykey" value="${buyuser.userkey }" />
-<c:if test="${buykey==userkey}">
-<b><font size="4" color="gray">운송장 입력</font></b>
-<input type="text" id="deliveryNum"/><input type="button" onclick="delivery()" value="배송"/>
-</c:if>
+
+<b><font size="4" color="gray">운송 번호</font></b>
+<input type="text" id="deliveryNum" value="${deal_list.deliverykey }" readonly />
+<label> <select id="parcel" name="parcel">
+								<option>우체국택배</option>
+								<option>대한통운</option>
+								<option>한진택배</option>
+						</select>
+<input type="button" value="조회" onclick="checkdeliver()"/>
 		</div>
+		<hr size="1" width="460">
+		<div align="center">
+	<c:set var="userkey" value="${userinfo.userkey }" />
+<c:set var="buykey" value="${buyuser.userkey }" />
+<!--구매자일때만 거래완료 보이게  -->
+<c:if test="${buykey==userkey}">
+<!-- 구매완료를 한 상태하면 버튼 안보이게  -->
+<c:if test="${deal_list.salestate!=3}">
+		<input type="button" value="거래완료" onclick="complete()"/>
+		</c:if>
+		</c:if>
+		</div>
+		<c:if test="${deal_list.salestate==3}">
+		거래가 완료되었습니다.
+		</c:if>
 	</div>
 </body>
 

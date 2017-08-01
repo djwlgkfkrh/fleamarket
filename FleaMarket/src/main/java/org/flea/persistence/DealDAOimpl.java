@@ -54,5 +54,17 @@ public class DealDAOimpl implements DealDAO {
 		session.update(namespace+".remitMoney", map);
 	}
 
+	@Override
+	public void updateDelivery(DealVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		session.update(namespace+".update",vo);
+	}
+
+	@Override
+	public void complete(Integer dealkey) throws Exception {
+		// TODO Auto-generated method stub
+		session.update(namespace+".complete",dealkey);
+	}
+
 	
 }

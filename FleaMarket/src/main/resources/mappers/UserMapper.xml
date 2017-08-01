@@ -47,7 +47,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<update id="addInfo">
-		update user set address = #{address},phone =#{phone} ,zipcode = #{zipcode}
+		update user set address = #{address},phone =#{phone} ,zipcode = #{zipcode},money=-#{money}
 		where userkey = #{userkey}
 	</update>
+	
+	<update id="deposit">
+		update user set money=#{money}
+		where userkey = #{userkey}
+	</update>
+	
 </mapper>

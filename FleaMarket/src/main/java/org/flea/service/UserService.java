@@ -19,4 +19,5 @@ public interface UserService {
 
 	public void addInfo(UserVO user) throws Exception;
 
+	public void deposit(UserVO user) throws Exception;
 }
