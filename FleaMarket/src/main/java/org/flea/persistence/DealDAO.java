@@ -14,5 +14,9 @@ public interface DealDAO {
 	public int checkMoney(String dealkey,String money) throws Exception;
 	
 	public void remitMoney(Integer dealkey,Integer money) throws Exception;
+	
+	public void updateDelivery(DealVO vo) throws Exception;
+	
+	public void complete(Integer dealkey) throws Exception;
 
 }

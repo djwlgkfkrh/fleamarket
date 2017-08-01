@@ -65,11 +65,11 @@
 								
 								<!-- 판매자일때와 구매자일때 상황이 조금 달라서 choose -->
 								<c:choose>
-								<c:when test="${buyuserkey==userkey}">
+								<c:when test="${saleuserkey==userkey}">
 								<input type="button" value="입금대기" id="step1"
 									onclick="openDeal(${status.count})" disabled style="color:gray;"/></td>
 									</c:when>
-									<c:when test="${saleuserkey==userkey}">
+									<c:when test="${buyuserkey==userkey}">
 									<input type="button" value="입금대기" id="step1"
 									onclick="openDeal(${status.count})" />
 									</td>
@@ -80,16 +80,18 @@
 									<c:when test="${deal.salestate eq 1}">
 								<input type="button" value="배송대기"
 									onclick="openDeal1(${status.count})" />
-									<input type="hidden" id="buyuserkey${status.count}" value="${buyuserkey}" />
+									<input type="hidden" id="saleuserkey${status.count}" value="${saleuserkey}" />
 									</td>
 									</c:when>
 									<c:when test="${deal.salestate eq 2}">
 								<input type="button" value="배송중"
-									onclick="openDeal2(${status.count})" /></td>
+									onclick="openDeal2(${status.count})" />
+									<input type="hidden" id="buyuserkey${status.count}" value="${buyuserkey}" /></td>
 									</c:when>
 									<c:when test="${deal.salestate eq 3}">
 								<input type="button" value="거래완료"
-									onclick="openDeal3(${status.count})" /></td>
+									onclick="openDeal2(${status.count})" />
+									<input type="hidden" id="buyuserkey${status.count}" value="${buyuserkey}" /></td>
 									</c:when>
 								</c:choose>
 							</tr>
@@ -218,29 +220,22 @@
 	function openDeal1(str) {
 		var boardkey = $('#boardkey'+str).html();
 		var dealkey = $('#dealkey'+str).val();
-		var buyuserkey = $('#buyuserkey'+str).val();
+		var saleuserkey = $('#saleuserkey'+str).val();
 			
 		window.name = "parentForm";
-		window.open("site/delivery?boardkey=" + boardkey+"&dealkey="+dealkey+"&buyuserkey="+buyuserkey, "dealForm",
+		window.open("site/delivery?boardkey=" + boardkey+"&dealkey="+dealkey+"&saleuserkey="+saleuserkey, "dealForm",
 				"width=600, height=650, resizable = no, scrollbars = no");
 	}
-	//배송중
+	//배송중 and 거래완료
 	function openDeal2(str) {
 		var boardkey = $('#boardkey'+str).html();
 		var dealkey = $('#dealkey'+str).val();
+		var buyuserkey = $('#buyuserkey'+str).val();
 			
 		window.name = "parentForm";
-		window.open("site/deliverying?boardkey=" + boardkey+"&dealkey="+dealkey, "dealForm",
+		window.open("site/dealcomplete?boardkey=" + boardkey+"&dealkey="+dealkey+"&buyuserkey="+buyuserkey, "dealForm",
 				"width=600, height=650, resizable = no, scrollbars = no");
 	}
-	//거래완료
-	function openDeal3(str) {
-		var boardkey = $('#boardkey'+str).html();
-		var dealkey = $('#dealkey'+str).val();
-			
-		window.name = "parentForm";
-		window.open("site/dealcomplete?boardkey=" + boardkey+"&dealkey="+dealkey, "dealForm",
-				"width=600, height=650, resizable = no, scrollbars = no");
-	}
+	
 </script>
 <%@include file="../include/footer.jsp"%>

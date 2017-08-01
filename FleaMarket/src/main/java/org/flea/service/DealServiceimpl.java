@@ -38,10 +38,21 @@ public class DealServiceimpl implements DealService {
 	}
 
 	@Override
-	public void remitMoney(Integer dealkey,Integer money) throws Exception {
+	public void remitMoney(Integer dealkey, Integer money) throws Exception {
 		// TODO Auto-generated method stub
-		dao.remitMoney(dealkey,money);
+		dao.remitMoney(dealkey, money);
 	}
 
-	
+	@Override
+	public void updateDelivery(DealVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		dao.updateDelivery(vo);
+	}
+
+	@Override
+	public void complete(Integer dealkey) throws Exception {
+		// TODO Auto-generated method stub
+		dao.complete(dealkey);
+	}
+
 }

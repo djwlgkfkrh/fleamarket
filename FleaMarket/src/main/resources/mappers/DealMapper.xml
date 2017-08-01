@@ -33,4 +33,16 @@
 		update deal set remittance = #{money}, salestate= 1
 		where dealkey = #{dealkey}
 	</update>
+	
+	<update id="update">
+		update deal set deliverykey = #{deliverykey}, salestate= 2
+		where dealkey = #{dealkey}
+	</update>
+	
+	<update id="complete">
+		update deal set remittance = 0, salestate=3
+		where dealkey = #{dealkey}
+	</update>
+	
+	
 </mapper>

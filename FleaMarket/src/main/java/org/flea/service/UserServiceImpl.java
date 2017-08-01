@@ -59,5 +59,10 @@ public class UserServiceImpl implements UserService {
 		dao.addInfo(user);
 	}
 
-	
+	@Override
+	public void deposit(UserVO user) throws Exception {
+		// TODO Auto-generated method stub
+		dao.deposit(user);
+	}
+
 }

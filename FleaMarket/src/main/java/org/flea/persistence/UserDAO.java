@@ -18,4 +18,6 @@ public interface UserDAO {
 	public boolean checkPw(String id, String pw) throws Exception;
 	
 	public void addInfo(UserVO user) throws Exception;
+	
+	public void deposit(UserVO user) throws Exception;
 }

@@ -72,4 +72,10 @@ public class UserDAOImpl implements UserDAO {
 		session.update(namespace+".addInfo",user);
 	}
 
+	@Override
+	public void deposit(UserVO user) throws Exception {
+		// TODO Auto-generated method stub
+		session.update(namespace+".deposit",user);
+	}
+
 }
