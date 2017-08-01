@@ -101,12 +101,14 @@ public class SiteController {
 	// 배송대기화면
 	@RequestMapping(value = "/delivery", method = RequestMethod.GET)
 	public void delivery(@RequestParam int boardkey, @RequestParam int dealkey, @RequestParam int saleuserkey,
-			Model model) throws Exception {
+			@RequestParam int buyuserkey,Model model) throws Exception {
 		BoardVO boardinfo = bservice.read(boardkey);
 		model.addAttribute("boardinfo", boardinfo);
 		UserVO boarduser = bservice.find(boardinfo.getUserkey());
 		UserVO buyuser = bservice.find(saleuserkey);
+		UserVO buy = bservice.find(buyuserkey);
 		model.addAttribute("boarduser", boarduser);
+		model.addAttribute("buy", buy);
 		model.addAttribute("buyuser", buyuser);
 		model.addAttribute("deal_list", dservice.read(dealkey));
 	}

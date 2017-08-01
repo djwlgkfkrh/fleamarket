@@ -33,10 +33,10 @@
 	//창 열릴때 자동으로 되니?
 	window.onload = function() {
 		// 실행할 자바스크립트 함수
-		var zipcode = '${buyuser.zipcode}';
+		var zipcode = '${buy.zipcode}';
 		var zip1 = zipcode.substr(0, 3);
 		var zip2 = zipcode.substr(3, 3);
-		var phone = '${buyuser.phone}';
+		var phone = '${buy.phone}';
 		var hp1 = phone.substr(0, 2);
 		var hp2 = phone.substr(2, 4);
 		var hp3 = phone.substr(6, 4);
@@ -78,7 +78,6 @@
 		<hr size="1" width="460">
 		<div id="chk">
 
-			<input type="hidden" name="id" value="${userinfo.id}" />
 			<table class="table" align="center">
 				<table class="table">
 					<thead>
@@ -113,7 +112,7 @@
 							</tr>
 							<tr>
 								<td colspan="2"><input id="addr1" name="addr1" type="text"
-									style="width: 310px;" readonly value="${buyuser.address }"/></td>
+									style="width: 310px;" readonly value="${buy.address }"/></td>
 							</tr>
 
 						</table>

@@ -81,6 +81,7 @@
 								<input type="button" value="배송대기"
 									onclick="openDeal1(${status.count})" />
 									<input type="hidden" id="saleuserkey${status.count}" value="${saleuserkey}" />
+									<input type="hidden" id="buyuserkey${status.count}" value="${buyuserkey}" />
 									</td>
 									</c:when>
 									<c:when test="${deal.salestate eq 2}">
@@ -221,9 +222,11 @@
 		var boardkey = $('#boardkey'+str).html();
 		var dealkey = $('#dealkey'+str).val();
 		var saleuserkey = $('#saleuserkey'+str).val();
+		var buyuserkey = $('#buyuserkey'+str).val();
 			
 		window.name = "parentForm";
-		window.open("site/delivery?boardkey=" + boardkey+"&dealkey="+dealkey+"&saleuserkey="+saleuserkey, "dealForm",
+		window.open("site/delivery?boardkey=" + boardkey+"&dealkey="+dealkey+"&saleuserkey="+saleuserkey
+				+"&buyuserkey="+buyuserkey, "dealForm",
 				"width=600, height=650, resizable = no, scrollbars = no");
 	}
 	//배송중 and 거래완료

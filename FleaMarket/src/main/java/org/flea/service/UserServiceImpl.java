@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import org.flea.domain.UserVO;
 import org.flea.persistence.UserDAO;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -52,13 +53,13 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		return dao.checkPw(id, pw);
 	}
-
+	@Transactional
 	@Override
 	public void addInfo(UserVO user) throws Exception {
 		// TODO Auto-generated method stub
 		dao.addInfo(user);
 	}
-
+	@Transactional
 	@Override
 	public void deposit(UserVO user) throws Exception {
 		// TODO Auto-generated method stub
