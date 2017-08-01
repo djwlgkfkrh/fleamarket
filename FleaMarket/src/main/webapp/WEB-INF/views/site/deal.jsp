@@ -31,11 +31,13 @@
 	function deal() {
 		if(checkValue()){
 		var money=$('#money').val();
+		var dealkey="${dealkey}";
 		var userkey="${userinfo.userkey}";
 		var address=$('#addr1').val()+$('#addr2').val();
 		var zipcode=$('#post1').val()+$('#post2').val();
 		var phone=$('#hphone1').val()+$('#hphone2').val()+$('#hphone3').val();
-		var vo="address="+address+"&zipcode="+zipcode+"&phone="+phone+"&userkey="+userkey+"&money="+money;
+		var vo="address="+address+"&zipcode="+zipcode+"&phone="+phone+"&userkey="
+		+userkey+"&money="+money+"&dealkey="+dealkey;
 		console.log(vo);
 		if(confirm("거래하시겠습니까?")){
 		$.ajax({
@@ -44,6 +46,7 @@
 			data : vo,
 			success : function(result) {
 				console.log("deal성공");
+				opener.parent.location.reload();
 				window.close();
 			}
 		});
@@ -93,6 +96,30 @@ var hp2=String($('#hphone3').val()).length;
 		//인수 3개 (주소, 이름, 사이즈)
 		window.open("zipcode", "zipcode", "width=400,height=500");
 	}
+	
+	//거래 금액이 맞는지 확인하기	
+	function checkRemit() {
+		var inputed = $('#money').val();
+		var dealkey="${dealkey}";
+		$.ajax({
+			type:"POST",
+			data : {
+				money : inputed , dealkey : dealkey
+			},
+			url : '/site/dealing/' + inputed+'/'+dealkey,
+			success : function(data) {
+				if (data == 'YES') {
+					$("#dealBtn").attr("disabled",false);
+					$("#dealBtn").css("background-color", "#eeeeee");
+					$("#checkdeal").html("");
+				} else if (data == 'NO') {
+					$("#dealBtn").attr("disabled",true);
+					$("#dealBtn").css("background-color", "#FFCECE");
+					$("#checkdeal").html("거래금액이 맞지 않습니다.");
+				}
+			}
+		});
+	}
 </script>
 
 
@@ -114,13 +141,16 @@ var hp2=String($('#hphone3').val()).length;
 					</thead>
 					<tbody>
 						<tr>
-							<td>1</td>
-							<td>1</td>
+							<td>${boardinfo.title }</td>
+							<td>${boarduser.nickname }</td>
 						</tr>
 						<tr>
 							<td colspan="2"><strong>거래금액 : <input type="text"
-									name="money" id="money" style="width: 150px;" />원
+									name="money" id="money" style="width: 150px;" oninput="checkRemit()"/>원
 							</strong></td>
+						</tr>
+						<tr>
+						<td colspan="2"><span id="checkdeal"></span></td>
 						</tr>
 					</tbody>
 				</table>
@@ -162,7 +192,7 @@ var hp2=String($('#hphone3').val()).length;
 						id="hphone3" name="hphone3" style="width: 50px;" maxlength="4" /></td>
 				</tr>
 				<tr>
-					<td colspan="2"><button type="button" onclick="deal()">거래하기</button>
+					<td colspan="2"><input type="button" onclick="deal()" id="dealBtn" value="거래하기"/>
 						<input type="button" id="deal" value="취소" onclick="window.close()"></td>
 				</tr>
 			</table>

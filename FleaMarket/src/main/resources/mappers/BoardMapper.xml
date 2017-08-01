@@ -95,8 +95,7 @@
 	</select>
 
 	<select id="find" resultType="org.flea.domain.UserVO">
-		select userkey, id, name, nickname,
-		point, cheater from user where userkey=#{userkey}
+		select * from user where userkey=#{userkey}
 	</select>
 
 
@@ -104,7 +103,7 @@
 		update board set commentcnt = commentcnt + #{amount} where boardkey =
 		#{boardkey}
 	</update>
-	
+
 	<insert id="create">
 		insert into board ( title, group1, group2, text, userkey)
 		values ( #{title}, #{group1}, #{group2}, #{text}, #{userkey})

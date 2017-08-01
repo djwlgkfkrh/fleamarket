@@ -28,13 +28,13 @@
 
 	<select id="commentMyCount" resultType="int">
 		select count(*)
-		from comment where userkey = #{userkey}
+		from
+		comment where userkey = #{userkey}
 
 	</select>
 
 	<delete id="deleteReply">
 		delete from comment where commentkey=#{commentkey}
-
 	</delete>
 	<update id="modifyReply">
 		update comment set context =#{context}

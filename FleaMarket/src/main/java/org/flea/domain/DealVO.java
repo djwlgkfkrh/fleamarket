@@ -1,12 +1,14 @@
 package org.flea.domain;
 
-public class SiteVO {
+public class DealVO {
 	private Integer dealkey;
 	private Integer buyuserkey;
 	private Integer saleuserkey;
 	private Integer boardkey;
 	private Integer deliverykey;
 	private Integer money;
+	private Integer remittance;
+	private Integer salestate;
 
 	public Integer getDealkey() {
 		return dealkey;
@@ -54,6 +56,22 @@ public class SiteVO {
 
 	public void setMoney(Integer money) {
 		this.money = money;
+	}
+
+	public Integer getRemittance() {
+		return remittance;
+	}
+
+	public void setRemittance(Integer remittance) {
+		this.remittance = remittance;
+	}
+
+	public Integer getSalestate() {
+		return salestate;
+	}
+
+	public void setSalestate(Integer salestate) {
+		this.salestate = salestate;
 	}
 
 }

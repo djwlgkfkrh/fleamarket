@@ -46,11 +46,11 @@ footer {
 	// 회원가입 화면의 입력값들을 검사한다.
 	function checkValue() {
 		var form = document.joinUser;
-		
+
 		if (!form.name.value) {
 			alert("이름을 입력하세요.");
 			return false;
-			}
+		}
 
 		if (!form.id.value) {
 			alert("아이디를 입력하세요.");
@@ -61,32 +61,32 @@ footer {
 			alert("아이디 중복체크를 해주세요.");
 			return false;
 		}
-		
+
 		if (!form.nickname.value) {
 			alert("닉네임을 입력하세요.");
 			return false;
-			}
-		
+		}
+
 		if (!form.pw.value) {
 			alert("비밀번호를 입력하세요.");
 			return false;
-		}		
+		}
 	}
 
-		// 아이디 중복체크 화면open
-		function openIdChk() {
+	// 아이디 중복체크 화면open
+	function openIdChk() {
 
-			window.name = "parentForm";
-			window.open("/IdCheck", "chkForm",
-					"width=500, height=300, resizable = no, scrollbars = no");
-		}
+		window.name = "parentForm";
+		window.open("/IdCheck", "chkForm",
+				"width=500, height=300, resizable = no, scrollbars = no");
+	}
 
-		// 아이디 입력창에 값 입력시 hidden에 idUncheck를 세팅한다.
-		// 이렇게 하는 이유는 중복체크 후 다시 아이디 창이 새로운 아이디를 입력했을 때
-		// 다시 중복체크를 하도록 한다.
-		function inputIdChk() {
-			document.userInfo.idDuplication.value = "idUncheck";
-		}
+	// 아이디 입력창에 값 입력시 hidden에 idUncheck를 세팅한다.
+	// 이렇게 하는 이유는 중복체크 후 다시 아이디 창이 새로운 아이디를 입력했을 때
+	// 다시 중복체크를 하도록 한다.
+	function inputIdChk() {
+		document.userInfo.idDuplication.value = "idUncheck";
+	}
 </script>
 <!-- 회원가입시 체크사항 끝 -->
 </head>
@@ -180,10 +180,10 @@ footer {
 												</tr>
 												<tr>
 													<td>아이디</td>
-													<td><input type="text" size="20" name="id" onkeydown="inputIdChk()" />
-													<input type="button" value="중복확인" onclick="openIdChk()"/>    
-                   								    <input type="hidden" name="idDuplication" value="idUncheck" />
-
+													<td><input type="text" size="20" name="id"
+														onkeydown="inputIdChk()" /> <input type="button"
+														value="중복확인" onclick="openIdChk()" /> <input type="hidden"
+														name="idDuplication" value="idUncheck" />
 												</tr>
 												<tr>
 													<td>닉네임</td>

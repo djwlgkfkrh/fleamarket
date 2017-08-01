@@ -45,9 +45,12 @@ public class CommentServiceImpl implements CommentService {
 	public void deleteReply(Integer commentkey) throws Exception {
 
 		// TODO Auto-generated method stub
+
+		// boardDAO.updateCommentCnt(vo.getBoardkey(), -1);
+
 		dao.deleteReply(commentkey);
-		//리플 카운트 처리하려면 꼭 수정
-		//boardDAO.updateCommentCnt(commentkey.getBoardkey(), -1);
+		// 리플 카운트 처리하려면 꼭 수정
+		// boardDAO.updateCommentCnt(commentkey.getBoardkey(), -1);
 
 	}
 
@@ -61,6 +64,7 @@ public class CommentServiceImpl implements CommentService {
 	public void replySub(CommentVO vo) throws Exception {
 		// TODO Auto-generated method stub
 		dao.replySub(vo);
+
 	}
 
 }

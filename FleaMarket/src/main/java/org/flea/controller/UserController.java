@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.flea.domain.UserVO;
 import org.flea.service.BoardService;
 import org.flea.service.CommentService;
+import org.flea.service.DealService;
 import org.flea.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,6 +39,8 @@ public class UserController {
 	private BoardService bservice;
 	@Inject
 	private CommentService cservice;
+	@Inject
+	private DealService dservice;
 	
 	// 아이디 중복확인 창
 	@RequestMapping(value = "/IdCheck", method = RequestMethod.GET)
@@ -105,6 +108,7 @@ public class UserController {
 		if(user==null){
 			return "error/login_error";
 		}else{
+		model.addAttribute("deal_list",dservice.getDeal(user.getUserkey()));
 		model.addAttribute("b_list",bservice.listMy(user.getUserkey()));
 		model.addAttribute("c_list",cservice.listMy(user.getUserkey()));
 		model.addAttribute("b_mycount",bservice.listCount(user.getUserkey()));
