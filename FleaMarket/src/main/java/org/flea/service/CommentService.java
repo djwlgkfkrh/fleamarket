@@ -2,9 +2,7 @@ package org.flea.service;
 
 import java.util.List;
 
-import org.flea.domain.BoardVO;
 import org.flea.domain.CommentVO;
-import org.flea.domain.UserVO;
 
 public interface CommentService {
 
@@ -17,7 +15,6 @@ public interface CommentService {
 	void modifyReply(CommentVO vo)throws Exception;
 
 	void replySub(CommentVO vo)throws Exception;
-
 
 	public List<CommentVO> listMy(Integer userkey) throws Exception;
 
