@@ -62,7 +62,7 @@
 										<tr>
 											<td><c:if test="${userkey == b_userkey}">
 													<form action="./delete" method="post">
-														<input type="hidden" name="boardkey"
+														<input type="hidden" name="boardkey" 
 															value="${boardinfo.boardkey}" />
 														<button class="w3-button w3-dark-grey">Delete</button>
 													</form></td>
@@ -166,8 +166,9 @@
 	</div>
 </div>
 <!--  게시글 끝 -->
-
+<!--  select List -->
 <form action="/sboard/list" method="post">
+ <input type="hidden" name="boardkey" value="${boardinfo.boardkey}" />
 	<div style="padding: 10px">
 		<center>
 			<a class="w3-button"

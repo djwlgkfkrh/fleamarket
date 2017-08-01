@@ -8,36 +8,29 @@
 	<!-- Read 시작 -->
 
 	<update id="updateViewCnt">
-		update board set viewcnt = viewcnt +1 where boardkey
-		=#{boardkey}
+		update board set viewcnt = viewcnt +1 
+		where boardkey=#{boardkey}
 	</update>
-	
+
 	<select id="read" resultType="org.flea.domain.BoardVO">
-		select salestate, title, group1, group2, regdate, viewcnt, text, boardkey , userkey
-		from board where
-		boardkey = #{boardkey}
+		select salestate, title, group1,
+		group2, regdate, viewcnt, text, boardkey , userkey
+		from board 
+		where boardkey = #{boardkey}
 	</select>
 
 	<select id="listMy" resultType="org.flea.domain.BoardVO">
 		select *
 		from board where userkey = #{userkey}
 
-
 		<!-- SELECT * FROM board LEFT OUTER JOIN user ON board.userkey = user.userkey 
 			WHERE board.userkey = #{userkey} LIMIT 1; -->
-
 	</select>
 
 	<select id="listCount" resultType="int">
 		select count(*)
-		from board where userkey = #{userkey}
-
-	</select>
-
-	<select id="listSearchCount" resultType="int">
-	 <![CDATA[ select count(boardkey) 
-		from board where boardkey > 0 ]]>
-		<include refid="search"></include>
+		from board
+		where userkey = #{userkey}
 	</select>
 
 	<select id="listSearch" resultType="BoardVO">
@@ -49,6 +42,60 @@
 			<![CDATA[    
   				order by boardkey desc limit #{pageStart}, #{perPageNum} ]]>
 	</select>
+
+	<select id="listSearchCount" resultType="int">
+	 <![CDATA[ select count(boardkey) 
+		from board where boardkey > 0 ]]>
+		<include refid="search"></include>
+	</select>
+
+
+	<!-- sale Board List start -->
+	<select id="salelistSearch" resultType="BoardVO">  <!-- board랑 sale을 연결해야함. 받는 파라미터가 SearchCriteria 이건데 -->
+		<![CDATA[  
+		 select * 
+		 from (board b, sale s) 
+		 where (s.boardkey = b.boardkey)
+		]]>
+		<include refid="search"></include>
+		
+  		<![CDATA[    
+  		order by salekey desc limit #{pageStart}, #{perPageNum} ]]>
+	</select>
+
+
+	<select id="salelistSearchCount" resultType="int">
+	 <![CDATA[ select count(salekey) 
+		from sale where salekey > 0 ]]>
+		<include refid="search"></include>
+	</select>
+	<!-- sale Board List end -->
+
+
+
+	<!-- Buy Board List start -->
+	<select id="buylistSearch" resultType="BoardVO">  <!-- board랑 sale을 연결해야함. 받는 파라미터가 SearchCriteria 이건데 -->
+		<![CDATA[  
+		 select * 
+		 from (board b, buy bb) 
+		 where (b.boardkey = bb.boardkey)
+		]]>
+		<include refid="search"></include>
+		
+  		<![CDATA[    
+  		order by buykey desc limit #{pageStart}, #{perPageNum} ]]>
+	</select>
+
+
+	<select id="buylistSearchCount" resultType="int">
+	 <![CDATA[ select count(buykey) 
+		from buy where buykey > 0 ]]>
+		<include refid="search"></include>
+	</select>
+	<!-- Buy Board List end -->
+
+
+
 	<sql id="search">
 		<if test="searchType != null">
 			<if test="searchType == 't'.toString()">
@@ -66,7 +113,8 @@
 				CONCAT('%', #{keyword}, '%'))
 			</if>
 			<if test="searchType == 'cw'.toString()">
-				and ( content like CONCAT('%', #{keyword}, '%') OR writer
+				and ( content like CONCAT('%', #{keyword}, '%') OR
+				writer
 				like
 				CONCAT('%', #{keyword}, '%'))
 			</if>
@@ -93,53 +141,95 @@
 	</select>
 
 	<select id="find" resultType="org.flea.domain.UserVO">
-		select userkey, id, name, nickname,
+		select userkey, id, name,
+		nickname,
 		point, cheater from user where userkey=#{userkey}
 	</select>
 
 
+	<!-- create Board start -->
 	<insert id="create">
-		insert into board ( title, group1, group2, text, userkey)
+		insert into board ( title, group1, group2, text,userkey)
 		values ( #{title}, #{group1}, #{group2}, #{text}, #{userkey})
 	</insert>
 
+	<insert id="salecreate">
+		insert into sale (boardkey)
+		values (#{boardkey})
+	</insert>
+
+	<insert id="buycreate">
+		insert into buy (boardkey)
+		values (#{boardkey})
+	</insert>
+	<!--create Board end -->
+
+	<!-- get key start-->
 	<select id="getboardKey" resultType="int">
 		select boardkey
 		from board
 		order by regdate desc limit 1
 	</select>
 
+	<select id="getSaleState" resultType="int">
+		<![CDATA[  
+		select count(boardkey)
+		from sale
+		where boardkey = #{boardkey}
+		]]>
+	</select>
+	
+	<select id="getBuyState" resultType="int">
+		<![CDATA[  
+		select count(boardkey)
+		from buy
+		where boardkey = #{boardkey}
+		]]>
+	</select>
+	<!-- get key end -->
 
-<!--  delete Board start -->
+
+
+
+	<!-- delete Board start -->
 
 	<delete id="deleteBoard">
 		delete from board where boardkey = #{boardkey}
 	</delete>
-	
+
+	<delete id="deleteSale">
+		delete from sale where boardkey = #{boardkey}
+	</delete>
+
+	<delete id="deleteBuy">
+		delete from buy where boardkey = #{boardkey}
+	</delete>
+
 	<delete id="deleteBoard_Comment">
-	delete from comment where boardkey = #{boardkey}
+		delete from comment where boardkey = #{boardkey}
 	</delete>
-	
+
 	<delete id="deleteBoard_File">
-	delete from file where boardkey = #{boardkey} 
+		delete from file where boardkey = #{boardkey}
 	</delete>
-	
-<!-- delete Board end -->
+
+	<!-- delete Board end -->
 
 
-<!--  modify Board start -->
+	<!-- modify Board start -->
 
-	<update id="modifyBoard">	
-		update board 
+	<update id="modifyBoard">
+		update board
 		<set>
-		group1 = #{group1}, 
-		group2 = #{group2},
-		title = #{title},
-		text = #{text}
+			group1 = #{group1},
+			group2 = #{group2},
+			title = #{title},
+			text =
+			#{text}
 		</set>
 		where boardkey = #{boardkey}
 	</update>
-		
-<!--  modify Board end -->
+
+	<!-- modify Board end -->
 
 </mapper>

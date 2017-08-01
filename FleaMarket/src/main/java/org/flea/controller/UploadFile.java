@@ -20,25 +20,19 @@ public class UploadFile {
 
 		FileVO vo = new FileVO();
 
-		
-
 		vo.setFileData(multipartFile.getBytes()); // bytes
 		vo.setFilesize((int) multipartFile.getSize());// filesize
 		vo.setFiletype(multipartFile.getContentType()); // fileType
 		
 		vo.setFile(duplicateFile(saveDir, multipartFile)); // file로 저장됨
 		vo.setOname(multipartFile.getOriginalFilename()); // oName
-		//vo.setFname(genId + "." + getExtension(vo.getOname())); // fname
-		//vo.setFilepath(saveDir +"/"); // path
+
 		vo.setFname(vo.getFile().getName()); // fname
 		vo.setFilepath((saveDir +"/"+ vo.getFname())); // path
 		
 
 		saveToFile(vo);
 		
-		
-		
-
 		logger.info("FileVO 상태 : ======= GetFile 완료 =========");
 
 		return vo;
