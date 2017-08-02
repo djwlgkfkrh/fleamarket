@@ -85,26 +85,36 @@
 		}
 	}
 	function checkValue() {
-		var form = document.returnform;
-
-		if (!form.reason.value) {
-			alert("반품 사유를 적어주세요.");
+		if (!$('#reason').val()) {
+			alert("반송 사유를 적어주세요.");
 			return false;
 		}
-		if (!form.deliverykey.value) {
-			alert("운송번호를 입력해주세요.");
+		
+		if (!$('#deliverykey').val()) {
+			alert("반송 번호를 입력하세요.");
 			return false;
 		}
-	}
-	 $(document).ready(function() {
-		$("#returnGoods").click(function() {
-			if (confirm("반품하시겠습니까?")) {
-				document.returnform.action="/site/returngoods";
-				document.returnform.submit(); 
-				opener.parent.location.reload(); 
+	}returnGoods
+	//반품할때
+	function returnGoods() {
+		var dealkey="${deal_list.dealkey}";
+		var deliverykey=$('#deliverykey').val();
+		var reason=$('#reason').val();
+		var vo="dealkey="+dealkey+"&deliverykey="+deliverykey+"&reason="+reason;
+		console.log(vo);
+		if(confirm("반품하실건가요?ㅜㅠ?")){
+		$.ajax({
+			type : 'post',
+			url : '/site/returngoods',
+			data : vo,
+			success : function(result) {
+				console.log("반품 보냄");
+				opener.parent.location.reload();
+				window.close();
 			}
 		});
-	}); 
+		}
+	}
 	 
 </script>
 
@@ -203,29 +213,27 @@
 									<div class="modal-header ">
 										<h4 class="modal-title w3-text-blue">반품</h4>
 									</div>
-									<form method="post" name="returnform" action="/site/returngoods"
-										onsubmit="return checkValue()">
-										<input type="hidden" value="${deal_list.dealkey}" name="dealkey"/>
+									
 										<div class="modal-body " style="float: center !important">
 
 											<table class="table w3-text-blue" style="padding: 15px;">
 												<tr>
 													<td>반품 사유</td>
-													<td><input type="text" size="20" name="reason" />
+													<td><input type="text" size="20" name="reason" id="reason" />
 												</tr>
 												<tr>
-													<td>운송번호</td>
-													<td><input type="text" size="20" name="deliverykey" />
+													<td>반송번호</td>
+													<td><input type="text" size="20" name="deliverykey" id="deliverykey" />
 												</tr>
 
 											</table>
 
 										</div>
 										<div class="modal-footer ">
-											<input type="submit" value="반품하기" id="returnGoods"  />
+											<input type="button" value="반품하기" id="returnGoods" onclick="returnGoods()" />
 											<button type="button" data-dismiss="modal">닫기</button>
 										</div>
-									</form>
+									
 								</div>
 							</div>
 						</div>

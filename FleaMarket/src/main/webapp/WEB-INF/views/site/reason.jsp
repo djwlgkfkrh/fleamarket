@@ -67,7 +67,7 @@
 	function complete() {
 		var money="${deal_list.money}";
 		var dealkey="${deal_list.dealkey}";
-		var userkey="${deal_list.saleuserkey}";
+		var userkey="${deal_list.buyuserkey}";
 		var boardkey="${boardinfo.boardkey}";
 		var vo="userkey="+userkey+"&money="+money+"&dealkey="+dealkey+"&boardkey="+boardkey;
 		console.log(vo);
@@ -83,30 +83,7 @@
 			}
 		});
 		}
-	}
-	function checkValue() {
-		var form = document.returnform;
-
-		if (!form.reason.value) {
-			alert("반품 사유를 적어주세요.");
-			return false;
-		}
-		if (!form.deliverykey.value) {
-			alert("운송번호를 입력해주세요.");
-			return false;
-		}
-	}
-	 $(document).ready(function() {
-		$("#returnGoods").click(function() {
-			if (confirm("반품하시겠습니까?")) {
-				document.returnform.action="/site/returngoods";
-				document.returnform.submit(); 
-			 	
-				opener.parent.location.reload(); 
-			}
-		});
-	}); 
-	 
+	}	 
 </script>
 
 
