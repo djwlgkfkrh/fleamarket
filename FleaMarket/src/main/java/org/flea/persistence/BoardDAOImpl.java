@@ -85,4 +85,11 @@ public class BoardDAOImpl implements BoardDAO {
 		    session.update(namespace + ".updateCommentCnt", paramMap);
 	}
 
+	@Override
+	public void complete(Integer boardkey) throws Exception {
+		// TODO Auto-generated method stub
+		session.update(namespace + ".complete",boardkey);
+	}
+
+	
 }

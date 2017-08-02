@@ -27,4 +27,6 @@ public interface BoardDAO {
 	public int after(Integer boardkey) throws Exception;
 	
 	public void updateCommentCnt(Integer boardkey, int amount)throws Exception;
+	
+	public void complete(Integer boardkey) throws Exception;
 }

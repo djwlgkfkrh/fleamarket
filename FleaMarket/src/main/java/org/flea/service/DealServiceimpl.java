@@ -56,4 +56,16 @@ public class DealServiceimpl implements DealService {
 		dao.complete(dealkey);
 	}
 
+	@Override
+	public void returncomplete(Integer dealkey) throws Exception {
+		// TODO Auto-generated method stub
+		dao.returncomplete(dealkey);
+	}
+
+	@Override
+	public void returngoods(DealVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		dao.returngoods(vo);
+	}
+
 }

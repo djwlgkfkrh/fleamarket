@@ -5,7 +5,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>거래 완료</title>
+<title>반품 확인</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -63,7 +63,7 @@
 		window.name = "parentForm";
 		window.open(url);
 	}
-	//물건 받았을때 거래완료
+	//반품확인
 	function complete() {
 		var money="${deal_list.money}";
 		var dealkey="${deal_list.dealkey}";
@@ -71,13 +71,13 @@
 		var boardkey="${boardinfo.boardkey}";
 		var vo="userkey="+userkey+"&money="+money+"&dealkey="+dealkey+"&boardkey="+boardkey;
 		console.log(vo);
-		if(confirm("물건을 받은게 맞나요?")){
+		if(confirm("상한곳 없나요?")){
 		$.ajax({
 			type : 'post',
-			url : '/site/complete',
+			url : '/site/returncomplete',
 			data : vo,
 			success : function(result) {
-				console.log("거래완료성공");
+				console.log("반품 끝");
 				opener.parent.location.reload();
 				window.close();
 			}
@@ -101,6 +101,7 @@
 			if (confirm("반품하시겠습니까?")) {
 				document.returnform.action="/site/returngoods";
 				document.returnform.submit(); 
+			 	
 				opener.parent.location.reload(); 
 			}
 		});
@@ -112,7 +113,7 @@
 </head>
 <body>
 	<div id="wrap">
-		<br> <b><font size="4" color="gray">배송지 정보</font></b>
+		<br> <b><font size="4" color="gray">반품 사유</font></b>
 		<hr size="1" width="460">
 		<div id="chk">
 
@@ -137,35 +138,11 @@
 					</tbody>
 				</table>
 			</table>
-			<br> <b><font size="4" color="gray">배송지 정보</font></b>
+			<br> <b><font size="4" color="gray">반품 사유</font></b>
 			<table class="table">
-				<tr>
-					<td>주소</td>
-					<td>
-						<table class="table">
-							<tr>
-								<td colspan="2" width="120"><input id="post1" name="post1"
-									type="text" style="width: 35px;" readonly /> - <input
-									name="post2" id="post2" type="text" style="width: 35px;"
-									readonly /></td>
-							</tr>
-							<tr>
-								<td colspan="2"><input id="addr1" name="addr1" type="text"
-									style="width: 310px;" readonly value="${buyuser.address }"/></td>
-							</tr>
-
-						</table>
-					</td>
-				</tr>
-				<tr>
-					<td>전화번호</td>
-					<td><input id="hp1" name="post1"
-									type="text" style="width: 40px;" readonly /> - <input
-									name="post2" id="hp2" type="text" style="width: 45px;"
-									readonly />- <input
-									name="post2" id="hp3" type="text" style="width: 45px;"
-									readonly /></td>
-				</tr>
+			<tr>
+			<td>${deal_list.reason }</td>
+			</tr>
 			</table>
 <hr size="1" width="460">
 
@@ -179,56 +156,12 @@
 <input type="button" value="조회" onclick="checkdeliver()"/>
 		</div>
 		<hr size="1" width="460">
+		
 		<div align="center">
-	<c:set var="userkey" value="${userinfo.userkey }" />
-<c:set var="buykey" value="${buyuser.userkey }" />
-<!--구매자일때만 거래완료 보이게  -->
-<c:if test="${buykey==userkey}">
-<!-- 구매완료를 한 상태하면 버튼 안보이게  -->
-<c:if test="${deal_list.salestate!=3}">
-		<input type="button" value="거래완료" onclick="complete()"/>
-		<button type="button" data-toggle="modal" data-target="#myModal"> 반품
-									</button>
-		</c:if>
-		</c:if>
-		</div>
-		<c:if test="${deal_list.salestate==3}">
-		거래가 완료되었습니다.
-		</c:if>
+		<input type="button" value="반품 확인" onclick="complete()"/>
+		</div>		
 	</div>
-	<!--  반품 모달 -->
-	<div class="modal fade" id="myModal" role="dialog">
-							<div class="modal-dialog modal-lg">
-								<div class="w3-modal-content" style="width: 400px !important">
-									<div class="modal-header ">
-										<h4 class="modal-title w3-text-blue">반품</h4>
-									</div>
-									<form method="post" name="returnform" action="/site/returngoods"
-										onsubmit="return checkValue()">
-										<input type="hidden" value="${deal_list.dealkey}" name="dealkey"/>
-										<div class="modal-body " style="float: center !important">
-
-											<table class="table w3-text-blue" style="padding: 15px;">
-												<tr>
-													<td>반품 사유</td>
-													<td><input type="text" size="20" name="reason" />
-												</tr>
-												<tr>
-													<td>운송번호</td>
-													<td><input type="text" size="20" name="deliverykey" />
-												</tr>
-
-											</table>
-
-										</div>
-										<div class="modal-footer ">
-											<input type="submit" value="반품하기" id="returnGoods"  />
-											<button type="button" data-dismiss="modal">닫기</button>
-										</div>
-									</form>
-								</div>
-							</div>
-						</div>
+	
 </body>
 
 </html>

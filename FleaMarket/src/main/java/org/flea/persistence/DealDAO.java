@@ -18,5 +18,9 @@ public interface DealDAO {
 	public void updateDelivery(DealVO vo) throws Exception;
 	
 	public void complete(Integer dealkey) throws Exception;
+	
+	public void returncomplete(Integer dealkey) throws Exception;
+	
+	public void returngoods(DealVO vo) throws Exception;
 
 }

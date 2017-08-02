@@ -44,5 +44,14 @@
 		where dealkey = #{dealkey}
 	</update>
 	
+	<update id="returngoods">
+		update deal set reason = #{reason}, deliverykey = #{deliverykey}, salestate= 4
+		where dealkey = #{dealkey}
+	</update>
+	
+	<update id="returncomplete">
+		update deal set remittance = 0, salestate=5
+		where dealkey = #{dealkey}
+	</update>
 	
 </mapper>

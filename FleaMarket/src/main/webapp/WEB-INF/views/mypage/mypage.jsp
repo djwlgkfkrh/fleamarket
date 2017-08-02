@@ -53,6 +53,8 @@
 					<c:forEach items="${deal_list}" var="deal" varStatus="status">
 						<c:set var="buyuserkey" value="${deal.buyuserkey}" />
 						<c:set var="saleuserkey" value="${deal.saleuserkey}" />
+						<c:if test="${deal.salestate!=5}">
+						<!-- 거래테이블에 내 유저키가 맞는게 있으면 -->
 						<c:if test="${buyuserkey==userkey||saleuserkey==userkey}">
 							<tr>
 								<td id="boardkey${status.count}">${deal.boardkey}</td>
@@ -67,7 +69,7 @@
 								<c:choose>
 								<c:when test="${saleuserkey==userkey}">
 								<input type="button" value="입금대기" id="step1"
-									onclick="openDeal(${status.count})" disabled style="color:gray;"/></td>
+									 disabled style="color:gray;"/></td>
 									</c:when>
 									<c:when test="${buyuserkey==userkey}">
 									<input type="button" value="입금대기" id="step1"
@@ -94,8 +96,24 @@
 									onclick="openDeal2(${status.count})" />
 									<input type="hidden" id="buyuserkey${status.count}" value="${buyuserkey}" /></td>
 									</c:when>
+									
+									<c:when test="${deal.salestate eq 4}">
+								<c:choose>
+								<c:when test="${buyuserkey==userkey}">
+								<input type="button" value="반품확인" id="step4"
+									 disabled style="color:gray;"/></td>
+									</c:when>
+									<c:when test="${saleuserkey==userkey}">
+									<input type="button" value="반품확인" id="step4"
+									onclick="openDeal3(${status.count})" />
+									<input type="hidden" id="buyuserkey${status.count}" value="${buyuserkey}" />
+									</td>
+									</c:when>
+									</c:choose>
+									</c:when>
 								</c:choose>
 							</tr>
+						</c:if>
 						</c:if>
 					</c:forEach>
 				</tbody>
@@ -237,6 +255,16 @@
 			
 		window.name = "parentForm";
 		window.open("site/dealcomplete?boardkey=" + boardkey+"&dealkey="+dealkey+"&buyuserkey="+buyuserkey, "dealForm",
+				"width=600, height=650, resizable = no, scrollbars = no");
+	}
+	//반품확인
+	function openDeal3(str) {
+		var boardkey = $('#boardkey'+str).html();
+		var dealkey = $('#dealkey'+str).val();
+		var buyuserkey = $('#buyuserkey'+str).val();
+			
+		window.name = "parentForm";
+		window.open("site/reason?boardkey=" + boardkey+"&dealkey="+dealkey+"&buyuserkey="+buyuserkey, "dealForm",
 				"width=600, height=650, resizable = no, scrollbars = no");
 	}
 	

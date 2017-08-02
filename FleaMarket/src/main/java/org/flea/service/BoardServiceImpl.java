@@ -9,6 +9,7 @@ import org.flea.domain.SearchCriteria;
 import org.flea.domain.UserVO;
 import org.flea.persistence.BoardDAO;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 
@@ -67,6 +68,13 @@ public class BoardServiceImpl implements BoardService {
 	public int after(Integer boardkey) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.after(boardkey);
+	}
+	
+	@Transactional
+	@Override
+	public void complete(Integer boardkey) throws Exception {
+		// TODO Auto-generated method stub
+		dao.complete(boardkey);
 	}
 
 }
