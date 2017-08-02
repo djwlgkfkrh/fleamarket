@@ -48,9 +48,9 @@ public class CommentController {
 		return entity;
 	}
 
-	@RequestMapping(value = "/replySub/{commentkey}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/{commentkey}", method = RequestMethod.POST)
 	public ResponseEntity<String> delete(@PathVariable("commentkey") Integer commentkey) throws Exception {
-		logger.info("reply sub ...........");
+		logger.info("reply delete ...........");
 
 		ResponseEntity<String> entity = null;
 		service.deleteReply(commentkey);
