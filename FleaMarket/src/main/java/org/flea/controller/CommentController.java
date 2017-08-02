@@ -74,7 +74,6 @@ public class CommentController {
 	public ResponseEntity<String> replySub( @PathVariable("commentkey") Integer commentkey, CommentVO vo) throws Exception {
 		logger.info("replySub  ...........");
 		vo.setParent_key(commentkey);
-		logger.info(vo.getParent_key()+"."+vo.getUserkey());
 		ResponseEntity<String> entity = null;
 		service.replySub(vo);
 		entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
