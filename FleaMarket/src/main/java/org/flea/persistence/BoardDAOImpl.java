@@ -181,4 +181,11 @@ public class BoardDAOImpl implements BoardDAO {
 		return session.selectOne(namespace + ".getBuyState", boardkey);
 	}
 
+	@Override
+	public void complete(Integer boardkey) throws Exception {
+		// TODO Auto-generated method stub
+		session.update(namespace + ".complete",boardkey);
+	}
+
+	
 }

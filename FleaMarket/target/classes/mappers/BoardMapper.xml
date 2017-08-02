@@ -9,7 +9,8 @@
 
 	<update id="updateViewCnt">
 		update board set viewcnt = viewcnt +1
-		where boardkey=#{boardkey}
+		where
+		boardkey=#{boardkey}
 	</update>
 
 	<select id="read" resultType="org.flea.domain.BoardVO">
@@ -17,23 +18,26 @@
 		group2, regdate, viewcnt, text, boardkey , userkey,commentcnt
 		from
 		board where
-		boardkey =
-		#{boardkey}
-
+		boardkey = #{boardkey}
 	</select>
 
 	<select id="listMy" resultType="org.flea.domain.BoardVO">
 		select *
 		from board where userkey = #{userkey}
-
-
 		<!-- SELECT * FROM board LEFT OUTER JOIN user ON board.userkey = user.userkey 
 			WHERE board.userkey = #{userkey} LIMIT 1; -->
 	</select>
 
-	<select id="listCount" resultType="int">
-		select count(*) from board
+	<select id="listCount" resultType="int"> select count(*)
+		from board
 		where userkey = #{userkey}
+
+	</select>
+
+	<select id="listSearchCount" resultType="int">
+	 <![CDATA[ select count(boardkey) 
+		from board where boardkey > 0 ]]>
+		<include refid="search"></include>
 
 	</select>
 
@@ -161,7 +165,8 @@
 	<insert id="create">
 		insert into board ( title, group1, group2,
 		text,userkey)
-		values ( #{title}, #{group1}, #{group2}, #{text}, #{userkey})
+		values ( #{title}, #{group1}, #{group2}, #{text},
+		#{userkey})
 	</insert>
 
 	<insert id="salecreate">
@@ -182,6 +187,7 @@
 		from board
 		order by regdate desc limit 1
 	</select>
+
 
 	<select id="getSaleState" resultType="int">
 		<![CDATA[  
@@ -244,5 +250,15 @@
 
 	<!-- modify Board end -->
 
+	<update id="updateCommentCnt">
+		update board set commentcnt = commentcnt + #{amount}
+		where boardkey =
+		#{boardkey}
+	</update>
 
+	<update id="complete">
+		update board set salestate = 1
+		where boardkey =
+		#{boardkey}
+	</update>
 </mapper>

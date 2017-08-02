@@ -42,8 +42,6 @@ public interface BoardDAO {
 
 	public void createPost(BoardVO vo) throws Exception;
 
-	public void updateCommentCnt(Integer boardkey, int amount) throws Exception;
-
 	public int getboardKey(BoardVO vo) throws Exception;
 
 	public void deleteBoard(Integer boardkey) throws Exception;
@@ -57,5 +55,9 @@ public interface BoardDAO {
 	public int getSaleState(Integer boardkey) throws Exception;
 
 	public int getBuyState(Integer boardkey) throws Exception;
+
+	public void updateCommentCnt(Integer boardkey, int amount)throws Exception;
+	
+	public void complete(Integer boardkey) throws Exception;
 
 }

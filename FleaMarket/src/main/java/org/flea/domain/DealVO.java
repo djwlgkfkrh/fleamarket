@@ -9,6 +9,7 @@ public class DealVO {
 	private Integer money;
 	private Integer remittance;
 	private Integer salestate;
+	private String reason;
 
 	public Integer getDealkey() {
 		return dealkey;
@@ -72,6 +73,14 @@ public class DealVO {
 
 	public void setSalestate(Integer salestate) {
 		this.salestate = salestate;
+	}
+
+	public String getReason() {
+		return reason;
+	}
+
+	public void setReason(String reason) {
+		this.reason = reason;
 	}
 
 }

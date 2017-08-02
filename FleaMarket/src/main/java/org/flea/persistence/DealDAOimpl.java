@@ -66,5 +66,17 @@ public class DealDAOimpl implements DealDAO {
 		session.update(namespace+".complete",dealkey);
 	}
 
+	@Override
+	public void returncomplete(Integer dealkey) throws Exception {
+		// TODO Auto-generated method stub
+		session.update(namespace+".returncomplete",dealkey);
+	}
+
+	@Override
+	public void returngoods(DealVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		session.update(namespace+".returngoods",vo);
+	}
+
 	
 }

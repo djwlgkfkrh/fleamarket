@@ -79,7 +79,7 @@ public class SiteController {
 	// 거래금액 확인
 	@ResponseBody
 	@RequestMapping(value = "/dealing/{money}/{dealkey}", method = RequestMethod.POST)
-	public ResponseEntity<String> checkMoney(@PathVariable String money, @PathVariable String dealkey)
+	public ResponseEntity<String> checkMoney(@PathVariable String money, @PathVariable String dealkey, UserVO vo)
 			throws Exception {
 		logger.info("checkMoney................");
 
@@ -87,10 +87,17 @@ public class SiteController {
 		try {
 			int checkCnt = dservice.checkMoney(dealkey, money);
 			// 금액 일치
-			if (checkCnt == 1)
-				entity = new ResponseEntity<String>("YES", HttpStatus.OK);
-			else// 금액 불일치
+			if (checkCnt == 1) {
+				int checkMoney = uservice.checkMoney(vo);
+				logger.info("checkMoney................" + checkMoney);
+				// 잔액이 부족할 때
+				if (checkMoney == 0) {
+					entity = new ResponseEntity<String>("YES", HttpStatus.OK);
+				} else
+					entity = new ResponseEntity<String>("NOT", HttpStatus.OK);
+			} else// 금액 불일치
 				entity = new ResponseEntity<String>("NO", HttpStatus.OK);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -101,7 +108,7 @@ public class SiteController {
 	// 배송대기화면
 	@RequestMapping(value = "/delivery", method = RequestMethod.GET)
 	public void delivery(@RequestParam int boardkey, @RequestParam int dealkey, @RequestParam int saleuserkey,
-			@RequestParam int buyuserkey,Model model) throws Exception {
+			@RequestParam int buyuserkey, Model model) throws Exception {
 		BoardVO boardinfo = bservice.read(boardkey);
 		model.addAttribute("boardinfo", boardinfo);
 		UserVO boarduser = bservice.find(boardinfo.getUserkey());
@@ -139,14 +146,50 @@ public class SiteController {
 
 	// 거래완료 시
 	@RequestMapping(value = "/complete", method = RequestMethod.POST)
-	public ResponseEntity<String> complete(UserVO user, Integer dealkey, Integer money) throws Exception {
+	public ResponseEntity<String> complete(UserVO user, Integer dealkey, Integer money, Integer boardkey)
+			throws Exception {
 		logger.info("complete................");
 
 		ResponseEntity<String> entity = null;
 		uservice.deposit(user);
 		dservice.complete(dealkey);
+		bservice.complete(boardkey);
 		entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		return entity;
 	}
 
+	// 반품
+	@RequestMapping(value = "/returngoods", method = RequestMethod.POST)
+	public String returnGoods(DealVO vo, Model model) throws Exception {
+
+		logger.info("return goods ...........");
+		dservice.returngoods(vo);
+		return "error/return_error";
+	}
+
+	// 반품 확인 창
+	@RequestMapping(value = "/reason", method = RequestMethod.GET)
+	public void returnView(@RequestParam int boardkey, @RequestParam int dealkey, @RequestParam int buyuserkey,
+			Model model) throws Exception {
+		BoardVO boardinfo = bservice.read(boardkey);
+		model.addAttribute("boardinfo", boardinfo);
+		UserVO boarduser = bservice.find(boardinfo.getUserkey());
+		UserVO buyuser = bservice.find(buyuserkey);
+		model.addAttribute("boarduser", boarduser);
+		model.addAttribute("buyuser", buyuser);
+		model.addAttribute("deal_list", dservice.read(dealkey));
+	}
+
+	// 반품 오케이
+	@RequestMapping(value = "/returncomplete", method = RequestMethod.POST)
+	public ResponseEntity<String> returnReason(UserVO user, Integer dealkey, Integer money, Integer boardkey)
+			throws Exception {
+		logger.info("complete................");
+
+		ResponseEntity<String> entity = null;
+		uservice.deposit(user);
+		dservice.returncomplete(dealkey);
+		entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		return entity;
+	}
 }

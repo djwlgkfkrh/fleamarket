@@ -68,7 +68,8 @@
 		var money="${deal_list.money}";
 		var dealkey="${deal_list.dealkey}";
 		var userkey="${deal_list.saleuserkey}";
-		var vo="userkey="+userkey+"&money="+money+"&dealkey="+dealkey;
+		var boardkey="${boardinfo.boardkey}";
+		var vo="userkey="+userkey+"&money="+money+"&dealkey="+dealkey+"&boardkey="+boardkey;
 		console.log(vo);
 		if(confirm("물건을 받은게 맞나요?")){
 		$.ajax({
@@ -83,6 +84,38 @@
 		});
 		}
 	}
+	function checkValue() {
+		if (!$('#reason').val()) {
+			alert("반송 사유를 적어주세요.");
+			return false;
+		}
+		
+		if (!$('#deliverykey').val()) {
+			alert("반송 번호를 입력하세요.");
+			return false;
+		}
+	}returnGoods
+	//반품할때
+	function returnGoods() {
+		var dealkey="${deal_list.dealkey}";
+		var deliverykey=$('#deliverykey').val();
+		var reason=$('#reason').val();
+		var vo="dealkey="+dealkey+"&deliverykey="+deliverykey+"&reason="+reason;
+		console.log(vo);
+		if(confirm("반품하실건가요?ㅜㅠ?")){
+		$.ajax({
+			type : 'post',
+			url : '/site/returngoods',
+			data : vo,
+			success : function(result) {
+				console.log("반품 보냄");
+				opener.parent.location.reload();
+				window.close();
+			}
+		});
+		}
+	}
+	 
 </script>
 
 
@@ -164,6 +197,8 @@
 <!-- 구매완료를 한 상태하면 버튼 안보이게  -->
 <c:if test="${deal_list.salestate!=3}">
 		<input type="button" value="거래완료" onclick="complete()"/>
+		<button type="button" data-toggle="modal" data-target="#myModal"> 반품
+									</button>
 		</c:if>
 		</c:if>
 		</div>
@@ -171,6 +206,37 @@
 		거래가 완료되었습니다.
 		</c:if>
 	</div>
+	<!--  반품 모달 -->
+	<div class="modal fade" id="myModal" role="dialog">
+							<div class="modal-dialog modal-lg">
+								<div class="w3-modal-content" style="width: 400px !important">
+									<div class="modal-header ">
+										<h4 class="modal-title w3-text-blue">반품</h4>
+									</div>
+									
+										<div class="modal-body " style="float: center !important">
+
+											<table class="table w3-text-blue" style="padding: 15px;">
+												<tr>
+													<td>반품 사유</td>
+													<td><input type="text" size="20" name="reason" id="reason" />
+												</tr>
+												<tr>
+													<td>반송번호</td>
+													<td><input type="text" size="20" name="deliverykey" id="deliverykey" />
+												</tr>
+
+											</table>
+
+										</div>
+										<div class="modal-footer ">
+											<input type="button" value="반품하기" id="returnGoods" onclick="returnGoods()" />
+											<button type="button" data-dismiss="modal">닫기</button>
+										</div>
+									
+								</div>
+							</div>
+						</div>
 </body>
 
 </html>

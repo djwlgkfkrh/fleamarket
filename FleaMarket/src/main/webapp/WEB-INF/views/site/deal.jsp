@@ -39,6 +39,8 @@
 		var vo="address="+address+"&zipcode="+zipcode+"&phone="+phone+"&userkey="
 		+userkey+"&money="+money+"&dealkey="+dealkey;
 		console.log(vo);
+		
+		
 		if(confirm("거래하시겠습니까?")){
 		$.ajax({
 			type : 'post',
@@ -101,10 +103,11 @@ var hp2=String($('#hphone3').val()).length;
 	function checkRemit() {
 		var inputed = $('#money').val();
 		var dealkey="${dealkey}";
+		var userkey="${userinfo.userkey}";
 		$.ajax({
 			type:"POST",
 			data : {
-				money : inputed , dealkey : dealkey
+				money : inputed , dealkey : dealkey ,userkey:userkey
 			},
 			url : '/site/dealing/' + inputed+'/'+dealkey,
 			success : function(data) {
@@ -116,6 +119,10 @@ var hp2=String($('#hphone3').val()).length;
 					$("#dealBtn").attr("disabled",true);
 					$("#dealBtn").css("background-color", "#FFCECE");
 					$("#checkdeal").html("거래금액이 맞지 않습니다.");
+				}else if (data == 'NOT') {
+					$("#dealBtn").attr("disabled",true);
+					$("#dealBtn").css("background-color", "#FFCECE");
+					$("#checkdeal").html("잔액이 부족합니다");
 				}
 			}
 		});
