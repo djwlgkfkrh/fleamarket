@@ -99,7 +99,7 @@
 <div id="reply_div">
 {{#isBoarduser userkey secret}}
 <h4>
-{{userkey}} <span class="w3-opacity w3-medium">{{prettifyDate regdate}}
+{{nickname}} <span class="w3-opacity w3-medium">{{prettifyDate regdate}}
 </span>
 {{#isMe userkey}}
 <span class="w3-opacity w3-medium"><a  onclick="replySub({{commentkey}})">답글</a></span>
@@ -186,15 +186,15 @@ class="w3-blue w3-button">수정</button></td>
 		var context = $('#context').val();
 		var boardkey = "${boardinfo.boardkey}";
 		var userkey = "${userinfo.userkey}";
+		var nickname = "${userinfo.nickname}";
 		var secret = $('input:checkbox[id="secret"]').is(":checked");
 		var vo = "boardkey=" + boardkey + "&context=" + context + "&userkey="
-				+ userkey + "&secret=" + secret;
+				+ userkey + "&secret=" + secret+ "&nickname=" + nickname;
 		$.ajax({
 			type : 'post',
 			url : '/reply/addReply',
 			data : vo,
 			success : function(result) {
-				console.log("replyAdd 성공");
 				listReply();
 			}
 		});
@@ -203,26 +203,23 @@ class="w3-blue w3-button">수정</button></td>
 		console.log("replyDelete");
 		$.ajax({
 			type : 'post',
-			url : '/reply/' + commentkey,
+			url : '/reply/delete/' + commentkey,
 			dataType : 'text',
 			headers : {
 				"Content-Type" : "application/json",
 				"X-HTTP-Method-Override" : "post"
 			},
 			success : function(result) {
-				console.log("삭제 성공");
 				listReply();
 			}
 		});
 	}
 	var printData1 = function(replyArr, targetDiv, handleBarTemplateName) {
-		console.log("printData_list1st 성공");
 		var template = Handlebars.compile(handleBarTemplateName.html());
 		$(targetDiv).append(template(replyArr));
 	}
 
 	function listReply() {
-		console.log("list들어옴22");
 		var boardkey = "${boardinfo.boardkey}";
 		var uuserkey = "${userinfo.userkey}";
 		var buserkey = "${boardinfo.userkey}";
@@ -246,27 +243,23 @@ class="w3-blue w3-button">수정</button></td>
 	}
 
 	function replyModify(commentkey) {
-		console.log("replyModify들어옴");
 		var context = $('#mcontext').val();
 		var secret = $('input:checkbox[id="msecret"]').is(":checked");
-		var vo = "context=" + context + +"&secret=" + secret;
+		var vo = "context=" + context  +"&secret=" + secret;
 		$.ajax({
-			type : 'put',
+			type : 'post',
 			data : vo,
-			url : '/reply/' + commentkey,
+			url : '/reply/modify/' + commentkey,
 			success : function() {
-				console.log("수정 성공");
 				listReply();
 			}
 		});
 	}
 	function listReply2(commentkey) {
-		console.log("list들어옴22_ commentkey : " + commentkey);
 		var boardkey = "${boardinfo.boardkey}";
 		var uuserkey = "${userinfo.userkey}";
 		var buserkey = "${boardinfo.userkey}";
-		$
-				.ajax({
+		$.ajax({
 					type : "POST",
 					headers : {
 						"Content-Type" : "application/json",
@@ -295,7 +288,6 @@ class="w3-blue w3-button">수정</button></td>
 		var theTemplateScript = $("#listReply2d").html();
 		var theTemplate = Handlebars.compile(theTemplateScript);
 		$(targetDiv).append(theTemplate(replyArr));
-		console.log("printData2 성공");
 	}
 	function replySub(commentkey) {
 		console.log("replySub들어옴");

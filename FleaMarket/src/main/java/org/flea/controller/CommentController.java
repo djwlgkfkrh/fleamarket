@@ -48,7 +48,7 @@ public class CommentController {
 		return entity;
 	}
 
-	@RequestMapping(value = "/{commentkey}", method = RequestMethod.POST)
+	@RequestMapping(value = "/delete/{commentkey}", method = RequestMethod.POST)
 	public ResponseEntity<String> delete(@PathVariable("commentkey") Integer commentkey) throws Exception {
 		logger.info("reply delete ...........");
 
@@ -59,9 +59,10 @@ public class CommentController {
 		return entity;
 	}
 
-	@RequestMapping(value = "/{commentkey}", method = { RequestMethod.PUT })
+	@RequestMapping(value = "/modify/{commentkey}", method =  RequestMethod.POST )
 	public ResponseEntity<String> modify( @PathVariable("commentkey") Integer commentkey, CommentVO vo) throws Exception {
 		logger.info("reply modify  ...........");
+		logger.info("dd"+vo.getContext());
 		vo.setCommentkey(commentkey);
 		ResponseEntity<String> entity = null;
 		service.modifyReply(vo);
