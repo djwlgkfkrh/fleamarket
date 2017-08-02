@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -38,41 +38,43 @@ pageEncoding="UTF-8"%>
 				<tr>
 					<td><span class="w3-text-grey">판매상태</span></td>
 					<td colspan="2"><span class="w3-text-grey">${boardinfo.salestate}
-					
-					
+
+
 
 							<div class="w3-input w3-border w3-round"
 								style="margin-top: 5px; width: 100%; min-height: 230px; text-align: left !important">
 								<c:forEach var="getFile" items="${fileinfo}">
-									<img style="margin-left:36%;"
+									<img style="margin-left: 36%;"
 										src="${pageContext.request.contextPath}/resources/upload/${getFile.fname}"
 										width="300" height="300">
 									<br>
 								</c:forEach>
-								<br><br> ${boardinfo.text} <br> <br>
+								<br>
+								<br> ${boardinfo.text} <br> <br>
 
-								
+
 							</div> <!-- 포스팅 글 수정/삭제 버튼 출력 시작  -->
 							<div>
 								<c:set var="userkey" value="${userinfo.userkey}" />
 								<c:set var="b_userkey" value="${boardinfo.userkey}" />
 
-									<table style="margin-left:80%">
-										<tr>
-											<td><c:if test="${userkey == b_userkey}">
-													<form action="./delete" method="post">
-														<input type="hidden" name="boardkey" 
-															value="${boardinfo.boardkey}" />
-														<button class="w3-button w3-dark-grey">Delete</button>
-													</form></td>
-											<td>
-												<form action="./boardmodify">
-													<input type="hidden" name="boardkey" value="${boardinfo.boardkey}" />
-													<button class="w3-button w3-dark-grey">Modify</button>
-												</form> </c:if>
-											</td>
-										</tr>
-									</table>
+								<table style="margin-left: 80%">
+									<tr>
+										<td><c:if test="${userkey == b_userkey}">
+												<form action="./delete" method="post">
+													<input type="hidden" name="boardkey"
+														value="${boardinfo.boardkey}" />
+													<button class="w3-button w3-dark-grey">Delete</button>
+												</form></td>
+										<td>
+											<form action="./boardmodify">
+												<input type="hidden" name="boardkey"
+													value="${boardinfo.boardkey}" />
+												<button class="w3-button w3-dark-grey">Modify</button>
+											</form> </c:if>
+										</td>
+									</tr>
+								</table>
 
 							</div> <!-- 포스팅 글 수정/삭제 버튼 출력 끝  -->
 
@@ -122,7 +124,7 @@ pageEncoding="UTF-8"%>
 <!--  select List -->
 <form action="/sboard/list" method="post">
 
- <input type="hidden" name="boardkey" value="${boardinfo.boardkey}" />
+	<input type="hidden" name="boardkey" value="${boardinfo.boardkey}" />
 	<div style="padding: 10px">
 		<center>
 			<a class="w3-button"
@@ -142,13 +144,14 @@ pageEncoding="UTF-8"%>
 
 <script id="replyread" type="text/x-handlebars-template"> 
 
+{{#unless parent_key}}
 <div id="reply_div">
 {{#isBoarduser userkey secret}}
 <h4>
 {{nickname}} <span class="w3-opacity w3-medium">{{prettifyDate regdate}}
 </span>
 {{#isMe userkey}}
-<span class="w3-opacity w3-medium"><a  onclick="replySub({{commentkey}})">답글</a></span>
+<span class="w3-opacity w3-medium"><a  onclick="replySubBtn({{commentkey}})">답글</a></span>
 {{/isMe}}
 
 {{#isMeq userkey}}
@@ -167,10 +170,40 @@ pageEncoding="UTF-8"%>
 </p>
 {{/isBoarduser}}
 </div>
-<hr style="border: dotted 0.5px; opacity: 0.1; width: 95%;">
 
+{{else}}				
+<div id="reply_div" style="margin-left: 30px">
+{{#isBoarduser userkey secret}}
+<h4>
+{{nickname}} <span class="w3-opacity w3-medium">{{prettifyDate regdate}}
+</span>
+{{#isMe userkey}}
+<span class="w3-opacity w3-medium"><a  onclick="replySubBtn({{commentkey}})">답글</a></span>
+{{/isMe}}
+
+{{#isMeq userkey}}
+<span class="w3-opacity w3-medium"> <a 
+		onclick="replyModifyBtn({{commentkey}})">수정</a> | <a
+		 onclick="replyDelete({{commentkey}})">삭제</a>
+	</span>
+{{/isMeq}}
+<p style="margin-left: 10px">{{context}}</p>
+
+
+{{else}}
+<p>
+비밀 댓글입니다.<span class="w3-opacity w3-medium"> {{prettifyDate regdate}}
+	</span>
+</p>
+{{/isBoarduser}}
+
+</div>
+{{/unless}}
+
+<hr style="border: dotted 0.5px; opacity: 0.1; width: 95%;">
 </script>
 <script id="listReply2d" type="text/x-handlebars-template">
+<br>
 <table>
 <tr>
 <td><textarea name="mcontext" id="mcontext"	class=" w3-border w3-light-grey" cols="80%"></textarea></td>
@@ -182,10 +215,24 @@ type="checkbox" id="msecret" name="msecret">비밀댓글
 class="w3-blue w3-button">수정</button></td>
 </tr>
 </table>
+<hr style="border: dotted 0.5px; opacity: 0.1; width: 95%;">
+</script>
+
+<script id="listReply3d" type="text/x-handlebars-template">
+<table>
+<tr>
+<td><textarea name="rcontext" id="rcontext"	class=" w3-border w3-light-grey" cols="80%"></textarea></td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp; <input class="w3-check"
+type="checkbox" id="rsecret" name="rsecret">비밀댓글
+</td>
+<td>&nbsp;&nbsp;&nbsp;&nbsp;
+<button type="button" onclick="replySub({{commentkey}})"
+class="w3-blue w3-button">완료</button></td>
+</tr>
+</table>
 </script>
 <script>
 	Handlebars.registerHelper('isMe', function(userkey, options) {
-
 		var uuserkey = "${userinfo.userkey}";
 		if (userkey != uuserkey && uuserkey != null) {
 			return options.fn(this);
@@ -193,9 +240,7 @@ class="w3-blue w3-button">수정</button></td>
 			return options.inverse(this);
 		}
 	});
-
 	Handlebars.registerHelper('isMeq', function(userkey, options) {
-
 		var uuserkey = "${userinfo.userkey}";
 		if (userkey == uuserkey) {
 			return options.fn(this);
@@ -210,7 +255,6 @@ class="w3-blue w3-button">수정</button></td>
 				if (buserkey == uuserkey || uuserkey == userkey
 						|| secret == false) {
 					return options.fn(this);
-
 				} else {
 					return options.inverse(this);
 				}
@@ -222,12 +266,30 @@ class="w3-blue w3-button">수정</button></td>
 		var date = dateObj.getDate();
 		return year + "/" + month + "/" + date;
 	});
-
+	var printData1 = function(replyArr, targetDiv, handleBarTemplateName) {
+		var template = Handlebars.compile(handleBarTemplateName.html());
+		$(targetDiv).append(template(replyArr));
+	}
+	var printData2 = function(replyArr, targetDiv) {
+		var theTemplateScript = $("#listReply2d").html();
+		var theTemplate = Handlebars.compile(theTemplateScript);
+		$(targetDiv).append(theTemplate(replyArr));
+	}
+	var printData3 = function(replyArr, targetDiv) {
+		var theTemplateScript = $("#listReply3d").html();
+		var theTemplate = Handlebars.compile(theTemplateScript);
+		$(targetDiv).append(theTemplate(replyArr));
+	}
 	function listReplyBtn() {
 		console.log("listReplyBtn");
 		listReply();
 	}
-
+	function replyModifyBtn(commentkey) {
+		listReply2(commentkey);
+	}
+	function replySubBtn(commentkey) {
+		listReply3(commentkey);
+	}
 	function replyAdd() {
 		var context = $('#context').val();
 		var boardkey = "${boardinfo.boardkey}";
@@ -235,7 +297,7 @@ class="w3-blue w3-button">수정</button></td>
 		var nickname = "${userinfo.nickname}";
 		var secret = $('input:checkbox[id="secret"]').is(":checked");
 		var vo = "boardkey=" + boardkey + "&context=" + context + "&userkey="
-				+ userkey + "&secret=" + secret+ "&nickname=" + nickname;
+				+ userkey + "&secret=" + secret + "&nickname=" + nickname;
 		$.ajax({
 			type : 'post',
 			url : '/reply/addReply',
@@ -260,12 +322,7 @@ class="w3-blue w3-button">수정</button></td>
 			}
 		});
 	}
-	var printData1 = function(replyArr, targetDiv, handleBarTemplateName) {
-		var template = Handlebars.compile(handleBarTemplateName.html());
-		$(targetDiv).append(template(replyArr));
-	}
-
-	function listReply() {
+	function listReply() { //대댓글이 가능하도록 얘랑 templete or handlerbar 수정하기
 		var boardkey = "${boardinfo.boardkey}";
 		var uuserkey = "${userinfo.userkey}";
 		var buserkey = "${boardinfo.userkey}";
@@ -284,14 +341,10 @@ class="w3-blue w3-button">수정</button></td>
 			}
 		});
 	}
-	function replyModifyBtn(commentkey) {
-		listReply2(commentkey);
-	}
-
 	function replyModify(commentkey) {
 		var context = $('#mcontext').val();
 		var secret = $('input:checkbox[id="msecret"]').is(":checked");
-		var vo = "context=" + context  +"&secret=" + secret;
+		var vo = "context=" + context + "&secret=" + secret;
 		$.ajax({
 			type : 'post',
 			data : vo,
@@ -303,9 +356,8 @@ class="w3-blue w3-button">수정</button></td>
 	}
 	function listReply2(commentkey) {
 		var boardkey = "${boardinfo.boardkey}";
-		var uuserkey = "${userinfo.userkey}";
-		var buserkey = "${boardinfo.userkey}";
-		$.ajax({
+		$
+				.ajax({
 					type : "POST",
 					headers : {
 						"Content-Type" : "application/json",
@@ -316,13 +368,9 @@ class="w3-blue w3-button">수정</button></td>
 						document.getElementById("listReply").innerHTML = "";
 						for ( var i in result) {
 							if (commentkey == result[i].commentkey) {
-								console.log("33list들어옴_ commentkey :"
-										+ result[i].commentkey);
 								printData2(result[i], $("#listReply"),
 										$("#replyread2"));
 							} else {
-								console.log("33list들어옴_ commentkey :"
-										+ result[i].commentkey);
 								printData1(result[i], $("#listReply"),
 										$("#replyread"));
 							}
@@ -330,19 +378,41 @@ class="w3-blue w3-button">수정</button></td>
 					}
 				});
 	}
-	var printData2 = function(replyArr, targetDiv) {
-		var theTemplateScript = $("#listReply2d").html();
-		var theTemplate = Handlebars.compile(theTemplateScript);
-		$(targetDiv).append(theTemplate(replyArr));
+	function listReply3(commentkey) {
+		var boardkey = "${boardinfo.boardkey}";
+		$
+				.ajax({
+					type : "POST",
+					headers : {
+						"Content-Type" : "application/json",
+						"X-HTTP-Method-Override" : "POST"
+					},
+					url : "/reply/list?boardkey=" + boardkey,
+					success : function(result) {
+						document.getElementById("listReply").innerHTML = "";
+						for ( var i in result) {
+							if (commentkey == result[i].commentkey) {
+								printData1(result[i], $("#listReply"),
+										$("#replyread"));
+								printData3(result[i], $("#listReply"),
+										$("#replyread2"));
+							} else {
+								printData1(result[i], $("#listReply"),
+										$("#replyread"));
+							}
+						}
+					}
+				});
 	}
 	function replySub(commentkey) {
 		console.log("replySub들어옴");
-		//var context = $('#context').val();
 		var boardkey = "${boardinfo.boardkey}";
+		var nickname = "${userinfo.nickname}";
 		var userkey = "${userinfo.userkey}";
-		//var secret = $('input:checkbox[id="secret"]').is(":checked");
-		var vo = "boardkey=" + boardkey + "&userkey=" + userkey;
-
+		var context = $('#rcontext').val();
+		var secret = $('input:checkbox[id="rsecret"]').is(":checked");
+		var vo = "boardkey=" + boardkey + "&userkey=" + userkey + "&context="
+				+ context + "&secret=" + secret + "&nickname=" + nickname;
 		$.ajax({
 			type : 'post',
 			data : vo,

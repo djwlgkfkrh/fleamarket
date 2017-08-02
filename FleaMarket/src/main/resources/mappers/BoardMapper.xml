@@ -51,13 +51,6 @@
   				order by boardkey desc limit #{pageStart}, #{perPageNum} ]]>
 	</select>
 
-	<select id="listSearchCount" resultType="int">
-	 <![CDATA[ select count(boardkey) 
-		from board where boardkey > 0 ]]>
-		<include refid="search"></include>
-	</select>
-
-
 	<!-- sale Board List start -->
 	<select id="salelistSearch" resultType="BoardVO">  <!-- board랑 sale을 연결해야함. 받는 파라미터가 SearchCriteria 이건데 -->
 		<![CDATA[  
@@ -153,13 +146,6 @@
 		select * from user where
 		userkey=#{userkey}
 	</select>
-
-
-	<update id="updateCommentCnt">
-		update board set commentcnt = commentcnt + #{amount}
-		where boardkey =
-		#{boardkey}
-	</update>
 
 	<!-- create Board start -->
 	<insert id="create">

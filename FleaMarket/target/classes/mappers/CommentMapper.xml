@@ -13,9 +13,10 @@
 	</insert>
 
 	<select id="commentRead" resultType="org.flea.domain.CommentVO">
-		select userkey, context,
-		regdate, secret,commentkey,nickname from comment where
-		boardkey=#{boardkey}
+	select userkey, context,
+      regdate, secret,commentkey,nickname, parent_key from comment where
+      boardkey=#{boardkey} order by if(isnull(parent_key),commentkey,parent_key)
+
 	</select>
 
 	<select id="listMy" resultType="org.flea.domain.CommentVO">
@@ -38,16 +39,17 @@
 	<delete id="deleteReply">
 		delete from comment where commentkey=#{commentkey}
 	</delete>
-	<update id="modifyReply"> 
-	update comment set context =#{context},	secret=#{secret}
-		where commentkey = #{commentkey}
+
+	<update id="modifyReply">
+		update comment set context =#{context}, secret=#{secret}
+		where commentkey =
+		#{commentkey}
 	</update>
 	<insert id="replySub">
 		insert into comment (parent_key,boardkey, userkey,
-		context,
-		secret)
+		context,secret,nickname)
 		values(#{parent_key},#{boardkey},#{userkey},
-		#{context}, #{secret})
+		#{context}, #{secret},#{nickname})
 	</insert>
 
 </mapper>
