@@ -19,6 +19,7 @@
 
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <style>
 /* Remove the navbar's default margin-bottom and rounded borders */
@@ -45,22 +46,22 @@ footer {
 <body>
 
 	<nav class="navbar navbar-inverse w3-border-white">
-		<div class="container-fluid w3-light-blue ">
+		<div class="container-fluid w3-yellow ">
 			<div class="navbar-header ">
 				<button type="button" class="navbar-toggle" data-toggle="collapse"
 					data-target="#myNavbar">
 					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand  w3-text-white " href="/">Flea Market</a>
+				<a class="navbar-brand  w3-text-black w3-xlarge" href="/">Flea Market</a>
 			</div>
 			<div class="collapse navbar-collapse " id="myNavbar">
 				<ul class="nav navbar-nav ">
 
-					<li><a class="w3-text-white" href="/sboard/list">삽니다</a></li>
-					<li><a class="w3-text-white" href="#">팝니다</a></li>
-					<li><a class="w3-text-white" href="#">사기꾼list</a></li>
-					<li><a class="w3-text-white" href="/mypage">마이페이지</a></li>
+					<li><a class="w3-text-black w3-xlarge" href="/sboard/list">Buy</a></li>
+					<li><a class="w3-text-black w3-xlarge" href="#">Sell</a></li>
+					
+					<li><a class="w3-text-black w3-xlarge" href="/mypage">MyPage</a></li>
 				</ul>
 
 
@@ -72,7 +73,7 @@ footer {
 									style="font-size: 15px; margin-top: 13px;">
 									${sessionScope.userinfo.nickname}님 환영합니다.</li>
 								<li>
-									<button type="submit" class="btn w3-light-blue w3-text-white">
+									<button type="submit" class="btn w3-yellow w3-text-black">
 										<span style="font-size: 20px; margin-top: 5px;"
 											class="glyphicon glyphicon-log-out"></span> Logout
 									</button>
@@ -84,26 +85,26 @@ footer {
 					<c:otherwise>
 						<form action="/login" method="post">
 							<ul class=" nav navbar-nav navbar-right">
-								<li class="w3-text-white"
+								<li class="w3-text-black"
 									style="font-size: 15px; margin-top: 13px;">ID</li>
-								<li><input type="text" class="w3-input w3-light-blue"
-									name="id" style="border-bottom: 1px solid #ffffff !important"
+								<li><input type="text" class="w3-input w3-yellow"
+									name="id" style="border-bottom: 1px solid #000000 !important"
 									size="5" class="w3-light-blue" /></li>
 
-								<li class="w3-text-white"
+								<li class="w3-text-black"
 									style="font-size: 15px; margin-top: 13px;">PW</li>
-								<li><input type="password" class="w3-input w3-light-blue"
-									name="pw" style="border-bottom: 1px solid #ffffff !important"
+								<li><input type="password" class="w3-input w3-yellow"
+									name="pw" style="border-bottom: 1px solid #000000 !important"
 									size="5" class="w3-light-blue" /></li>
 								<li>
-									<button type="submit" class="btn w3-light-blue w3-text-white">
+									<button type="submit" class="btn w3-yellow w3-text-black">
 										<span style="font-size: 20px; margin-top: 5px;"
 											class="glyphicon glyphicon-log-in"></span> Login
 									</button>
 								</li>
 
 								<li>
-									<button type="button" class="btn w3-light-blue w3-text-white"
+									<button type="button" class="btn w3-yellow w3-text-black"
 										data-toggle="modal" data-target="#myModal">
 
 										<span style="font-size: 20px; margin-top: 5px;"
@@ -117,7 +118,7 @@ footer {
 							<div class="modal-dialog modal-lg">
 								<div class="w3-modal-content" style="width: 400px !important">
 									<div class="modal-header ">
-										<button type="button" class="close w3-text-white"
+										<button type="button" class="close w3-text-black"
 											data-dismiss="modal">&times;</button>
 										<h4 class="modal-title w3-text-blue">Join Us</h4>
 									</div>
@@ -163,9 +164,4 @@ footer {
 
 	</nav>
 
-	<div class="jumbotron">
-		<div class="container text-center">
-			<h1>Flea Market</h1>
-			<p>Some text that represents "Me"...</p>
-		</div>
-	</div>
+		
