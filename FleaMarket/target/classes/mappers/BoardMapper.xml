@@ -99,7 +99,12 @@
 		select * from user where
 		userkey=#{userkey}
 	</select>
-
+	<insert id="create">
+		insert into board ( title, group1, group2,
+		text,userkey,nickname)
+		values ( #{title}, #{group1}, #{group2}, #{text},
+		#{userkey},#{nickname})
+	</insert>
 	<update id="updateCommentCnt">
 		update board set commentcnt = commentcnt + #{amount}
 		where boardkey =
@@ -108,6 +113,7 @@
 
 	<update id="complete">
 		update board set salestate = 1
-		where boardkey = #{boardkey}
+		where boardkey =
+		#{boardkey}
 	</update>
 </mapper>

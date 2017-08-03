@@ -115,6 +115,18 @@ public class UserController {
 		return "mypage/mypage";
 		}
 	}
+	
+	@RequestMapping(value = "/deallist", method = RequestMethod.GET)
+	public String deallist(UserVO user,Model model,HttpSession session) throws Exception {
+		logger.info("deallist................"+user.getUserkey());
+		user=(UserVO) session.getAttribute("userinfo");
+		if(user==null){
+			return "error/login_error";
+		}else{
+		model.addAttribute("deal_list",dservice.getDeal(user.getUserkey()));
+		return "mypage/deallist";
+		}
+	}
 	@RequestMapping(value = "/mypage/modify", method = RequestMethod.GET)
 	public void modify(UserVO user, Model model,HttpSession session)  throws Exception{
 		logger.info("MyPage modify................");
