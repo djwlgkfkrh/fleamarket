@@ -102,7 +102,7 @@ li.dropdown {
 						class="dropbtn w3-xlarge w3-text-black">MyPage</a>
 						<div class="dropdown-content">
 							<a href="#">My Information</a> <a href="#">My Order</a> <a
-								href="#">My Cart</a>
+								href="/mypage/mycart">My Cart</a>
 						</div></li>
 
 
@@ -113,7 +113,7 @@ li.dropdown {
 					<c:when test="${not empty sessionScope.userinfo}">
 						<form action="/logout" method="post">
 							<ul class=" nav navbar-nav navbar-right">
-								<li class="w3-text-white"
+								<li class="w3-text-black"
 									style="font-size: 15px; margin-top: 13px;">
 									${sessionScope.userinfo.nickname}님 환영합니다.</li>
 								<li>

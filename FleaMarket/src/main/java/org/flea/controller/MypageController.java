@@ -28,7 +28,11 @@ public class MypageController {
 		    logger.info("Welcome Modify! The client locale is {}.", locale);
 
 		  }
-	  
+	  @RequestMapping(value = "/mycart", method = RequestMethod.GET)
+	  public void mycart(Locale locale, Model model) {
+		    logger.info("Welcome Modify! The client locale is {}.", locale);
+
+		  }
 	 
 	
 }

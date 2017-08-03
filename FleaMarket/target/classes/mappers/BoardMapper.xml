@@ -14,8 +14,7 @@
 		select salestate, title, group1,
 		group2, regdate, viewcnt, text, boardkey , userkey
 		from board where
-		boardkey =
-		#{boardkey}
+		boardkey =#{boardkey}
 	</select>
 
 	<select id="listSearchCount" resultType="int">
@@ -79,4 +78,20 @@
 		select userkey, id, name, nickname,
 		point, cheater from user where userkey=#{userkey}
 	</select>
+	
+	<insert id="putcart">
+		insert into cart (userkey, boardkey)
+		values(#{userkey},#{boardkey})
+	</insert>
+	
+	<select id="getcart" resultType="int">
+		select count(*) from cart where
+		boardkey=#{boardkey} and userkey=#{userkey}
+	</select>
+
+	<delete id="dealcart">
+		delete from cart where boardkey=#{boardkey} and
+		userkey=#{userkey}
+	</delete>
+
 </mapper>

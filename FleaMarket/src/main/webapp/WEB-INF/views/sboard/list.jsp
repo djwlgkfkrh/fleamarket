@@ -66,7 +66,7 @@
 		<c:when test="${not empty sessionScope.userinfo}">
 			<div style="float: right">
 				<form action="/sboard/post" width="80%">
-					<button class="w3-button w3-dark-grey">
+					<button class="w3-button w3-blue">
 						<i class="fa fa-pencil"></i> Post
 					</button>
 				</form>

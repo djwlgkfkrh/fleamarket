@@ -2,6 +2,7 @@ package org.flea.service;
 
 import org.springframework.stereotype.Service;
 import org.flea.domain.BoardVO;
+import org.flea.domain.CartVO;
 import org.flea.domain.CommentVO;
 import org.flea.domain.SearchCriteria;
 import org.flea.domain.UserVO;
@@ -53,6 +54,24 @@ public class BoardServiceImpl implements BoardService {
 	public int after(Integer boardkey) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.after(boardkey);
+	}
+
+	@Override
+	public void putcart(CartVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		 dao.putcart(vo);
+	}
+
+	@Override
+	public int getcart(Integer boardkey,Integer userkey) throws Exception {
+		// TODO Auto-generated method stub
+		return  dao.getcart(boardkey,userkey);
+	}
+
+	@Override
+	public void dealcart(Integer boardkey, Integer userkey) throws Exception {
+		// TODO Auto-generated method stub
+		dao.dealcart(boardkey,userkey);
 	}
 
 }
