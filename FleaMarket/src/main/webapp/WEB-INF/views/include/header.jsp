@@ -19,7 +19,8 @@
 
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster">
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Lobster">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <style>
 /* Remove the navbar's default margin-bottom and rounded borders */
@@ -41,6 +42,41 @@ footer {
 	background-color: #f2f2f2;
 	padding: 25px;
 }
+
+li a, .dropbtn {
+	display: inline-block;
+	color: black;
+	text-decoration: none;
+}
+
+li.dropdown {
+	display: inline-block;
+}
+
+.dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: #f9f9f9;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	z-index: 1;
+}
+
+.dropdown-content a {
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+	text-align: left;
+}
+
+.dropdown-content a:hover {
+	background-color: #f1f1f1
+}
+
+.dropdown:hover .dropdown-content {
+	display: block;
+}
 </style>
 </head>
 <body>
@@ -53,15 +89,23 @@ footer {
 					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand  w3-text-black w3-xlarge" href="/">Flea Market</a>
+				<a class="navbar-brand  w3-text-black w3-xlarge" href="/">Flea
+					Market</a>
 			</div>
 			<div class="collapse navbar-collapse " id="myNavbar">
 				<ul class="nav navbar-nav ">
 
 					<li><a class="w3-text-black w3-xlarge" href="/sboard/list">Buy</a></li>
 					<li><a class="w3-text-black w3-xlarge" href="#">Sell</a></li>
-					
-					<li><a class="w3-text-black w3-xlarge" href="/mypage">MyPage</a></li>
+
+					<li class="dropdown"><a href="javascript:void(0)"
+						class="dropbtn w3-xlarge w3-text-black">MyPage</a>
+						<div class="dropdown-content">
+							<a href="#">My Information</a> <a href="#">My Order</a> <a
+								href="#">My Cart</a>
+						</div></li>
+
+
 				</ul>
 
 
@@ -87,9 +131,9 @@ footer {
 							<ul class=" nav navbar-nav navbar-right">
 								<li class="w3-text-black"
 									style="font-size: 15px; margin-top: 13px;">ID</li>
-								<li><input type="text" class="w3-input w3-yellow"
-									name="id" style="border-bottom: 1px solid #000000 !important"
-									size="5" class="w3-light-blue" /></li>
+								<li><input type="text" class="w3-input w3-yellow" name="id"
+									style="border-bottom: 1px solid #000000 !important" size="5"
+									class="w3-light-blue" /></li>
 
 								<li class="w3-text-black"
 									style="font-size: 15px; margin-top: 13px;">PW</li>
@@ -163,5 +207,3 @@ footer {
 		</div>
 
 	</nav>
-
-		
