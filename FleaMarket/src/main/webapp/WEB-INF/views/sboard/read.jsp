@@ -5,9 +5,11 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 
+
 <center style="margin-top: 50px">
 	<img src="/resources/image/FleaLogo1.png" style="margin-bottom: 50px">
 </center>
+
 <div class="container-fluid bg-3 text-center" style="max-width: 1400px">
 	<div class="row">
 		<h2 class="w3-text-grey w3-padding-16">
@@ -40,8 +42,7 @@
 
 
 
-							<div class="w3-input w3-border w3-round"
-								style="margin-top: 5px; width: 100%; min-height: 230px; text-align: left !important">
+							<div class="w3-input w3-border w3-round" style="margin-top: 5px; width: 100%; min-height: 230px; text-align: left !important">
 								<c:forEach var="getFile" items="${fileinfo}">
 									<img style="margin-left: 36%;"
 										src="${pageContext.request.contextPath}/resources/upload/${getFile.fname}"

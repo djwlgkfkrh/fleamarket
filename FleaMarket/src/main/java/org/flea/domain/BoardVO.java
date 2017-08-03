@@ -10,14 +10,15 @@ public class BoardVO {
 	int salekey; // �˴ϴ� �Խñ� Ű
 	int buykey; // ��ϴ� �Խñ� Ű
 	int commentcnt;
-	int group1; // �з�1
-	int group2; // �з�2
 
 	String title; // ������
 	String text; // �۳���
 	Date regdate; // �ۼ���
 	int viewcnt; // ��ȸ��
 	int salestate; // �ǸŻ���
+
+	String group1; // �з�1
+	String group2; // �з�2
 
 	String gpsX; // GPS ���� �浵
 	String gpsY; // (float�� �ϸ� ��Ȯ�ϰ� ������ �ȵ�)
@@ -64,22 +65,6 @@ public class BoardVO {
 		this.commentcnt = commentcnt;
 	}
 
-	public int getGroup1() {
-		return group1;
-	}
-
-	public void setGroup1(int group1) {
-		this.group1 = group1;
-	}
-
-	public int getGroup2() {
-		return group2;
-	}
-
-	public void setGroup2(int group2) {
-		this.group2 = group2;
-	}
-
 	public String getTitle() {
 		return title;
 	}
@@ -120,6 +105,22 @@ public class BoardVO {
 		this.salestate = salestate;
 	}
 
+	public String getGroup1() {
+		return group1;
+	}
+
+	public void setGroup1(String group1) {
+		this.group1 = group1;
+	}
+
+	public String getGroup2() {
+		return group2;
+	}
+
+	public void setGroup2(String group2) {
+		this.group2 = group2;
+	}
+
 	public String getGpsX() {
 		return gpsX;
 	}
@@ -143,6 +144,7 @@ public class BoardVO {
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
+
 
 	/*
 	 * @Override public String toString() { return "BoardVO [boardkey=" +

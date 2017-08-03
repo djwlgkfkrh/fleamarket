@@ -6,6 +6,15 @@
 <div class="container-fluid bg-3 text-center" style="max-width: 1400px">
 	<div class="row">
 		<div class="col-sm-12">
+		<!--  Search start -->
+			<table style="margin-left:50%; margin-bottom:20px">
+			<tr>
+			<td><%@include file="../include/selector.jsp"%></td>
+			<td><input type="text" name='keyword' id="keywordInput" value='${cri.keyword}'></td>
+			<td><button id='searchBtn'>Search</button></td>
+			</tr>
+			</table>
+			<!--  Search End -->
 			
 			<table class="table table-hover w3-centered"
 				style="text-align: center">
@@ -58,7 +67,8 @@
 
 		</ul>
 	</div>
-	</br>
+	<br>
+
 	<c:choose>
 		<c:when test="${not empty sessionScope.userinfo}">
 			<div style="float: right">
@@ -67,18 +77,42 @@
 						<i class="fa fa-pencil"></i> Post
 					</button>
 				</form>
+			</div>
 		</c:when>
 	</c:choose>
 </div>
 
 
+<script>
+	var group2;  /* $(document).ready(function() { */
+		
+		function getSubValue(obj) {
+			
+			console.log(" getSubValue : "+obj);
+			
+			group2=obj;		
+		}
+		
+		
+			$('#searchBtn').on(	"click",
+					function(event) {
+			console.log("group2 : "+group2);	
+					
+		
+				self.location = "salelist"
+							+ '${pageMaker.makeQuery(1)}' 
+							+ "&group1="
+							+ $("#group1 option:selected").val()
+							+ "&group2=" + group2
+							+ "&keyword=" + $('#keywordInput').val();
 
+						});
+
+</script>
 
 
 
 <br>
 <br>
-<br>
-<br>
-</div>
+
 <%@include file="../include/footer.jsp"%>
