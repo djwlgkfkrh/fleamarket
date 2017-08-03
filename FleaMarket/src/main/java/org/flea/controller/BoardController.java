@@ -77,6 +77,9 @@ public class BoardController {
 
 		pageMaker.setTotalCount(service.salelistSearchCount(cri));
 		model.addAttribute("pageMaker", pageMaker);
+		logger.info("로그 ====================================================================================");
+		logger.info("salelist keyword ::" +cri.getKeyword() +" cri.group1 : "+cri.getGroup1()+" cri.group2 : "+cri.getGroup2());
+
 
 	}
 
@@ -92,6 +95,8 @@ public class BoardController {
 
 		pageMaker.setTotalCount(service.buylistSearchCount(cri));
 		model.addAttribute("pageMaker", pageMaker);
+		logger.info("로그 ====================================================================================");
+		logger.info("buylist keyword ::" +cri.getKeyword() +" cri.group1 : "+cri.getGroup1()+" cri.group2 : "+cri.getGroup2());
 
 	}
 
@@ -113,8 +118,8 @@ public class BoardController {
 
 		logger.info("FileVO  : ======= file read 시작 =========");
 
-		// null일 경우도 생각하기 
-		
+		// null일 경우도 생각하기
+
 		List<FileVO> fileinfo = fileservice.postFile(boardkey);
 		model.addAttribute("fileinfo", fileinfo);
 
@@ -131,11 +136,20 @@ public class BoardController {
 		service.createPost(bvo);
 
 		logger.info("FileVO  ====   진입  =====");
+		
+		//bvo.setGroup2((int)session.);
+		
+		logger.info("========board그룹 1: " +bvo.getGroup1()+"그룹2 :" +bvo.getGroup2());
 
 		/* file 없어도 출력할 수 있도록 만들기 */
 
-		if (!mfile.getFiles("file").isEmpty()) {
+		if (mfile.getFiles("file").isEmpty()) {
+			
+			logger.info("FileVO  상태 : ====   파일없음    =====");
 
+		}
+
+		else {
 			List<MultipartFile> mf = mfile.getFiles("file");
 
 			if (mf.size() == 1 && mf.get(0).getOriginalFilename().equals("file")) {
@@ -175,13 +189,16 @@ public class BoardController {
 	}
 
 	@RequestMapping(value = "/salepost", method = { RequestMethod.POST }) // POST
-	public String salePOST(BoardVO bvo, MultipartHttpServletRequest mfile, HttpServletRequest request)
+	public String salePOST(@RequestParam("group2") String group2,BoardVO bvo, MultipartHttpServletRequest mfile, HttpServletRequest request)
 			throws Exception {
 
 		createPOST(bvo, mfile, request);
+		bvo.setGroup2(group2);
 		service.createSale(service.getboardKey(bvo)); // board 키만 있으면 됨
 
-		logger.info(" =======   salePOST 완료    ========");
+		logger.info(" =======   salePOST 완료    ========");	
+		logger.info("...group1 : " +bvo.getGroup1()+"......group2 : "+bvo.getGroup2());
+		
 
 		return "redirect:/sboard/salelist";
 	}
@@ -193,13 +210,15 @@ public class BoardController {
 	}
 
 	@RequestMapping(value = "/buypost", method = { RequestMethod.POST }) // POST
-	public String buyPOST(BoardVO bvo, MultipartHttpServletRequest mfile, HttpServletRequest request) throws Exception {
+	public String buyPOST(@RequestParam("group2") String group2, BoardVO bvo, MultipartHttpServletRequest mfile, HttpServletRequest request) throws Exception {
 
 		createPOST(bvo, mfile, request);
+		bvo.setGroup2(group2);
 		service.createBuy(service.getboardKey(bvo)); // board 키만 있으면 됨
 
 		logger.info(" =======   buyPOST 완료    ========");
-
+		logger.info("...group1 : " +bvo.getGroup1()+"......group2 : "+bvo.getGroup2());
+				
 		return "redirect:/sboard/buylist";
 	}
 
@@ -237,7 +256,7 @@ public class BoardController {
 		int boardkey = service.getboardKey(bvo);
 		bvo.setBoardkey(boardkey);
 		service.modifyBoard(bvo);
-		
+
 		logger.info(" =======   Modify END========");
 
 		if (service.getBuyState(boardkey) == 0) {
@@ -245,7 +264,7 @@ public class BoardController {
 		} else {
 			return "redirect:/sboard/buylist";
 		}
-		
+
 	}
 
 	@RequestMapping(value = "/beforeread", method = { RequestMethod.GET, RequestMethod.POST })

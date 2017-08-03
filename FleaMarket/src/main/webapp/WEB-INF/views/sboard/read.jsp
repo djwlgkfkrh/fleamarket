@@ -5,7 +5,7 @@
 <%@include file="../include/header.jsp"%>
 <%@ page isELIgnored="false"%>
 
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
 
 <div class="container-fluid bg-3 text-center" style="max-width: 1400px">
@@ -42,8 +42,7 @@
 					
 					
 
-							<div class="w3-input w3-border w3-round"
-								style="margin-top: 5px; width: 100%; min-height: 230px; text-align: left !important">
+							<div class="w3-input w3-border w3-round" style="margin-top: 5px; width: 100%; min-height: 230px; text-align: left !important">
 								<c:forEach var="getFile" items="${fileinfo}">
 									<img style="margin-left:36%;"
 										src="${pageContext.request.contextPath}/resources/upload/${getFile.fname}"

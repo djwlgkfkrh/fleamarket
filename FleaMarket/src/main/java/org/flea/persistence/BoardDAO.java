@@ -12,13 +12,13 @@ public interface BoardDAO {
 
 	public UserVO find(Integer userkey) throws Exception;
 
-	public BoardVO read(Integer boardkey) throws Exception; // �� �б�
+	public BoardVO read(Integer boardkey) throws Exception;
 
 	public List<BoardVO> listMy(Integer userkey) throws Exception;
 
-	public int listCount(Integer userkey) throws Exception;
-
 	
+	// List Search 
+	public int listCount(Integer userkey) throws Exception;
 	public List<BoardVO> listSearch(SearchCriteria cri) throws Exception;
 	public int listSearchCount(SearchCriteria cri) throws Exception;
 	
@@ -50,6 +50,8 @@ public interface BoardDAO {
 
 	public int getSaleState(Integer boardkey) throws Exception;
 	public int getBuyState(Integer boardkey) throws Exception;
+	
+	public void forSearch() throws Exception;
 	
 	
 }

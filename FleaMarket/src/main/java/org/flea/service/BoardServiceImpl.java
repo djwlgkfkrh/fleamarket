@@ -43,15 +43,14 @@ public class BoardServiceImpl implements BoardService {
 
 	}
 
+	// Search List
 	@Override
 	public int listSearchCount(SearchCriteria cri) throws Exception {
-		// TODO Auto-generated method stub
 		return dao.listSearchCount(cri);
 	}
 
 	@Override
 	public List<BoardVO> listSearchCriteria(SearchCriteria cri) throws Exception {
-
 		return dao.listSearch(cri);
 	}
 
@@ -108,6 +107,7 @@ public class BoardServiceImpl implements BoardService {
 		return dao.getboardKey(bvo);
 	}
 
+	// Modify
 	@Override
 	public void modifyBoard(BoardVO bvo) throws Exception {
 
@@ -115,7 +115,7 @@ public class BoardServiceImpl implements BoardService {
 
 	}
 
-	
+	// Delete
 	@Override
 	public void deleteBoard(Integer boardkey) throws Exception {
 

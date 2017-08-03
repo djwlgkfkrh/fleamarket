@@ -11,8 +11,8 @@ public class BoardVO {
 	int salekey; // 팝니다 게시글 키
 	int buykey; // 삽니다 게시글 키
 
-	int group1; // 분류1
-	int group2; // 분류2
+	String group1; // 분류1
+	String group2; // 분류2
 
 	String title; // 글제목
 	String text; // 글내용
@@ -55,19 +55,19 @@ public class BoardVO {
 		this.userkey = userkey;
 	}
 
-	public int getGroup1() {
+	public String getGroup1() {
 		return group1;
 	}
 
-	public void setGroup1(int group1) {
+	public void setGroup1(String group1) {
 		this.group1 = group1;
 	}
 
-	public int getGroup2() {
+	public String getGroup2() {
 		return group2;
 	}
 
-	public void setGroup2(int group2) {
+	public void setGroup2(String group2) {
 		this.group2 = group2;
 	}
 
