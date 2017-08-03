@@ -48,9 +48,9 @@ public class CommentController {
 		return entity;
 	}
 
-	@RequestMapping(value = "/replySub/{commentkey}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/delete/{commentkey}", method = RequestMethod.POST)
 	public ResponseEntity<String> delete(@PathVariable("commentkey") Integer commentkey) throws Exception {
-		logger.info("reply sub ...........");
+		logger.info("reply delete ...........");
 
 		ResponseEntity<String> entity = null;
 		service.deleteReply(commentkey);
@@ -59,9 +59,10 @@ public class CommentController {
 		return entity;
 	}
 
-	@RequestMapping(value = "/{commentkey}", method = { RequestMethod.PUT })
+	@RequestMapping(value = "/modify/{commentkey}", method =  RequestMethod.POST )
 	public ResponseEntity<String> modify( @PathVariable("commentkey") Integer commentkey, CommentVO vo) throws Exception {
 		logger.info("reply modify  ...........");
+		logger.info("dd"+vo.getContext());
 		vo.setCommentkey(commentkey);
 		ResponseEntity<String> entity = null;
 		service.modifyReply(vo);
@@ -73,7 +74,6 @@ public class CommentController {
 	public ResponseEntity<String> replySub( @PathVariable("commentkey") Integer commentkey, CommentVO vo) throws Exception {
 		logger.info("replySub  ...........");
 		vo.setParent_key(commentkey);
-		logger.info(vo.getParent_key()+"."+vo.getUserkey());
 		ResponseEntity<String> entity = null;
 		service.replySub(vo);
 		entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);

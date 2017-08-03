@@ -7,13 +7,17 @@
 <mapper namespace="org.flea.mappers.CommentMapper">
 	<insert id="addReply">
 		insert into comment (boardkey, userkey, context,
-		secret)
-		values(#{boardkey},#{userkey}, #{context}, #{secret})
+		secret,nickname)
+		values(#{boardkey},#{userkey}, #{context},
+		#{secret},#{nickname})
 	</insert>
 
 	<select id="commentRead" resultType="org.flea.domain.CommentVO">
 		select userkey, context,
-		regdate, secret,commentkey from comment where boardkey=#{boardkey}
+		regdate, secret,commentkey,nickname, parent_key from comment where
+		boardkey=#{boardkey} order by
+		if(isnull(parent_key),commentkey,parent_key)
+
 	</select>
 
 	<select id="listMy" resultType="org.flea.domain.CommentVO">
@@ -28,24 +32,24 @@
 
 	<select id="commentMyCount" resultType="int">
 		select count(*)
-		from comment where userkey = #{userkey}
+		from
+		comment where userkey = #{userkey}
 
 	</select>
 
 	<delete id="deleteReply">
 		delete from comment where commentkey=#{commentkey}
 	</delete>
-	<update id="modifyReply">
-		update comment set context =#{context}
+	
+	<update id="modifyReply"> update comment set context =#{context},
 		secret=#{secret}
 		where commentkey = #{commentkey}
 	</update>
+	
 	<insert id="replySub">
 		insert into comment (parent_key,boardkey, userkey,
-		context,
-		secret)
+		context,secret,nickname)
 		values(#{parent_key},#{boardkey},#{userkey},
-		#{context}, #{secret})
+		#{context}, #{secret},#{nickname})
 	</insert>
-
 </mapper>

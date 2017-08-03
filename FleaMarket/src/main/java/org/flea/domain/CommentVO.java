@@ -6,6 +6,7 @@ public class CommentVO {
 	int userkey;
 	int boardkey;
 	int commentkey;
+	private String nickname ;
 	String context;
 	Date regdate;
 	boolean secret;
@@ -52,6 +53,12 @@ public class CommentVO {
 	}
 	public void setParent_key(int parent_key) {
 		this.parent_key = parent_key;
+	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 	
 }
