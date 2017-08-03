@@ -14,9 +14,7 @@
 	</update>
 
 	<select id="read" resultType="org.flea.domain.BoardVO">
-		select salestate, title, group1,
-		group2, regdate, viewcnt, text, boardkey , userkey,commentcnt
-		from
+		select * from
 		board where
 		boardkey = #{boardkey}
 	</select>
@@ -192,8 +190,6 @@
 	<!-- get key end -->
 
 
-
-
 	<!-- delete Board start -->
 
 	<delete id="deleteBoard">
@@ -245,4 +241,19 @@
 		where boardkey =
 		#{boardkey}
 	</update>
+	<insert id="putcart">
+		insert into cart (userkey, boardkey)
+		values(#{userkey},#{boardkey})
+	</insert>
+
+	<select id="getcart" resultType="int">
+		select count(*) from cart where
+		boardkey=#{boardkey} and userkey=#{userkey}
+	</select>
+
+	<delete id="dealcart">
+		delete from cart where boardkey=#{boardkey} and
+		userkey=#{userkey}
+	</delete>
+
 </mapper>

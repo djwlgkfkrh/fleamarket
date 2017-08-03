@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.flea.domain.BoardVO;
+import org.flea.domain.CartVO;
 import org.flea.domain.FileVO;
 import org.flea.domain.PageMaker;
 import org.flea.domain.SearchCriteria;
@@ -16,6 +17,8 @@ import org.flea.service.CommentService;
 import org.flea.service.FileService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -25,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+
 
 @SessionAttributes("userinfo") // MemberVO
 @Controller
@@ -104,11 +108,14 @@ public class BoardController {
 		model.addAttribute("boardinfo", boardinfo);
 		UserVO boarduser = service.find(boardinfo.getUserkey());
 		model.addAttribute("boarduser", boarduser);
-
 		session = request.getSession(true);
 		UserVO userinfo = (UserVO) session.getAttribute("userinfo");
 		model.addAttribute("reply", cservice.commentRead(boardkey));
-
+		int cart = 0;
+		if (userinfo != null) {
+			cart = service.getcart(boardkey, userinfo.getUserkey());
+		}
+		model.addAttribute("cart", cart);
 		logger.info("read 상태 : ======= comment Read 완료 =========");
 
 		logger.info("FileVO  : ======= file read 시작 =========");
@@ -260,14 +267,25 @@ public class BoardController {
 
 	@RequestMapping(value = "/afterread", method = { RequestMethod.GET, RequestMethod.POST })
 	public String afterGET(@RequestParam("boardkey") int boardkey) throws Exception {
-		try {
-			int b = service.after(boardkey);
-			return "redirect:/sboard/read?boardkey=" + b;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "error/nullPage_error";
-		}
-
+		int b = service.after(boardkey);
+		return "redirect:/sboard/read?boardkey=" + b;
 	}
 
+	@RequestMapping(value = "/cart", method = RequestMethod.POST)
+	public ResponseEntity<String> cart(CartVO vo) throws Exception {
+		logger.info("cart ...........");
+		ResponseEntity<String> entity = null;
+		service.putcart(vo);
+		entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		return entity;
+	}
+	
+	@RequestMapping(value = "/dealcart", method = RequestMethod.POST)
+	public ResponseEntity<String> dealcart(@RequestParam("boardkey") int boardkey,@RequestParam("userkey") int userkey,CartVO vo) throws Exception {
+		logger.info("dealcart ...........");
+		ResponseEntity<String> entity = null;
+		service.dealcart(boardkey,userkey);
+		entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		return entity;
+	}
 }

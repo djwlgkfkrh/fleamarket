@@ -42,6 +42,7 @@ footer {
 	background-color: #f2f2f2;
 	padding: 25px;
 }
+<<<<<<< HEAD
 li a, .dropbtn {
 	display: inline-block;
 	color: black;
@@ -68,6 +69,38 @@ li.dropdown {
 .dropdown-content a:hover {
 	background-color: #f1f1f1
 }
+
+li a, .dropbtn {
+	display: inline-block;
+	color: black;
+	text-decoration: none;
+}
+
+li.dropdown {
+	display: inline-block;
+}
+
+.dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: #f9f9f9;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	z-index: 1;
+}
+
+.dropdown-content a {
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+	text-align: left;
+}
+
+.dropdown-content a:hover {
+	background-color: #f1f1f1
+}
+
 .dropdown:hover .dropdown-content {
 	display: block;
 }
@@ -83,18 +116,17 @@ li.dropdown {
 					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand  w3-text-light-blue w3-xlarge" href="/">Flea
-					Market</a>
+				<a class="navbar-brand  w3-text-black w3-xlarge" href="/">Flea Market</a>
 			</div>
 			<div class="collapse navbar-collapse " id="myNavbar">
 				<ul class="nav navbar-nav ">
-					<li><a class="w3-xlarge w3-text-light-blue" href="/sboard/buylist">삽니다</a></li>
-					<li><a class="w3-xlarge w3-text-light-blue" href="/sboard/salelist">팝니다</a></li>
-					<li class="dropdown"><a href="/mypage"
-						class="dropbtn w3-xlarge w3-text-light-blue">MyPage</a>
+					<li><a class="w3-xlarge w3-text-light-blue" href="/sboard/buylist">Buy</a></li>
+					<li><a class="w3-xlarge w3-text-light-blue" href="/sboard/salelist">Sell</a></li>
+					<li class="dropdown"><a href="javascript:void(0)"
+						class="dropbtn w3-xlarge w3-text-black">MyPage</a>
 						<div class="dropdown-content">
-							<a href="/mypage">My Information</a> <a href="/deallist">My Order</a> <a
-								href="#">My Cart</a>
+							<a href="#">My Information</a> <a href="#">My Order</a> <a
+								href="/mypage/mycart">My Cart</a>
 						</div></li>
 				</ul>
 
@@ -103,7 +135,7 @@ li.dropdown {
 					<c:when test="${not empty sessionScope.userinfo}">
 						<form action="/logout" method="post">
 							<ul class=" nav navbar-nav navbar-right">
-								<li class="w3-text-white"
+								<li class="w3-text-black"
 									style="font-size: 15px; margin-top: 13px;">
 									${sessionScope.userinfo.nickname}님 환영합니다.</li>
 								<li>

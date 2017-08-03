@@ -1,6 +1,7 @@
 package org.flea.controller;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -207,4 +208,10 @@ public class UserController {
 		entity.put("salestate", "salestate");
 		return new ResponseEntity<>(entity, HttpStatus.OK);
 	}
+	
+	 @RequestMapping(value = "/mypage/mycart", method = RequestMethod.GET)
+	  public void mycart(Locale locale, Model model) {
+		    logger.info("Welcome Modify! The client locale is {}.", locale);
+
+		  }
 }

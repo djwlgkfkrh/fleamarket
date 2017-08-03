@@ -1,10 +1,12 @@
 package org.flea.service;
 
+
 import java.util.List;
 
 import javax.inject.Inject;
 
 import org.flea.domain.BoardVO;
+import org.flea.domain.CartVO;
 import org.flea.domain.SearchCriteria;
 import org.flea.domain.UserVO;
 import org.flea.persistence.BoardDAO;
@@ -154,6 +156,24 @@ public class BoardServiceImpl implements BoardService {
 	public int getBuyState(Integer boardkey) throws Exception {
 
 		return dao.getBuyState(boardkey);
+	}
+
+	@Override
+	public void putcart(CartVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		 dao.putcart(vo);
+	}
+
+	@Override
+	public int getcart(Integer boardkey,Integer userkey) throws Exception {
+		// TODO Auto-generated method stub
+		return  dao.getcart(boardkey,userkey);
+	}
+
+	@Override
+	public void dealcart(Integer boardkey, Integer userkey) throws Exception {
+		// TODO Auto-generated method stub
+		dao.dealcart(boardkey,userkey);
 	}
 
 }
