@@ -1,10 +1,8 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
 <%@include file="../include/header.jsp"%>
-
+<center style="margin-top:50px">
+<img src="/resources/image/FleaLogo1.png"	style="margin-bottom:50px"></center>
 <div class="container-fluid bg-3 text-center" style="max-width: 1400px">
 	<div class="row">
 		<div class="col-sm-12">
