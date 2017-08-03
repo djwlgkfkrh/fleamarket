@@ -88,8 +88,8 @@ li.dropdown {
 			</div>
 			<div class="collapse navbar-collapse " id="myNavbar">
 				<ul class="nav navbar-nav ">
-					<li><a class="w3-text-light-blue w3-xlarge" href="/sboard/list">Buy</a></li>
-					<li><a class="w3-text-light-blue w3-xlarge" href="#">Sell</a></li>
+					<li><a class="w3-text-white" href="/sboard/buylist">삽니다</a></li>
+					<li><a class="w3-text-white" href="/sboard/salelist">팝니다</a></li>
 					<li class="dropdown"><a href="/mypage"
 						class="dropbtn w3-xlarge w3-text-light-blue">MyPage</a>
 						<div class="dropdown-content">
