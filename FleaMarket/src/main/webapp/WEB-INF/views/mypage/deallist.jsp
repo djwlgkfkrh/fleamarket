@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp"%>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 <center style="margin-top: 50px">
 	<img src="/resources/image/FleaLogo1.png" style="margin-bottom: 50px">
 </center>
@@ -101,6 +103,8 @@
 			</tbody>
 		</table>
 	</div>
+	<br> <br> <br> <br> <br> <br> <br> <br>
+	<br>
 	<table style="width: 100%;">
 		<tr style="border: 1px solid black; border-collapse: collapse;">
 			<td>
@@ -125,9 +129,23 @@
 			</td>
 		</tr>
 	</table>
+	<br> <br>
+	<div id="detailDiv"></div>
+	<br> <br>
 </div>
-<div id="detailDiv"></div>
+
+
+<script id="detailDivTemplate" type="text/x-handlebars-template"> 
+<table class="table table-hover w3-centered"
+			style="text-align: center">
+<tr><td>주문번호</td><td>ㄴㅇㄹ</td><td>날짜</td><td>{{dealregdate}}</td></tr>
+			</table>
+{{seller}}{{boardtitle}}{{money}}{{packageNumber}}{{address}}{{number}}  
+</script>
+
+
 <script>
+
 	//거래화면 띄우기
 	function openDeal(str) {
 		var boardkey = $('#boardkey'+str).html();
@@ -169,30 +187,21 @@
 		window.open("site/reason?boardkey=" + boardkey+"&dealkey="+dealkey+"&buyuserkey="+buyuserkey, "dealForm",
 				"width=600, height=650, resizable = no, scrollbars = no");
 	}
+	var printData = function (replyArr, targetDiv, handleBarTemplateName){
+		   var template =Handlebars.compile(handleBarTemplateName.html());
+		   var html =template(replyArr);
+		   targetDiv.html(html);
+		}
+
 	function detail(){
-		console.log("detailDiv");
-	
-		$.ajax({
+			$.ajax({
 			type : "POST",
-			headers : {
-				"Content-Type" : "application/json",
-				"X-HTTP-Method-Override" : "POST"
-			},
-			url : "/reply/list?boardkey=" + boardkey,
+			url : "/dealinfo",
 			success : function(result) {
-				document.getElementById("listReply").innerHTML = "";
-				for ( var i in result) {
-					if (commentkey == result[i].commentkey) {
-						printData1(result[i], $("#listReply"),
-								$("#replyread"));
-						printData3(result[i], $("#listReply"),
-								$("#replyread2"));
-					} else {
-						printData1(result[i], $("#listReply"),
-								$("#replyread"));
-					}
+				document.getElementById("detailDiv").innerHTML = "";
+				printData(result, $("#detailDiv"),$("#detailDivTemplate"));
 				}
-			}
+			
 		});
 	}
 </script>

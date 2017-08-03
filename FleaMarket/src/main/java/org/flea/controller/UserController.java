@@ -1,5 +1,8 @@
 package org.flea.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -40,33 +43,34 @@ public class UserController {
 	private CommentService cservice;
 	@Inject
 	private DealService dservice;
-	
+
 	// 아이디 중복확인 창
 	@RequestMapping(value = "/IdCheck", method = RequestMethod.GET)
 	public void IdCheck(Model model) throws Exception {
-		
+
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "/userIdCheck/{checkid}", method = RequestMethod.GET)
 	public ResponseEntity<String> userIdCheck(@PathVariable String checkid, Model model) throws Exception {
-		  logger.info("중복되는 아이디 있음"+checkid);
+		logger.info("중복되는 아이디 있음" + checkid);
 		ResponseEntity<String> entity = null;
-		    try {
-		      boolean result = service.checkId(checkid);
-		      if(result){
-		      logger.info("중복되는 아이디 있음");
-		    	  entity = new ResponseEntity<String>("NO", HttpStatus.OK);}
-		      else{
-		      logger.info("중복되는 아이디 없음");
-		    	  entity = new ResponseEntity<String>("YES", HttpStatus.OK);}
-		    } catch (Exception e) {
-		      e.printStackTrace();
-		      entity = new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-		    }
-		    return entity;	 
+		try {
+			boolean result = service.checkId(checkid);
+			if (result) {
+				logger.info("중복되는 아이디 있음");
+				entity = new ResponseEntity<String>("NO", HttpStatus.OK);
+			} else {
+				logger.info("중복되는 아이디 없음");
+				entity = new ResponseEntity<String>("YES", HttpStatus.OK);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		return entity;
 	}
-	
+
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
 	public String join(UserVO user, Model model) throws Exception {
 
@@ -101,85 +105,107 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
-	public String mypage(UserVO user,Model model,HttpSession session) throws Exception {
-		logger.info("MyPage................"+user.getUserkey());
-		user=(UserVO) session.getAttribute("userinfo");
-		if(user==null){
+	public String mypage(UserVO user, Model model, HttpSession session) throws Exception {
+		logger.info("MyPage................" + user.getUserkey());
+		user = (UserVO) session.getAttribute("userinfo");
+		if (user == null) {
 			return "error/login_error";
-		}else{
-		model.addAttribute("deal_list",dservice.getDeal(user.getUserkey()));
-		model.addAttribute("b_list",bservice.listMy(user.getUserkey()));
-		model.addAttribute("c_list",cservice.listMy(user.getUserkey()));
-		model.addAttribute("b_mycount",bservice.listCount(user.getUserkey()));
-		model.addAttribute("c_mycount",cservice.commentCount(user.getUserkey()));
-		return "mypage/mypage";
+		} else {
+			model.addAttribute("deal_list", dservice.getDeal(user.getUserkey()));
+			model.addAttribute("b_list", bservice.listMy(user.getUserkey()));
+			model.addAttribute("c_list", cservice.listMy(user.getUserkey()));
+			model.addAttribute("b_mycount", bservice.listCount(user.getUserkey()));
+			model.addAttribute("c_mycount", cservice.commentCount(user.getUserkey()));
+			return "mypage/mypage";
 		}
 	}
-	
+
 	@RequestMapping(value = "/deallist", method = RequestMethod.GET)
-	public String deallist(UserVO user,Model model,HttpSession session) throws Exception {
-		logger.info("deallist................"+user.getUserkey());
-		user=(UserVO) session.getAttribute("userinfo");
-		if(user==null){
+	public String deallist(UserVO user, Model model, HttpSession session) throws Exception {
+		logger.info("deallist................" + user.getUserkey());
+		user = (UserVO) session.getAttribute("userinfo");
+		if (user == null) {
 			return "error/login_error";
-		}else{
-		model.addAttribute("deal_list",dservice.getDeal(user.getUserkey()));
-		return "mypage/deallist";
+		} else {
+			model.addAttribute("deal_list", dservice.getDeal(user.getUserkey()));
+			return "mypage/deallist";
 		}
 	}
+
 	@RequestMapping(value = "/mypage/modify", method = RequestMethod.GET)
-	public void modify(UserVO user, Model model,HttpSession session)  throws Exception{
+	public void modify(UserVO user, Model model, HttpSession session) throws Exception {
 		logger.info("MyPage modify................");
-		user=(UserVO) session.getAttribute("userinfo");
-		model.addAttribute("b_list",bservice.listMy(user.getUserkey()));
-		model.addAttribute("c_list",cservice.listMy(user.getUserkey()));
-		model.addAttribute("b_mycount",bservice.listCount(user.getUserkey()));
-		model.addAttribute("c_mycount",cservice.commentCount(user.getUserkey()));
+		user = (UserVO) session.getAttribute("userinfo");
+		model.addAttribute("b_list", bservice.listMy(user.getUserkey()));
+		model.addAttribute("c_list", cservice.listMy(user.getUserkey()));
+		model.addAttribute("b_mycount", bservice.listCount(user.getUserkey()));
+		model.addAttribute("c_mycount", cservice.commentCount(user.getUserkey()));
 
 	}
-	//더럽게 짜증나네
+
+	// 더럽게 짜증나네
 	@RequestMapping(value = "/mypage/complete", method = RequestMethod.POST)
-		public String Complete(@ModelAttribute UserVO user, Model model) throws Exception {
-			logger.info("Mypage modify complete");
-			service.update(user);
-			
-			model.addAttribute("userinfo", user);
-			//session.setAttribute("userinfo", user);
-			
-			
-			/*//요거 있으면 반응을 안해
-			user=(UserVO) session.getAttribute("userinfo");
-			model.addAttribute("userinfo",user);*/
-			return "redirect:/mypage";
+	public String Complete(@ModelAttribute UserVO user, Model model) throws Exception {
+		logger.info("Mypage modify complete");
+		service.update(user);
+
+		model.addAttribute("userinfo", user);
+		// session.setAttribute("userinfo", user);
+
+		/*
+		 * //요거 있으면 반응을 안해 user=(UserVO) session.getAttribute("userinfo");
+		 * model.addAttribute("userinfo",user);
+		 */
+		return "redirect:/mypage";
 	}
 
 	@RequestMapping(value = "/mypage/changePw", method = RequestMethod.POST)
-	public String changePw(@RequestParam String mid, @RequestParam String mpw,UserVO userinfo, RedirectAttributes rttr) throws Exception {
+	public String changePw(@RequestParam String mid, @RequestParam String mpw, UserVO userinfo, RedirectAttributes rttr)
+			throws Exception {
 		logger.info("Mypage modify complete");
 		// 비밀번호 체크
-        boolean result = service.checkPw(mid, mpw);
-        if(result){ // 비밀번호가 일치하면 수정 처리후, 마이페이지로
-            service.updatePw(userinfo);
-            logger.info("비밀번호 변경");
-            rttr.addFlashAttribute("msg", "비밀번호가 변경되었습니다.");
-            return "redirect:/mypage";
-        }else
-        	logger.info("현재 비밀번호가 틀렸어"+result);
-        	return "error/pw_error";
+		boolean result = service.checkPw(mid, mpw);
+		if (result) { // 비밀번호가 일치하면 수정 처리후, 마이페이지로
+			service.updatePw(userinfo);
+			logger.info("비밀번호 변경");
+			rttr.addFlashAttribute("msg", "비밀번호가 변경되었습니다.");
+			return "redirect:/mypage";
+		} else
+			logger.info("현재 비밀번호가 틀렸어" + result);
+		return "error/pw_error";
 	}
-	
+
 	@RequestMapping(value = "/mypage/deleteUser", method = RequestMethod.POST)
-	public String deleteUser(@RequestParam String did, @RequestParam String dpw, Model model,SessionStatus sessionStatus) throws Exception {
+	public String deleteUser(@RequestParam String did, @RequestParam String dpw, Model model,
+			SessionStatus sessionStatus) throws Exception {
 		logger.info("회원탈퇴 비밀번호 체크");
 		// 비밀번호 체크
-        boolean result = service.checkPw(did, dpw);
-        if(result){ // 비밀번호가 일치하면 수정 처리후, 마이페이지로
-            service.delete(did);
-            logger.info("회원탈퇴");
-            sessionStatus.setComplete();
-            return "redirect:/";
-        }else
-        	logger.info("현재 비밀번호가 틀렸어"+result);
-        	return "error/pw_error";
+		boolean result = service.checkPw(did, dpw);
+		if (result) { // 비밀번호가 일치하면 수정 처리후, 마이페이지로
+			service.delete(did);
+			logger.info("회원탈퇴");
+			sessionStatus.setComplete();
+			return "redirect:/";
+		} else
+			logger.info("현재 비밀번호가 틀렸어" + result);
+		return "error/pw_error";
+	}
+
+	@RequestMapping(value = "/dealinfo", method = RequestMethod.POST)
+	public ResponseEntity<Map<String, String>> dealinfo() throws Exception {
+		logger.info("dealinfo  ...........");
+
+		Map<String, String> entity = new HashMap<String, String>();
+		entity.put("seller", "seller11");
+		entity.put("boardtitle", "boardtitle");
+		entity.put("dealregdate", "dealregdate");
+		entity.put("money", "money");
+		entity.put("packageNumber", "packageNumber");
+		entity.put("address", "address");
+		entity.put("number", "number");
+
+		entity.put("salestate", "salestate");
+		return new ResponseEntity<>(entity, HttpStatus.OK);
+
 	}
 }

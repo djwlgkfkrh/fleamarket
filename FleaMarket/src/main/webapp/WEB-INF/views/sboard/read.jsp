@@ -260,7 +260,9 @@ class="w3-blue w3-button">완료</button></td>
 			url : '/reply/addReply',
 			data : vo,
 			success : function(result) {
+				
 				listReply();
+				
 			}
 		});
 	}
