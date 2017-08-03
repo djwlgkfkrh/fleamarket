@@ -157,16 +157,7 @@ public class SiteController {
 		entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		return entity;
 	}
-
-	// 반품
-	@RequestMapping(value = "/returngoods", method = RequestMethod.POST)
-	public String returnGoods(DealVO vo, Model model) throws Exception {
-
-		logger.info("return goods ...........");
-		dservice.returngoods(vo);
-		return "error/return_error";
-	}
-
+	
 	// 반품 확인 창
 	@RequestMapping(value = "/reason", method = RequestMethod.GET)
 	public void returnView(@RequestParam int boardkey, @RequestParam int dealkey, @RequestParam int buyuserkey,

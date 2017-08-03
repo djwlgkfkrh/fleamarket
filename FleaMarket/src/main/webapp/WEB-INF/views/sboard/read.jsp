@@ -1,8 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@include file="../include/header.jsp"%>
 <%@ page isELIgnored="false"%>
 
@@ -303,7 +300,9 @@ class="w3-blue w3-button">완료</button></td>
 			url : '/reply/addReply',
 			data : vo,
 			success : function(result) {
+				
 				listReply();
+				
 			}
 		});
 	}
@@ -341,6 +340,7 @@ class="w3-blue w3-button">완료</button></td>
 			}
 		});
 	}
+	
 	function replyModify(commentkey) {
 		var context = $('#mcontext').val();
 		var secret = $('input:checkbox[id="msecret"]').is(":checked");

@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp"%>
-
+<center style="margin-top:50px">
+<img src="/resources/image/FleaLogo1.png"	style="margin-bottom:50px"></center>
 <div class="container-fluid bg-3 text-center" style="max-width: 1400px">
 	<h3>마이 페이지</h3>
 	<br>
@@ -41,85 +42,7 @@
 				</table>
 			</form>
 		</div>
-		<div class="col-sm-4">
-			<table class="table table-hover">
-				<thead>
-					<tr>
-						<th colspan="3">거래 내역</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:set var="userkey" value="${userinfo.userkey }" />
-					<c:forEach items="${deal_list}" var="deal" varStatus="status">
-						<c:set var="buyuserkey" value="${deal.buyuserkey}" />
-						<c:set var="saleuserkey" value="${deal.saleuserkey}" />
-						<c:if test="${deal.salestate!=5}">
-						<!-- 거래테이블에 내 유저키가 맞는게 있으면 -->
-						<c:if test="${buyuserkey==userkey||saleuserkey==userkey}">
-							<tr>
-								<td id="boardkey${status.count}">${deal.boardkey}</td>
-								<td><a href='/sboard/read?boardkey=${deal.boardkey}'>제목</a></td>
-								<td><input type="hidden" id="dealkey${status.count}" value="${deal.dealkey}" />
-								
-								<!-- 거래진행 단계 choose -->
-								<c:choose>
-								<c:when test="${deal.salestate eq 0}">
-								
-								<!-- 판매자일때와 구매자일때 상황이 조금 달라서 choose -->
-								<c:choose>
-								<c:when test="${saleuserkey==userkey}">
-								<input type="button" value="입금대기" id="step1"
-									 disabled style="color:gray;"/></td>
-									</c:when>
-									<c:when test="${buyuserkey==userkey}">
-									<input type="button" value="입금대기" id="step1"
-									onclick="openDeal(${status.count})" />
-									</td>
-									</c:when>
-									</c:choose>
-									<!--  판매자와 구매자 차이 choose끝-->
-									</c:when>
-									<c:when test="${deal.salestate eq 1}">
-								<input type="button" value="배송대기"
-									onclick="openDeal1(${status.count})" />
-									<input type="hidden" id="saleuserkey${status.count}" value="${saleuserkey}" />
-									<input type="hidden" id="buyuserkey${status.count}" value="${buyuserkey}" />
-									</td>
-									</c:when>
-									<c:when test="${deal.salestate eq 2}">
-								<input type="button" value="배송중"
-									onclick="openDeal2(${status.count})" />
-									<input type="hidden" id="buyuserkey${status.count}" value="${buyuserkey}" /></td>
-									</c:when>
-									<c:when test="${deal.salestate eq 3}">
-								<input type="button" value="거래완료"
-									onclick="openDeal2(${status.count})" />
-									<input type="hidden" id="buyuserkey${status.count}" value="${buyuserkey}" /></td>
-									</c:when>
-									
-									<c:when test="${deal.salestate eq 4}">
-								<c:choose>
-								<c:when test="${buyuserkey==userkey}">
-								<input type="button" value="반품확인" id="step4"
-									 disabled style="color:gray;"/></td>
-									</c:when>
-									<c:when test="${saleuserkey==userkey}">
-									<input type="button" value="반품확인" id="step4"
-									onclick="openDeal3(${status.count})" />
-									<input type="hidden" id="buyuserkey${status.count}" value="${buyuserkey}" />
-									</td>
-									</c:when>
-									</c:choose>
-									</c:when>
-								</c:choose>
-							</tr>
-						</c:if>
-						</c:if>
-					</c:forEach>
-				</tbody>
-			</table>
-		</div>
-		<div class="col-sm-4">
+		<div class="col-sm-6">
 			<p>
 			<h4>활동 내역</h4>
 			</p>
@@ -167,28 +90,7 @@
 			</table>
 		</div>
 		<div class="col-sm-6">
-			<div class="row">
-				<p>
-				<h4>댓글 단 게시글</h4>
-				</p>
-				<table class="table table-hover">
-					<thead>
-						<tr>
-							<th>글 번호</th>
-							<th>글 제목</th>
-							<th>조회수</th>
-							<th>날짜</th>
-						</tr>
-					</thead>
-					<tbody>
-
-					</tbody>
-				</table>
-			</div>
-			<div class="row">
-				<p>
-				<h4>내 댓글</h4>
-				</p>
+				<p><h4>내 댓글</h4></p>
 				<table class="table table-hover">
 					<thead>
 						<tr>
@@ -209,7 +111,7 @@
 					</tbody>
 					</tbody>
 				</table>
-			</div>
+			
 		</div>
 	</div>
 </div>
@@ -225,48 +127,5 @@
 			}
 		});
 	});
-	
-	//거래화면 띄우기
-	function openDeal(str) {
-		var boardkey = $('#boardkey'+str).html();
-		var dealkey = $('#dealkey'+str).val();
-			
-		window.name = "parentForm";
-		window.open("site/deal?boardkey=" + boardkey+"&dealkey="+dealkey, "dealForm",
-				"width=600, height=650, resizable = no, scrollbars = no");
-	}
-	//배송대기
-	function openDeal1(str) {
-		var boardkey = $('#boardkey'+str).html();
-		var dealkey = $('#dealkey'+str).val();
-		var saleuserkey = $('#saleuserkey'+str).val();
-		var buyuserkey = $('#buyuserkey'+str).val();
-			
-		window.name = "parentForm";
-		window.open("site/delivery?boardkey=" + boardkey+"&dealkey="+dealkey+"&saleuserkey="+saleuserkey
-				+"&buyuserkey="+buyuserkey, "dealForm",
-				"width=600, height=650, resizable = no, scrollbars = no");
-	}
-	//배송중 and 거래완료
-	function openDeal2(str) {
-		var boardkey = $('#boardkey'+str).html();
-		var dealkey = $('#dealkey'+str).val();
-		var buyuserkey = $('#buyuserkey'+str).val();
-			
-		window.name = "parentForm";
-		window.open("site/dealcomplete?boardkey=" + boardkey+"&dealkey="+dealkey+"&buyuserkey="+buyuserkey, "dealForm",
-				"width=600, height=650, resizable = no, scrollbars = no");
-	}
-	//반품확인
-	function openDeal3(str) {
-		var boardkey = $('#boardkey'+str).html();
-		var dealkey = $('#dealkey'+str).val();
-		var buyuserkey = $('#buyuserkey'+str).val();
-			
-		window.name = "parentForm";
-		window.open("site/reason?boardkey=" + boardkey+"&dealkey="+dealkey+"&buyuserkey="+buyuserkey, "dealForm",
-				"width=600, height=650, resizable = no, scrollbars = no");
-	}
-	
 </script>
 <%@include file="../include/footer.jsp"%>

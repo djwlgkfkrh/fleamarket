@@ -120,9 +120,16 @@
 
 
 		<div class="col-sm-6">
-			<p><h4>활동 내역</h4></p>
-			<p>총 게시글 : ${mycount} 개</p>
-			<p>총 댓글 : ${c_mycount} 개</p>
+			<p>
+			<h4>활동 내역</h4>
+			</p>
+			<br>
+			<p>
+				총 게시글 :<span style="color: red;"> ${b_mycount}</span> 개
+			</p>
+			<p>
+				총 댓글 : <span style="color: red;">${c_mycount}</span> 개
+			</p>
 		</div>
 	</div>
 </div>
@@ -155,22 +162,6 @@
 			</table>
 		</div>
 		<div class="col-sm-6">
-			<div class="row">
-				<p><h4>댓글 단 게시글</h4></p>
-				<table class="table table-hover">
-					<thead>
-						<tr>
-							<th>글 번호</th>
-							<th>글 제목</th>
-							<th>조회수</th>
-							<th>날짜</th>
-						</tr>
-					</thead>
-					<tbody>
-
-					</tbody>
-				</table>
-			</div>
 			<div class="row">
 				<p><h4>내 댓글</h4></p>
 				<table class="table table-hover">

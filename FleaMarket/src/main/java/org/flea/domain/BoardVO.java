@@ -22,6 +22,8 @@ public class BoardVO {
 	String gpsX; // GPS ���� �浵
 	String gpsY; // (float�� �ϸ� ��Ȯ�ϰ� ������ �ȵ�)
 
+	String nickname;
+
 	public int getBoardkey() {
 		return boardkey;
 	}
@@ -132,6 +134,14 @@ public class BoardVO {
 
 	public void setGpsY(String gpsY) {
 		this.gpsY = gpsY;
+	}
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 
 	/*

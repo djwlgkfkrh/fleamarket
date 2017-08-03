@@ -39,8 +39,9 @@
 					<tr>
 						<td style="width: 100px;"><span class="w3-text-grey">작성자
 						</span></td>
+						<td>${userinfo.nickname}<input type="hidden" value="${userinfo.userkey}" name="userkey" />
+						<input type="hidden" value="${userinfo.nickname}" name="nickname" /></td>
 
-						<td>${userinfo.nickname}<input type="hidden" value="${userinfo.userkey}" name="userkey" /></td>
 						<!--  사진 첨부 버튼 시작  -->
 					<tr>
 						<td><span class="w3-text-grey">사진첨부</td>

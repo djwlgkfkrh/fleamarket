@@ -50,7 +50,6 @@
 			<![CDATA[    
   				order by boardkey desc limit #{pageStart}, #{perPageNum} ]]>
 	</select>
-
 	<!-- sale Board List start -->
 	<select id="salelistSearch" resultType="BoardVO">  <!-- board랑 sale을 연결해야함. 받는 파라미터가 SearchCriteria 이건데 -->
 		<![CDATA[  
@@ -146,13 +145,13 @@
 		select * from user where
 		userkey=#{userkey}
 	</select>
-
 	<!-- create Board start -->
 	<insert id="create">
 		insert into board ( title, group1, group2,
-		text,userkey)
-		values ( #{title}, #{group1}, #{group2}, #{text},
-		#{userkey})
+		text,userkey,nickname)
+		values ( #{title}, #{group1}, #{group2},
+		#{text},
+		#{userkey},#{nickname})
 	</insert>
 
 	<insert id="salecreate">
@@ -238,8 +237,7 @@
 
 	<update id="updateCommentCnt">
 		update board set commentcnt = commentcnt + #{amount}
-		where boardkey =
-		#{boardkey}
+		where boardkey =#{boardkey}
 	</update>
 
 	<update id="complete">

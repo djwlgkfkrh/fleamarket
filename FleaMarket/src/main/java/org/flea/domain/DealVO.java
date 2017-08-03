@@ -1,5 +1,7 @@
 package org.flea.domain;
 
+import java.util.Date;
+
 public class DealVO {
 	private Integer dealkey;
 	private Integer buyuserkey;
@@ -10,6 +12,8 @@ public class DealVO {
 	private Integer remittance;
 	private Integer salestate;
 	private String reason;
+	private Date regdate;
+	private String title;
 
 	public Integer getDealkey() {
 		return dealkey;
@@ -81,6 +85,22 @@ public class DealVO {
 
 	public void setReason(String reason) {
 		this.reason = reason;
+	}
+
+	public Date getRegdate() {
+		return regdate;
+	}
+
+	public void setRegdate(Date regdate) {
+		this.regdate = regdate;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 }
