@@ -1,14 +1,11 @@
 package org.flea.persistence;
 
-
 import java.util.List;
 
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
-import org.flea.domain.BoardVO;
 import org.flea.domain.CommentVO;
-import org.flea.domain.UserVO;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -27,10 +24,9 @@ public class CommentDAOImpl implements CommentDAO {
 	@Override
 	public List<CommentVO> commentRead(Integer boardkey) throws Exception {
 		// TODO Auto-generated method stub
-		
+
 		return session.selectList(namespace + ".commentRead", boardkey);
-		
-		
+
 	}
 
 	@Override
@@ -61,6 +57,12 @@ public class CommentDAOImpl implements CommentDAO {
 	public int commentCount(Integer userkey) throws Exception {
 		// TODO Auto-generated method stub
 		return session.selectOne(namespace + ".commentMyCount", userkey);
+	}
+
+	public CommentVO find(Integer commentkey) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectOne(namespace + ".find", commentkey);
+
 	}
 
 }

@@ -13,7 +13,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		nickname from user where id=#{id} and pw=#{pw}
 
 	</select>
-
 	<update id="update">
 		update user set userkey = #{userkey},id = #{id},name
 		= #{name},point = #{point},nickname = #{nickname}
@@ -66,7 +65,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="find" resultType="org.flea.domain.UserVO">
-		select *	from user	where userkey	= #{userkey}
-		
+		select * from user where userkey =
+		#{userkey}
+
 	</select>
+
 </mapper>

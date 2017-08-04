@@ -23,5 +23,5 @@ public interface UserService {
 	
 	public int checkMoney(UserVO vo) throws Exception ;
 
-	public UserVO find(Integer userkey)  throws Exception ;
+	public UserVO find(Integer userkey)  throws Exception;
 }

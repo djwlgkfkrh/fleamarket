@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ page session="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -41,14 +42,17 @@ footer {
 	background-color: #f2f2f2;
 	padding: 25px;
 }
+
 li a, .dropbtn {
 	display: inline-block;
 	color: black;
 	text-decoration: none;
 }
+
 li.dropdown {
 	display: inline-block;
 }
+
 .dropdown-content {
 	display: none;
 	position: absolute;
@@ -57,6 +61,7 @@ li.dropdown {
 	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 	z-index: 1;
 }
+
 .dropdown-content a {
 	color: black;
 	padding: 12px 16px;
@@ -64,9 +69,11 @@ li.dropdown {
 	display: block;
 	text-align: left;
 }
+
 .dropdown-content a:hover {
 	background-color: #f1f1f1
 }
+
 .dropdown:hover .dropdown-content {
 	display: block;
 }
@@ -82,20 +89,20 @@ li.dropdown {
 					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand  w3-text-light-blue w3-xlarge" href="/">Flea
-					Market</a>
-			</div>
+			<a class="navbar-brand  w3-text-black w3-xlarge" href="/">Flea Market</a>
+								</div>
 			<div class="collapse navbar-collapse " id="myNavbar">
 				<ul class="nav navbar-nav ">
 
-					<li><a class="w3-text-light-blue w3-xlarge" href="/sboard/list">Buy</a></li>
-					<li><a class="w3-text-light-blue w3-xlarge" href="#">Sell</a></li>
 
+					<li><a class="w3-text-black w3-xlarge" href="/sboard/buylist">Buy</a></li>
+					<li><a class="w3-text-black w3-xlarge" href="/sboard/salelist">Sell</a></li>
 					<li class="dropdown"><a href="/mypage"
 						class="dropbtn w3-xlarge w3-text-light-blue">MyPage</a>
 						<div class="dropdown-content">
 							<a href="/mypage">My Information</a> <a href="/deallist">My Order</a> <a
-								href="#">My Cart</a>
+								href="/mypage/mycart">My Cart</a>
+
 						</div></li>
 
 
@@ -106,7 +113,7 @@ li.dropdown {
 					<c:when test="${not empty sessionScope.userinfo}">
 						<form action="/logout" method="post">
 							<ul class=" nav navbar-nav navbar-right">
-								<li class="w3-text-white"
+								<li class="w3-text-black"
 									style="font-size: 15px; margin-top: 13px;">
 									${sessionScope.userinfo.nickname}님 환영합니다.</li>
 								<li>

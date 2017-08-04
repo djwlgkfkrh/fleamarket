@@ -16,11 +16,12 @@ public interface UserDAO {
 	public void delete(String id) throws Exception;
 
 	public boolean checkPw(String id, String pw) throws Exception;
-	
+
 	public void addInfo(UserVO user) throws Exception;
-	
+
 	public void deposit(UserVO user) throws Exception;
-	
+
 	public int checkMoney(UserVO vo) throws Exception;
-	public UserVO find(Integer userkey)  throws Exception ;
+
+	public UserVO find(Integer userkey) throws Exception;
 }

@@ -1,8 +1,5 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
 <%@include file="../include/header.jsp"%>
 <center style="margin-top:50px">
 <img src="/resources/image/FleaLogo1.png"	style="margin-bottom:50px"></center>
@@ -67,7 +64,7 @@
 		<c:when test="${not empty sessionScope.userinfo}">
 			<div style="float: right">
 				<form action="/sboard/post" width="80%">
-					<button class="w3-button w3-dark-grey">
+					<button class="w3-button w3-blue">
 						<i class="fa fa-pencil"></i> Post
 					</button>
 				</form>

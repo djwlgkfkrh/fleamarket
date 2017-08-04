@@ -65,4 +65,10 @@ public class CommentServiceImpl implements CommentService {
 
 	}
 
+	@Override
+	public CommentVO find(Integer commentkey) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.find(commentkey);
+	}
+
 }

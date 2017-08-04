@@ -1,10 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<style>
+</style>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 <%@include file="../include/header.jsp"%>
-
+<center style="margin-top: 50px">
+	<img src="/resources/image/FleaLogo1.png" style="margin-bottom: 50px">
+</center>
 <div class="container-fluid bg-3 text-center" style="max-width: 1400px">
 	<div class="row">
 		<h2 class="w3-text-grey w3-padding-16">
@@ -44,6 +47,82 @@
 			<!--  게시글 끝 -->
 		</div>
 
+		<!-- 찜하기부분 -->
+		<c:choose>
+			<c:when test="${not empty sessionScope.userinfo}">
+				<c:set value="${cart}" var="cart" />
+				<c:choose>
+					<c:when test="${cart==0}">
+						<center>
+							<button class=" btn w3-white w3-card"
+								style="width: 100px; height: 90px; text-align: center"
+								onclick="heart();">
+								<div class="w3-container" onmouseover="mouseOver()"
+									onmouseout="mouseOut()">
+									<span id="heart"
+										style="font-size: 50px; color: red; margin-top: 5px;"
+										class=" glyphicon glyphicon-heart-empty"></span><br> <span
+										style="color: red; font-size: 15px">찜하기</span>
+								</div>
+							</button>
+
+						</center>
+					</c:when>
+					<c:otherwise>
+						<center>
+							<button class=" btn w3-white w3-card"
+								style="width: 100px; height: 90px; text-align: center"
+								onclick="dealheart();">
+								<div class="w3-container">
+									<span id="heart"
+										style="font-size: 50px; color: red; margin-top: 5px;"
+										class=" glyphicon glyphicon-heart"></span><br> <span
+										style="color: red; font-size: 15px">찜하기</span>
+								</div>
+							</button>
+
+						</center>
+					</c:otherwise>
+				</c:choose>
+			</c:when>
+		</c:choose>
+		<script>
+			function mouseOver() {
+				document.getElementById("heart").className = "glyphicon glyphicon-heart";
+			}
+			function mouseOut() {
+				document.getElementById("heart").className = "glyphicon glyphicon-heart-empty";
+			}
+			function heart() {
+				console.log("heart");
+				var boardkey = "${boardinfo.boardkey}";
+				var userkey = "${userinfo.userkey}";
+				var vo = "boardkey=" + boardkey + "&userkey=" + userkey;
+				$.ajax({
+					type : 'post',
+					url : '/sboard/cart',
+					data : vo,
+					success : function(result) {
+
+						window.location.reload(true);
+					}
+				});
+			}
+			function dealheart() {
+				console.log("heart");
+				var boardkey = "${boardinfo.boardkey}";
+				var userkey = "${userinfo.userkey}";
+				var vo = "boardkey=" + boardkey + "&userkey=" + userkey;
+				$.ajax({
+					type : 'post',
+					url : '/sboard/dealcart',
+					data : vo,
+					success : function(result) {
+						window.location.reload(true);
+					}
+				});
+			}
+		</script>
 		<hr>
 		<!--  댓글부분 -->
 		<div style="text-align: left !important; margin-left: 50px">
@@ -100,10 +179,19 @@
 <div id="reply_div">
 {{#isBoarduser userkey secret}}
 <h4>
-{{nickname}} <span class="w3-opacity w3-medium">{{prettifyDate regdate}}
+<div class="dropdown">
+    <a href="#" class=" dropdown-toggle" data-toggle="dropdown">{{nickname}}  </a>
+<span class="w3-opacity w3-medium">{{prettifyDate regdate}}
 </span>
+    
+ 
 {{#isMe userkey}}
 <span class="w3-opacity w3-medium"><a  onclick="replySubBtn({{commentkey}})">답글</a></span>
+<ul class="dropdown-menu">
+      <li><a href="#" onclick="informationBtn({{commentkey}})">회원정보</a></li>
+      <li><a href="#">거래신청</a></li>
+      <li><a href="#">거래내역</a></li>
+    </ul>
 {{/isMe}}
 
 {{#isMeq userkey}}
@@ -112,6 +200,7 @@
 		 onclick="replyDelete({{commentkey}})">삭제</a>
 	</span>
 {{/isMeq}}
+
 <p style="margin-left: 10px">{{context}}</p>
 
 
@@ -127,10 +216,20 @@
 <div id="reply_div" style="margin-left: 30px">
 {{#isBoarduser userkey secret}}
 <h4>
-{{nickname}} <span class="w3-opacity w3-medium">{{prettifyDate regdate}}
+<div class="dropdown">
+    <a href="#" class=" dropdown-toggle" data-toggle="dropdown">{{nickname}}  </a>
+<span class="w3-opacity w3-medium">{{prettifyDate regdate}}
 </span>
+    
 {{#isMe userkey}}
-<span class="w3-opacity w3-medium"><a  onclick="replySubBtn({{commentkey}})">답글</a></span>
+<span class="w3-opacity w3-medium"><a onclick="replySubBtn({{commentkey}})">답글</a></span>
+
+<ul class="dropdown-menu">
+      <li><a onclick="informationBtn({{commentkey}})">회원정보</a></li>
+      <li><a onclick="requestDealBtn({{commentkey}})">거래신청</a></li>
+      <li><a onclick="dealListBtn({{commentkey}})">거래내역</a></li>
+    </ul>
+  </div>
 {{/isMe}}
 
 {{#isMeq userkey}}
@@ -138,6 +237,9 @@
 		onclick="replyModifyBtn({{commentkey}})">수정</a> | <a
 		 onclick="replyDelete({{commentkey}})">삭제</a>
 	</span>
+
+
+  </div>
 {{/isMeq}}
 <p style="margin-left: 10px">{{context}}</p>
 
@@ -182,6 +284,33 @@ type="checkbox" id="rsecret" name="rsecret">비밀댓글
 class="w3-blue w3-button">완료</button></td>
 </tr>
 </table>
+</script>
+
+<script>
+//정보보기
+function informationBtn(cmtkey){
+	console.log("insdfsd");
+
+	window.name = "parentForm";
+	window.open("/sboard/information?commentkey="+cmtkey,"informationform",
+			"width=550, height=350, resizable = no, scrollbars = no");
+}
+//거래신청
+function requestDealBtn(cmtkey){
+	console.log("insdfsd");
+
+	window.name = "parentForm";
+	window.open("/sboard/requestdeal?commentkey="+cmtkey,"requestDealform",
+			"width=600, height=650, resizable = no, scrollbars = no");
+}
+//거래내역
+function dealListBtn(cmtkey){
+	console.log("insdfsd");
+
+	window.name = "parentForm";
+	window.open("/sboard/deallist?commentkey="+cmtkey,"deallistform",
+			"width=600, height=650, resizable = no, scrollbars = no");
+}
 </script>
 <script>
 	Handlebars.registerHelper('isMe', function(userkey, options) {

@@ -19,4 +19,6 @@ public interface CommentDAO {
 
 	void replySub(CommentVO vo) throws Exception;
 
+	public CommentVO find(Integer commentkey) throws Exception;
+
 }

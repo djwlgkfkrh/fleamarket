@@ -3,6 +3,7 @@ package org.flea.persistence;
 import java.util.List;
 
 import org.flea.domain.BoardVO;
+import org.flea.domain.CartVO;
 import org.flea.domain.SearchCriteria;
 import org.flea.domain.UserVO;
 
@@ -25,8 +26,19 @@ public interface BoardDAO {
 	public int before(Integer boardkey) throws Exception;
 
 	public int after(Integer boardkey) throws Exception;
-	
+
+	public void putcart(CartVO vo) throws Exception;
+
+	public int getcart(Integer boardkey, Integer userkey) throws Exception;
+
+	public void dealcart(Integer boardkey, Integer userkey) throws Exception;
+
 	public void updateCommentCnt(Integer boardkey, int amount)throws Exception;
 	
 	public void complete(Integer boardkey) throws Exception;
+
+	public List<CartVO> listCart(Integer userkey) throws Exception;
+	
+	public List<BoardVO> listAll() throws Exception;
+
 }

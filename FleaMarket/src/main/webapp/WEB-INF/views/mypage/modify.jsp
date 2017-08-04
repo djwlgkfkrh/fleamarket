@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp"%>
-
+<center style="margin-top:50px">
+<img src="/resources/image/FleaLogo1.png"	style="margin-bottom:50px"></center>
 <div class="container-fluid bg-3 text-center" style="max-width: 1400px">
 	<h3>마이 페이지</h3>
 	<br>

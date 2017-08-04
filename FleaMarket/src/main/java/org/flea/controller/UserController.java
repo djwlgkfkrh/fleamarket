@@ -10,6 +10,8 @@ import javax.servlet.http.HttpSession;
 
 import org.flea.domain.BoardVO;
 import org.flea.domain.DealVO;
+import org.flea.domain.PageMaker;
+import org.flea.domain.SearchCriteria;
 import org.flea.domain.UserVO;
 import org.flea.service.BoardService;
 import org.flea.service.CommentService;
@@ -243,4 +245,21 @@ public class UserController {
 		return new ResponseEntity<>(entity, HttpStatus.OK);
 
 	}
+	
+	 @RequestMapping(value = "/mypage/mycart",  method = { RequestMethod.POST, RequestMethod.GET })
+	  public void mycart(@ModelAttribute("cri") SearchCriteria cri, Model model, HttpSession session) throws Exception {
+		 
+			logger.info("salelist post ...........");
+			UserVO vo=(UserVO) session.getAttribute("userinfo");
+			model.addAttribute("cart_list",bservice.listCart(vo.getUserkey()));
+			model.addAttribute("list", bservice.listAll());
+
+			PageMaker pageMaker = new PageMaker();
+			pageMaker.setCri(cri);
+
+			pageMaker.setTotalCount(bservice.listSearchCount(cri));
+
+			model.addAttribute("pageMaker", pageMaker);
+		  }
+	 
 }

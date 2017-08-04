@@ -18,6 +18,7 @@
 		board where
 		boardkey =
 		#{boardkey}
+
 	</select>
 
 	<select id="listMy" resultType="org.flea.domain.BoardVO">
@@ -99,6 +100,7 @@
 		select * from user where
 		userkey=#{userkey}
 	</select>
+
 	<insert id="create">
 		insert into board ( title, group1, group2,
 		text,userkey,nickname)
@@ -116,4 +118,30 @@
 		where boardkey =
 		#{boardkey}
 	</update>
+
+	<insert id="putcart">
+		insert into cart (userkey, boardkey)
+		values(#{userkey},#{boardkey})
+	</insert>
+
+	<select id="getcart" resultType="int">
+		select count(*) from cart where
+		boardkey=#{boardkey} and userkey=#{userkey}
+	</select>
+
+	<delete id="dealcart">
+		delete from cart where boardkey=#{boardkey} and
+		userkey=#{userkey}
+	</delete>
+
+	<select id="listCart" resultType="org.flea.domain.CartVO">
+		select * from cart where
+		userkey=#{userkey}
+	</select>
+
+	<select id="listAll" resultType="org.flea.domain.BoardVO">
+	<![CDATA[
+		select * from board where boardkey > 0]]>
+	</select>
+
 </mapper>
