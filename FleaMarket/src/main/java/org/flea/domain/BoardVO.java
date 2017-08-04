@@ -20,8 +20,6 @@ public class BoardVO {
 	String group1; // �з�1
 	String group2; // �з�2
 
-	String gpsX; // GPS ���� �浵
-	String gpsY; // (float�� �ϸ� ��Ȯ�ϰ� ������ �ȵ�)
 
 	String nickname;
 
@@ -121,21 +119,7 @@ public class BoardVO {
 		this.group2 = group2;
 	}
 
-	public String getGpsX() {
-		return gpsX;
-	}
 
-	public void setGpsX(String gpsX) {
-		this.gpsX = gpsX;
-	}
-
-	public String getGpsY() {
-		return gpsY;
-	}
-
-	public void setGpsY(String gpsY) {
-		this.gpsY = gpsY;
-	}
 
 	public String getNickname() {
 		return nickname;

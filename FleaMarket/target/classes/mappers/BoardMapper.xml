@@ -14,10 +14,8 @@
 		boardkey=#{boardkey}
 	</update>
 
-	<select id="read" resultType="org.flea.domain.BoardVO"> select * from
-		board where
-		boardkey =
-		#{boardkey}
+	<select id="read" resultType="org.flea.domain.BoardVO"> 
+	select * from	board where	boardkey =	#{boardkey}
 	</select>
 
 	<select id="listMy" resultType="org.flea.domain.BoardVO">
@@ -68,7 +66,7 @@
 	<select id="salelistSearchCount" resultType="int">
 	 <![CDATA[ 
 	 	select count(salekey) 
-		from (sale s, board b) 
+		from (sale s) 
 		where (s.salekey > 0) ]]>
 		<include refid="search"></include>
 	</select>
@@ -94,7 +92,7 @@
 	<select id="buylistSearchCount" resultType="int">
 	 <![CDATA[ 
 		select count(buykey) 
-		from (buy bb, board b) 
+		from (buy bb) 
 		where (bb.buykey > 0) ]]>
 		<include refid="search"></include>
 	</select>
