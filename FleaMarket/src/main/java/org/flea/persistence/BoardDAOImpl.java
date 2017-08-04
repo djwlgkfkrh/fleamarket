@@ -89,4 +89,17 @@ public class BoardDAOImpl implements BoardDAO {
 		session.delete(namespace + ".dealcart", map);
 	}
 
+	@Override
+	public List<CartVO> listCart(Integer userkey) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectList(namespace + ".listCart", userkey);
+	}
+
+	@Override
+	public List<BoardVO> listAll() throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectList(namespace + ".listAll");
+	}
+	
+
 }

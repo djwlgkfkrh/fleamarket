@@ -22,18 +22,23 @@
 						</tr>
 					</thead>
 					<tbody>
-
 						<c:forEach items="${list}" var="board">
+						<c:forEach items="${cart_list}" var="cart">
+						<c:set value="${cart.userkey}" var="cuser" />
+						<c:set value="${cart.boardkey}" var="cboard" />
+						<c:set value="${board.boardkey}" var="bboard" />
+						<c:if test="${cuser==userinfo.userkey && bboard==cboard}">
 							<tr>
 								<td>${board.boardkey}</td>
 								<td>${board.salestate}</td>
 								<td><a href='/sboard/read?boardkey=${board.boardkey}'>${board.title}</a></td>
 								<td>${board.viewcnt}</td>
 								<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm"
-										value="${board.regdate}" /></td>
+									value="${board.regdate}" /></td>
 							</tr>
+							</c:if>
 						</c:forEach>
-
+</c:forEach>
 					</tbody>
 				</table>
 			</div>

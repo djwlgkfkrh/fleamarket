@@ -28,4 +28,8 @@ public interface BoardDAO {
 	public int getcart(Integer boardkey, Integer userkey) throws Exception;
 
 	public void dealcart(Integer boardkey, Integer userkey) throws Exception;
+	
+	public List<CartVO> listCart(Integer userkey) throws Exception;
+	
+	public List<BoardVO> listAll() throws Exception;
 }

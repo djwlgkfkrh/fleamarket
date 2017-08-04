@@ -6,11 +6,13 @@ import javax.servlet.http.HttpSession;
 
 import org.flea.domain.BoardVO;
 import org.flea.domain.CartVO;
+import org.flea.domain.CommentVO;
 import org.flea.domain.PageMaker;
 import org.flea.domain.SearchCriteria;
 import org.flea.domain.UserVO;
 import org.flea.service.BoardService;
 import org.flea.service.CommentService;
+import org.flea.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -34,6 +36,8 @@ public class BoardController {
 	private BoardService service;
 	@Inject
 	private CommentService cservice;
+	@Inject
+	private UserService uservice;
 
 	@RequestMapping(value = "/list", method = { RequestMethod.POST, RequestMethod.GET })
 	public void salelist(@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception {
@@ -105,5 +109,19 @@ public class BoardController {
 		service.dealcart(boardkey,userkey);
 		entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		return entity;
+	}
+	@RequestMapping(value = "/information", method = { RequestMethod.GET, RequestMethod.POST })
+	public void information(@RequestParam int commentkey, Model model) throws Exception {
+		CommentVO cvo=cservice.find(commentkey);
+		UserVO uvo=uservice.find(cvo.getUserkey());
+		model.addAttribute("cuserinfo",uvo);		
+	}
+	@RequestMapping(value = "/deallist", method = { RequestMethod.GET, RequestMethod.POST })
+	public void deallist(@RequestParam int commentkey, Model model) throws Exception {
+		CommentVO cvo=cservice.find(commentkey);
+		UserVO uvo=uservice.find(cvo.getUserkey());
+		model.addAttribute("cuserinfo",uvo);
+		
+		
 	}
 }

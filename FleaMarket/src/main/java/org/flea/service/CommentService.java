@@ -8,15 +8,16 @@ import org.flea.domain.UserVO;
 
 public interface CommentService {
 
-	void addReply(CommentVO vo)  throws Exception;
+	void addReply(CommentVO vo) throws Exception;
 
 	List<CommentVO> commentRead(Integer boardkey) throws Exception;
 
 	void deleteReply(Integer commentkey) throws Exception;
 
-	void modifyReply(CommentVO vo)throws Exception;
+	void modifyReply(CommentVO vo) throws Exception;
 
-	void replySub(CommentVO vo)throws Exception;
+	void replySub(CommentVO vo) throws Exception;
 
+	public CommentVO find(Integer commentkey) throws Exception;
 
 }

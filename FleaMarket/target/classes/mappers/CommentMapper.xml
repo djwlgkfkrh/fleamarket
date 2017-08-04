@@ -34,4 +34,8 @@
 		values(#{parent_key},#{boardkey},#{userkey},
 		#{context}, #{secret},#{nickname})
 	</insert>
+	
+	<select id="find" resultType="org.flea.domain.CommentVO">
+		select * from comment where commentkey=#{commentkey}
+	</select>
 </mapper>

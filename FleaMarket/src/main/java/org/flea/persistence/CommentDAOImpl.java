@@ -51,4 +51,10 @@ public class CommentDAOImpl implements CommentDAO {
 		session.insert(namespace + ".replySub", vo);
 	}
 
+	@Override
+	public CommentVO find(Integer commentkey) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectOne(namespace+".find",commentkey);
+	}
+
 }

@@ -23,9 +23,14 @@ public interface BoardService {
 
 	public int after(Integer boardkey) throws Exception;
 
-	public void putcart(CartVO vo)throws Exception;
+	public void putcart(CartVO vo) throws Exception;
 
-	public int getcart(Integer boardkey,Integer userkey) throws Exception;
-	public void dealcart(Integer boardkey,Integer userkey) throws Exception;
+	public int getcart(Integer boardkey, Integer userkey) throws Exception;
+
+	public void dealcart(Integer boardkey, Integer userkey) throws Exception;
+
+	public List<CartVO> listCart(Integer userkey) throws Exception;
+
+	public List<BoardVO> listAll() throws Exception;
 
 }
