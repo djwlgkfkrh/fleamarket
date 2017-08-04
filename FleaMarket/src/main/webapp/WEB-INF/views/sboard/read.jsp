@@ -274,7 +274,7 @@
 
 <ul class="dropdown-menu">
       <li><a onclick="informationBtn({{commentkey}})">회원정보</a></li>
-{{#BoarduserMe}}
+{{#BoarduserMe salestate}}
       <li><a onclick="requestDealBtn({{commentkey}})">거래신청</a></li>
 {{/BoarduserMe}}
     </ul>
@@ -356,10 +356,10 @@ class="w3-blue w3-button">완료</button></td>
 	}
 </script>
 <script>
-	Handlebars.registerHelper('BoarduserMe', function(options) {
+	Handlebars.registerHelper('BoarduserMe', function(salestate,options) {
 		var uuserkey = "${userinfo.userkey}";
 		var buserkey = "${boardinfo.userkey}";
-		if (uuserkey == buserkey) {
+		if (uuserkey == buserkey&&salestate==0) {
 			return options.fn(this);
 		} else {
 			return options.inverse(this);
