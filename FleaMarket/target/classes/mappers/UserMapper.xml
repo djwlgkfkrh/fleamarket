@@ -12,7 +12,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select userkey,id,name,point, nickname from user where id=#{id} and pw=#{pw}
 
 	</select>
-	
+	<update id="addInfo">
+		update user set address = #{address},phone =#{phone}
+		,zipcode = #{zipcode},money=(money-#{money})
+		where userkey = #{userkey}
+	</update>
+
+	<update id="deposit">
+		update user set money=#{money}
+		where userkey =
+		#{userkey}
+	</update>
+
+	<select id="checkMoney" resultType="int">
+	<![CDATA[
+		select if(money - #{money} <0,1,0) from user where userkey = #{userkey}
+		]]>
+	</select>
 	<select id="find" resultType="org.flea.domain.UserVO">
       select *   from user   where userkey   = #{userkey}
    </select>

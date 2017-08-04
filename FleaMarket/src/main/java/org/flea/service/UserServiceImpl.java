@@ -25,6 +25,24 @@ public class UserServiceImpl implements UserService {
 		return dao.login(user);
 	}
 	@Override
+	public void addInfo(UserVO user) throws Exception {
+		// TODO Auto-generated method stub
+		dao.addInfo(user);
+	}
+	
+	@Override
+	public void deposit(UserVO user) throws Exception {
+		// TODO Auto-generated method stub
+		dao.deposit(user);
+	}
+
+	@Override
+	public int checkMoney(UserVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.checkMoney(vo);
+	}
+
+	@Override
 	   public UserVO find(Integer userkey) throws Exception {
 	      // TODO Auto-generated method stub
 	      return dao.find(userkey);

@@ -46,6 +46,12 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 	@Override
+	public void complete(Integer boardkey) throws Exception {
+		// TODO Auto-generated method stub
+		session.update(namespace + ".complete",boardkey);
+	}
+
+	@Override
 	public List<BoardVO> listSearch(SearchCriteria cri) throws Exception {
 
 		return session.selectList(namespace + ".listSearch", cri);

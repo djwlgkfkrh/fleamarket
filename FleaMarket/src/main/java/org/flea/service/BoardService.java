@@ -29,10 +29,12 @@ public interface BoardService {
 
 	public void dealcart(Integer boardkey, Integer userkey) throws Exception;
 
+	public void complete(Integer boardkey) throws Exception;
+
 	public List<CartVO> listCart(Integer userkey) throws Exception;
 
 	public List<BoardVO> listAll() throws Exception;
 
-	public List<BoardVO> popular()throws Exception;
+	public List<BoardVO> popular() throws Exception;
 
 }

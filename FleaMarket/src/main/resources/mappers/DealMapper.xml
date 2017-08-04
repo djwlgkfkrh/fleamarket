@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="org.flea.mappers.DealMapper">
+
+	<select id="read" resultType="org.flea.domain.DealVO">
+		select *
+		from
+		deal where
+		dealkey =
+		#{dealkey}
+	</select>
+	
+	<select id="getDealList" resultType="org.flea.domain.DealVO">
+		select *
+		from deal where
+		buyuserkey = #{userkey} OR saleuserkey=#{userkey}
+	</select>
+
+	<select id="checkMoney" resultType="int">
+		select
+		count(*)
+		from deal
+		where
+		dealkey
+		= #{dealkey} and money = #{money}
+	</select>
+
+	<update id="remitMoney">
+		update deal set remittance = #{money}, salestate= 1
+		where dealkey = #{dealkey}
+	</update>
+	
+	<update id="update">
+		update deal set deliverykey = #{deliverykey}, salestate= 2
+		where dealkey = #{dealkey}
+	</update>
+	
+	<update id="complete">
+		update deal set remittance = 0, salestate=3
+		where dealkey = #{dealkey}
+	</update>
+	
+	<update id="returngoods">
+		update deal set reason = #{reason}, deliverykey = #{deliverykey}, salestate= 4
+		where dealkey = #{dealkey}
+	</update>
+	
+	<update id="returncomplete">
+		update deal set remittance = 0, salestate=5
+		where dealkey = #{dealkey}
+	</update>
+	
+	<insert id="makedeal">
+		insert into deal (buyuserkey,saleuserkey,boardkey,title,money)
+		values(#{buyuserkey},#{saleuserkey}, #{boardkey}, #{title}, #{money})
+	</insert>
+</mapper>

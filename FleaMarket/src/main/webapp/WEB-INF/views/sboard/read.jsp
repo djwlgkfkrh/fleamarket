@@ -188,9 +188,8 @@
 {{#isMe userkey}}
 <span class="w3-opacity w3-medium"><a  onclick="replySubBtn({{commentkey}})">답글</a></span>
 <ul class="dropdown-menu">
-      <li><a href="#" onclick="informationBtn({{commentkey}})">회원정보</a></li>
-      <li><a href="#">거래신청</a></li>
-      <li><a href="#">거래내역</a></li>
+       <li><a onclick="informationBtn({{commentkey}})">회원정보</a></li>
+      <li><a onclick="requestDealBtn({{commentkey}})">거래신청</a></li>
     </ul>
 {{/isMe}}
 
@@ -227,7 +226,6 @@
 <ul class="dropdown-menu">
       <li><a onclick="informationBtn({{commentkey}})">회원정보</a></li>
       <li><a onclick="requestDealBtn({{commentkey}})">거래신청</a></li>
-      <li><a onclick="dealListBtn({{commentkey}})">거래내역</a></li>
     </ul>
   </div>
 {{/isMe}}
@@ -289,7 +287,7 @@ class="w3-blue w3-button">완료</button></td>
 <script>
 //정보보기
 function informationBtn(cmtkey){
-	console.log("insdfsd");
+	console.log("userinfomation");
 
 	window.name = "parentForm";
 	window.open("/sboard/information?commentkey="+cmtkey,"informationform",
@@ -297,18 +295,10 @@ function informationBtn(cmtkey){
 }
 //거래신청
 function requestDealBtn(cmtkey){
-	console.log("insdfsd");
+	console.log("requestDeal");
 
 	window.name = "parentForm";
-	window.open("/sboard/requestdeal?commentkey="+cmtkey,"requestDealform",
-			"width=600, height=650, resizable = no, scrollbars = no");
-}
-//거래내역
-function dealListBtn(cmtkey){
-	console.log("insdfsd");
-
-	window.name = "parentForm";
-	window.open("/sboard/deallist?commentkey="+cmtkey,"deallistform",
+	window.open("/sboard/requestDeal?commentkey="+cmtkey,"requestDealform",
 			"width=600, height=650, resizable = no, scrollbars = no");
 }
 </script>

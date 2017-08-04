@@ -26,6 +26,24 @@ public class UserDAOImpl implements UserDAO {
 		return session.selectOne(namespace+".login",user);
 	}
 	@Override
+	public void addInfo(UserVO user) throws Exception {
+		// TODO Auto-generated method stub
+		session.update(namespace+".addInfo",user);
+	}
+
+	@Override
+	public void deposit(UserVO user) throws Exception {
+		// TODO Auto-generated method stub
+		session.update(namespace+".deposit",user);
+	}
+
+	@Override
+	public int checkMoney(UserVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectOne(namespace+".checkMoney",vo);
+	}
+
+	@Override
 	   public UserVO find(Integer userkey) throws Exception {
 	      // TODO Auto-generated method stub
 	      return session.selectOne(namespace+".find",userkey);

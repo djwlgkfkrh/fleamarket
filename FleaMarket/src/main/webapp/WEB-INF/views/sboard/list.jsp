@@ -6,7 +6,6 @@
 <div class="container-fluid bg-3 text-center" style="max-width: 1400px">
 	<div class="row">
 		<div class="col-sm-12">
-			
 			<table class="table table-hover w3-centered"
 				style="text-align: center">
 				<thead>

@@ -75,6 +75,12 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
+	public void complete(Integer boardkey) throws Exception {
+		// TODO Auto-generated method stub
+	dao.complete(boardkey);	
+	}
+
+	@Override
 	public List<CartVO> listCart(Integer userkey) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.listCart(userkey);

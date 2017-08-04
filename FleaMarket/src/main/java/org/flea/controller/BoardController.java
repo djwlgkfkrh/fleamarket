@@ -12,6 +12,7 @@ import org.flea.domain.SearchCriteria;
 import org.flea.domain.UserVO;
 import org.flea.service.BoardService;
 import org.flea.service.CommentService;
+import org.flea.service.DealService;
 import org.flea.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,6 +39,8 @@ public class BoardController {
 	private CommentService cservice;
 	@Inject
 	private UserService uservice;
+	@Inject
+	private DealService dservice;
 
 	@RequestMapping(value = "/list", method = { RequestMethod.POST, RequestMethod.GET })
 	public void salelist(@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception {
@@ -114,13 +117,15 @@ public class BoardController {
 	public void information(@RequestParam int commentkey, Model model) throws Exception {
 		CommentVO cvo=cservice.find(commentkey);
 		UserVO uvo=uservice.find(cvo.getUserkey());
-		model.addAttribute("cuserinfo",uvo);		
+		model.addAttribute("cuserinfo",uvo);	
+		model.addAttribute("deal_list", dservice.getDeal(cvo.getUserkey()));
 	}
-	@RequestMapping(value = "/deallist", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "/requestDeal", method = { RequestMethod.GET, RequestMethod.POST })
 	public void deallist(@RequestParam int commentkey, Model model) throws Exception {
 		CommentVO cvo=cservice.find(commentkey);
 		UserVO uvo=uservice.find(cvo.getUserkey());
 		model.addAttribute("cuserinfo",uvo);
+		model.addAttribute("board",service.read(cvo.getBoardkey()));
 		
 		
 	}

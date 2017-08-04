@@ -56,6 +56,10 @@
 		<div id="chk">
 		<table class="table">
 				<tr>
+					<td>아이디</td>
+					<td>${cuserinfo.id }</td>
+				</tr>
+				<tr>
 					<td>닉네임</td>
 					<td>${cuserinfo.nickname }</td>
 				</tr>
@@ -91,6 +95,10 @@
 			<tr><td colspan="2">입력된 정보가 없습니다.</td></tr>
 			</c:when>
 			</c:choose>
+			<tr>
+			<td>거래 정보</td>
+			<td>거래 횟수 : ${deal_list.size()}</td>
+			</tr>
 			</table>
 		</div>
 	</div>
