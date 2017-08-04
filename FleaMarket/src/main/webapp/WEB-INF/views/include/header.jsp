@@ -93,8 +93,6 @@ li.dropdown {
 								</div>
 			<div class="collapse navbar-collapse " id="myNavbar">
 				<ul class="nav navbar-nav ">
-
-
 					<li><a class="w3-text-black w3-xlarge" href="/sboard/buylist">Buy</a></li>
 					<li><a class="w3-text-black w3-xlarge" href="/sboard/salelist">Sell</a></li>
 					<li class="dropdown"><a href="/mypage"
@@ -104,8 +102,6 @@ li.dropdown {
 								href="/mypage/mycart">My Cart</a>
 
 						</div></li>
-
-
 				</ul>
 
 

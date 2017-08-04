@@ -5,26 +5,26 @@
 
 
 <mapper namespace="org.flea.mappers.BoardMapper">
+
 	<!-- Read 시작 -->
 
 	<update id="updateViewCnt">
-		update board set viewcnt = viewcnt +1 where boardkey
-		=#{boardkey}
+		update board set viewcnt = viewcnt +1 
+		where boardkey=#{boardkey}
 	</update>
+
 	<select id="read" resultType="org.flea.domain.BoardVO">
-		select salestate, title, group1,
-		group2, regdate, viewcnt, text, boardkey , userkey,commentcnt,nickname
-		from
+		select * from
 		board where
 		boardkey =
 		#{boardkey}
+
 
 	</select>
 
 	<select id="listMy" resultType="org.flea.domain.BoardVO">
 		select *
 		from board where userkey = #{userkey}
-
 
 		<!-- SELECT * FROM board LEFT OUTER JOIN user ON board.userkey = user.userkey 
 			WHERE board.userkey = #{userkey} LIMIT 1; -->
@@ -38,53 +38,92 @@
 
 	</select>
 
+	<select id="listSearch" resultType="org.flea.domain.BoardVO">
+		<![CDATA[  
+		  select * from board where boardkey > 0 
+		]]>
+		
+		<include refid="search"></include>
+  
+			<![CDATA[    
+  				order by boardkey desc limit #{pageStart}, #{perPageNum} ]]>
+	</select>
+
 	<select id="listSearchCount" resultType="int">
 	 <![CDATA[ select count(boardkey) 
 		from board where boardkey > 0 ]]>
 		<include refid="search"></include>
 	</select>
 
-	<select id="listSearch" resultType="BoardVO">
+
+	<!-- sale Board List start -->
+	<select id="salelistSearch" resultType="org.flea.domain.BoardVO">  <!-- board랑 sale을 연결해야함. 받는 파라미터가 SearchCriteria 이건데 -->
 		<![CDATA[  
-		  select * from board where boardkey > 0 
+		 select * 
+		 from (board b, sale s) 
+		 where (s.boardkey = b.boardkey)
 		]]>
 		<include refid="search"></include>
-  
-			<![CDATA[    
-  				order by boardkey desc limit #{pageStart}, #{perPageNum} ]]>
+		
+  		<![CDATA[    
+  		order by s.salekey desc 
+  		limit #{pageStart}, #{perPageNum} ]]>
 	</select>
-	<sql id="search">
-		<if test="searchType != null">
-			<if test="searchType == 't'.toString()">
-				and title like CONCAT('%', #{keyword}, '%')
-			</if>
-			<if test="searchType == 'c'.toString()">
-				and content like CONCAT('%', #{keyword}, '%')
-			</if>
-			<if test="searchType == 'w'.toString()">
-				and writer like CONCAT('%', #{keyword}, '%')
-			</if>
-			<if test="searchType == 'tc'.toString()">
-				and ( title like CONCAT('%', #{keyword}, '%') OR content
-				like
-				CONCAT('%', #{keyword}, '%'))
-			</if>
-			<if test="searchType == 'cw'.toString()">
-				and ( content like CONCAT('%', #{keyword}, '%') OR writer
-				like
-				CONCAT('%', #{keyword}, '%'))
-			</if>
-			<if test="searchType == 'tcw'.toString()">
-				and ( title like CONCAT('%', #{keyword}, '%')
-				OR
-				content
-				like CONCAT('%', #{keyword}, '%')
-				OR
-				writer like CONCAT('%',
-				#{keyword}, '%'))
-			</if>
+
+
+	<select id="salelistSearchCount" resultType="int">
+	 <![CDATA[ 
+	 	select count(salekey) 
+		from (sale s, board b) 
+		where (s.salekey > 0) ]]>
+		<include refid="search"></include>
+	</select>
+	<!-- sale Board List end -->
+
+
+
+	<!-- Buy Board List start -->
+	<select id="buylistSearch" resultType="org.flea.domain.BoardVO">  <!-- board랑 sale을 연결해야함. 받는 파라미터가 SearchCriteria 이건데 -->
+		<![CDATA[  
+		 select * 
+		 from (board b, buy bb) 
+		 where (b.boardkey = bb.boardkey)
+		]]>
+		
+		<include refid="search"></include>
+		
+  		<![CDATA[    
+  		order by bb.buykey desc limit #{pageStart}, #{perPageNum} ]]>
+	</select>
+
+
+	<select id="buylistSearchCount" resultType="int">
+	 <![CDATA[ 
+		select count(buykey) 
+		from (buy bb, board b) 
+		where (bb.buykey > 0) ]]>
+		<include refid="search"></include>
+	</select>
+	<!-- Buy Board List end -->
+
+
+
+
+<!-- search -->
+	 <sql id="search">
+		<if test="group1 != null">
+			<if test="group2 != null">
+			and b.group1 = #{group1}
+			and b.group2 = #{group2}
+			and b.title like CONCAT('%', #{keyword}, '%')
+			</if>		
 		</if>
+		<if test="group1 == null">
+			<!-- 검색 상태가 아닐때 list 모두 출력용  -->
+		</if> 
 	</sql>
+	
+	
 
 	<select id="after" resultType="int">
 	<![CDATA[  
@@ -143,5 +182,90 @@
 	<![CDATA[
 		select * from board where boardkey > 0]]>
 	</select>
+
+	<!-- create Board start -->
+	<insert id="create">
+		insert into board ( title, group1, group2, text, userkey)
+		values ( #{title}, #{group1}, #{group2}, #{text}, #{userkey})
+	</insert>
+
+	<insert id="salecreate">
+		insert into sale (boardkey)
+		values (#{boardkey})
+	</insert>
+
+	<insert id="buycreate">
+		insert into buy (boardkey)
+		values (#{boardkey})
+	</insert>
+	<!--create Board end -->
+
+	<!-- get key start-->
+	<select id="getboardKey" resultType="int">
+		select boardkey
+		from board
+		order by regdate desc limit 1
+	</select>
+
+	<select id="getSaleState" resultType="int">
+		<![CDATA[  
+		select count(boardkey)
+		from sale
+		where boardkey = #{boardkey}
+		]]>
+	</select>
+	
+	<select id="getBuyState" resultType="int">
+		<![CDATA[  
+		select count(boardkey)
+		from buy
+		where boardkey = #{boardkey}
+		]]>
+	</select>
+	<!-- get key end -->
+
+
+
+
+	<!-- delete Board start -->
+
+	<delete id="deleteBoard">
+		delete from board where boardkey = #{boardkey}
+	</delete>
+
+	<delete id="deleteSale">
+		delete from sale where boardkey = #{boardkey}
+	</delete>
+
+	<delete id="deleteBuy">
+		delete from buy where boardkey = #{boardkey}
+	</delete>
+
+	<delete id="deleteBoard_Comment">
+		delete from comment where boardkey = #{boardkey}
+	</delete>
+
+	<delete id="deleteBoard_File">
+		delete from file where boardkey = #{boardkey}
+	</delete>
+
+	<!-- delete Board end -->
+
+
+	<!-- modify Board start -->
+
+	<update id="modifyBoard">
+		update board
+		<set>
+			group1 = #{group1},
+			group2 = #{group2},
+			title = #{title},
+			text =
+			#{text}
+		</set>
+		where boardkey = #{boardkey}
+	</update>
+
+	<!-- modify Board end -->
 
 </mapper>

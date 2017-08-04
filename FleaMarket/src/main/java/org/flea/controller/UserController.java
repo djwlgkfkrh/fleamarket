@@ -169,6 +169,7 @@ public class UserController {
 			throws Exception {
 		logger.info("Mypage modify complete");
 		// 비밀번호 체크
+
 		boolean result = service.checkPw(mid, mpw);
 		if (result) { // 비밀번호가 일치하면 수정 처리후, 마이페이지로
 			service.updatePw(userinfo);
@@ -178,6 +179,7 @@ public class UserController {
 		} else
 			logger.info("현재 비밀번호가 틀렸어" + result);
 		return "error/pw_error";
+
 	}
 
 	@RequestMapping(value = "/mypage/deleteUser", method = RequestMethod.POST)
@@ -185,6 +187,7 @@ public class UserController {
 			SessionStatus sessionStatus) throws Exception {
 		logger.info("회원탈퇴 비밀번호 체크");
 		// 비밀번호 체크
+
 		boolean result = service.checkPw(did, dpw);
 		if (result) { // 비밀번호가 일치하면 수정 처리후, 마이페이지로
 			service.delete(did);
@@ -194,6 +197,7 @@ public class UserController {
 		} else
 			logger.info("현재 비밀번호가 틀렸어" + result);
 		return "error/pw_error";
+
 	}
 
 	@RequestMapping(value = "/dealinfo/{dealkey}", method = RequestMethod.POST)
@@ -219,7 +223,7 @@ public class UserController {
 
 		entity.put("address", uvo.getAddress());
 		entity.put("number", "" + uvo.getPhone());
-		String salestate="";
+		String salestate = "";
 		switch (dvo.getSalestate()) {
 		case 0:
 			salestate = "입금대기";
@@ -241,25 +245,25 @@ public class UserController {
 			break;
 		}
 		entity.put("salestate", salestate);
-		entity.put("salestateNum", ""+dvo.getSalestate());
+		entity.put("salestateNum", "" + dvo.getSalestate());
 		return new ResponseEntity<>(entity, HttpStatus.OK);
 
 	}
-	
-	 @RequestMapping(value = "/mypage/mycart",  method = { RequestMethod.POST, RequestMethod.GET })
-	  public void mycart(@ModelAttribute("cri") SearchCriteria cri, Model model, HttpSession session) throws Exception {
-		 
-			logger.info("salelist post ...........");
-			UserVO vo=(UserVO) session.getAttribute("userinfo");
-			model.addAttribute("cart_list",bservice.listCart(vo.getUserkey()));
-			model.addAttribute("list", bservice.listAll());
 
-			PageMaker pageMaker = new PageMaker();
-			pageMaker.setCri(cri);
+	@RequestMapping(value = "/mypage/mycart", method = { RequestMethod.POST, RequestMethod.GET })
+	public void mycart(@ModelAttribute("cri") SearchCriteria cri, Model model, HttpSession session) throws Exception {
 
-			pageMaker.setTotalCount(bservice.listSearchCount(cri));
+		logger.info("salelist post ...........");
+		UserVO vo = (UserVO) session.getAttribute("userinfo");
+		model.addAttribute("cart_list", bservice.listCart(vo.getUserkey()));
+		model.addAttribute("list", bservice.listAll());
 
-			model.addAttribute("pageMaker", pageMaker);
-		  }
-	 
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+
+		pageMaker.setTotalCount(bservice.listSearchCount(cri));
+
+		model.addAttribute("pageMaker", pageMaker);
+	}
+
 }

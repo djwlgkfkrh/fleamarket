@@ -28,32 +28,33 @@ public class BoardDAOImpl implements BoardDAO {
 
 	@Override
 	public UserVO find(Integer userkey) throws Exception {
-		// TODO Auto-generated method stub
+		
 		return session.selectOne(namespace + ".find", userkey);
 	}
 
 	@Override
 	public BoardVO read(Integer boardkey) throws Exception {
-		// TODO Auto-generated method stub
+		
 		return session.selectOne(namespace + ".read", boardkey);
 
 	}
+
 	@Override
 	public List<BoardVO> listMy(Integer userkey) throws Exception {
-		// TODO Auto-generated method stub
+		
 		return session.selectList(namespace + ".listMy", userkey);
 	}
 
 	@Override
 	public int listCount(Integer userkey) throws Exception {
-		// TODO Auto-generated method stub
+		
 		return session.selectOne(namespace + ".listCount", userkey);
 
 	}
 
 	@Override
 	public int listSearchCount(SearchCriteria cri) throws Exception {
-		// TODO Auto-generated method stub
+		
 		return session.selectOne(namespace + ".listSearchCount", cri);
 	}
 
@@ -63,15 +64,44 @@ public class BoardDAOImpl implements BoardDAO {
 		return session.selectList(namespace + ".listSearch", cri);
 	}
 
+
+	@Override 	/* sale Board List */
+	public List<BoardVO> salelistSearch(SearchCriteria cri) throws Exception {
+		
+		return session.selectList(namespace + ".salelistSearch", cri);
+	}
+
+	@Override 	/* sale Board List */
+	public int salelistSearchCount(SearchCriteria cri) throws Exception {
+		
+		return session.selectOne(namespace + ".salelistSearchCount", cri);
+	}
+	
+	
+	@Override 	/* buy Board List */
+	public List<BoardVO> buylistSearch(SearchCriteria cri) throws Exception {
+		
+		return session.selectList(namespace + ".buylistSearch", cri);
+	}
+
+	@Override 	/* buy Board List */
+	public int buylistSearchCount(SearchCriteria cri) throws Exception {
+		
+		return session.selectOne(namespace + ".buylistSearchCount", cri);
+	}
+	
+	
+	
+
 	@Override
 	public int before(Integer boardkey) throws Exception {
-		// TODO Auto-generated method stub
+	
 		return session.selectOne(namespace + ".before", boardkey);
 	}
 
 	@Override
 	public int after(Integer boardkey) throws Exception {
-		// TODO Auto-generated method stub
+
 		return session.selectOne(namespace + ".after", boardkey);
 	}
 
@@ -128,4 +158,88 @@ public class BoardDAOImpl implements BoardDAO {
 		// TODO Auto-generated method stub
 		return session.selectList(namespace + ".listAll");
 	}
+
+	@Override /* Create Board */
+	public void createPost(BoardVO vo) throws Exception {
+
+		session.insert(namespace + ".create", vo);
+
+	}
+	
+	@Override /* Create Sale Table */
+	public void createSale(Integer boardkey) throws Exception {
+
+		session.insert(namespace + ".salecreate", boardkey);
+
+	}
+	
+	@Override /* Create Buy Table */
+	public void createBuy(Integer boardkey) throws Exception {
+
+		session.insert(namespace + ".buycreate", boardkey);
+
+	}
+
+	@Override /* Board Key */
+	public int getboardKey(BoardVO vo) throws Exception {
+
+		return session.selectOne(namespace + ".getboardKey", vo);
+	}
+
+
+
+	@Override /* Board Modify */
+	public void modifyBoard(BoardVO vo) throws Exception {
+
+		session.update(namespace + ".modifyBoard", vo);
+
+	}
+	
+	@Override /* Board Delete */
+	public void deleteBoard(Integer boardkey) throws Exception {
+
+		session.delete(namespace + ".deleteBoard_Comment", boardkey);
+		session.delete(namespace + ".deleteBoard_File", boardkey);
+		session.delete(namespace + ".deleteBoard", boardkey);
+	}
+
+	@Override
+	public void deleteBuy(Integer boardkey) throws Exception {
+		session.delete(namespace + ".deleteBoard_Comment", boardkey);
+		session.delete(namespace + ".deleteBoard_File", boardkey);
+		session.delete(namespace + ".deleteBuy", boardkey);
+		session.delete(namespace + ".deleteBoard", boardkey);
+		
+	}
+
+	@Override
+	public void deleteSale(Integer boardkey) throws Exception {
+		
+		session.delete(namespace + ".deleteBoard_Comment", boardkey);
+		session.delete(namespace + ".deleteBoard_File", boardkey);
+		session.delete(namespace + ".deleteSale", boardkey);
+		session.delete(namespace + ".deleteBoard", boardkey);
+	
+	}
+	
+	@Override /* getSaleState */
+	public int getSaleState(Integer boardkey) throws Exception{
+		return session.selectOne(namespace + ".getSaleState", boardkey);
+	}
+	
+	@Override
+	public int getBuyState(Integer boardkey) throws Exception{
+		return session.selectOne(namespace + ".getBuyState", boardkey);
+	}
+
+	@Override
+	public void forSearch() throws Exception {
+		// TODO Auto-generated method stub
+		
+		for(int i=1; i<6; i++){
+		session.selectOne(namespace + ".forSearch", i);
+		}
+		
+	}
+
 }

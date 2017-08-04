@@ -45,27 +45,58 @@ public class BoardServiceImpl implements BoardService {
 
 	}
 
+	// Search List
 	@Override
 	public int listSearchCount(SearchCriteria cri) throws Exception {
-		// TODO Auto-generated method stub
 		return dao.listSearchCount(cri);
 	}
 
 	@Override
 	public List<BoardVO> listSearchCriteria(SearchCriteria cri) throws Exception {
-
 		return dao.listSearch(cri);
+	}
+
+	// sale Board
+	@Override
+	public void createSale(Integer boardkey) throws Exception {
+		dao.createSale(boardkey);
+	}
+
+	@Override
+	public List<BoardVO> salelistSearchCriteria(SearchCriteria cri) throws Exception {
+		return dao.salelistSearch(cri);
+	}
+
+	@Override
+	public int salelistSearchCount(SearchCriteria cri) throws Exception {
+		return dao.salelistSearchCount(cri);
+	}
+
+	// buy Board
+	@Override
+	public void createBuy(Integer boardkey) throws Exception {
+		dao.createBuy(boardkey);
+	}
+
+	@Override
+	public List<BoardVO> buylistSearchCriteria(SearchCriteria cri) throws Exception {
+		return dao.buylistSearch(cri);
+	}
+
+	@Override
+	public int buylistSearchCount(SearchCriteria cri) throws Exception {
+		return dao.buylistSearchCount(cri);
 	}
 
 	@Override
 	public int before(Integer boardkey) throws Exception {
-		// TODO Auto-generated method stub
+
 		return dao.before(boardkey);
 	}
 
 	@Override
 	public int after(Integer boardkey) throws Exception {
-		// TODO Auto-generated method stub
+
 		return dao.after(boardkey);
 	}
 
@@ -104,6 +135,60 @@ public class BoardServiceImpl implements BoardService {
 	public List<BoardVO> listAll() throws Exception {
 		// TODO Auto-generated method stub
 		return dao.listAll();
+	}
+
+	@Override
+	public void createPost(BoardVO bvo) throws Exception {
+
+		dao.createPost(bvo);
+
+	}
+
+	@Override
+	public int getboardKey(BoardVO bvo) throws Exception {
+
+		return dao.getboardKey(bvo);
+	}
+
+	// Modify
+	@Override
+	public void modifyBoard(BoardVO bvo) throws Exception {
+
+		dao.modifyBoard(bvo);
+
+	}
+
+	// Delete
+	@Override
+	public void deleteBoard(Integer boardkey) throws Exception {
+
+		dao.deleteBoard(boardkey);
+	}
+
+	@Override
+	public void deleteBuy(Integer boardkey) throws Exception {
+
+		dao.deleteBuy(boardkey);
+	}
+
+	@Override
+	public void deleteSale(Integer boardkey) throws Exception {
+
+		dao.deleteSale(boardkey);
+
+	}
+
+	@Override
+	public int getSaleState(Integer boardkey) throws Exception {
+
+		return dao.getSaleState(boardkey);
+	}
+
+	@Override
+	public int getBuyState(Integer boardkey) throws Exception {
+
+		return dao.getBuyState(boardkey);
+
 	}
 
 }
