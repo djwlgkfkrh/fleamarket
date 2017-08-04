@@ -124,12 +124,16 @@ public class BoardController {
 		List<DealVO> deallist=dservice.getDeal(cvo.getUserkey());
 		model.addAttribute("deal_list", deallist);
 		int salestatecnt=0;
+		int saleing =0;
 		for(int i=0;i<deallist.size();i++){
 			if(deallist.get(i).getSalestate()==3){
 				salestatecnt++;
+			}else if(deallist.get(i).getSalestate()!=3){
+				saleing++;
 			}
 		}
 		model.addAttribute("salestatecnt",salestatecnt);
+		model.addAttribute("saleing",saleing);
 	}
 	@RequestMapping(value = "/requestDeal", method = { RequestMethod.GET, RequestMethod.POST })
 	public void deallist(@RequestParam int commentkey, Model model) throws Exception {

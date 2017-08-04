@@ -107,6 +107,10 @@
 			<td>거래 완료</td>
 			<td>${salestatecnt} 회</td>
 			</tr>
+			<tr>
+			<td>거래 중</td>
+			<td>${saleing} 회</td>
+			</tr>
 			</table>
 		</div>
 	</div>
