@@ -1,5 +1,6 @@
 package org.flea.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,6 +8,8 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.flea.domain.BoardVO;
+import org.flea.domain.DealVO;
 import org.flea.domain.UserVO;
 import org.flea.service.BoardService;
 import org.flea.service.CommentService;
@@ -191,20 +194,52 @@ public class UserController {
 		return "error/pw_error";
 	}
 
-	@RequestMapping(value = "/dealinfo", method = RequestMethod.POST)
-	public ResponseEntity<Map<String, String>> dealinfo() throws Exception {
+	@RequestMapping(value = "/dealinfo/{dealkey}", method = RequestMethod.POST)
+	public ResponseEntity<Map<String, String>> dealinfo(@PathVariable("dealkey") Integer dealkey) throws Exception {
 		logger.info("dealinfo  ...........");
 
+		DealVO dvo = dservice.read(dealkey);
+		UserVO uvo = service.find(dvo.getBuyuserkey());
+		BoardVO bvo = bservice.read(dvo.getBoardkey());
 		Map<String, String> entity = new HashMap<String, String>();
-		entity.put("seller", "seller11");
-		entity.put("boardtitle", "boardtitle");
-		entity.put("dealregdate", "dealregdate");
-		entity.put("money", "money");
-		entity.put("packageNumber", "packageNumber");
-		entity.put("address", "address");
-		entity.put("number", "number");
+		entity.put("dealkey", "" + dealkey);
 
-		entity.put("salestate", "salestate");
+		entity.put("seller", bvo.getNickname());
+
+		entity.put("buyer", uvo.getNickname());
+		entity.put("boardtitle", bvo.getTitle());
+		SimpleDateFormat newformat = new SimpleDateFormat("yyyy년 M월 d일");
+		String new_date = newformat.format(dvo.getRegdate());
+		entity.put("regdate", new_date);
+		entity.put("money", "" + dvo.getMoney());
+		entity.put("deliverykey", "" + dvo.getDeliverykey());
+		entity.put("salestate", "" + dvo.getSalestate());
+
+		entity.put("address", uvo.getAddress());
+		entity.put("number", "" + uvo.getPhone());
+		String salestate="";
+		switch (dvo.getSalestate()) {
+		case 0:
+			salestate = "입금대기";
+			break;
+		case 1:
+			salestate = "배송대기";
+			break;
+		case 2:
+			salestate = "배송중";
+			break;
+		case 3:
+			salestate = "거래완료";
+			break;
+		case 4:
+			salestate = "반품";
+			break;
+		case 5:
+			salestate = "반품완료";
+			break;
+		}
+		entity.put("salestate", salestate);
+		entity.put("salestateNum", ""+dvo.getSalestate());
 		return new ResponseEntity<>(entity, HttpStatus.OK);
 
 	}

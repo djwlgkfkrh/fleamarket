@@ -72,4 +72,10 @@ public class UserServiceImpl implements UserService {
 		return dao.checkMoney(vo);
 	}
 
+	@Override
+	public UserVO find(Integer userkey) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.find(userkey);
+	}
+
 }

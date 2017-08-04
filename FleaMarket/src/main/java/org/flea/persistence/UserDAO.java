@@ -22,4 +22,5 @@ public interface UserDAO {
 	public void deposit(UserVO user) throws Exception;
 	
 	public int checkMoney(UserVO vo) throws Exception;
+	public UserVO find(Integer userkey)  throws Exception ;
 }

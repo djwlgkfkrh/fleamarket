@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 <center style="margin-top: 50px">
@@ -95,7 +97,7 @@
 								</c:when>
 								</c:choose>
 								<td><button type="button" class="btn w3-blue" id="step1"
-										onclick="detail()">조회</button></td>
+										onclick="detail(${deal.dealkey})">조회</button></td>
 							</tr>
 						</c:if>
 					</c:if>
@@ -105,46 +107,69 @@
 	</div>
 	<br> <br> <br> <br> <br> <br> <br> <br>
 	<br>
-	<table style="width: 100%;">
-		<tr style="border: 1px solid black; border-collapse: collapse;">
-			<td>
-				<h3>1.입금대기중</h3>
-				<p>결제를 완료해주세요</p>
-			</td>
-			<td>
-				<h3>2.결제완료</h3>
-				<p>결제를 완료해주세요</p>
-			</td>
-			<td>
-				<h3>3.배송준비</h3>
-				<p>결제를 완료해주세요</p>
-			</td>
-			<td>
-				<h3>4.배송중</h3>
-				<p>결제를 완료해주세요</p>
-			</td>
-			<td>
-				<h3>5.배송완료</h3>
-				<p>결제를 완료해주세요</p>
-			</td>
-		</tr>
-	</table>
+	<div id="statetable"></div>
+
 	<br> <br>
 	<div id="detailDiv"></div>
 	<br> <br>
 </div>
 
+<script id="stateTableTemplate" type="text/x-handlebars-template"> 
+<table style="width: 100%;">
+		<tr style="border: 1px solid black; border-collapse: collapse;">
+			<td>{{#istrue salestateNum 0}}
+						<h3 style="color: red">1.입금대기중</h3>
+					{{else}}
+						<h3>1.입금대기중</h3>
+					{{/istrue}}
+			
 
+				<p>결제를 완료해주세요</p></td>
+			<td>{{#istrue salestateNum 1}}
+						<h3 style="color: red">2.배송대기</h3>
+					{{else}}
+						<h3>2.결제완료</h3>
+					{{/istrue}}
+
+				<p>결제를 완료해주세요</p></td>
+			<td>{{#istrue salestateNum 2}}
+						<h3 style="color: red">3.배송준비</h3>
+				{{else}}
+						<h3>3.배송준비</h3>
+					{{/istrue}}
+				<p>결제를 완료해주세요</p></td>
+			<td>{{#istrue salestateNum 3}}
+						<h3 style="color: red">4.거래완료</h3>
+					{{else}}
+						<h3>4.배송중</h3>
+					{{/istrue}}
+
+				<p>결제를 완료해주세요</p></td>
+
+		</tr>
+	</table>
+</script>
 <script id="detailDivTemplate" type="text/x-handlebars-template"> 
 <table class="table table-hover w3-centered"
 			style="text-align: center">
-<tr><td>주문번호</td><td>ㄴㅇㄹ</td><td>날짜</td><td>{{dealregdate}}</td></tr>
+<tr><td>주문번호</td><td>{{dealkey}}</td><td>날짜</td><td>{{regdate}}</td></tr>
+<tr><td>판매자</td><td>{{seller}}</td><td>구매자</td><td>{{buyer}}</td></tr>
+<tr><td>글제목</td><td>{{boardtitle}}</td><td>가격</td><td>{{money}}</td></tr>
+<tr><td>상태</td><td>{{salestate}}</td><td>운송장번호</td><td>{{deliverykey}}</td></tr>
+<tr><td>주소</td><td>{{address}}</td><td>전화번호</td><td>{{number}}</td></tr>
 			</table>
-{{seller}}{{boardtitle}}{{money}}{{packageNumber}}{{address}}{{number}}  
+
 </script>
 
 
 <script>
+Handlebars.registerHelper('istrue', function(salestateNum, num,options) {
+	if (salestateNum == num) {
+		return options.fn(this);
+	} else {
+		return options.inverse(this);
+	}
+});
 
 	//거래화면 띄우기
 	function openDeal(str) {
@@ -192,14 +217,20 @@
 		   var html =template(replyArr);
 		   targetDiv.html(html);
 		}
-
-	function detail(){
+	var printData2 = function (replyArr, targetDiv, handleBarTemplateName){
+		   var template =Handlebars.compile(handleBarTemplateName.html());
+		   var html =template(replyArr);
+		   targetDiv.html(html);
+		}
+	function detail(dealkey){
+		console.log(dealkey+"..");
 			$.ajax({
 			type : "POST",
-			url : "/dealinfo",
+			url : "/dealinfo/"+dealkey,
 			success : function(result) {
 				document.getElementById("detailDiv").innerHTML = "";
 				printData(result, $("#detailDiv"),$("#detailDivTemplate"));
+				printData2(result, $("#statetable"),$("#stateTableTemplate"));
 				}
 			
 		});

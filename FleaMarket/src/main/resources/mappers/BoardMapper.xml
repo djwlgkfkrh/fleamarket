@@ -13,7 +13,7 @@
 	</update>
 	<select id="read" resultType="org.flea.domain.BoardVO">
 		select salestate, title, group1,
-		group2, regdate, viewcnt, text, boardkey , userkey,commentcnt
+		group2, regdate, viewcnt, text, boardkey , userkey,commentcnt,nickname
 		from
 		board where
 		boardkey =
