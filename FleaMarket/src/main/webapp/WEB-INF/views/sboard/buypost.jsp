@@ -2,7 +2,9 @@
 	pageEncoding="UTF-8"%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <%@include file="../include/header.jsp"%>
-
+<center style="margin-top: 50px">
+	<img src="/resources/image/FleaLogo1.png" style="margin-bottom: 50px">
+</center>
 
 <div class="container-fluid bg-3 text-center" style="max-width: 1400px">
 	<div class="row">
@@ -18,7 +20,7 @@
 				<table class="w3-table w3-bordered w3-large">
 					<tr>
 						<td colspan="2"><span class="w3-text-grey">카테고리 선택</span></td>
-						<td>
+						<td colspan="2">
 							<!--  Search start --> 
 							<%@include file="../include/selectpost.jsp"%> <!--  Search End -->
 						</td>

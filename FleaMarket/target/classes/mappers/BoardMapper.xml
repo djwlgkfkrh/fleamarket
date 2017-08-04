@@ -5,26 +5,24 @@
 
 
 <mapper namespace="org.flea.mappers.BoardMapper">
-
 	<!-- Read 시작 -->
 
 	<update id="updateViewCnt">
-		update board set viewcnt = viewcnt +1 
-		where boardkey=#{boardkey}
+		update board set viewcnt = viewcnt +1 where boardkey
+		=#{boardkey}
 	</update>
-
 	<select id="read" resultType="org.flea.domain.BoardVO">
-		select * from
+		select *
+		from
 		board where
 		boardkey =
 		#{boardkey}
-
-
 	</select>
 
 	<select id="listMy" resultType="org.flea.domain.BoardVO">
 		select *
 		from board where userkey = #{userkey}
+
 
 		<!-- SELECT * FROM board LEFT OUTER JOIN user ON board.userkey = user.userkey 
 			WHERE board.userkey = #{userkey} LIMIT 1; -->
@@ -35,7 +33,6 @@
 		select count(*)
 		from board
 		where userkey = #{userkey}
-
 	</select>
 
 	<select id="listSearch" resultType="org.flea.domain.BoardVO">
@@ -55,7 +52,38 @@
 		<include refid="search"></include>
 	</select>
 
+	<select id="after" resultType="int">
+	<![CDATA[  
+		select boardkey
+		from board where boardkey > #{boardkey} order by boardkey asc limit 1]]>
+	</select>
+	<select id="before" resultType="int">
+	<![CDATA[  
+		select boardkey from board where boardkey < #{boardkey} order by boardkey desc limit 1]]>
+	</select>
 
+	<select id="find" resultType="org.flea.domain.UserVO">
+		select * from user where
+		userkey=#{userkey}
+	</select>
+	<insert id="create">
+		insert into board ( title, group1, group2,
+		text,userkey,nickname)
+		values ( #{title}, #{group1}, #{group2}, #{text},
+		#{userkey},#{nickname})
+	</insert>
+	<update id="updateCommentCnt">
+		update board set commentcnt = commentcnt + #{amount}
+		where boardkey =
+		#{boardkey}
+	</update>
+
+	<update id="complete">
+		update board set salestate = 1
+		where boardkey =
+		#{boardkey}
+	</update>
+	
 	<!-- sale Board List start -->
 	<select id="salelistSearch" resultType="org.flea.domain.BoardVO">  <!-- board랑 sale을 연결해야함. 받는 파라미터가 SearchCriteria 이건데 -->
 		<![CDATA[  
@@ -74,7 +102,7 @@
 	<select id="salelistSearchCount" resultType="int">
 	 <![CDATA[ 
 	 	select count(salekey) 
-		from (sale s, board b) 
+		from (sale s) 
 		where (s.salekey > 0) ]]>
 		<include refid="search"></include>
 	</select>
@@ -86,7 +114,7 @@
 	<select id="buylistSearch" resultType="org.flea.domain.BoardVO">  <!-- board랑 sale을 연결해야함. 받는 파라미터가 SearchCriteria 이건데 -->
 		<![CDATA[  
 		 select * 
-		 from (board b, buy bb) 
+		 from (board b,buy bb) 
 		 where (b.boardkey = bb.boardkey)
 		]]>
 		
@@ -100,7 +128,7 @@
 	<select id="buylistSearchCount" resultType="int">
 	 <![CDATA[ 
 		select count(buykey) 
-		from (buy bb, board b) 
+		from (buy bb,board b) 
 		where (bb.buykey > 0) ]]>
 		<include refid="search"></include>
 	</select>
@@ -123,71 +151,7 @@
 		</if> 
 	</sql>
 	
-	
-
-	<select id="after" resultType="int">
-	<![CDATA[  
-		select boardkey
-		from board where boardkey > #{boardkey} order by boardkey asc limit 1]]>
-	</select>
-	<select id="before" resultType="int">
-	<![CDATA[  
-		select boardkey from board where boardkey < #{boardkey} order by boardkey desc limit 1]]>
-	</select>
-
-	<select id="find" resultType="org.flea.domain.UserVO">
-		select * from user where
-		userkey=#{userkey}
-	</select>
-
-	<insert id="create">
-		insert into board ( title, group1, group2,
-		text,userkey,nickname)
-		values ( #{title}, #{group1}, #{group2}, #{text},
-		#{userkey},#{nickname})
-	</insert>
-	<update id="updateCommentCnt">
-		update board set commentcnt = commentcnt + #{amount}
-		where boardkey =
-		#{boardkey}
-	</update>
-
-	<update id="complete">
-		update board set salestate = 1
-		where boardkey =
-		#{boardkey}
-	</update>
-
-	<insert id="putcart">
-		insert into cart (userkey, boardkey)
-		values(#{userkey},#{boardkey})
-	</insert>
-
-	<select id="getcart" resultType="int">
-		select count(*) from cart where
-		boardkey=#{boardkey} and userkey=#{userkey}
-	</select>
-
-	<delete id="dealcart">
-		delete from cart where boardkey=#{boardkey} and
-		userkey=#{userkey}
-	</delete>
-
-	<select id="listCart" resultType="org.flea.domain.CartVO">
-		select * from cart where
-		userkey=#{userkey}
-	</select>
-
-	<select id="listAll" resultType="org.flea.domain.BoardVO">
-	<![CDATA[
-		select * from board where boardkey > 0]]>
-	</select>
-
 	<!-- create Board start -->
-	<insert id="create">
-		insert into board ( title, group1, group2, text, userkey)
-		values ( #{title}, #{group1}, #{group2}, #{text}, #{userkey})
-	</insert>
 
 	<insert id="salecreate">
 		insert into sale (boardkey)
@@ -267,5 +231,34 @@
 	</update>
 
 	<!-- modify Board end -->
+	
+	<insert id="putcart">
+		insert into cart (userkey, boardkey)
+		values(#{userkey},#{boardkey})
+	</insert>
+
+	<select id="getcart" resultType="int">
+		select count(*) from cart where
+		boardkey=#{boardkey} and userkey=#{userkey}
+	</select>
+
+	<delete id="dealcart">
+		delete from cart where boardkey=#{boardkey} and
+		userkey=#{userkey}
+	</delete>
+
+	<select id="listCart" resultType="org.flea.domain.CartVO">
+		select * from cart where
+		userkey=#{userkey}
+	</select>
+
+	<select id="listAll" resultType="org.flea.domain.BoardVO">
+	<![CDATA[
+		select * from board where boardkey > 0]]>
+	</select>
+	<select id="popular" resultType="org.flea.domain.BoardVO">
+	<![CDATA[
+		select * from board where boardkey > 0 order by viewcnt desc limit 10]]>
+	</select>
 
 </mapper>

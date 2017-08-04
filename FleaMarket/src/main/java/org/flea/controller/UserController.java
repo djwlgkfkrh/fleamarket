@@ -125,6 +125,7 @@ public class UserController {
 		}
 	}
 
+	// my order
 	@RequestMapping(value = "/deallist", method = RequestMethod.GET)
 	public String deallist(UserVO user, Model model, HttpSession session) throws Exception {
 		logger.info("deallist................" + user.getUserkey());

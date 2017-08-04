@@ -18,9 +18,6 @@ public class BoardVO {
 	String group1; // �з�1
 	String group2; // �з�2
 
-	String gpsX; // GPS ���� �浵
-	String gpsY; // (float�� �ϸ� ��Ȯ�ϰ� ������ �ȵ�)
-
 	String nickname;
 
 	public int getBoardkey() {
@@ -63,22 +60,6 @@ public class BoardVO {
 		this.commentcnt = commentcnt;
 	}
 
-	public String getGroup1() {
-		return group1;
-	}
-
-	public void setGroup1(String group1) {
-		this.group1 = group1;
-	}
-
-	public String getGroup2() {
-		return group2;
-	}
-
-	public void setGroup2(String group2) {
-		this.group2 = group2;
-	}
-
 	public String getTitle() {
 		return title;
 	}
@@ -119,20 +100,20 @@ public class BoardVO {
 		this.salestate = salestate;
 	}
 
-	public String getGpsX() {
-		return gpsX;
+	public String getGroup1() {
+		return group1;
 	}
 
-	public void setGpsX(String gpsX) {
-		this.gpsX = gpsX;
+	public void setGroup1(String group1) {
+		this.group1 = group1;
 	}
 
-	public String getGpsY() {
-		return gpsY;
+	public String getGroup2() {
+		return group2;
 	}
 
-	public void setGpsY(String gpsY) {
-		this.gpsY = gpsY;
+	public void setGroup2(String group2) {
+		this.group2 = group2;
 	}
 
 	public String getNickname() {

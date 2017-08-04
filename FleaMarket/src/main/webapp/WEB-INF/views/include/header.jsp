@@ -23,12 +23,14 @@
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Lobster">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
 <style>
 /* Remove the navbar's default margin-bottom and rounded borders */
 .navbar {
 	margin-bottom: 0;
 	border-radius: 0;
 }
+
 .Mymodal-content {
 	margin: auto;
 	background-color: #fff;
@@ -89,17 +91,18 @@ li.dropdown {
 					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-			<a class="navbar-brand  w3-text-black w3-xlarge" href="/">Flea Market</a>
-								</div>
+				<a class="navbar-brand  w3-text-black w3-xlarge" href="/">Flea
+					Market</a>
+			</div>
 			<div class="collapse navbar-collapse " id="myNavbar">
 				<ul class="nav navbar-nav ">
 					<li><a class="w3-text-black w3-xlarge" href="/sboard/buylist">Buy</a></li>
 					<li><a class="w3-text-black w3-xlarge" href="/sboard/salelist">Sell</a></li>
 					<li class="dropdown"><a href="/mypage"
-						class="dropbtn w3-xlarge w3-text-light-blue">MyPage</a>
+						class="dropbtn w3-xlarge w3-text-black">MyPage</a>
 						<div class="dropdown-content">
-							<a href="/mypage">My Information</a> <a href="/deallist">My Order</a> <a
-								href="/mypage/mycart">My Cart</a>
+							<a href="/mypage">My Information</a> <a href="/deallist">My
+								Order</a> <a href="/mypage/mycart">My Cart</a>
 
 						</div></li>
 				</ul>

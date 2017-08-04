@@ -131,12 +131,6 @@ public class BoardController {
 
 	}
 
-//없애도돼?
-	@RequestMapping(value = "/post", method = { RequestMethod.GET })
-	public void createGET(BoardVO vo) throws Exception {
-		logger.info("postGET ...........");
-	}
-
 	// Create Post /* @@@@@@ file handling */
 	public void createPOST(BoardVO bvo, MultipartHttpServletRequest mfile, HttpServletRequest request)
 			throws IllegalStateException, Exception {
