@@ -32,4 +32,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="find" resultType="org.flea.domain.UserVO">
       select *   from user   where userkey   = #{userkey}
    </select>
+   	
+	<select id="checkBoard" resultType="int">
+		select
+		count(*)
+		from sale
+		where boardkey
+		= #{boardkey}
+	</select>
 </mapper>

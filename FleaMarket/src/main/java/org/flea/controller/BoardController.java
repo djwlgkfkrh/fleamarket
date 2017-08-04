@@ -1,5 +1,7 @@
 package org.flea.controller;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -7,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.flea.domain.BoardVO;
 import org.flea.domain.CartVO;
 import org.flea.domain.CommentVO;
+import org.flea.domain.DealVO;
 import org.flea.domain.PageMaker;
 import org.flea.domain.SearchCriteria;
 import org.flea.domain.UserVO;
@@ -118,7 +121,15 @@ public class BoardController {
 		CommentVO cvo=cservice.find(commentkey);
 		UserVO uvo=uservice.find(cvo.getUserkey());
 		model.addAttribute("cuserinfo",uvo);	
-		model.addAttribute("deal_list", dservice.getDeal(cvo.getUserkey()));
+		List<DealVO> deallist=dservice.getDeal(cvo.getUserkey());
+		model.addAttribute("deal_list", deallist);
+		int salestatecnt=0;
+		for(int i=0;i<deallist.size();i++){
+			if(deallist.get(i).getSalestate()==3){
+				salestatecnt++;
+			}
+		}
+		model.addAttribute("salestatecnt",salestatecnt);
 	}
 	@RequestMapping(value = "/requestDeal", method = { RequestMethod.GET, RequestMethod.POST })
 	public void deallist(@RequestParam int commentkey, Model model) throws Exception {
@@ -126,6 +137,8 @@ public class BoardController {
 		UserVO uvo=uservice.find(cvo.getUserkey());
 		model.addAttribute("cuserinfo",uvo);
 		model.addAttribute("board",service.read(cvo.getBoardkey()));
+		boolean sale = uservice.checkBoard(cvo.getBoardkey());
+		model.addAttribute("sale",sale);
 		
 		
 	}

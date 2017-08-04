@@ -63,6 +63,10 @@
 					<td>닉네임</td>
 					<td>${cuserinfo.nickname }</td>
 				</tr>
+				<tr>
+					<td>이름</td>
+					<td>${cuserinfo.name }</td>
+				</tr>
 		<c:choose>
 			<c:when test="${cuserinfo.zipcode!=''}">
 				<tr>
@@ -92,12 +96,16 @@
 				</tr>
 			</c:when>
 			<c:when test="${cuserinfo.zipcode==''}">
-			<tr><td colspan="2">입력된 정보가 없습니다.</td></tr>
+			<tr><td colspan="2">추가 정보가 없습니다.</td></tr>
 			</c:when>
 			</c:choose>
 			<tr>
-			<td>거래 정보</td>
-			<td>거래 횟수 : ${deal_list.size()}</td>
+			<td>거래 횟수</td>
+			<td>${deal_list.size()} 회</td>
+			</tr>
+			<tr>
+			<td>거래 완료</td>
+			<td>${salestatecnt} 회</td>
 			</tr>
 			</table>
 		</div>

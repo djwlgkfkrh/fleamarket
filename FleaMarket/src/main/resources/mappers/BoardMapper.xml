@@ -111,4 +111,5 @@
 	<![CDATA[
 		select * from board where boardkey > 0 order by viewcnt desc limit 10]]>
 	</select>
+	
 </mapper>

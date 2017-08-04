@@ -48,4 +48,14 @@ public class UserDAOImpl implements UserDAO {
 	      // TODO Auto-generated method stub
 	      return session.selectOne(namespace+".find",userkey);
 	   }
+
+	@Override
+	public boolean checkBoard(Integer boardkey) throws Exception {
+		// TODO Auto-generated method stub
+		 boolean result = false;
+	        int count = session.selectOne(namespace+".checkBoard", boardkey);
+	        if(count == 1) result= true;
+	        return result;
+	}
+	
 }
