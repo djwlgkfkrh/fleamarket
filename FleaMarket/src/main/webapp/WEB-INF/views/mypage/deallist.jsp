@@ -217,11 +217,7 @@ Handlebars.registerHelper('istrue', function(salestateNum, num,options) {
 		   var html =template(replyArr);
 		   targetDiv.html(html);
 		}
-	var printData2 = function (replyArr, targetDiv, handleBarTemplateName){
-		   var template =Handlebars.compile(handleBarTemplateName.html());
-		   var html =template(replyArr);
-		   targetDiv.html(html);
-		}
+
 	function detail(dealkey){
 		console.log(dealkey+"..");
 			$.ajax({
@@ -229,8 +225,10 @@ Handlebars.registerHelper('istrue', function(salestateNum, num,options) {
 			url : "/dealinfo/"+dealkey,
 			success : function(result) {
 				document.getElementById("detailDiv").innerHTML = "";
+				document.getElementById("statetable").innerHTML = "";
+				printData(result, $("#statetable"),$("#stateTableTemplate"));
 				printData(result, $("#detailDiv"),$("#detailDivTemplate"));
-				printData2(result, $("#statetable"),$("#stateTableTemplate"));
+				
 				}
 			
 		});
