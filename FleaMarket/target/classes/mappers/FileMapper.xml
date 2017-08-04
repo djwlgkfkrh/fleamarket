@@ -39,6 +39,12 @@
 	from file
 	where boardkey=#{boardkey}
 	</select>
+	
+	<select id="getOneFile" resultType="org.flea.domain.FileVO">
+	select *
+	from file
+	where boardkey=#{boardkey} and fileid=1
+	</select>
 
 	
 

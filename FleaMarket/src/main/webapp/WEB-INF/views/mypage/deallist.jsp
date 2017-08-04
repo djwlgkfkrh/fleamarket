@@ -117,34 +117,34 @@
 <script id="stateTableTemplate" type="text/x-handlebars-template"> 
 <table style="width: 100%;">
 		<tr style="border: 1px solid black; border-collapse: collapse;">
+			<td><h3>1.입금대기</h3>
+					<p>결제를 완료해주세요</p></td>
 			<td>{{#istrue salestateNum 0}}
-						<h3 style="color: red">1.입금대기중</h3>
-					{{else}}
-						<h3>1.입금대기중</h3>
-					{{/istrue}}
-			
-
-				<p>결제를 완료해주세요</p></td>
-			<td>{{#istrue salestateNum 1}}
-						<h3 style="color: red">2.배송대기</h3>
+						<h3 style="color: red">2.결제완료</h3>
 					{{else}}
 						<h3>2.결제완료</h3>
 					{{/istrue}}
 
-				<p>결제를 완료해주세요</p></td>
-			<td>{{#istrue salestateNum 2}}
-						<h3 style="color: red">3.배송준비</h3>
-				{{else}}
-						<h3>3.배송준비</h3>
-					{{/istrue}}
-				<p>결제를 완료해주세요</p></td>
-			<td>{{#istrue salestateNum 3}}
-						<h3 style="color: red">4.거래완료</h3>
+				<p>주문정보를 확인하고 결제한 상태입니다 </p>	</td>
+			<td>{{#istrue salestateNum 1}}
+						<h3 style="color: red">3.배송대기</h3>
 					{{else}}
-						<h3>4.배송중</h3>
+						<h3>3.배송대기</h3>
 					{{/istrue}}
 
-				<p>결제를 완료해주세요</p></td>
+				<p>주문정보를 확인하고 배송을 준비중입니다</p></td>
+			<td>{{#istrue salestateNum 2}}
+						<h3 style="color: red">4.배송 중</h3>
+				{{else}}
+						<h3>4.배송 중</h3>
+					{{/istrue}}
+				<p>물품이 발송되었습니다</p></td>
+			<td>{{#istrue salestateNum 3}}
+						<h3 style="color: red">5.거래완료</h3>
+					{{else}}
+						<h3>5.거래완료</h3>
+					{{/istrue}}
+				<p>거래확인으로 거래가 종료됩니다</p></td>
 
 		</tr>
 	</table>

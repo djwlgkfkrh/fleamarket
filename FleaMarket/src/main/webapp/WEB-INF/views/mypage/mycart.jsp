@@ -23,7 +23,8 @@
 					</thead>
 					<tbody>
 						<c:forEach items="${list}" var="board">
-						<c:forEach items="${cart_list}" var="cart">
+						<c:forEach items="${cart_list}" var="cart" varStatus="status">
+		<%-- 				<c:forEach items="${filelist}" var="filelist"> --%>
 						<c:set value="${cart.userkey}" var="cuser" />
 						<c:set value="${cart.boardkey}" var="cboard" />
 						<c:set value="${board.boardkey}" var="bboard" />
@@ -31,6 +32,16 @@
 							<tr>
 								<td>${board.boardkey}</td>
 								<td>${board.salestate}</td>
+								<!-- image -->
+								<td>	
+									<img style="margin-left: 36%;"
+										src="${pageContext.request.contextPath}/resources/upload/${filelist[status.index].fname}"
+										width="300" height="300">
+									<br>
+								
+								</td>
+								
+                              <!--  image -->
 								<td><a href='/sboard/read?boardkey=${board.boardkey}'>${board.title}</a></td>
 								<td>${board.viewcnt}</td>
 								<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm"
@@ -38,7 +49,8 @@
 							</tr>
 							</c:if>
 						</c:forEach>
-</c:forEach>
+						</c:forEach>
+<%-- </c:forEach> --%>
 					</tbody>
 				</table>
 			</div>

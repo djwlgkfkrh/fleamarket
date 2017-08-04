@@ -1,12 +1,12 @@
 package org.flea.persistence;
 
-import javax.inject.Inject;
 import java.util.List;
 
-import org.apache.ibatis.session.SqlSession;
-import org.springframework.stereotype.Repository;
+import javax.inject.Inject;
 
+import org.apache.ibatis.session.SqlSession;
 import org.flea.domain.FileVO;
+import org.springframework.stereotype.Repository;
 
 
 @Repository
@@ -40,6 +40,11 @@ public class FileDAOImpl implements FileDAO{
 	public int getFileId(int boardkey) throws Exception {
 		return session.selectOne(namespace + ".getFileId", boardkey);
 		
+	}
+
+	@Override
+	public FileVO getOneFile(int boardkey) throws Exception {
+		return session.selectOne(namespace + ".getOneFile", boardkey);
 	}
 
 }

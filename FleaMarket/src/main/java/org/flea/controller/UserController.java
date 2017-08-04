@@ -1,7 +1,9 @@
 package org.flea.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -9,13 +11,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.flea.domain.BoardVO;
+import org.flea.domain.CartVO;
 import org.flea.domain.DealVO;
+import org.flea.domain.FileVO;
 import org.flea.domain.PageMaker;
 import org.flea.domain.SearchCriteria;
 import org.flea.domain.UserVO;
 import org.flea.service.BoardService;
 import org.flea.service.CommentService;
 import org.flea.service.DealService;
+import org.flea.service.FileService;
 import org.flea.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,6 +53,8 @@ public class UserController {
 	private CommentService cservice;
 	@Inject
 	private DealService dservice;
+	@Inject
+	private FileService fileservice;
 
 	// 아이디 중복확인 창
 	@RequestMapping(value = "/IdCheck", method = RequestMethod.GET)
@@ -258,7 +265,23 @@ public class UserController {
 		UserVO vo = (UserVO) session.getAttribute("userinfo");
 		model.addAttribute("cart_list", bservice.listCart(vo.getUserkey()));
 		model.addAttribute("list", bservice.listAll());
-
+		
+		List<CartVO> cartlist = bservice.listCart(vo.getUserkey());
+		
+		
+		List<FileVO> filelist = new ArrayList<>();
+		FileVO fileinfo = new FileVO();
+		
+		for(int i=0; i<cartlist.size(); i++){
+			
+			int boardkey = cartlist.get(i).getBoardkey();
+			fileinfo = fileservice.getOneFile(boardkey);
+	
+			filelist.add(i, fileinfo);
+		}
+	
+		model.addAttribute("filelist", filelist);
+		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
 

@@ -38,6 +38,12 @@ public class FileServiceImpl implements FileService {
 
 		return dao.getFileId(boardkey);
 	}
+	
+	@Override
+	public FileVO getOneFile (int boardkey) throws Exception{
+		
+		return dao.getOneFile(boardkey);
+	}
 
 
 

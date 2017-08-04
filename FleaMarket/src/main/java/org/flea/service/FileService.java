@@ -11,6 +11,7 @@ public interface FileService {
 	public List<FileVO> postFile(int boardkey) throws Exception;
 	public void modifyFile(FileVO vo) throws Exception;
 	public int getFileId(int boardkey) throws Exception;
+	public FileVO getOneFile (int boardkey) throws Exception;
 	
 
 }
