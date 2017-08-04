@@ -100,6 +100,12 @@ public class BoardDAOImpl implements BoardDAO {
 		// TODO Auto-generated method stub
 		return session.selectList(namespace + ".listAll");
 	}
+
+	@Override
+	public List<BoardVO> popular() throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectList(namespace + ".popular");
+	}
 	
 
 }

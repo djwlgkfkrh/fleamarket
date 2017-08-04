@@ -33,4 +33,6 @@ public interface BoardService {
 
 	public List<BoardVO> listAll() throws Exception;
 
+	public List<BoardVO> popular()throws Exception;
+
 }

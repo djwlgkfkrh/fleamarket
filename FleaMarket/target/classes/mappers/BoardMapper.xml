@@ -103,4 +103,8 @@
 	<![CDATA[
 		select * from board where boardkey > 0]]>
 	</select>
+	<select id="popular" resultType="org.flea.domain.BoardVO">
+	<![CDATA[
+		select * from board where boardkey > 0 order by viewcnt desc limit 10]]>
+	</select>
 </mapper>

@@ -86,4 +86,11 @@ public class BoardServiceImpl implements BoardService {
 		return dao.listAll();
 	}
 
+	@Override
+	public List<BoardVO> popular() throws Exception {
+		// TODO Auto-generated method stub
+		return dao.popular();
+	}
+	
+
 }

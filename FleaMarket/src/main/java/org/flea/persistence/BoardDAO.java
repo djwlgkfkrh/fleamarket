@@ -32,4 +32,5 @@ public interface BoardDAO {
 	public List<CartVO> listCart(Integer userkey) throws Exception;
 	
 	public List<BoardVO> listAll() throws Exception;
+	public List<BoardVO> popular()throws Exception;
 }
