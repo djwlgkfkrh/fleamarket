@@ -40,21 +40,7 @@ public class MypageController {
 		    logger.info("Welcome Modify! The client locale is {}.", locale);
 
 		  }
-	  @RequestMapping(value = "/mycart",  method = { RequestMethod.POST, RequestMethod.GET })
-	  public void mycart(@ModelAttribute("cri") SearchCriteria cri, Model model, HttpSession session) throws Exception {
-		 
-			logger.info("salelist post ...........");
-			UserVO vo=(UserVO) session.getAttribute("userinfo");
-			model.addAttribute("cart_list",service.listCart(vo.getUserkey()));
-			model.addAttribute("list", service.listAll());
-
-			PageMaker pageMaker = new PageMaker();
-			pageMaker.setCri(cri);
-
-			pageMaker.setTotalCount(service.listSearchCount(cri));
-
-			model.addAttribute("pageMaker", pageMaker);
-		  }
+	 
 	 
 	
 }

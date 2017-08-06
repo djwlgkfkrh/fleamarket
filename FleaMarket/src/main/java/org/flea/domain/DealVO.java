@@ -14,6 +14,7 @@ public class DealVO {
 	private String reason;
 	private Date regdate;
 	private String title;
+	private String nickname;
 
 	public Integer getDealkey() {
 		return dealkey;
@@ -101,6 +102,14 @@ public class DealVO {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 
 }

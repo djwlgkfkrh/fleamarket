@@ -12,7 +12,7 @@
 	</update>
 	<select id="read" resultType="org.flea.domain.BoardVO">
 		select salestate, title, group1,
-		group2, regdate, viewcnt, text, boardkey , userkey
+		group2, regdate, viewcnt, text, boardkey , userkey,nickname
 		from board where
 		boardkey =#{boardkey}
 	</select>

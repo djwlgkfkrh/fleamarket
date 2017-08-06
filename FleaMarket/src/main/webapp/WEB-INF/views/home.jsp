@@ -29,8 +29,20 @@
 					<c:forEach items="${popularBoard}" var="popularBoard">
 						<tr>
 							<td>${popularBoard.boardkey}</td>
-							<td>${popularBoard.salestate}</td>
+							<c:choose>
+							<c:when test="${popularBoard.salestate==0}">
+							<td>거래전</td>
 							<td><a href='/sboard/read?boardkey=${popularBoard.boardkey}'>${popularBoard.title}</a></td>
+							</c:when>
+							<c:when test="${popularBoard.salestate==1}">
+							<td>거래중</td>
+							<td><a href='/sboard/read?boardkey=${popularBoard.boardkey}'>${popularBoard.title}</a></td>
+							</c:when>
+							<c:when test="${popularBoard.salestate==2}">
+							<td>거래완료</td>
+							<td>${popularBoard.title}</td>
+							</c:when>
+							</c:choose>
 							<td>${popularBoard.viewcnt}</td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm"
 									value="${popularBoard.regdate}" /></td>

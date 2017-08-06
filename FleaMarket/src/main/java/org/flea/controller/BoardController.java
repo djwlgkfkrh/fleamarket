@@ -136,7 +136,7 @@ public class BoardController {
 		model.addAttribute("saleing",saleing);
 	}
 	@RequestMapping(value = "/requestDeal", method = { RequestMethod.GET, RequestMethod.POST })
-	public void deallist(@RequestParam int commentkey, Model model) throws Exception {
+	public void requestDeal(@RequestParam int commentkey, Model model) throws Exception {
 		CommentVO cvo=cservice.find(commentkey);
 		UserVO uvo=uservice.find(cvo.getUserkey());
 		model.addAttribute("cuserinfo",uvo);

@@ -22,7 +22,7 @@ public class BoardVO {
 
 	String gpsX; // GPS 위도 경도
 	String gpsY; // (float로 하면 정확하게 저장이 안됨)
-
+	String nickname;
 	public int getSalekey() {
 		return salekey;
 	}
@@ -125,6 +125,14 @@ public class BoardVO {
 
 	public void setGpsY(String gpsY) {
 		this.gpsY = gpsY;
+	}
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 
 	/*

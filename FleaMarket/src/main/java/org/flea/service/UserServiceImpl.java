@@ -25,6 +25,16 @@ public class UserServiceImpl implements UserService {
 		return dao.login(user);
 	}
 	@Override
+	public boolean checkId(String id) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.checkId(id);
+	}
+	@Override
+	public boolean checkNick(String nick) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.checkNick(nick);
+	}
+	@Override
 	public void addInfo(UserVO user) throws Exception {
 		// TODO Auto-generated method stub
 		dao.addInfo(user);

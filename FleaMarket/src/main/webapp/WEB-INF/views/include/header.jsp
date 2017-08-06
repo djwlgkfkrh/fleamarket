@@ -40,7 +40,6 @@
 }
 /* Add a gray background color and some padding to the footer */
 footer {
-	background-color: #f2f2f2;
 	padding: 25px;
 }
 
@@ -79,6 +78,65 @@ li.dropdown {
 	display: block;
 }
 </style>
+<!--  회원가입 시 빈 항목 건드리기-->
+<script type="text/javascript">
+	// 회원가입 화면의 입력값들을 검사한다.
+	function checkValue() {
+		var form = document.joinUser;
+		
+		if (!form.name.value) {
+			alert("이름을 입력하세요.");
+			return false;
+			}
+		if (!form.id.value) {
+			alert("아이디를 입력하세요.");
+			return false;
+		}
+		if (form.idDuplication.value != "idCheck") {
+			alert("아이디 중복체크를 해주세요.");
+			return false;
+		}
+		
+		if (!form.nickname.value) {
+			alert("닉네임을 입력하세요.");
+			return false;
+			}
+		if (form.nickDuplication.value != "nickCheck") {
+			alert("닉네임 중복체크를 해주세요.");
+			return false;
+		}
+		if (!form.pw.value) {
+			alert("비밀번호를 입력하세요.");
+			return false;
+		}		
+	}
+		// 아이디 중복체크 화면open
+		function openIdChk() {
+			window.name = "parentForm";
+			window.open("/IdCheck", "chkForm",
+					"width=500, height=300, resizable = no, scrollbars = no");
+		}
+		// 아이디 입력창에 값 입력시 hidden에 idUncheck를 세팅한다.
+		// 이렇게 하는 이유는 중복체크 후 다시 아이디 창이 새로운 아이디를 입력했을 때
+		// 다시 중복체크를 하도록 한다.
+		function inputIdChk() {
+			document.joinUser.idDuplication.value = "idUncheck";
+		}
+		
+		// 닉네임 중복체크 화면open
+		function openNickChk() {
+			window.name = "parentForm";
+			window.open("/nicknameCheck", "chkForm",
+					"width=500, height=300, resizable = no, scrollbars = no");
+		}
+		// 닉네임 입력창에 값 입력시 hidden에 nickUncheck를 세팅한다.
+		// 이렇게 하는 이유는 중복체크 후 다시 닉네임 창이 새로운 닉네임을 입력했을 때
+		// 다시 중복체크를 하도록 한다.
+		function inputNickChk() {
+			document.joinUser.nickDuplication.value = "nickUncheck";
+		}
+</script>
+<!-- 회원가입시 체크사항 끝 -->
 </head>
 <body>
 
@@ -102,7 +160,7 @@ li.dropdown {
 					<li class="dropdown"><a href="javascript:void(0)"
 						class="dropbtn w3-xlarge w3-text-black">MyPage</a>
 						<div class="dropdown-content">
-							<a href="#">My Information</a> <a href="#">My Order</a> <a
+							<a href="#">My Information</a> <a href="/mypage/deallist">My Order</a> <a
 								href="/mypage/mycart">My Cart</a>
 						</div></li>
 
@@ -167,7 +225,8 @@ li.dropdown {
 											data-dismiss="modal">&times;</button>
 										<h4 class="modal-title w3-text-blue">Join Us</h4>
 									</div>
-									<form action="/join" method="post">
+									<form action="/join" method="post" name="joinUser"
+										onsubmit="return checkValue()">
 										<div class="modal-body " style="float: center !important">
 
 											<table class="w3-text-blue" style="padding: 15px;">
@@ -177,11 +236,16 @@ li.dropdown {
 												</tr>
 												<tr>
 													<td>아이디</td>
-													<td><input type="text" size="20" name="id" />
+													<td><input type="text" size="20" name="id" onkeydown="inputIdChk()" />
+													<input type="button" value="중복확인" onclick="openIdChk()"/>    
+                   								    <input type="hidden" name="idDuplication" value="idUncheck" />
+
 												</tr>
 												<tr>
 													<td>닉네임</td>
-													<td><input type="text" size="20" name="nickname" />
+													<td><input type="text" size="20" name="nickname" onkeydown="inputNickChk()" />
+													<input type="button" value="중복확인" onclick="openNickChk()"/>    
+                   								    <input type="hidden" name="nickDuplication" value="nickUncheck" />
 												</tr>
 												<tr>
 													<td>비밀번호</td>
