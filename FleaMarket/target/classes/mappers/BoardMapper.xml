@@ -14,15 +14,16 @@
 		boardkey=#{boardkey}
 	</update>
 
-	<select id="read" resultType="org.flea.domain.BoardVO"> select * from
+	<select id="read" resultType="org.flea.domain.BoardVO"> 
+		select * from
 		board where
-		boardkey =
-		#{boardkey}
+		boardkey = #{boardkey}
 	</select>
 
 	<select id="listMy" resultType="org.flea.domain.BoardVO">
 		select *
-		from board where userkey = #{userkey}
+		from board 
+		where userkey = #{userkey}
 		<!-- SELECT * FROM board LEFT OUTER JOIN user ON board.userkey = user.userkey 
 			WHERE board.userkey = #{userkey} LIMIT 1; -->
 	</select>
@@ -33,23 +34,34 @@
 
 	</select>
 
+	<!-- Home Search List Start -->
 	<select id="listSearchCount" resultType="int">
+<!-- 	<if test= "keyword != null"></if> -->
 	 <![CDATA[ select count(boardkey) 
-		from board where boardkey > 0 ]]>
-		<include refid="search"></include>
-
+		from board 
+		where boardkey > 0 
+		and title like CONCAT('%', #{keyword}, '%')]]>
 	</select>
 
 	<select id="listSearch" resultType="org.flea.domain.BoardVO">
+<!-- 	<if test= "keyword != null"></if> -->
 		<![CDATA[  
-		  select * from board where boardkey > 0 
-		]]>
-
-		<include refid="search"></include>
-  
-			<![CDATA[    
-  				order by boardkey desc limit #{pageStart}, #{perPageNum} ]]>
+		select * 
+		from board 
+		where boardkey > 0 
+	  	and title like CONCAT('%', #{keyword}, '%')
+  		order by boardkey desc limit #{pageStart}, #{perPageNum} ]]>
 	</select>
+	<!-- Home Search List End -->
+	
+	<!-- <include refid="keywordNullCheck"></include> -->
+	<sql id="keywordNullCheck">
+		<if test="keyword != null">
+			values(#{keyword})
+		</if> 
+	</sql>
+	
+	
 	<!-- sale Board List start -->
 	<select id="salelistSearch" resultType="org.flea.domain.BoardVO">  <!-- board랑 sale을 연결해야함. 받는 파라미터가 SearchCriteria 이건데 -->
 		<![CDATA[  
@@ -57,6 +69,7 @@
 		 from (board b, sale s) 
 		 where (s.boardkey = b.boardkey)
 		]]>
+		
 		<include refid="search"></include>
 		
   		<![CDATA[    
@@ -68,7 +81,7 @@
 	<select id="salelistSearchCount" resultType="int">
 	 <![CDATA[ 
 	 	select count(salekey) 
-		from (sale s, board b) 
+		from (sale s,  board b) 
 		where (s.salekey > 0) ]]>
 		<include refid="search"></include>
 	</select>
@@ -115,7 +128,27 @@
 		<if test="group1 == null">
 			<!-- 검색 상태가 아닐때 list 모두 출력용 -->
 		</if>
+		
 	</sql>
+
+	
+	<sql id="searchcount">
+	<![CDATA[  	
+		select count(*)
+		from board b
+		where b.group1 = #{group1} ]]>
+		<if test="group1 != null">
+			<if test="group2 != null">
+				and b.group2 = #{group2}
+				and b.title like CONCAT('%', #{keyword}, '%')
+			</if>
+		</if>
+		<if test="group1 == null">
+			<!-- 검색 상태가 아닐때 list 모두 출력용 -->
+		</if>
+	</sql>
+	
+	
 
 
 
@@ -133,15 +166,13 @@
 
 	<select id="find" resultType="org.flea.domain.UserVO">
 		select * from user where
-		userkey=#{userkey}
+		userkey = #{userkey}
 	</select>
 	<!-- create Board start -->
+	
 	<insert id="create">
-		insert into board ( title, group1, group2,
-		text,userkey,nickname)
-		values ( #{title}, #{group1}, #{group2},
-		#{text},
-		#{userkey},#{nickname})
+		insert into board ( title, group1, group2, text, userkey)
+		values ( #{title}, #{group1}, #{group2}, #{text}, #{userkey})
 	</insert>
 
 	<insert id="salecreate">
@@ -215,8 +246,7 @@
 			group1 = #{group1},
 			group2 = #{group2},
 			title = #{title},
-			text =
-			#{text}
+			text = #{text}
 		</set>
 		where boardkey = #{boardkey}
 	</update>
@@ -247,5 +277,6 @@
 		delete from cart where boardkey=#{boardkey} and
 		userkey=#{userkey}
 	</delete>
+	
 
 </mapper>

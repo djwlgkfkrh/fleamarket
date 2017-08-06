@@ -2,7 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp"%>
 <center style="margin-top:50px">
+
 <img src="/resources/image/FleaLogo1.png"	style="margin-bottom:50px"></center>
+
 <div class="container-fluid bg-3 text-center" style="max-width: 1400px">
 	<div class="row">
 		<div class="col-sm-12">
@@ -17,8 +19,7 @@
 			</table>
 			<!--  Search End -->
 
-			<table class="table table-hover w3-centered"
-				style="text-align: center">
+			<table class="table table-hover w3-centered" style="text-align: center">
 				<thead>
 					<tr>
 						<th style="width: 100px;">글 번호</th>

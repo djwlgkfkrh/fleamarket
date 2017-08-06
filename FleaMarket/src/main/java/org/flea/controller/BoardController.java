@@ -86,7 +86,7 @@ public class BoardController {
 
 
 	}
-
+	
 	// Buy List
 	@RequestMapping(value = "/buylist", method = { RequestMethod.POST, RequestMethod.GET })
 	public void buylist(@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception {
