@@ -28,7 +28,8 @@
 			WHERE board.userkey = #{userkey} LIMIT 1; -->
 	</select>
 
-	<select id="listCount" resultType="int"> select count(*)
+	<select id="listCount" resultType="int"> 
+		select count(*)
 		from board
 		where userkey = #{userkey}
 
