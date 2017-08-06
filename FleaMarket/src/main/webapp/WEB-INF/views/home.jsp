@@ -34,13 +34,12 @@
 		</div>
 	</div>
 
-
 	<div class="text-center">
 		<ul class="pagination">
 
 			<c:if test="${pageMaker.prev}">
 				<li><a
-					href="home/${pageMaker.makeSearch(pageMaker.startPage - 1) }">&laquo;</a></li>
+					href="home/${pageMaker.makeSearch(pageMaker.startPage)-1 }">&laquo;</a></li>
 			</c:if>
 
 			<c:forEach begin="${pageMaker.startPage }"

@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import org.flea.domain.BoardVO;
+import org.flea.domain.PageMaker;
 import org.flea.domain.SearchCriteria;
 import org.flea.service.BoardService;
 import org.slf4j.Logger;
@@ -55,10 +56,22 @@ public class HomeController {
 	public ResponseEntity<List<BoardVO>> mainlist(@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception {
 
 		logger.info("home search list post ...........");
-		ResponseEntity<List<BoardVO>> entity=null;
-		List<BoardVO> searchlist=service.listSearchCriteria(cri);
-		entity =new ResponseEntity<List<BoardVO>>(searchlist ,HttpStatus.OK);
-
+		ResponseEntity<List<BoardVO>> entity = null;
+		List<BoardVO> searchlist = service.listSearchCriteria(cri);
+				
+		model.addAttribute("list", service.read(119));
+		
+		
+		/*model.addAttribute("list", searchlist);
+		PageMaker pageMaker = new PageMaker(); 
+		pageMaker.setCri(cri); 
+		pageMaker.setTotalCount(service.listSearchCount(cri));
+		model.addAttribute("pageMaker", pageMaker);*/
+		
+		entity = new ResponseEntity<List<BoardVO>>(searchlist ,HttpStatus.OK);
+				 
+		logger.info(" home search => group1 : "+cri.getGroup1()+" group1 : "+cri.getGroup2()+" keyword : "+cri.getKeyword());
+		
 		return entity;
 	}
 

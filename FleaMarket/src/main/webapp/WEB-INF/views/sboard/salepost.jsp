@@ -33,12 +33,6 @@
 						</span></td>
 
 						<td>${userinfo.nickname}<input type="hidden" value="${userinfo.userkey}" name="userkey" /></td>
-						<!--  사진 첨부 버튼 시작  -->
-					<tr>
-						<td><span class="w3-text-grey">사진첨부</span></td>
-						<td><input type="file" name="file" /></td>
-						<td><input type="file" name="file" /></td>
-						<td><input type="file" name="file" /></td>
 
 					</tr>
 				</table>

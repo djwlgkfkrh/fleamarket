@@ -54,14 +54,6 @@
 
 		 </form>
 
-<%-- 		<input type="text" name='keyword' id="keywordInput" value='${cri.keyword}'>
-		<button id='searchBtn'>Search</button>
- --%>
-	
-	
-	
-
-
 
 <script language="javascript">
 

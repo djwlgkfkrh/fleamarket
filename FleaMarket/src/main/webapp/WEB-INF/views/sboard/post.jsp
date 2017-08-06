@@ -11,24 +11,10 @@
 		</h2>
 
 		<!--  포스팅 폼 시작  -->
-		<form action="/sboard/post" method="post" enctype="multipart/form-data">
+		<form id="post" action="/sboard/post" method="post" enctype="multipart/form-data" value="checkValue()">
 			<div style="padding: 30px">
 				<table class="w3-table w3-bordered w3-large">
 					<tr>
-						<!-- 
-						<td colspan="2"><span class="w3-text-grey">카테고리 선택</span></td>
-						<td><select class="w3-select w3-border" name="group1">
-								<option value="" disabled selected>Choose your option</option>
-								<option value="1">Option 1</option>
-								<option value="2">Option 2</option>
-								<option value="3">Option 3</option>
-						</select></td>
-						<td><select class="w3-select w3-border" name="group2">
-								<option value="" disabled selected>Choose your option</option>
-								<option value="1">Option 1</option>
-								<option value="2">Option 2</option>
-								<option value="3">Option 3</option>
-						</select></td> -->
 						<td><input type="text" name="group1" /></td>
 						<td><input type="text" name="group2" /></td>
 					</tr>
@@ -63,8 +49,8 @@
 
 			<div style="padding: 10px">
 				<center>
-					<input type="reset" value="Reset" class="w3-button" /> <input
-						type="submit" value="Write" class="w3-button" />
+					<input type="reset" value="Reset" class="w3-button" /> 
+					<input type="submit" value="Write" class="w3-button" />
 				</center>
 			</div>
 
@@ -79,7 +65,36 @@
 </div>
 
 <!-- End Page Container -->
+<script>
+function checkValue() {
+	
+    var form = document.post;
+    
+    if (!form.group1.value) {
+       alert("대분류를 입력하세요.");
+       return false;
+       }
+    if (!form.group2.value) {
+       alert("소분류를 입력하세요.");
+       return false;
+    }
+    if (!form.title.value) {
+       alert("글제목을 입력하세요.");
+       return false;
+       }
+    if (!form.text.value) {
+        alert("글내용을 입력하세요.");
+        return false;
+        }
+    if (!form.file.value) {
+        alert("첨부파일을 모두 입력하세요.");
+        return false;
+        }
+ 
+ }
 
+
+</script>
 
 
 <%@include file="../include/footer.jsp"%>

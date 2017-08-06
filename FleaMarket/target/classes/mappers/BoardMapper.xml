@@ -37,33 +37,28 @@
 
 	<!-- Home Search List Start -->
 	<select id="listSearchCount" resultType="int">
-<!-- 	<if test= "keyword != null"></if> -->
-	 <![CDATA[ select count(boardkey) 
+	 <![CDATA[ 
+	 	select count(boardkey) 
 		from board 
-		where boardkey > 0 
-		and title like CONCAT('%', #{keyword}, '%')]]>
+		where boardkey > 0 ]]>
+		<if test="keyword != null">
+		<![CDATA[  and title like CONCAT('%', #{keyword}, '%')]]></if>
 	</select>
 
 	<select id="listSearch" resultType="org.flea.domain.BoardVO">
-<!-- 	<if test= "keyword != null"></if> -->
 		<![CDATA[  
 		select * 
 		from board 
-		where boardkey > 0 
-	  	and title like CONCAT('%', #{keyword}, '%')
-  		order by boardkey desc limit #{pageStart}, #{perPageNum} ]]>
+		where boardkey > 0 ]]>
+	  	<if test="keyword != null">
+		<![CDATA[ and title like CONCAT('%', #{keyword}, '%')]]></if>
+  		<![CDATA[ order by boardkey desc limit #{pageStart}, #{perPageNum} ]]>
 	</select>
 	<!-- Home Search List End -->
 	
-	<!-- <include refid="keywordNullCheck"></include> -->
-	<sql id="keywordNullCheck">
-		<if test="keyword != null">
-			values(#{keyword})
-		</if> 
-	</sql>
+
+	<!-- sale Board Search List start -->
 	
-	
-	<!-- sale Board List start -->
 	<select id="salelistSearch" resultType="org.flea.domain.BoardVO">  <!-- board랑 sale을 연결해야함. 받는 파라미터가 SearchCriteria 이건데 -->
 		<![CDATA[  
 		 select * 
@@ -73,9 +68,9 @@
 		
 		<include refid="search"></include>
 		
-  		<![CDATA[    
-  		order by s.salekey desc 
-  		limit #{pageStart}, #{perPageNum} ]]>
+		<if test="keyword != null">
+		<![CDATA[ and (b.title like CONCAT('%', #{keyword}, '%'))]]></if>
+  		<![CDATA[ order by s.salekey desc limit #{pageStart}, #{perPageNum} ]]>
 	</select>
 
 
@@ -83,76 +78,57 @@
 	 <![CDATA[ 
 	 	select count(salekey) 
 		from (sale s,  board b) 
-		where (s.salekey > 0) ]]>
+		where (s.boardkey = b.boardkey)]]>
 		<include refid="search"></include>
 	</select>
-	<!-- sale Board List end -->
+	<!-- sale Board Search List end -->
 
 
 
-	<!-- Buy Board List start -->
-	<select id="buylistSearch" resultType="org.flea.domain.BoardVO">  <!-- board랑 sale을 연결해야함. 받는 파라미터가 SearchCriteria 이건데 -->
+	<!-- Buy Board Search List start -->
+	<select id="buylistSearch" resultType="org.flea.domain.BoardVO">
 		<![CDATA[  
 		 select * 
 		 from (board b, buy bb) 
-		 where (b.boardkey = bb.boardkey)
-		]]>
+		 where (b.boardkey = bb.boardkey)]]>
 
 		<include refid="search"></include>
 		
-  		<![CDATA[    
-  		order by bb.buykey desc limit #{pageStart}, #{perPageNum} ]]>
+		<if test="keyword != null">
+		<![CDATA[ and (b.title like CONCAT('%', #{keyword}, '%'))]]></if>
+  		<![CDATA[ order by bb.buykey desc limit #{pageStart}, #{perPageNum} ]]>
 	</select>
 
 
 	<select id="buylistSearchCount" resultType="int">
 	 <![CDATA[ 
-		select count(buykey) 
-		from (buy bb, board b) 
-		where (bb.buykey > 0) ]]>
+		select count(bb.buykey) 
+		from buy bb, board b
+		where (bb.boardkey = b.boardkey) ]]>
+		
 		<include refid="search"></include>
+
 	</select>
-	<!-- Buy Board List end -->
+	<!-- Buy Board Search List end -->
 
 
-
-
-	<!-- search -->
+	<!-- Include search Start-->
 	<sql id="search">
+		and report=false
 		<if test="group1 != null">
-			<if test="group2 != null">
-				and b.group1 = #{group1}
-				and b.group2 = #{group2}
-				and b.title like CONCAT('%', #{keyword}, '%')
-			</if>
-		</if>
-		<if test="group1 == null">
-			<!-- 검색 상태가 아닐때 list 모두 출력용 -->
-		</if>
+		and b.group1 = #{group1}</if>
+		<if test=" group2 != null">
+		and b.group2 = #{group2}</if>
+		<if test="keyword != null">
+		<![CDATA[
+		and (b.title like CONCAT('%', #{keyword}, '%'))
+		]]>
+		</if>		
 		
 	</sql>
-
 	
-	<sql id="searchcount">
-	<![CDATA[  	
-		select count(*)
-		from board b
-		where b.group1 = #{group1} ]]>
-		<if test="group1 != null">
-			<if test="group2 != null">
-				and b.group2 = #{group2}
-				and b.title like CONCAT('%', #{keyword}, '%')
-			</if>
-		</if>
-		<if test="group1 == null">
-			<!-- 검색 상태가 아닐때 list 모두 출력용 -->
-		</if>
-	</sql>
+	<!-- Include search End-->
 	
-	
-
-
-
 
 	<select id="after" resultType="int">
 	<![CDATA[  
