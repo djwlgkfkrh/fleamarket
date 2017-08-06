@@ -8,8 +8,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into user (id,pw,name,nickname)
 		values(#{id},#{pw}, #{name}, #{nickname})
 	</insert>
-	<select id="login" resultType="org.flea.domain.UserVO">
-		select * from user where id=#{id} and pw=#{pw}
+	<select id="login" resultType="org.flea.domain.UserVO"> select * from user where id=#{id}
+		and pw=#{pw}
 	</select>
 
 	<update id="update">
@@ -56,18 +56,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where userkey =
 		#{userkey}
 	</update>
-	<select id="checkId" resultType="int">
-		select
-		count(*)
-		from user
-		where id
-		= #{checkid}
-	</select>
+
 	<select id="checkNick" resultType="int">
 		select
 		count(*)
 		from user
-		where nickname
+		where
+		nickname
 		= #{checknick}
 	</select>
 
@@ -78,8 +73,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="find" resultType="org.flea.domain.UserVO">
-      select *  from user   where userkey   = #{userkey}
-   </select>
+		select * from user where userkey = #{userkey}
+	</select>
 
 	<select id="checkBoard" resultType="int">
 		select
