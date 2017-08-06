@@ -149,15 +149,16 @@ public class BoardController {
 
 		logger.info("========board그룹 1: " + bvo.getGroup1() + "그룹2 :" + bvo.getGroup2());
 
+
 		/* file 없어도 출력할 수 있도록 만들기 */
 
-		if (mfile.getFiles("file").isEmpty()) {
+
+		if (mfile.getFiles("file").isEmpty()==true) {
+			
 
 			logger.info("FileVO  상태 : ====   파일없음    =====");
 
-		}
-
-		else {
+		} else {
 			List<MultipartFile> mf = mfile.getFiles("file");
 
 			if (mf.size() == 1 && mf.get(0).getOriginalFilename().equals("file")) {
@@ -183,7 +184,7 @@ public class BoardController {
 					filevo.setBoardkey(service.getboardKey(bvo));
 					fileservice.saveFile(filevo);
 
-					logger.info("=======createPOST 완료 =====");
+					logger.info("====File "+(i+1)+"번째  완료 =====");
 
 				}
 			}

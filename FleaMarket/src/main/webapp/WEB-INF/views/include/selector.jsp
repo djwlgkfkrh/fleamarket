@@ -81,11 +81,6 @@
 
 
 
-
-
-
-
-
 <script language="javascript">
 	//상위 셀렉트로 하위 셀렉트 제어하기
 	function showSub(obj) {

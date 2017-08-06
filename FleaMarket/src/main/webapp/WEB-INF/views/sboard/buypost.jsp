@@ -14,9 +14,11 @@
 
 
 		<!--  포스팅 폼 시작  -->
+
 		<form name="group" action="/sboard/buypost" method="post"
-			enctype="multipart/form-data">
+			enctype="multipart/form-data" onsubmit="return checkValue()">
 			<input type="hidden" name="group2">
+
 			<div style="padding: 30px">
 				<table class="w3-table w3-bordered w3-large">
 					<tr>
@@ -37,9 +39,9 @@
 						<!--  사진 첨부 버튼 시작  -->
 					<tr>
 						<td><span class="w3-text-grey">사진첨부</span></td>
-						<td><input type="file" name="file" /></td>
-						<td><input type="file" name="file" /></td>
-						<td><input type="file" name="file" /></td>
+						<td><input type="file" name="file" id="file1" /></td>
+						<td><input type="file" name="file" id="file2" /></td>
+						<td><input type="file" name="file" id="file3" /></td>
 					</tr>
 					<!--  사진 첨부 버튼 끝 -->
 				</table>
@@ -83,8 +85,12 @@
 	}
 
 	//상위 셀렉트로 하위 셀렉트 제어하기
-	function showSub(obj) {
+
+		function showSub(obj) {
+		
+
 		console.log(obj);
+		
 		f = document.forms.group;
 
 		if (obj == null) {
@@ -132,6 +138,31 @@
 	$("#cancel").click(function() {
 		document.location.href = '/sboard/buylist';
 	});
+
+	
+	
+		function checkValue() {
+					
+		   if (!$('#file1').val()) {
+			         alert("파일1을 첨부하세요.");
+			         return false;
+			         }
+		   if (!$('#file2').val()) {
+		         alert("파일2을 첨부하세요.");
+		         return false;
+		         }
+		   if (!$('#file3').val()) {
+		         alert("파일3을 첨부하세요.");
+		         return false;
+		         }
+		      if (!form.text.value) {
+			         alert("글내용을 입력하세요.");
+			         return false;
+			
+		   }
+		}
+	
+
 </script>
 
 

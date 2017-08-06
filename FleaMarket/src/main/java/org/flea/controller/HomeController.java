@@ -56,6 +56,7 @@ public class HomeController {
 
 		logger.info("home search list post ...........");
 
+
 		List<BoardVO> searchlist = service.listSearchCriteria(cri);
 		model.addAttribute("searchlist", searchlist);
 
@@ -65,6 +66,7 @@ public class HomeController {
 		pageMaker.setTotalCount(service.salelistSearchCount(cri));
 		model.addAttribute("pageMaker", pageMaker);
 		return "sboard/searchlist";
+
 	}
 
 }
