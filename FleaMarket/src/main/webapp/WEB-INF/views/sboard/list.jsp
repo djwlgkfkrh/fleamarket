@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp"%>
-<center style="margin-top:50px">
-<img src="/resources/image/FleaLogo1.png"	style="margin-bottom:50px"></center>
+<center style="margin-top: 50px">
+	<img src="/resources/image/FleaLogo1.png" style="margin-bottom: 50px">
+</center>
 <div class="container-fluid bg-3 text-center" style="max-width: 1400px">
 	<div class="row">
+		
 		<div class="col-sm-12">
 			<table class="table table-hover w3-centered"
 				style="text-align: center">
@@ -24,7 +26,8 @@
 							<td>${board.boardkey}</td>
 							<td>${board.salestate}</td>
 							<td><a href='/sboard/read?boardkey=${board.boardkey}'>${board.title}
-							[<span style="color:red;"> ${board.commentcnt} </span>]</a></td>
+									[<span style="color: red;"> ${board.commentcnt} </span>]
+							</a></td>
 							<td>${board.viewcnt}</td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm"
 									value="${board.regdate}" /></td>

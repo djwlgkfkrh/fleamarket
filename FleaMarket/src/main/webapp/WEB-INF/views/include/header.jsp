@@ -167,15 +167,15 @@ li.dropdown {
 						<div class="modal fade" id="myModal" role="dialog">
 							<div class="modal-dialog modal-lg">
 								<div class="w3-modal-content" style="width: 400px !important">
-									<div class="modal-header ">
+									<div class="modal-header w3-yellow">
 										<button type="button" class="close w3-text-black"
 											data-dismiss="modal">&times;</button>
-										<h4 class="modal-title w3-text-blue">Join Us</h4>
+										<h4 class="modal-title w3-text-black">Join Us</h4>
 									</div>
 									<form action="/join" method="post">
 										<div class="modal-body " style="float: center !important">
 
-											<table class="w3-text-blue" style="padding: 15px;">
+											<table class="w3-text-black w3-table" style="padding: 15px;text-align:center">
 												<tr>
 													<td>이름</td>
 													<td><input type="text" size="20" name="name" />
@@ -196,10 +196,10 @@ li.dropdown {
 											</table>
 
 										</div>
-										<div class="modal-footer ">
+										<div class="modal-footer w3-yellow ">
 											<input type="submit" value="Join"
-												class="btn btn-default w3-text-blue" />
-											<button type="button" class="btn btn-default w3-text-blue"
+												class="btn btn-default w3-text-red" />
+											<button type="button" class="btn btn-default w3-text-red"
 												data-dismiss="modal">Close</button>
 										</div>
 									</form>

@@ -13,9 +13,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <div class="container-fluid bg-3 text-center" style="max-width: 1400px">
 	<div class="row">
-		<h2 class="w3-text-grey w3-padding-16">
-			<i class="material-icons w3-margin-right w3-margin-left"></i>${boardinfo.title}
-		</h2>
+		<h2 class="w3-text-grey w3-padding-16">${boardinfo.title}</h2>
 		<!--  포스팅 폼 시작  -->
 		<div style="padding: 30px">
 			<table class="w3-table w3-bordered w3-large w3-centered">
@@ -41,8 +39,6 @@
 					<td><span class="w3-text-grey">판매상태</span></td>
 					<td colspan="2"><span class="w3-text-grey">${boardinfo.salestate}
 
-
-
 							<div class="w3-input w3-border w3-round"
 								style="margin-top: 5px; width: 100%; min-height: 230px; text-align: left !important">
 								<c:forEach var="getFile" items="${fileinfo}">
@@ -51,153 +47,101 @@
 										width="300" height="300">
 									<br>
 								</c:forEach>
-								<br> <br> ${boardinfo.text} <br> <br>
-
-
-							</div> <!-- 포스팅 글 수정/삭제 버튼 출력 시작  -->
-							<div>
-								<c:set var="userkey" value="${userinfo.userkey}" />
-								<c:set var="b_userkey" value="${boardinfo.userkey}" />
-								<c:set var="admin" value="${userinfo.admin}" />
-								<c:if test="${userkey == b_userkey||admin==true}">
-									<table style="margin-left: 80%">
-										<tr>
-											<td>
-												<form action="./delete" method="post">
-													<input type="hidden" name="boardkey"
-														value="${boardinfo.boardkey}" />
-													<button class="w3-button w3-dark-grey">Delete</button>
-												</form>
-											</td>
-											<td>
-												<form action="./boardmodify">
-													<input type="hidden" name="boardkey"
-														value="${boardinfo.boardkey}" />
-													<button class="w3-button w3-dark-grey">Modify</button>
-												</form>
-											</td>
-										</tr>
-									</table>
-								</c:if>
-							</div> <!-- 포스팅 글 수정/삭제 버튼 출력 끝  -->
-
-
+								<br> <br> ${boardinfo.text}
+							</div>
 					</span></td>
 				</tr>
 			</table>
-			<br>
-
-			<!--  게시글 끝 -->
-		</div>
-		<center>
-			<table>
-				<tr>
-					<td>
-						<!-- 찜하기부분 --> <c:choose>
-							<c:when test="${not empty sessionScope.userinfo}">
-								<c:set value="${cart}" var="cart" />
-								<c:choose>
-									<c:when test="${cart==0}">
-										<center>
-											<button class=" btn w3-white w3-card"
-												style="width: 100px; height: 90px; text-align: center"
-												onclick="heart();">
-												<div class="w3-container" onmouseover="mouseOver()"
-													onmouseout="mouseOut()">
-													<span id="heart"
-														style="font-size: 50px; color: red; margin-top: 5px;"
-														class=" glyphicon glyphicon-heart-empty"></span><br>
-													<span style="color: red; font-size: 15px">찜하기</span>
-												</div>
-											</button>
-
-										</center>
-									</c:when>
-									<c:otherwise>
-										<center>
-											<button class=" btn w3-white w3-card"
-												style="width: 100px; height: 90px; text-align: center"
-												onclick="dealheart();">
-												<div class="w3-container">
-													<span id="heart"
-														style="font-size: 50px; color: red; margin-top: 5px;"
-														class=" glyphicon glyphicon-heart"></span><br> <span
-														style="color: red; font-size: 15px">찜하기</span>
-												</div>
-											</button>
-
-										</center>
-									</c:otherwise>
-								</c:choose>
-					</td>
-					<td>
-						<!-- 신고하기 -->
-
-						<button class=" btn w3-white w3-card" data-toggle="modal"
-							data-target="#myModal"
-							style="width: 100px; height: 90px; text-align: center">
-							<div class="w3-container">
-								<span id="heart"
-									style="font-size: 50px; color: red; margin-top: 5px;"
-									class=" fa fa-frown-o"></span><br> <span
-									style="color: red; font-size: 15px">신고하기</span>
-							</div>
-						</button>
-
-					</td>
-				</tr>
-			</table>
-		</center>
-		</c:when>
-		</c:choose>
-		<div class="modal fade" id="myModal" role="dialog">
-			<div class="modal-dialog modal-lg">
-				<div class="w3-modal-content" style="width: 400px !important">
-					<div class="modal-header ">
-						<button type="button" class="close w3-text-black"
-							data-dismiss="modal">&times;</button>
-						<h4 class="modal-title w3-text-red">신고하기</h4>
-					</div>
-					<form action="/sboard/report" method="post">
-						<div class="modal-body " style="float: center !important">
-
-							<table class="w3-text-black w3-bordered w3-table"
-								style="padding: 15px;">
-								<tr>
-									<td>신고 글 번호</td>
-									<td>${boardinfo.boardkey}</td>
+			<br> <br> <br>
+			<!-- 포스팅 글 수정/삭제 버튼 출력 시작  -->
+			<div>
+				<c:set var="userkey" value="${userinfo.userkey}" />
+				<c:set var="b_userkey" value="${boardinfo.userkey}" />
+				<c:set var="admin" value="${userinfo.admin}" />
+				<c:if test="${userkey == b_userkey||admin==true}">
+					<table style="margin-left: 80%">
+						<tr>
+							<td>
+								<form action="./delete" method="post">
 									<input type="hidden" name="boardkey"
 										value="${boardinfo.boardkey}" />
-
-								</tr>
-								<tr>
-									<td>신고자</td>
-									<td>${userinfo.nickname}</td>
-									<input type="hidden" name="nickname"
-										value="${userinfo.nickname}" />
-								</tr>
-
-
-								<tr>
-									<td>신고사유</td>
-									<td><textarea class="w3-input w3-border w3-round"
-											name="reason" style="margin-top: 5px"></textarea></td>
-								</tr>
-
-							</table>
-						</div>
-						<div class="modal-footer ">
-							<input type="submit" value="신고하기"
-								class="btn btn-default w3-text-black" />
-							<button type="button" class="btn btn-default w3-text-black"
-								data-dismiss="modal">취소하기</button>
-						</div>
-					</form>
-				</div>
+									<button class="w3-button w3-dark-grey">Delete</button>
+								</form>
+							</td>
+							<td>
+								<form action="./boardmodify">
+									<input type="hidden" name="boardkey"
+										value="${boardinfo.boardkey}" />
+									<button class="w3-button w3-dark-grey">Modify</button>
+								</form>
+							</td>
+						</tr>
+					</table>
+				</c:if>
 			</div>
+			<!-- 포스팅 글 수정/삭제 버튼 출력 끝  -->
 		</div>
+
+		<c:if test="${not empty sessionScope.userinfo}">
+			<center>
+				<table>
+					<tr>
+						<td>
+							<!-- 찜하기부분 --> <c:set value="${cart}" var="cart" /> <c:choose>
+								<c:when test="${cart==0}">
+									<center>
+										<button class=" btn w3-white w3-card"
+											style="width: 100px; height: 90px; text-align: center"
+											onclick="heart();">
+											<div class="w3-container" onmouseover="mouseOver()"
+												onmouseout="mouseOut()">
+												<span id="heart"
+													style="font-size: 50px; color: red; margin-top: 5px;"
+													class=" glyphicon glyphicon-heart-empty"></span><br> <span
+													style="color: red; font-size: 15px">찜하기</span>
+											</div>
+										</button>
+
+									</center>
+								</c:when>
+								<c:otherwise>
+									<center>
+										<button class=" btn w3-white w3-card"
+											style="width: 100px; height: 90px; text-align: center"
+											onclick="dealheart();">
+											<div class="w3-container">
+												<span id="heart"
+													style="font-size: 50px; color: red; margin-top: 5px;"
+													class=" glyphicon glyphicon-heart"></span><br> <span
+													style="color: red; font-size: 15px">찜하기</span>
+											</div>
+										</button>
+
+									</center>
+								</c:otherwise>
+							</c:choose>
+						</td>
+						<td>
+							<!-- 신고하기 -->
+							<button class=" btn w3-white w3-card" data-toggle="modal"
+								data-target="#myModal"
+								style="width: 100px; height: 90px; text-align: center">
+								<div class="w3-container">
+									<span id="heart"
+										style="font-size: 50px; color: red; margin-top: 5px;"
+										class=" fa fa-frown-o"></span><br> <span
+										style="color: red; font-size: 15px">신고하기</span>
+								</div>
+							</button>
+						</td>
+					</tr>
+				</table>
+			</center>
+		</c:if>
+
 		<hr>
 		<!--  댓글부분 -->
+
 		<div style="text-align: left !important; margin-left: 50px">
 			<button type="button" onclick="listReplyBtn()"
 				class="w3-blue w3-button">댓글보기</button>
@@ -207,31 +151,32 @@
 
 			<!--  댓글쓰기영역 -->
 			<div>
-				<c:choose>
-					<c:when test="${not empty sessionScope.userinfo}">
-						<div class="w3-row w3-section">
-							<label class="w3-text-blue"><br>댓글쓰기</label> <br>
-							<table>
-								<tr>
-									<td><textarea name="context" id="context"
-											class=" w3-border w3-light-grey" cols="100%"></textarea></td>
-									<td>&nbsp;&nbsp;&nbsp;&nbsp; <input class="w3-check"
-										type="checkbox" id="secret" name="secret">비밀댓글
-									</td>
-									<td>&nbsp;&nbsp;&nbsp;&nbsp;
-										<button type="button" onclick="replyAdd()"
-											class="w3-blue w3-button">등록</button>
-									</td>
-								</tr>
-							</table>
-						</div>
-					</c:when>
-				</c:choose>
+				<c:if test="${not empty sessionScope.userinfo}">
+					<div class="w3-row w3-section">
+						<label class="w3-text-blue"><br>댓글쓰기</label> <br>
+						<table>
+							<tr>
+								<td><textarea name="context" id="context"
+										class=" w3-border w3-light-grey" cols="100%"></textarea></td>
+								<td>&nbsp;&nbsp;&nbsp;&nbsp; <input class="w3-check"
+									type="checkbox" id="secret" name="secret">비밀댓글
+								</td>
+								<td>&nbsp;&nbsp;&nbsp;&nbsp;
+									<button type="button" onclick="replyAdd()"
+										class="w3-blue w3-button">등록</button>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</c:if>
 			</div>
 		</div>
+
 	</div>
 </div>
 <!--  게시글 끝 -->
+
+
 <!--  select List -->
 <form action="/sboard/list" method="post">
 	<input type="hidden" name="boardkey" value="${boardinfo.boardkey}" />
@@ -248,6 +193,52 @@
 
 </form>
 
+<!-- modal -->
+<div class="modal fade" id="myModal" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="w3-modal-content" style="width: 400px !important">
+			<div class="modal-header ">
+				<button type="button" class="close w3-text-black"
+					data-dismiss="modal">&times;</button>
+				<h4 class="modal-title w3-text-red">신고하기</h4>
+			</div>
+			<form action="/sboard/report" method="post">
+				<div class="modal-body " style="float: center !important">
+
+					<table class="w3-text-black w3-bordered w3-table"
+						style="padding: 15px;">
+						<tr>
+							<td>신고 글 번호</td>
+							<td>${boardinfo.boardkey}</td>
+							<input type="hidden" name="boardkey"
+								value="${boardinfo.boardkey}" />
+
+						</tr>
+						<tr>
+							<td>신고자</td>
+							<td>${userinfo.nickname}</td>
+							<input type="hidden" name="nickname" value="${userinfo.nickname}" />
+						</tr>
+
+
+						<tr>
+							<td>신고사유</td>
+							<td><textarea class="w3-input w3-border w3-round"
+									name="reason" style="margin-top: 5px"></textarea></td>
+						</tr>
+
+					</table>
+				</div>
+				<div class="modal-footer ">
+					<input type="submit" value="신고하기"
+						class="btn btn-default w3-text-black" />
+					<button type="button" class="btn btn-default w3-text-black"
+						data-dismiss="modal">취소하기</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
 
 <!--   찜하기스크립트-->
 <script>
@@ -307,9 +298,9 @@
 <ul class="dropdown-menu">
 
         <li><a onclick="informationBtn({{commentkey}})">회원정보</a></li>
-     {{#BoarduserMe}}
+     
       <li><a onclick="requestDealBtn({{commentkey}})">거래신청</a></li>
-{{/BoarduserMe}}
+
 
     </ul>
 {{/isMe}}
@@ -346,9 +337,9 @@
 
 <ul class="dropdown-menu">
       <li><a onclick="informationBtn({{commentkey}})">회원정보</a></li>
-{{#BoarduserMe salestate}}
+
       <li><a onclick="requestDealBtn({{commentkey}})">거래신청</a></li>
-{{/BoarduserMe}}
+
 
     </ul>
   </div>
@@ -429,7 +420,7 @@ class="w3-blue w3-button">완료</button></td>
 	}
 </script>
 <script>
-	Handlebars.registerHelper('BoarduserMe', function(salestate, options) {
+	Handlebars.registerHelper('BoarduserMe', function(salestate, options) {			//애가이상함
 		var uuserkey = "${userinfo.userkey}";
 		var buserkey = "${boardinfo.userkey}";
 		if (uuserkey == buserkey && salestate == 0) {

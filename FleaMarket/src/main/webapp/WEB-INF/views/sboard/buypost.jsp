@@ -11,18 +11,19 @@
 		<h2 class="w3-text-grey w3-padding-16">
 			<i class="material-icons w3-margin-right w3-margin-left"></i> 게시글 작성
 		</h2>
-	
-		
+
+
 		<!--  포스팅 폼 시작  -->
-		<form name="group" action="/sboard/buypost" method="post" enctype="multipart/form-data">
-		<input type="hidden" name="group2">
+		<form name="group" action="/sboard/buypost" method="post"
+			enctype="multipart/form-data">
+			<input type="hidden" name="group2">
 			<div style="padding: 30px">
 				<table class="w3-table w3-bordered w3-large">
 					<tr>
 						<td colspan="2"><span class="w3-text-grey">카테고리 선택</span></td>
 						<td colspan="2">
-							<!--  Search start --> 
-							<%@include file="../include/selectpost.jsp"%> <!--  Search End -->
+							<!--  Search start --> <%@include
+								file="../include/selectpost.jsp"%> <!--  Search End -->
 						</td>
 					</tr>
 					<tr>
@@ -53,8 +54,10 @@
 			</div>
 
 			<div style="padding: 10px;">
-				<input type="reset" value="Reset" class="w3-button" /> <input
-					type="submit" value="Write" class="w3-button" />
+
+				<input type="submit" value="Write" class="w3-button" /> <input
+					type="reset" value="Reset" class="w3-button" />
+				<button id="cancel" type="button" class="w3-button">Cancel</button>
 			</div>
 
 
@@ -70,19 +73,17 @@
 <!-- End Page Container -->
 
 <script>
-	
-
 	function getSubValue(k) {
 
 		console.log(" =========get group2  :::: " + k + "====================");
-		var group2 = k; 
-		
+		var group2 = k;
+
 		document.forms.group.group2.value = group2;
-		
+
 	}
 
 	//상위 셀렉트로 하위 셀렉트 제어하기
-		function showSub(obj) {
+	function showSub(obj) {
 		console.log(obj);
 		f = document.forms.group;
 
@@ -128,6 +129,9 @@
 
 		}
 	}
+	$("#cancel").click(function() {
+		document.location.href = '/sboard/buylist';
+	});
 </script>
 
 

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	
+
 <%@include file="../include/header.jsp"%>
 <center style="margin-top: 50px">
 	<img src="/resources/image/FleaLogo1.png" style="margin-bottom: 50px">
@@ -15,26 +15,29 @@
 
 
 		<!--  포스팅 폼 시작  -->
-		<form name="group" action="/sboard/salepost" method="post" enctype="multipart/form-data">
-		<input type="hidden" name="group2">
+		<form name="group" action="/sboard/salepost" method="post"
+			enctype="multipart/form-data">
+			<input type="hidden" name="group2">
 			<div style="padding: 30px">
 				<table class="w3-table w3-bordered w3-large">
-					<tr>	
-					<td colspan="2"><span class="w3-text-grey">카테고리 선택</span></td>
+					<tr>
+						<td colspan="2"><span class="w3-text-grey">카테고리 선택</span></td>
 						<td>
-							<!--  Search start --> 
-							<%@include file="../include/selectpost.jsp"%> <!--  Search End -->
+							<!--  Search start --> <%@include
+								file="../include/selectpost.jsp"%> <!--  Search End -->
 						</td>
 					</tr>
 					<tr>
 						<td style="width: 100px;"><span class="w3-text-grey">제목
 						</span></td>
-						<td><input type="text" class="w3-input w3-animate-input" name="title" /></td>
+						<td><input type="text" class="w3-input w3-animate-input"
+							name="title" /></td>
 					<tr>
 						<td style="width: 100px;"><span class="w3-text-grey">작성자
 						</span></td>
 
-						<td>${userinfo.nickname}<input type="hidden" value="${userinfo.userkey}" name="userkey" /></td>
+						<td>${userinfo.nickname}<input type="hidden"
+							value="${userinfo.userkey}" name="userkey" /></td>
 						<!--  사진 첨부 버튼 시작  -->
 					<tr>
 						<td><span class="w3-text-grey">사진첨부</span></td>
@@ -55,8 +58,9 @@
 			</div>
 
 			<div style="padding: 10px">
-					<input type="reset" value="Reset" class="w3-button" /> 
-					<input type="submit" value="Write" class="w3-button" />
+				<input type="submit" value="Write" class="w3-button" /> <input
+					type="reset" value="Reset" class="w3-button" />
+				<button id="cancel" type="button" class="w3-button">Cancel</button>
 			</div>
 
 		</form>
@@ -71,19 +75,17 @@
 
 <!-- End Page Container -->
 <script>
-	
-
 	function getSubValue(k) {
 
 		console.log(" =========get group2  :::: " + k + "====================");
-		var group2 = k; 
-		
+		var group2 = k;
+
 		document.forms.group.group2.value = group2;
-		
+
 	}
 
 	//상위 셀렉트로 하위 셀렉트 제어하기
-		function showSub(obj) {
+	function showSub(obj) {
 		console.log(obj);
 		f = document.forms.group;
 
@@ -129,6 +131,10 @@
 
 		}
 	}
+	$("#cancel").click(function() {
+		document.location.href = '/sboard/salelist';
+	});
+	
 </script>
 
 

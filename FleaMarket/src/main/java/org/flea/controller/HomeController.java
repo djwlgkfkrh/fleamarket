@@ -9,12 +9,11 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import org.flea.domain.BoardVO;
+import org.flea.domain.PageMaker;
 import org.flea.domain.SearchCriteria;
 import org.flea.service.BoardService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -34,7 +33,8 @@ public class HomeController {
 
 	/**
 	 * Simply selects the home view to render by returning its name.
-	 * @throws Exception 
+	 * 
+	 * @throws Exception
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model, HttpServletRequest request) throws Exception {
@@ -45,26 +45,26 @@ public class HomeController {
 
 		String formattedDate = dateFormat.format(date);
 
+		model.addAttribute("popularBoard", service.popular());
 
-		/*model.addAttribute("list", service.show());
-*/
-
-		model.addAttribute("popularBoard",service.popular());
-
-		
 		return "home";
 	}
-	
+
 	// Main Search
-		@RequestMapping(value = "/home", method = { RequestMethod.POST, RequestMethod.GET })
-		public ResponseEntity<List<BoardVO>> mainlist(@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception {
+	@RequestMapping(value = "/home", method = { RequestMethod.POST, RequestMethod.GET })
+	public String mainlist(@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception {
 
-			logger.info("home search list post ...........");
-			ResponseEntity<List<BoardVO>> entity=null;
-			List<BoardVO> searchlist=service.listSearchCriteria(cri);
-			entity =new ResponseEntity<List<BoardVO>>(searchlist ,HttpStatus.OK);
+		logger.info("home search list post ...........");
 
-			return entity;
-		}
+		List<BoardVO> searchlist = service.listSearchCriteria(cri);
+		model.addAttribute("searchlist", searchlist);
+
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+
+		pageMaker.setTotalCount(service.salelistSearchCount(cri));
+		model.addAttribute("pageMaker", pageMaker);
+		return "sboard/searchlist";
+	}
 
 }

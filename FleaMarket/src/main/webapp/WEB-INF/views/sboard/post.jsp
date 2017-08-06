@@ -11,7 +11,8 @@
 		</h2>
 
 		<!--  포스팅 폼 시작  -->
-		<form action="/sboard/post" method="post" enctype="multipart/form-data">
+		<form action="/sboard/post" method="post"
+			enctype="multipart/form-data">
 			<div style="padding: 30px">
 				<table class="w3-table w3-bordered w3-large">
 					<tr>
@@ -35,13 +36,15 @@
 					<tr>
 						<td style="width: 100px;"><span class="w3-text-grey">제목
 						</span></td>
-						<td><input type="text" class="w3-input w3-animate-input" name="title" /></td>
+						<td><input type="text" class="w3-input w3-animate-input"
+							name="title" /></td>
 					<tr>
 						<td style="width: 100px;"><span class="w3-text-grey">작성자
 						</span></td>
 
-						<td>${userinfo.nickname}<input type="hidden" value="${userinfo.userkey}" name="userkey" />
-						<input type="hidden" value="${userinfo.nickname}" name="nickname" /></td>
+						<td>${userinfo.nickname}<input type="hidden"
+							value="${userinfo.userkey}" name="userkey" /> <input
+							type="hidden" value="${userinfo.nickname}" name="nickname" /></td>
 						<!--  사진 첨부 버튼 시작  -->
 					<tr>
 						<td><span class="w3-text-grey">사진첨부</td>
@@ -63,8 +66,10 @@
 
 			<div style="padding: 10px">
 				<center>
+					
 					<input type="reset" value="Reset" class="w3-button" /> <input
 						type="submit" value="Write" class="w3-button" />
+
 				</center>
 			</div>
 
