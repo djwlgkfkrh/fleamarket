@@ -78,7 +78,7 @@
 		#{boardkey}
 	</update>
 
-	<update id="complete">
+	<update id="finish">
 		update board set salestate = 2
 		where boardkey =
 		#{boardkey}
@@ -232,7 +232,7 @@
 
 	<!-- modify Board end -->
 	
-	<update id="complete">
+	<update id="changeBoardState">
 		update board set salestate = 1
 		where boardkey =
 		#{boardkey}

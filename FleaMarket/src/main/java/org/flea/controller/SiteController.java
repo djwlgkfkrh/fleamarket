@@ -186,12 +186,13 @@ public class SiteController {
 
 
 	@RequestMapping(value = "/makedeal", method = RequestMethod.POST)
-	public ResponseEntity<String> makedeal(DealVO deal)
+	public ResponseEntity<String> makedeal(DealVO deal,Integer boardkey)
 			throws Exception {
 		logger.info("complete................");
 
 		ResponseEntity<String> entity = null;
 		dservice.makedeal(deal);
+		bservice.changeBoardState(boardkey);
 		entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		return entity;
 	}

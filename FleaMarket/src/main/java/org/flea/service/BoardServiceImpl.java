@@ -197,4 +197,10 @@ public class BoardServiceImpl implements BoardService {
 		return dao.popular();
 	}
 
+	@Override
+	public void changeBoardState(Integer boardkey) throws Exception {
+		// TODO Auto-generated method stub
+		dao.changeBoardState(boardkey);
+	}
+
 }

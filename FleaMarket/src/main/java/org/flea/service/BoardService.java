@@ -69,5 +69,7 @@ public interface BoardService {
 	public int getBuyState(Integer boardkey) throws Exception;
 
 	public List<BoardVO> popular() throws Exception;
+	
+	public void changeBoardState(Integer boardkey) throws Exception;
 
 }

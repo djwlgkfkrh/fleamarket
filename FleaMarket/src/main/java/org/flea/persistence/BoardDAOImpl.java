@@ -114,7 +114,7 @@ public class BoardDAOImpl implements BoardDAO {
 	@Override
 	public void complete(Integer boardkey) throws Exception {
 		// TODO Auto-generated method stub
-		session.update(namespace + ".complete", boardkey);
+		session.update(namespace + ".finish", boardkey);
 	}
 
 	public void putcart(CartVO vo) throws Exception {
@@ -239,6 +239,12 @@ public class BoardDAOImpl implements BoardDAO {
 			session.selectOne(namespace + ".forSearch", i);
 		}
 
+	}
+
+	@Override
+	public void changeBoardState(Integer boardkey) throws Exception {
+		// TODO Auto-generated method stub
+		session.update(namespace + ".changeBoardState", boardkey);
 	}
 
 }

@@ -33,7 +33,7 @@ function makedeal() {
 	var money=$('#money').val();
 	var boardkey="${board.boardkey}";
 	var title="${board.title}";
-	if(${sale}){
+	if('${sale}'){
 	var buyuserkey="${cuserinfo.userkey}";
 	var saleuserkey="${userinfo.userkey}";
 	}else{ 

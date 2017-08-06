@@ -75,5 +75,7 @@ public interface BoardDAO {
 	public void forSearch() throws Exception;
 
 	public List<BoardVO> popular()throws Exception;
+	
+	public void changeBoardState(Integer boardkey) throws Exception;
 
 }
