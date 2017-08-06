@@ -9,13 +9,16 @@ import javax.servlet.http.HttpSession;
 import org.flea.domain.BoardVO;
 import org.flea.domain.CartVO;
 import org.flea.domain.CommentVO;
+
 import org.flea.domain.FileVO;
+import org.flea.domain.DealVO;
 import org.flea.domain.PageMaker;
 import org.flea.domain.SearchCriteria;
 import org.flea.domain.UserVO;
 import org.flea.service.BoardService;
 import org.flea.service.CommentService;
 import org.flea.service.FileService;
+import org.flea.service.DealService;
 import org.flea.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +33,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-
 
 @SessionAttributes("userinfo") // MemberVO
 @Controller
@@ -47,7 +49,8 @@ public class BoardController {
 	private UserService uservice;
 	@Inject
 	private FileService fileservice;
-
+	@Inject
+	private DealService dservice;
 
 	UploadFile FileUP = new UploadFile();
 
@@ -77,8 +80,8 @@ public class BoardController {
 		pageMaker.setTotalCount(service.salelistSearchCount(cri));
 		model.addAttribute("pageMaker", pageMaker);
 		logger.info("로그 ====================================================================================");
-		logger.info("salelist keyword ::" +cri.getKeyword() +" cri.group1 : "+cri.getGroup1()+" cri.group2 : "+cri.getGroup2());
-
+		logger.info("salelist keyword ::" + cri.getKeyword() + " cri.group1 : " + cri.getGroup1() + " cri.group2 : "
+				+ cri.getGroup2());
 
 	}
 
@@ -95,7 +98,8 @@ public class BoardController {
 		pageMaker.setTotalCount(service.buylistSearchCount(cri));
 		model.addAttribute("pageMaker", pageMaker);
 		logger.info("로그 ====================================================================================");
-		logger.info("buylist keyword ::" +cri.getKeyword() +" cri.group1 : "+cri.getGroup1()+" cri.group2 : "+cri.getGroup2());
+		logger.info("buylist keyword ::" + cri.getKeyword() + " cri.group1 : " + cri.getGroup1() + " cri.group2 : "
+				+ cri.getGroup2());
 
 	}
 
@@ -140,15 +144,15 @@ public class BoardController {
 		service.createPost(bvo);
 
 		logger.info("FileVO  ====   진입  =====");
-		
-		//bvo.setGroup2((int)session.);
-		
-		logger.info("========board그룹 1: " +bvo.getGroup1()+"그룹2 :" +bvo.getGroup2());
+
+		// bvo.setGroup2((int)session.);
+
+		logger.info("========board그룹 1: " + bvo.getGroup1() + "그룹2 :" + bvo.getGroup2());
 
 		/* file 없어도 출력할 수 있도록 만들기 */
 
 		if (mfile.getFiles("file").isEmpty()) {
-			
+
 			logger.info("FileVO  상태 : ====   파일없음    =====");
 
 		}
@@ -193,16 +197,15 @@ public class BoardController {
 	}
 
 	@RequestMapping(value = "/salepost", method = { RequestMethod.POST }) // POST
-	public String salePOST(@RequestParam("group2") String group2,BoardVO bvo, MultipartHttpServletRequest mfile, HttpServletRequest request)
-			throws Exception {
+	public String salePOST(@RequestParam("group2") String group2, BoardVO bvo, MultipartHttpServletRequest mfile,
+			HttpServletRequest request) throws Exception {
 
 		createPOST(bvo, mfile, request);
 		bvo.setGroup2(group2);
 		service.createSale(service.getboardKey(bvo)); // board 키만 있으면 됨
 
-		logger.info(" =======   salePOST 완료    ========");	
-		logger.info("...group1 : " +bvo.getGroup1()+"......group2 : "+bvo.getGroup2());
-		
+		logger.info(" =======   salePOST 완료    ========");
+		logger.info("...group1 : " + bvo.getGroup1() + "......group2 : " + bvo.getGroup2());
 
 		return "redirect:/sboard/salelist";
 	}
@@ -214,15 +217,16 @@ public class BoardController {
 	}
 
 	@RequestMapping(value = "/buypost", method = { RequestMethod.POST }) // POST
-	public String buyPOST(@RequestParam("group2") String group2, BoardVO bvo, MultipartHttpServletRequest mfile, HttpServletRequest request) throws Exception {
+	public String buyPOST(@RequestParam("group2") String group2, BoardVO bvo, MultipartHttpServletRequest mfile,
+			HttpServletRequest request) throws Exception {
 
 		createPOST(bvo, mfile, request);
 		bvo.setGroup2(group2);
 		service.createBuy(service.getboardKey(bvo)); // board 키만 있으면 됨
 
 		logger.info(" =======   buyPOST 완료    ========");
-		logger.info("...group1 : " +bvo.getGroup1()+"......group2 : "+bvo.getGroup2());
-				
+		logger.info("...group1 : " + bvo.getGroup1() + "......group2 : " + bvo.getGroup2());
+
 		return "redirect:/sboard/buylist";
 	}
 
@@ -271,7 +275,6 @@ public class BoardController {
 
 	}
 
-
 	@RequestMapping(value = "/beforeread", method = { RequestMethod.GET, RequestMethod.POST })
 	public String beforeGET(@RequestParam("boardkey") int boardkey) throws Exception {
 		try {
@@ -316,18 +319,44 @@ public class BoardController {
 
 	@RequestMapping(value = "/information", method = { RequestMethod.GET, RequestMethod.POST })
 	public void information(@RequestParam int commentkey, Model model) throws Exception {
+
 		CommentVO cvo = cservice.find(commentkey);
 		UserVO uvo = uservice.find(cvo.getUserkey());
 		model.addAttribute("cuserinfo", uvo);
+		List<DealVO> deallist = dservice.getDeal(cvo.getUserkey());
+		model.addAttribute("deal_list", deallist);
+		int salestatecnt = 0;
+		int saleing = 0;
+		for (int i = 0; i < deallist.size(); i++) {
+			if (deallist.get(i).getSalestate() == 3) {
+				salestatecnt++;
+			} else if (deallist.get(i).getSalestate() != 3) {
+				saleing++;
+			}
+		}
+		model.addAttribute("salestatecnt", salestatecnt);
+		model.addAttribute("saleing", saleing);
 	}
 
 	@RequestMapping(value = "/deallist", method = { RequestMethod.GET, RequestMethod.POST })
 	public void deallist(@RequestParam int commentkey, Model model) throws Exception {
+
 		CommentVO cvo = cservice.find(commentkey);
 		UserVO uvo = uservice.find(cvo.getUserkey());
 		model.addAttribute("cuserinfo", uvo);
 
 	}
+
+	@RequestMapping(value = "/requestDeal", method = { RequestMethod.GET, RequestMethod.POST })
+	public void requestDeal(@RequestParam int commentkey, Model model) throws Exception {
+		CommentVO cvo = cservice.find(commentkey);
+		UserVO uvo = uservice.find(cvo.getUserkey());
+		model.addAttribute("cuserinfo", uvo);
+		model.addAttribute("board", service.read(cvo.getBoardkey()));
+		boolean sale = uservice.checkBoard(cvo.getBoardkey());
+		model.addAttribute("sale", sale);
+	}
+
 	@RequestMapping(value = "/report", method = { RequestMethod.GET, RequestMethod.POST })
 	public void report() throws Exception {
 		logger.info("report ...........");

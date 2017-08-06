@@ -26,6 +26,8 @@ public class HomeController {
 	@Inject
 	private BoardService service;
 
+	@Inject
+	private BoardService bservice;
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 * @throws Exception 
@@ -39,9 +41,12 @@ public class HomeController {
 
 		String formattedDate = dateFormat.format(date);
 
+
 		/*model.addAttribute("list", service.show());
 */
-		
+
+		model.addAttribute("popularBoard",bservice.popular());
+
 		
 		return "home";
 	}

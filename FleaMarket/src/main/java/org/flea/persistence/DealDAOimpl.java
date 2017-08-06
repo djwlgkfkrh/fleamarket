@@ -78,5 +78,10 @@ public class DealDAOimpl implements DealDAO {
 		session.update(namespace+".returngoods",vo);
 	}
 
-	
+	@Override
+	public void makedeal(DealVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		session.insert(namespace+".makedeal",vo);
+	}
+
 }

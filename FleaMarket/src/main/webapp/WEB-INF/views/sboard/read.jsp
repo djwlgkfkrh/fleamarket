@@ -160,7 +160,8 @@
 					<form action="/sboard/report" method="post">
 						<div class="modal-body " style="float: center !important">
 
-							<table class="w3-text-black w3-bordered w3-table" style="padding: 15px;">
+							<table class="w3-text-black w3-bordered w3-table"
+								style="padding: 15px;">
 								<tr>
 									<td>신고 글 번호</td>
 									<td>${boardinfo.boardkey}</td>
@@ -297,10 +298,12 @@
 {{#isMe userkey}}
 <span class="w3-opacity w3-medium"><a  onclick="replySubBtn({{commentkey}})">답글</a></span>
 <ul class="dropdown-menu">
+
         <li><a onclick="informationBtn({{commentkey}})">회원정보</a></li>
      {{#BoarduserMe}}
       <li><a onclick="requestDealBtn({{commentkey}})">거래신청</a></li>
 {{/BoarduserMe}}
+
     </ul>
 {{/isMe}}
 
@@ -339,6 +342,7 @@
 {{#BoarduserMe salestate}}
       <li><a onclick="requestDealBtn({{commentkey}})">거래신청</a></li>
 {{/BoarduserMe}}
+
     </ul>
   </div>
 {{/isMe}}
@@ -400,7 +404,7 @@ class="w3-blue w3-button">완료</button></td>
 <script>
 	//정보보기
 	function informationBtn(cmtkey) {
-		console.log("insdfsd");
+		console.log("userinfomation");
 
 		window.name = "parentForm";
 		window.open("/sboard/information?commentkey=" + cmtkey,
@@ -409,10 +413,10 @@ class="w3-blue w3-button">완료</button></td>
 	}
 	//거래신청
 	function requestDealBtn(cmtkey) {
-		console.log("insdfsd");
+		console.log("requestDeal");
 
 		window.name = "parentForm";
-		window.open("/sboard/requestdeal?commentkey=" + cmtkey,
+		window.open("/sboard/requestDeal?commentkey=" + cmtkey,
 				"requestDealform",
 				"width=600, height=650, resizable = no, scrollbars = no");
 	}

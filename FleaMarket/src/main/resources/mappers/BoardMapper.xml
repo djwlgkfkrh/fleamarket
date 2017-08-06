@@ -232,6 +232,12 @@
 
 	<!-- modify Board end -->
 	
+	<update id="complete">
+		update board set salestate = 1
+		where boardkey =
+		#{boardkey}
+	</update>
+
 	<insert id="putcart">
 		insert into cart (userkey, boardkey)
 		values(#{userkey},#{boardkey})
@@ -262,3 +268,4 @@
 	</select>
 
 </mapper>
+

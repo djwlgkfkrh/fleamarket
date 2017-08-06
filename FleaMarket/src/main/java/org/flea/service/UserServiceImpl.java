@@ -77,4 +77,12 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		return dao.find(userkey);
 	}
+
+	@Override
+	public boolean checkBoard(Integer boardkey) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.checkBoard(boardkey);
+	}
+	
 }
+

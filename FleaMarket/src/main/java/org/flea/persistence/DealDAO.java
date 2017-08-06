@@ -22,5 +22,7 @@ public interface DealDAO {
 	public void returncomplete(Integer dealkey) throws Exception;
 	
 	public void returngoods(DealVO vo) throws Exception;
-
+	
+	public void makedeal(DealVO vo) throws Exception;
+	
 }
