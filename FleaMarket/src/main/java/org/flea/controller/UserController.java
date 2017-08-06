@@ -259,8 +259,11 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/mypage/mycart", method = { RequestMethod.POST, RequestMethod.GET })
-	public void mycart(@ModelAttribute("cri") SearchCriteria cri, Model model, HttpSession session) throws Exception {
-
+	public String mycart(@ModelAttribute("cri") SearchCriteria cri, Model model, HttpSession session) throws Exception {
+		UserVO user = (UserVO) session.getAttribute("userinfo");
+		if (user == null) {
+			return "error/login_error";
+		} else {
 		logger.info("salelist post ...........");
 		UserVO vo = (UserVO) session.getAttribute("userinfo");
 		model.addAttribute("cart_list", bservice.listCart(vo.getUserkey()));
@@ -288,6 +291,8 @@ public class UserController {
 		pageMaker.setTotalCount(bservice.listSearchCount(cri));
 
 		model.addAttribute("pageMaker", pageMaker);
+		return "mypage/mycart";
+		}
 	}
 
 }
