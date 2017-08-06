@@ -35,22 +35,32 @@
 		where userkey = #{userkey}
 	</select>
 
-	<select id="listSearch" resultType="org.flea.domain.BoardVO">
-		<![CDATA[  
-		  select * from board where boardkey > 0 
-		]]>
-		
-		<include refid="search"></include>
-  
-			<![CDATA[    
-  				order by boardkey desc limit #{pageStart}, #{perPageNum} ]]>
+	<!-- Home Search List Start -->
+	<select id="listSearchCount" resultType="int">
+		<!-- <if test= "keyword != null"></if> -->
+	 <![CDATA[ select count(boardkey) 
+		from board 
+		where boardkey > 0 
+		and title like CONCAT('%', #{keyword}, '%')]]>
 	</select>
 
-	<select id="listSearchCount" resultType="int">
-	 <![CDATA[ select count(boardkey) 
-		from board where boardkey > 0 ]]>
-		<include refid="search"></include>
+	<select id="listSearch" resultType="org.flea.domain.BoardVO">
+		<!-- <if test= "keyword != null"></if> -->
+		<![CDATA[  
+		select * 
+		from board 
+		where boardkey > 0 
+	  	and title like CONCAT('%', #{keyword}, '%')
+  		order by boardkey desc limit #{pageStart}, #{perPageNum} ]]>
 	</select>
+	<!-- Home Search List End -->
+
+	<!-- <include refid="keywordNullCheck"></include> -->
+	<sql id="keywordNullCheck">
+		<if test="keyword != null">
+			values(#{keyword})
+		</if>
+	</sql>
 
 	<select id="after" resultType="int">
 	<![CDATA[  
@@ -69,7 +79,8 @@
 	<insert id="create">
 		insert into board ( title, group1, group2,
 		text,userkey,nickname)
-		values ( #{title}, #{group1}, #{group2}, #{text},
+		values ( #{title}, #{group1}, #{group2},
+		#{text},
 		#{userkey},#{nickname})
 	</insert>
 	<update id="updateCommentCnt">
@@ -83,7 +94,7 @@
 		where boardkey =
 		#{boardkey}
 	</update>
-	
+
 	<!-- sale Board List start -->
 	<select id="salelistSearch" resultType="org.flea.domain.BoardVO">  <!-- board랑 sale을 연결해야함. 받는 파라미터가 SearchCriteria 이건데 -->
 		<![CDATA[  
@@ -97,7 +108,6 @@
   		order by s.salekey desc 
   		limit #{pageStart}, #{perPageNum} ]]>
 	</select>
-
 
 	<select id="salelistSearchCount" resultType="int">
 	 <![CDATA[ 
@@ -117,7 +127,7 @@
 		 from (board b,buy bb) 
 		 where (b.boardkey = bb.boardkey)
 		]]>
-		
+
 		<include refid="search"></include>
 		
   		<![CDATA[    
@@ -137,20 +147,20 @@
 
 
 
-<!-- search -->
-	 <sql id="search">
+	<!-- search -->
+	<sql id="search">
 		<if test="group1 != null">
 			<if test="group2 != null">
-			and b.group1 = #{group1}
-			and b.group2 = #{group2}
-			and b.title like CONCAT('%', #{keyword}, '%')
-			</if>		
+				and b.group1 = #{group1}
+				and b.group2 = #{group2}
+				and b.title like CONCAT('%', #{keyword}, '%')
+			</if>
 		</if>
 		<if test="group1 == null">
-			<!-- 검색 상태가 아닐때 list 모두 출력용  -->
-		</if> 
+			<!-- 검색 상태가 아닐때 list 모두 출력용 -->
+		</if>
 	</sql>
-	
+
 	<!-- create Board start -->
 
 	<insert id="salecreate">
@@ -164,7 +174,7 @@
 	</insert>
 	<!--create Board end -->
 
-	<!-- get key start-->
+	<!-- get key start -->
 	<select id="getboardKey" resultType="int">
 		select boardkey
 		from board
@@ -178,7 +188,7 @@
 		where boardkey = #{boardkey}
 		]]>
 	</select>
-	
+
 	<select id="getBuyState" resultType="int">
 		<![CDATA[  
 		select count(boardkey)
@@ -231,7 +241,7 @@
 	</update>
 
 	<!-- modify Board end -->
-	
+
 	<update id="changeBoardState">
 		update board set salestate = 1
 		where boardkey =
@@ -266,6 +276,5 @@
 	<![CDATA[
 		select * from board where boardkey > 0 order by viewcnt desc limit 10]]>
 	</select>
-
 </mapper>
 
