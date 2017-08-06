@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.flea.domain.BoardVO;
 import org.flea.domain.CartVO;
+import org.flea.domain.ReportVO;
 import org.flea.domain.SearchCriteria;
 import org.flea.domain.UserVO;
 import org.flea.persistence.BoardDAO;
@@ -52,6 +53,12 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
+	public int reportSearchCount(SearchCriteria cri) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.listSearchCount(cri);
+	}
+
+	@Override
 	public List<BoardVO> listSearchCriteria(SearchCriteria cri) throws Exception {
 		return dao.listSearch(cri);
 	}
@@ -65,6 +72,12 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public List<BoardVO> salelistSearchCriteria(SearchCriteria cri) throws Exception {
 		return dao.salelistSearch(cri);
+	}
+
+	@Override
+	public List<BoardVO> reportSearchCriteria(SearchCriteria cri) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.reportlistSearch(cri);
 	}
 
 	@Override
@@ -161,7 +174,6 @@ public class BoardServiceImpl implements BoardService {
 	// Delete
 	@Override
 	public void deleteBoard(Integer boardkey) throws Exception {
-
 		dao.deleteBoard(boardkey);
 	}
 
@@ -190,7 +202,7 @@ public class BoardServiceImpl implements BoardService {
 		return dao.getBuyState(boardkey);
 
 	}
-	
+
 	@Override
 	public List<BoardVO> popular() throws Exception {
 		// TODO Auto-generated method stub
@@ -201,6 +213,25 @@ public class BoardServiceImpl implements BoardService {
 	public void changeBoardState(Integer boardkey) throws Exception {
 		// TODO Auto-generated method stub
 		dao.changeBoardState(boardkey);
+	}
+
+	@Override
+	public void report(ReportVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		dao.report(vo);
+		dao.boardReport(vo.getBoardkey());
+	}
+
+	@Override
+	public boolean distinguish(Integer boardkey) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.distinguish(boardkey);
+	}
+
+	@Override
+	public void adminreturn(int boardkey) throws Exception {
+		// TODO Auto-generated method stub
+		dao.adminreturn(boardkey);
 	}
 
 }

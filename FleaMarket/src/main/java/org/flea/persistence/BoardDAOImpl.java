@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.flea.domain.BoardVO;
 import org.flea.domain.CartVO;
+import org.flea.domain.ReportVO;
 import org.flea.domain.SearchCriteria;
 import org.flea.domain.UserVO;
 // import org.apache.ibatis.session.SqlSession;
@@ -68,6 +69,12 @@ public class BoardDAOImpl implements BoardDAO {
 	public List<BoardVO> salelistSearch(SearchCriteria cri) throws Exception {
 
 		return session.selectList(namespace + ".salelistSearch", cri);
+	}
+
+	@Override
+	public List<BoardVO> reportlistSearch(SearchCriteria cri) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectList(namespace + ".reportlistSearch", cri);
 	}
 
 	@Override /* sale Board List */
@@ -245,6 +252,30 @@ public class BoardDAOImpl implements BoardDAO {
 	public void changeBoardState(Integer boardkey) throws Exception {
 		// TODO Auto-generated method stub
 		session.update(namespace + ".changeBoardState", boardkey);
+	}
+
+	@Override
+	public void report(ReportVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		session.insert(namespace + ".report", vo);
+	}
+
+	@Override
+	public void boardReport(Integer boardkey) throws Exception {
+		// TODO Auto-generated method stub
+		session.update(namespace + ".boardReport", boardkey);
+	}
+
+	@Override
+	public boolean distinguish(Integer boardkey) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectOne(namespace + ".distinguish", boardkey);
+	}
+
+	@Override
+	public void adminreturn(int boardkey) throws Exception {
+		// TODO Auto-generated method stub
+		session.update(namespace + ".adminreturn", boardkey);
 	}
 
 }

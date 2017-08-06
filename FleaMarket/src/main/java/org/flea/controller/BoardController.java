@@ -9,16 +9,16 @@ import javax.servlet.http.HttpSession;
 import org.flea.domain.BoardVO;
 import org.flea.domain.CartVO;
 import org.flea.domain.CommentVO;
-
-import org.flea.domain.FileVO;
 import org.flea.domain.DealVO;
+import org.flea.domain.FileVO;
 import org.flea.domain.PageMaker;
+import org.flea.domain.ReportVO;
 import org.flea.domain.SearchCriteria;
 import org.flea.domain.UserVO;
 import org.flea.service.BoardService;
 import org.flea.service.CommentService;
-import org.flea.service.FileService;
 import org.flea.service.DealService;
+import org.flea.service.FileService;
 import org.flea.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -358,7 +358,15 @@ public class BoardController {
 	}
 
 	@RequestMapping(value = "/report", method = { RequestMethod.GET, RequestMethod.POST })
-	public void report() throws Exception {
+	public String report(ReportVO vo) throws Exception {
 		logger.info("report ...........");
+		service.report(vo);
+		String url;
+
+		if (service.distinguish(vo.getBoardkey()) == true)
+			url = "error/report_success";
+		else
+			url = "error/breport_sucess";
+		return url;
 	}
 }

@@ -108,7 +108,18 @@
   		order by s.salekey desc 
   		limit #{pageStart}, #{perPageNum} ]]>
 	</select>
-
+	<select id="reportlistSearch" resultType="org.flea.domain.BoardVO">  <!-- board랑 sale을 연결해야함. 받는 파라미터가 SearchCriteria 이건데 -->
+		<![CDATA[  
+		 select * 
+		 from (board b) 
+		where report=true
+		]]>
+		<include refid="search"></include>
+		
+  		<![CDATA[    
+  		order by boardkey desc 
+  		limit #{pageStart}, #{perPageNum} ]]>
+	</select>
 	<select id="salelistSearchCount" resultType="int">
 	 <![CDATA[ 
 	 	select count(salekey) 
@@ -153,7 +164,8 @@
 			<if test="group2 != null">
 				and b.group1 = #{group1}
 				and b.group2 = #{group2}
-				and b.title like CONCAT('%', #{keyword}, '%')
+				and
+				b.title like CONCAT('%', #{keyword}, '%')
 			</if>
 		</if>
 		<if test="group1 == null">
@@ -276,5 +288,25 @@
 	<![CDATA[
 		select * from board where boardkey > 0 order by viewcnt desc limit 10]]>
 	</select>
+
+	<insert id="report">
+		insert into report ( boardkey, nickname, reason)
+		values ( #{boardkey}, #{nickname}, #{reason})
+	</insert>
+	<update id="boardReport">
+		update board set report = true
+		where boardkey =
+		#{boardkey}
+	</update>
+	<select id="distinguish" resultType="boolean">
+
+		select count(*) from sale
+		where boardkey =#{boardkey}
+	</select>
+	<update id="adminreturn">
+		update board set report = false
+		where boardkey =
+		#{boardkey}
+	</update>
 </mapper>
 

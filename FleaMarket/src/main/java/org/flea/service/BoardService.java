@@ -4,10 +4,13 @@ import java.util.List;
 
 import org.flea.domain.BoardVO;
 import org.flea.domain.CartVO;
+import org.flea.domain.ReportVO;
 import org.flea.domain.SearchCriteria;
 import org.flea.domain.UserVO;
 
 public interface BoardService {
+
+	boolean distinguish (Integer boardkey) throws Exception;
 
 	public BoardVO read(Integer boardkey) throws Exception; // viewcnt update,
 															// and read page
@@ -26,15 +29,16 @@ public interface BoardService {
 	public void createSale(Integer boardkey) throws Exception;
 
 	public List<BoardVO> salelistSearchCriteria(SearchCriteria cri) throws Exception;
-
+	public List<BoardVO> reportSearchCriteria(SearchCriteria cri) throws Exception;
 	public int salelistSearchCount(SearchCriteria cri) throws Exception;
-
+	
 	// buy board
 	public void createBuy(Integer boardkey) throws Exception;
 
 	public List<BoardVO> buylistSearchCriteria(SearchCriteria cri) throws Exception;
 
 	public int buylistSearchCount(SearchCriteria cri) throws Exception;
+	public int reportSearchCount(SearchCriteria cri)throws Exception;
 
 	public int before(Integer boardkey) throws Exception;
 
@@ -71,5 +75,12 @@ public interface BoardService {
 	public List<BoardVO> popular() throws Exception;
 	
 	public void changeBoardState(Integer boardkey) throws Exception;
+
+	public void report(ReportVO vo)throws Exception;
+
+	public void adminreturn(int boardkey)throws Exception;
+
+	
+
 
 }

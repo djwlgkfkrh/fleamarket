@@ -8,7 +8,7 @@ public class UserVO {
 	private Integer point;
 	private String nickname;
 	private Integer cheater;
-	private Integer admin;
+	private Boolean admin;
 	private String address;
 	private Integer phone;
 	private Integer money;
@@ -70,14 +70,6 @@ public class UserVO {
 		this.cheater = cheater;
 	}
 
-	public Integer getAdmin() {
-		return admin;
-	}
-
-	public void setAdmin(Integer admin) {
-		this.admin = admin;
-	}
-
 	public String getAddress() {
 		return address;
 	}
@@ -108,6 +100,14 @@ public class UserVO {
 
 	public void setZipcode(Integer zipcode) {
 		this.zipcode = zipcode;
+	}
+
+	public Boolean getAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(Boolean admin) {
+		this.admin = admin;
 	}
 
 }

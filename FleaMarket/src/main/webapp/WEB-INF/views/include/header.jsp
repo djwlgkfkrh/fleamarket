@@ -98,13 +98,20 @@ li.dropdown {
 				<ul class="nav navbar-nav ">
 					<li><a class="w3-text-black w3-xlarge" href="/sboard/buylist">Buy</a></li>
 					<li><a class="w3-text-black w3-xlarge" href="/sboard/salelist">Sell</a></li>
-					<li class="dropdown"><a href="/mypage"
-						class="dropbtn w3-xlarge w3-text-black">MyPage</a>
-						<div class="dropdown-content">
-							<a href="/mypage">My Information</a> <a href="/deallist">My
-								Order</a> <a href="/mypage/mycart">My Cart</a>
+					<c:if test="${userinfo.admin!=true}">
+						<li class="dropdown"><a href="/mypage"
+							class="dropbtn w3-xlarge w3-text-black">MyPage</a>
+							<div class="dropdown-content">
+								<a href="/mypage">My Information</a> <a href="/deallist">My
+									Order</a> <a href="/mypage/mycart">My Cart</a>
 
-						</div></li>
+							</div></li>
+					</c:if>
+					<c:if test="${userinfo.admin==true}">
+						<li><a class="w3-text-black w3-xlarge" href="/admin">Admin
+								Page</a></li>
+					</c:if>
+
 				</ul>
 
 

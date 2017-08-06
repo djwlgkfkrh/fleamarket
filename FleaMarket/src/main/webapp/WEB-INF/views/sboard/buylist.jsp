@@ -34,8 +34,7 @@
 						<i class="fa fa-search"> </i> Search
 					</button></li>
 			</ul>
-			<br>
-			<br>
+			<br> <br>
 
 			<!--  Search End -->
 
@@ -53,17 +52,28 @@
 				<tbody>
 
 					<c:forEach items="${buylist}" var="board">
-						<tr>
-							<td>${board.boardkey}</td>
-							<td>${board.salestate}</td>
-							<td><a href='/sboard/read?boardkey=${board.boardkey}'>${board.title}
-									[<span style="color:red">${board.commentcnt}</span>]
+						<c:set value="${board.report}" var="report" />
+						<c:choose>
+							<c:when test="${report==true}">
+								<tr>
+									<td colspan="5">신고된 글입니다.</td>
+								</tr>
+							</c:when>
+							<c:otherwise>
 
-							</a></td>
-							<td>${board.viewcnt}</td>
-							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm"
-									value="${board.regdate}" /></td>
-						</tr>
+								<tr>
+									<td>${board.boardkey}</td>
+									<td>${board.salestate}</td>
+									<td><a href='/sboard/read?boardkey=${board.boardkey}'>${board.title}
+											[<span style="color: red">${board.commentcnt}</span>]
+
+									</a></td>
+									<td>${board.viewcnt}</td>
+									<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm"
+											value="${board.regdate}" /></td>
+								</tr>
+							</c:otherwise>
+						</c:choose>
 					</c:forEach>
 
 				</tbody>

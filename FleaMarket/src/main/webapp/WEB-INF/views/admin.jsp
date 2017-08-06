@@ -2,21 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<style>
-#myul {
-	list-style-type: none;
-	overflow: hidden;
-	float: right;
-}
-
-#myul
-li {
-	padding: 2px;
-	display: inline;
-	float: left;
-}
-</style>
-<%@include file="../include/header.jsp"%>
+<%@include file="include/header.jsp"%>
 <center style="margin-top: 50px">
 	<img src="/resources/image/FleaLogo1.png" style="margin-bottom: 50px">
 </center>
@@ -24,17 +10,10 @@ li {
 	<div class="row">
 		<div class="col-sm-12">
 			<!--  Search start -->
-			<ul id="myul">
-				<li><%@include file="../include/selector.jsp"%></li>
-				<li><input class="w3-input w3-border " type="text"
-					name='keyword' id="keywordInput" value='${cri.keyword}' /></li>
-				<li><button class="w3-button w3-red" id='searchBtn'>
-						<i class="fa fa-search"> </i> Search
-					</button></li>
-			</ul>
 			<br> <br>
 			<!--  Search End -->
-
+			<h2>신고된 글 목록</h2>
+			<br> <br>
 			<table class="table table-hover w3-centered"
 				style="text-align: center">
 				<thead>
@@ -44,33 +23,26 @@ li {
 						<th>글 제목</th>
 						<th style="width: 100px;">조회수</th>
 						<th style="width: 200px;">날짜</th>
+						<th style="width: 100px;">복원</th>
+						<th style="width: 100px;">삭제</th>
 					</tr>
 				</thead>
 				<tbody>
+					<c:forEach items="${reportlist}" var="reportlist">
+						<tr>
 
-					<c:forEach items="${salelist}" var="board">
-						<c:set value="${board.report}" var="report" />
-						<c:choose>
-							<c:when test="${report==true}">
-								<tr>
-									<td colspan="5">신고된 글입니다.</td>
-								</tr>
-							</c:when>
-							<c:otherwise>
-								<tr>
-									<td>${board.boardkey}</td>
-									<td>${board.salestate}</td>
-									<td><a href='/sboard/read?boardkey=${board.boardkey}'>${board.title}
-											[<span style="color: red;"> ${board.commentcnt} </span>]
-									</a></td>
-									<td>${board.viewcnt}</td>
-									<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm"
-											value="${board.regdate}" /></td>
-								</tr>
-							</c:otherwise>
-						</c:choose>
+							<td>${reportlist.boardkey}</td>
+							<td>${reportlist.salestate}</td>
+							<td><a href='/sboard/read?boardkey=${reportlist.boardkey}'>${reportlist.title}
+									[<span style="color: red;"> ${reportlist.commentcnt} </span>]
+							</a></td>
+							<td>${reportlist.viewcnt}</td>
+							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm"
+									value="${reportlist.regdate}" /></td>
+							<td><a href='/admin/return?boardkey=${reportlist.boardkey}'>복원</a></td>
+							<td><a href='/admin/delete?boardkey=${reportlist.boardkey}'>삭제</a></td>
+						</tr>
 					</c:forEach>
-
 				</tbody>
 			</table>
 		</div>
@@ -112,34 +84,4 @@ li {
 		</c:when>
 	</c:choose>
 </div>
-
-
-<script>
-	var group2; /* $(document).ready(function() { */
-
-	function getSubValue(obj) {
-
-		console.log(" getSubValue : " + obj);
-
-		group2 = obj;
-	}
-
-	$('#searchBtn').on(
-			"click",
-			function(event) {
-				console.log("group2 : " + group2);
-
-				self.location = "salelist" + '${pageMaker.makeQuery(1)}'
-						+ "&group1=" + $("#group1 option:selected").val()
-						+ "&group2=" + group2 + "&keyword="
-						+ $('#keywordInput').val();
-
-			});
-</script>
-
-
-
-<br>
-<br>
-
-<%@include file="../include/footer.jsp"%>
+<%@include file="include/footer.jsp"%>

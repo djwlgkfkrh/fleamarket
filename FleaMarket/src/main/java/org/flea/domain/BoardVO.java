@@ -19,7 +19,7 @@ public class BoardVO {
 	String group2; // �з�2
 
 	String nickname;
-
+	boolean report;
 	public int getBoardkey() {
 		return boardkey;
 	}
@@ -122,6 +122,14 @@ public class BoardVO {
 
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
+	}
+
+	public boolean isReport() {
+		return report;
+	}
+
+	public void setReport(boolean report) {
+		this.report = report;
 	}
 
 	/*

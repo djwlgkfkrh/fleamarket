@@ -58,25 +58,27 @@
 							<div>
 								<c:set var="userkey" value="${userinfo.userkey}" />
 								<c:set var="b_userkey" value="${boardinfo.userkey}" />
-
-								<table style="margin-left: 80%">
-									<tr>
-										<td><c:if test="${userkey == b_userkey}">
+								<c:set var="admin" value="${userinfo.admin}" />
+								<c:if test="${userkey == b_userkey||admin==true}">
+									<table style="margin-left: 80%">
+										<tr>
+											<td>
 												<form action="./delete" method="post">
 													<input type="hidden" name="boardkey"
 														value="${boardinfo.boardkey}" />
 													<button class="w3-button w3-dark-grey">Delete</button>
-												</form></td>
-										<td>
-											<form action="./boardmodify">
-												<input type="hidden" name="boardkey"
-													value="${boardinfo.boardkey}" />
-												<button class="w3-button w3-dark-grey">Modify</button>
-											</form> </c:if>
-										</td>
-									</tr>
-								</table>
-
+												</form>
+											</td>
+											<td>
+												<form action="./boardmodify">
+													<input type="hidden" name="boardkey"
+														value="${boardinfo.boardkey}" />
+													<button class="w3-button w3-dark-grey">Modify</button>
+												</form>
+											</td>
+										</tr>
+									</table>
+								</c:if>
 							</div> <!-- 포스팅 글 수정/삭제 버튼 출력 끝  -->
 
 
@@ -127,8 +129,6 @@
 										</center>
 									</c:otherwise>
 								</c:choose>
-							</c:when>
-						</c:choose>
 					</td>
 					<td>
 						<!-- 신고하기 -->
@@ -148,7 +148,8 @@
 				</tr>
 			</table>
 		</center>
-
+		</c:when>
+		</c:choose>
 		<div class="modal fade" id="myModal" role="dialog">
 			<div class="modal-dialog modal-lg">
 				<div class="w3-modal-content" style="width: 400px !important">
@@ -165,11 +166,17 @@
 								<tr>
 									<td>신고 글 번호</td>
 									<td>${boardinfo.boardkey}</td>
+									<input type="hidden" name="boardkey"
+										value="${boardinfo.boardkey}" />
+
 								</tr>
 								<tr>
 									<td>신고자</td>
 									<td>${userinfo.nickname}</td>
+									<input type="hidden" name="nickname"
+										value="${userinfo.nickname}" />
 								</tr>
+
 
 								<tr>
 									<td>신고사유</td>
@@ -180,10 +187,10 @@
 							</table>
 						</div>
 						<div class="modal-footer ">
-							<input type="submit" value="Join"
+							<input type="submit" value="신고하기"
 								class="btn btn-default w3-text-black" />
 							<button type="button" class="btn btn-default w3-text-black"
-								data-dismiss="modal">Close</button>
+								data-dismiss="modal">취소하기</button>
 						</div>
 					</form>
 				</div>

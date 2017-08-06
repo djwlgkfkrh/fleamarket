@@ -264,35 +264,68 @@ public class UserController {
 		if (user == null) {
 			return "error/login_error";
 		} else {
-		logger.info("salelist post ...........");
-		UserVO vo = (UserVO) session.getAttribute("userinfo");
-		model.addAttribute("cart_list", bservice.listCart(vo.getUserkey()));
-		model.addAttribute("list", bservice.listAll());
-		
-		List<CartVO> cartlist = bservice.listCart(vo.getUserkey());
-		
-		
-		List<FileVO> filelist = new ArrayList<>();
-		FileVO fileinfo = new FileVO();
-		
-		for(int i=0; i<cartlist.size(); i++){
-			
-			int boardkey = cartlist.get(i).getBoardkey();
-			fileinfo = fileservice.getOneFile(boardkey);
-	
-			filelist.add(i, fileinfo);
-		}
-	
-		model.addAttribute("filelist", filelist);
-		
-		PageMaker pageMaker = new PageMaker();
-		pageMaker.setCri(cri);
+			logger.info("salelist post ...........");
+			UserVO vo = (UserVO) session.getAttribute("userinfo");
+			model.addAttribute("cart_list", bservice.listCart(vo.getUserkey()));
+			model.addAttribute("list", bservice.listAll());
 
-		pageMaker.setTotalCount(bservice.listSearchCount(cri));
+			List<CartVO> cartlist = bservice.listCart(vo.getUserkey());
 
-		model.addAttribute("pageMaker", pageMaker);
-		return "mypage/mycart";
+			List<FileVO> filelist = new ArrayList<>();
+			FileVO fileinfo = new FileVO();
+
+			for (int i = 0; i < cartlist.size(); i++) {
+
+				int boardkey = cartlist.get(i).getBoardkey();
+				fileinfo = fileservice.getOneFile(boardkey);
+
+				filelist.add(i, fileinfo);
+			}
+
+			model.addAttribute("filelist", filelist);
+
+			PageMaker pageMaker = new PageMaker();
+			pageMaker.setCri(cri);
+
+			pageMaker.setTotalCount(bservice.listSearchCount(cri));
+
+			model.addAttribute("pageMaker", pageMaker);
+			return "mypage/mycart";
 		}
 	}
 
+	@RequestMapping(value = "/admin", method = RequestMethod.GET)
+	public void admin(@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception {
+		logger.info("admin");
+
+		model.addAttribute("reportlist", bservice.reportSearchCriteria(cri));
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+
+		pageMaker.setTotalCount(bservice.reportSearchCount(cri));
+		model.addAttribute("pageMaker", pageMaker);
+
+		// 비밀번호 체크
+
+	}
+
+	@RequestMapping(value = "/admin/return", method = RequestMethod.GET)
+	public String adminReturn(@RequestParam("boardkey") int boardkey, Model model) throws Exception {
+
+		bservice.adminreturn(boardkey);
+		// 비밀번호 체크
+		return "redirect:/admin";
+	}
+
+	@RequestMapping(value = "/admin/delete", method = RequestMethod.GET)
+	public String adminDelete(@RequestParam("boardkey") int boardkey, Model model) throws Exception {
+		if (bservice.getBuyState(boardkey) == 0) {
+			bservice.deleteSale(boardkey);
+			return "redirect:/admin";
+		} else {
+			bservice.deleteBuy(boardkey);
+			return "redirect:/admin";
+		}
+		// 비밀번호 체크
+	}
 }

@@ -4,10 +4,12 @@ import java.util.List;
 
 import org.flea.domain.BoardVO;
 import org.flea.domain.CartVO;
+import org.flea.domain.ReportVO;
 import org.flea.domain.SearchCriteria;
 import org.flea.domain.UserVO;
 
 public interface BoardDAO {
+	boolean distinguish(Integer boardkey) throws Exception;
 
 	public void updateViewCnt(Integer boardkey) throws Exception;
 
@@ -50,6 +52,8 @@ public interface BoardDAO {
 
 	public List<BoardVO> buylistSearch(SearchCriteria cri) throws Exception;
 
+	public List<BoardVO> reportlistSearch(SearchCriteria cri) throws Exception;
+
 	public int buylistSearchCount(SearchCriteria cri) throws Exception;
 
 	public int before(Integer boardkey) throws Exception;
@@ -74,8 +78,14 @@ public interface BoardDAO {
 
 	public void forSearch() throws Exception;
 
-	public List<BoardVO> popular()throws Exception;
-	
+	public List<BoardVO> popular() throws Exception;
+
 	public void changeBoardState(Integer boardkey) throws Exception;
+
+	public void report(ReportVO vo) throws Exception;
+
+	public void boardReport(Integer boardkey) throws Exception;
+
+	public void adminreturn(int boardkey) throws Exception;
 
 }

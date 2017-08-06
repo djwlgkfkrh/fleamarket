@@ -3,7 +3,7 @@ package org.flea.domain;
 public class ReportVO {
 	int reportkey;
 	int boardkey;
-	int nickname;
+	String nickname;
 	String reason;
 
 	public int getReportkey() {
@@ -22,11 +22,11 @@ public class ReportVO {
 		this.boardkey = boardkey;
 	}
 
-	public int getNickname() {
+	public String getNickname() {
 		return nickname;
 	}
 
-	public void setNickname(int nickname) {
+	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
 

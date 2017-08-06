@@ -27,4 +27,6 @@ public interface UserService {
 
 	public boolean checkBoard(Integer boardkey) throws Exception;
 
+	
+
 }
