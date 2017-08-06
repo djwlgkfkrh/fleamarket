@@ -328,4 +328,8 @@ public class BoardController {
 		model.addAttribute("cuserinfo", uvo);
 
 	}
+	@RequestMapping(value = "/report", method = { RequestMethod.GET, RequestMethod.POST })
+	public void report() throws Exception {
+		logger.info("report ...........");
+	}
 }

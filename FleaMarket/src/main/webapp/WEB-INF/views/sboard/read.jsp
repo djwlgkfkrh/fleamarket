@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page isELIgnored="false"%>
+
 <%@include file="../include/header.jsp"%>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
@@ -86,83 +87,107 @@
 
 			<!--  게시글 끝 -->
 		</div>
+		<center>
+			<table>
+				<tr>
+					<td>
+						<!-- 찜하기부분 --> <c:choose>
+							<c:when test="${not empty sessionScope.userinfo}">
+								<c:set value="${cart}" var="cart" />
+								<c:choose>
+									<c:when test="${cart==0}">
+										<center>
+											<button class=" btn w3-white w3-card"
+												style="width: 100px; height: 90px; text-align: center"
+												onclick="heart();">
+												<div class="w3-container" onmouseover="mouseOver()"
+													onmouseout="mouseOut()">
+													<span id="heart"
+														style="font-size: 50px; color: red; margin-top: 5px;"
+														class=" glyphicon glyphicon-heart-empty"></span><br>
+													<span style="color: red; font-size: 15px">찜하기</span>
+												</div>
+											</button>
 
-		<!-- 찜하기부분 -->
-		<c:choose>
-			<c:when test="${not empty sessionScope.userinfo}">
-				<c:set value="${cart}" var="cart" />
-				<c:choose>
-					<c:when test="${cart==0}">
-						<center>
-							<button class=" btn w3-white w3-card"
-								style="width: 100px; height: 90px; text-align: center"
-								onclick="heart();">
-								<div class="w3-container" onmouseover="mouseOver()"
-									onmouseout="mouseOut()">
-									<span id="heart"
-										style="font-size: 50px; color: red; margin-top: 5px;"
-										class=" glyphicon glyphicon-heart-empty"></span><br> <span
-										style="color: red; font-size: 15px">찜하기</span>
-								</div>
-							</button>
+										</center>
+									</c:when>
+									<c:otherwise>
+										<center>
+											<button class=" btn w3-white w3-card"
+												style="width: 100px; height: 90px; text-align: center"
+												onclick="dealheart();">
+												<div class="w3-container">
+													<span id="heart"
+														style="font-size: 50px; color: red; margin-top: 5px;"
+														class=" glyphicon glyphicon-heart"></span><br> <span
+														style="color: red; font-size: 15px">찜하기</span>
+												</div>
+											</button>
 
-						</center>
-					</c:when>
-					<c:otherwise>
-						<center>
-							<button class=" btn w3-white w3-card"
-								style="width: 100px; height: 90px; text-align: center"
-								onclick="dealheart();">
-								<div class="w3-container">
-									<span id="heart"
-										style="font-size: 50px; color: red; margin-top: 5px;"
-										class=" glyphicon glyphicon-heart"></span><br> <span
-										style="color: red; font-size: 15px">찜하기</span>
-								</div>
-							</button>
+										</center>
+									</c:otherwise>
+								</c:choose>
+							</c:when>
+						</c:choose>
+					</td>
+					<td>
+						<!-- 신고하기 -->
 
-						</center>
-					</c:otherwise>
-				</c:choose>
-			</c:when>
-		</c:choose>
-		<script>
-			function mouseOver() {
-				document.getElementById("heart").className = "glyphicon glyphicon-heart";
-			}
-			function mouseOut() {
-				document.getElementById("heart").className = "glyphicon glyphicon-heart-empty";
-			}
-			function heart() {
-				console.log("heart");
-				var boardkey = "${boardinfo.boardkey}";
-				var userkey = "${userinfo.userkey}";
-				var vo = "boardkey=" + boardkey + "&userkey=" + userkey;
-				$.ajax({
-					type : 'post',
-					url : '/sboard/cart',
-					data : vo,
-					success : function(result) {
+						<button class=" btn w3-white w3-card" data-toggle="modal"
+							data-target="#myModal"
+							style="width: 100px; height: 90px; text-align: center">
+							<div class="w3-container">
+								<span id="heart"
+									style="font-size: 50px; color: red; margin-top: 5px;"
+									class=" fa fa-frown-o"></span><br> <span
+									style="color: red; font-size: 15px">신고하기</span>
+							</div>
+						</button>
 
-						window.location.reload(true);
-					}
-				});
-			}
-			function dealheart() {
-				console.log("heart");
-				var boardkey = "${boardinfo.boardkey}";
-				var userkey = "${userinfo.userkey}";
-				var vo = "boardkey=" + boardkey + "&userkey=" + userkey;
-				$.ajax({
-					type : 'post',
-					url : '/sboard/dealcart',
-					data : vo,
-					success : function(result) {
-						window.location.reload(true);
-					}
-				});
-			}
-		</script>
+					</td>
+				</tr>
+			</table>
+		</center>
+
+		<div class="modal fade" id="myModal" role="dialog">
+			<div class="modal-dialog modal-lg">
+				<div class="w3-modal-content" style="width: 400px !important">
+					<div class="modal-header ">
+						<button type="button" class="close w3-text-black"
+							data-dismiss="modal">&times;</button>
+						<h4 class="modal-title w3-text-red">신고하기</h4>
+					</div>
+					<form action="/sboard/report" method="post">
+						<div class="modal-body " style="float: center !important">
+
+							<table class="w3-text-black w3-bordered w3-table" style="padding: 15px;">
+								<tr>
+									<td>신고 글 번호</td>
+									<td>${boardinfo.boardkey}</td>
+								</tr>
+								<tr>
+									<td>신고자</td>
+									<td>${userinfo.nickname}</td>
+								</tr>
+
+								<tr>
+									<td>신고사유</td>
+									<td><textarea class="w3-input w3-border w3-round"
+											name="reason" style="margin-top: 5px"></textarea></td>
+								</tr>
+
+							</table>
+						</div>
+						<div class="modal-footer ">
+							<input type="submit" value="Join"
+								class="btn btn-default w3-text-black" />
+							<button type="button" class="btn btn-default w3-text-black"
+								data-dismiss="modal">Close</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
 		<hr>
 		<!--  댓글부분 -->
 		<div style="text-align: left !important; margin-left: 50px">
@@ -215,8 +240,45 @@
 
 </form>
 
-<!--   끝 -->
 
+<!--   찜하기스크립트-->
+<script>
+	function mouseOver() {
+		document.getElementById("heart").className = "glyphicon glyphicon-heart";
+	}
+	function mouseOut() {
+		document.getElementById("heart").className = "glyphicon glyphicon-heart-empty";
+	}
+	function heart() {
+		console.log("heart");
+		var boardkey = "${boardinfo.boardkey}";
+		var userkey = "${userinfo.userkey}";
+		var vo = "boardkey=" + boardkey + "&userkey=" + userkey;
+		$.ajax({
+			type : 'post',
+			url : '/sboard/cart',
+			data : vo,
+			success : function(result) {
+
+				window.location.reload(true);
+			}
+		});
+	}
+	function dealheart() {
+		console.log("heart");
+		var boardkey = "${boardinfo.boardkey}";
+		var userkey = "${userinfo.userkey}";
+		var vo = "boardkey=" + boardkey + "&userkey=" + userkey;
+		$.ajax({
+			type : 'post',
+			url : '/sboard/dealcart',
+			data : vo,
+			success : function(result) {
+				window.location.reload(true);
+			}
+		});
+	}
+</script>
 
 <!--   끝 -->
 
@@ -356,10 +418,10 @@ class="w3-blue w3-button">완료</button></td>
 	}
 </script>
 <script>
-	Handlebars.registerHelper('BoarduserMe', function(salestate,options) {
+	Handlebars.registerHelper('BoarduserMe', function(salestate, options) {
 		var uuserkey = "${userinfo.userkey}";
 		var buserkey = "${boardinfo.userkey}";
-		if (uuserkey == buserkey&&salestate==0) {
+		if (uuserkey == buserkey && salestate == 0) {
 			return options.fn(this);
 		} else {
 			return options.inverse(this);
