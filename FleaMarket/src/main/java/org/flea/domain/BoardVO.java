@@ -20,6 +20,7 @@ public class BoardVO {
 
 	String nickname;
 	boolean report;
+
 	public int getBoardkey() {
 		return boardkey;
 	}
@@ -131,6 +132,7 @@ public class BoardVO {
 	public void setReport(boolean report) {
 		this.report = report;
 	}
+
 
 	/*
 	 * @Override public String toString() { return "BoardVO [boardkey=" +

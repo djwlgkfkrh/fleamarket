@@ -4,7 +4,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
-
 			<select  id="group1" class="w3-select" style="width:250" name="group1" onChange="showSub(this.options[this.selectedIndex].value);">
 			
 				<option value="" >대분류</option>

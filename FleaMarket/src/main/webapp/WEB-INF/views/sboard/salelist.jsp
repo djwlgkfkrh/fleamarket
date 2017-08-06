@@ -42,6 +42,7 @@ li {
 						<th style="width: 100px;">글 번호</th>
 						<th style="width: 100px;">판매상태</th>
 						<th>글 제목</th>
+						<th style="width: 100px;">작성자</th>
 						<th style="width: 100px;">조회수</th>
 						<th style="width: 200px;">날짜</th>
 					</tr>
@@ -59,10 +60,21 @@ li {
 							<c:otherwise>
 								<tr>
 									<td>${board.boardkey}</td>
-									<td>${board.salestate}</td>
-									<td><a href='/sboard/read?boardkey=${board.boardkey}'>${board.title}
-											[<span style="color: red;"> ${board.commentcnt} </span>]
-									</a></td>
+									<c:choose>
+										<c:when test="${board.salestate==0}">
+											<td>판매중</td>
+											<td><a href='/sboard/read?boardkey=${board.boardkey}'>${board.title}</a></td>
+										</c:when>
+										<c:when test="${board.salestate==1}">
+											<td>거래중</td>
+											<td><a href='/sboard/read?boardkey=${board.boardkey}'>${board.title}</a></td>
+										</c:when>
+										<c:when test="${board.salestate==2}">
+											<td>거래완료</td>
+											<td>${board.title}</td>
+										</c:when>
+									</c:choose>
+									<td>${board.nickname}</td>
 									<td>${board.viewcnt}</td>
 									<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm"
 											value="${board.regdate}" /></td>

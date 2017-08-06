@@ -1,5 +1,6 @@
 package org.flea.controller;
 
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -74,6 +75,33 @@ public class UserController {
 				entity = new ResponseEntity<String>("NO", HttpStatus.OK);
 			} else {
 				logger.info("중복되는 아이디 없음");
+				entity = new ResponseEntity<String>("YES", HttpStatus.OK);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+
+	// 닉네임 
+	@RequestMapping(value = "/nicknameCheck", method = RequestMethod.GET)
+	public void nicknameCheck(Model model) throws Exception {
+
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/userNickCheck/{checknick}", method = RequestMethod.GET)
+	public ResponseEntity<String> userNickCheck(@PathVariable String checknick, Model model) throws Exception {
+		logger.info("닉네임" + checknick);
+		ResponseEntity<String> entity = null;
+		try {
+			boolean result = service.checkNick(checknick);
+			if (result) {
+				logger.info("닉네임");
+				entity = new ResponseEntity<String>("NO", HttpStatus.OK);
+			} else {
+				logger.info("닉네임");
 				entity = new ResponseEntity<String>("YES", HttpStatus.OK);
 			}
 		} catch (Exception e) {
@@ -327,5 +355,6 @@ public class UserController {
 			return "redirect:/admin";
 		}
 		// 비밀번호 체크
+
 	}
 }

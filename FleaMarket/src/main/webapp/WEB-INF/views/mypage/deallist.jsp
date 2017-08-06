@@ -36,7 +36,8 @@
 								<td>${deal.dealkey}</td>
 								<td id="boardkey${status.count}">${deal.boardkey}</td>
 								<td><a href='/sboard/read?boardkey=${deal.boardkey}'>${deal.title}</a></td>
-								<td>유저닉네임</td>
+
+								<td>${deal.nickname}</td>
 								<td><input type="hidden" id="dealkey${status.count}"
 									value="${deal.dealkey}" /> <!-- 거래진행 단계 choose --> <c:choose>
 										<c:when test="${deal.salestate eq 0}">
@@ -145,7 +146,6 @@
 						<h3>5.거래완료</h3>
 					{{/istrue}}
 				<p>거래확인으로 거래가 종료됩니다</p></td>
-
 		</tr>
 	</table>
 </script>

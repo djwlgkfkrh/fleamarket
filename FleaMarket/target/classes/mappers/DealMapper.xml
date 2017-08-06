@@ -55,7 +55,7 @@
 	</update>
 	
 	<insert id="makedeal">
-		insert into deal (buyuserkey,saleuserkey,boardkey,title,money)
-		values(#{buyuserkey},#{saleuserkey}, #{boardkey}, #{title}, #{money})
+		insert into deal (buyuserkey,saleuserkey,boardkey,title,money,nickname)
+		values(#{buyuserkey},#{saleuserkey}, #{boardkey}, #{title}, #{money}, #{nickname})
 	</insert>
 </mapper>

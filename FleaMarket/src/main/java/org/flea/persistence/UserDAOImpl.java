@@ -38,7 +38,16 @@ public class UserDAOImpl implements UserDAO {
 			result = true;
 		return result;
 	}
-
+	
+	@Override
+	public boolean checkNick(String nick) throws Exception {
+		// TODO Auto-generated method stub
+		 boolean result = false;
+	        int count = session.selectOne(namespace+".checkNick", nick);
+	        if(count == 1) result= true;
+	        return result;
+	}
+	
 	@Override
 	public void update(UserVO user) throws Exception {
 		// TODO Auto-generated method stub

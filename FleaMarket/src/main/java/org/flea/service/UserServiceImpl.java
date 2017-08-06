@@ -29,7 +29,11 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		return dao.checkId(id);
 	}
-
+	@Override
+	public boolean checkNick(String nick) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.checkNick(nick);
+	}
 	@Override
 	public void update(UserVO user) throws Exception {
 		// TODO Auto-generated method stub
@@ -53,12 +57,14 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		return dao.checkPw(id, pw);
 	}
+	
 	@Transactional
 	@Override
 	public void addInfo(UserVO user) throws Exception {
 		// TODO Auto-generated method stub
 		dao.addInfo(user);
 	}
+	
 	@Transactional
 	@Override
 	public void deposit(UserVO user) throws Exception {

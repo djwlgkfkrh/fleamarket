@@ -8,6 +8,8 @@ public interface UserDAO {
 	public UserVO login(UserVO user) throws Exception;
 
 	public boolean checkId(String id) throws Exception;
+	
+	public boolean checkNick(String nick) throws Exception;
 
 	public void update(UserVO user) throws Exception;
 

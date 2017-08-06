@@ -9,6 +9,8 @@ public interface UserService {
 
 	public boolean checkId(String id) throws Exception;
 
+	public boolean checkNick(String nick) throws Exception;
+
 	public void update(UserVO user) throws Exception;
 
 	public void delete(String id) throws Exception;
@@ -20,13 +22,11 @@ public interface UserService {
 	public void addInfo(UserVO user) throws Exception;
 
 	public void deposit(UserVO user) throws Exception;
-	
-	public int checkMoney(UserVO vo) throws Exception ;
 
-	public UserVO find(Integer userkey)  throws Exception;
+	public int checkMoney(UserVO vo) throws Exception;
+
+	public UserVO find(Integer userkey) throws Exception;
 
 	public boolean checkBoard(Integer boardkey) throws Exception;
-
-	
 
 }

@@ -33,7 +33,8 @@ function makedeal() {
 	var money=$('#money').val();
 	var boardkey="${board.boardkey}";
 	var title="${board.title}";
-	if('${sale}'){
+	var nickname="${board.nickname}";
+	if(${sale}){
 	var buyuserkey="${cuserinfo.userkey}";
 	var saleuserkey="${userinfo.userkey}";
 	}else{ 
@@ -41,7 +42,7 @@ function makedeal() {
 	var buyuserkey="${userinfo.userkey}";
 	}
 	var vo="money="+money+"&buyuserkey="+buyuserkey+"&boardkey="+boardkey+"&saleuserkey="+saleuserkey
-	+"&title="+title;
+	+"&title="+title+"&nickname="+nickname;
 	console.log(vo);
 	
 	if(confirm("거래 정보 확인한거 맞으신가요?")){

@@ -11,8 +11,7 @@
 		update board set viewcnt = viewcnt +1 where boardkey
 		=#{boardkey}
 	</update>
-	<select id="read" resultType="org.flea.domain.BoardVO">
-		select *
+	<select id="read" resultType="org.flea.domain.BoardVO"> select *
 		from
 		board where
 		boardkey =
