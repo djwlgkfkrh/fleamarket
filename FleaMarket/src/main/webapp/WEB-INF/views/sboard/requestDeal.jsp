@@ -34,7 +34,7 @@ function makedeal() {
 	var boardkey="${board.boardkey}";
 	var title="${board.title}";
 	var nickname="${board.nickname}";
-	if(${sale}){
+	if('${sale}'){
 	var buyuserkey="${cuserinfo.userkey}";
 	var saleuserkey="${userinfo.userkey}";
 	}else{ 

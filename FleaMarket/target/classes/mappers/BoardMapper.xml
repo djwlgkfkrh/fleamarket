@@ -190,21 +190,6 @@
 	<!-- Include search End-->
 	
 
-	<select id="after" resultType="int">
-	<![CDATA[  
-		select boardkey
-		from board where boardkey > #{boardkey} order by boardkey asc limit 1]]>
-	</select>
-	<select id="before" resultType="int">
-	<![CDATA[  
-		select boardkey from board where boardkey < #{boardkey} order by boardkey desc limit 1]]>
-	</select>
-
-
-	<select id="find" resultType="org.flea.domain.UserVO">
-		select * from user where
-		userkey = #{userkey}
-	</select>
 
 	<!-- create Board start -->
 
