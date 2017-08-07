@@ -72,16 +72,6 @@
 	</div>
 	<br>
 
-	<c:choose>
-		<c:when test="${not empty sessionScope.userinfo}">
-			<div style="float: right">
-				<form action="/sboard/salepost" width="80%">
-					<button class="w3-button w3-blue">
-						<i class="fa fa-pencil"></i> Post
-					</button>
-				</form>
-			</div>
-		</c:when>
-	</c:choose>
+	
 </div>
 <%@include file="include/footer.jsp"%>

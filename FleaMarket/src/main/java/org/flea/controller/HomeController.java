@@ -2,8 +2,10 @@ package org.flea.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +14,7 @@ import org.flea.domain.BoardVO;
 import org.flea.domain.PageMaker;
 import org.flea.domain.SearchCriteria;
 import org.flea.service.BoardService;
+import org.flea.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -30,6 +33,8 @@ public class HomeController {
 
 	@Inject
 	private BoardService service;
+	@Inject
+	private UserService uservice;
 
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -47,6 +52,12 @@ public class HomeController {
 
 		model.addAttribute("popularBoard", service.popular());
 
+		Map<String, String> fleaMarket = new HashMap<String, String>();
+		fleaMarket.put("usercount", "" + uservice.countuser());
+		fleaMarket.put("boardcount", "" + service.countboard());
+		
+		model.addAttribute("fleaMarket", fleaMarket);
+
 		return "home";
 	}
 
@@ -55,7 +66,6 @@ public class HomeController {
 	public String mainlist(@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception {
 
 		logger.info("home search list post ...........");
-
 
 		List<BoardVO> searchlist = service.listSearchCriteria(cri);
 		model.addAttribute("searchlist", searchlist);

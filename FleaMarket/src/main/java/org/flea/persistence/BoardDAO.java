@@ -53,6 +53,7 @@ public interface BoardDAO {
 	public List<BoardVO> buylistSearch(SearchCriteria cri) throws Exception;
 
 	public List<BoardVO> reportlistSearch(SearchCriteria cri) throws Exception;
+	public int reportlistSearchCount(SearchCriteria cri) throws Exception;
 
 	public int buylistSearchCount(SearchCriteria cri) throws Exception;
 
@@ -87,5 +88,6 @@ public interface BoardDAO {
 	public void boardReport(Integer boardkey) throws Exception;
 
 	public void adminreturn(int boardkey) throws Exception;
+	public int countboard() throws Exception;
 
 }

@@ -36,8 +36,21 @@
 							value="${boardinfo.regdate}" /></td>
 				</tr>
 				<tr>
-					<td><span class="w3-text-grey">판매상태</span></td>
-					<td colspan="2"><span class="w3-text-grey">${boardinfo.salestate}
+					<td style="width: 100px;"><span class="w3-text-grey">판매상태</span></td>
+					<c:set var="salestate" value="${boardinfo.salestate }" />
+					<c:if test="${salestate==0}">
+						<td colspan="2">판매중</td>
+					</c:if>
+					<c:if test="${salestate==1}">
+						<td colspan="2">거래중</td>
+					</c:if>
+					<c:if test="${salestate==2}">
+						<td colspan="2">거래완료</td>
+					</c:if>
+
+				</tr>
+				<tr>
+					<td colspan="3"><span class="w3-text-grey">
 
 							<div class="w3-input w3-border w3-round"
 								style="margin-top: 5px; width: 100%; min-height: 230px; text-align: left !important">
@@ -68,13 +81,22 @@
 									<button class="w3-button w3-dark-grey">Delete</button>
 								</form>
 							</td>
-							<td>
-								<form action="./boardmodify">
-									<input type="hidden" name="boardkey"
-										value="${boardinfo.boardkey}" />
-									<button class="w3-button w3-dark-grey">Modify</button>
-								</form>
-							</td>
+							<td><c:choose>
+									<c:when test="${userinfo.admin==false}">
+										<form action="./boardmodify">
+											<input type="hidden" name="boardkey"
+												value="${boardinfo.boardkey}" />
+											<button class="w3-button w3-dark-grey">Modify</button>
+										</form>
+									</c:when>
+									<c:otherwise>
+										<form action="/admin/return">
+										<input type="hidden" name="boardkey"
+												value="${boardinfo.boardkey}" />
+											<button class="w3-button w3-dark-grey">복원하기</button>
+										</form>
+									</c:otherwise>
+								</c:choose></td>
 						</tr>
 					</table>
 				</c:if>
@@ -145,7 +167,7 @@
 		<div style="text-align: left !important; margin-left: 50px">
 			<button type="button" onclick="listReplyBtn()"
 				class="w3-blue w3-button">댓글보기</button>
-			<br>
+			<br> <br> <br>
 			<div id="listReply"></div>
 
 
@@ -278,97 +300,28 @@
 		});
 	}
 </script>
+<script>
+	//정보보기
+	function informationBtn(cmtkey) {
+		console.log("userinfomation");
 
+		window.name = "parentForm";
+		window.open("/sboard/information?commentkey=" + cmtkey,
+				"informationform",
+				"width=550, height=350, resizable = no, scrollbars = no");
+	}
+	//거래신청
+	function requestDealBtn(cmtkey) {
+		console.log("requestDeal");
+
+		window.name = "parentForm";
+		window.open("/sboard/requestDeal?commentkey=" + cmtkey,
+				"requestDealform",
+				"width=600, height=650, resizable = no, scrollbars = no");
+	}
+</script>
 <!--   끝 -->
 
-<script id="replyread" type="text/x-handlebars-template"> 
-
-{{#unless parent_key}}
-<div id="reply_div">
-{{#isBoarduser userkey secret}}
-<h4>
-<div class="dropdown">
-    <a href="#" class=" dropdown-toggle" data-toggle="dropdown">{{nickname}}  </a>
-<span class="w3-opacity w3-medium">{{prettifyDate regdate}}
-</span>
-    
- 
-{{#isMe userkey}}
-<span class="w3-opacity w3-medium"><a  onclick="replySubBtn({{commentkey}})">답글</a></span>
-<ul class="dropdown-menu">
-
-        <li><a onclick="informationBtn({{commentkey}})">회원정보</a></li>
-     
-      <li><a onclick="requestDealBtn({{commentkey}})">거래신청</a></li>
-
-
-    </ul>
-{{/isMe}}
-
-{{#isMeq userkey}}
-<span class="w3-opacity w3-medium"> <a 
-		onclick="replyModifyBtn({{commentkey}})">수정</a> | <a
-		 onclick="replyDelete({{commentkey}})">삭제</a>
-	</span>
-{{/isMeq}}
-
-<p style="margin-left: 10px">{{context}}</p>
-
-
-{{else}}
-<p>
-비밀 댓글입니다.<span class="w3-opacity w3-medium"> {{prettifyDate regdate}}
-	</span>
-</p>
-{{/isBoarduser}}
-</div>
-
-{{else}}				
-<div id="reply_div" style="margin-left: 30px">
-{{#isBoarduser userkey secret}}
-<h4>
-<div class="dropdown">
-    <a href="#" class=" dropdown-toggle" data-toggle="dropdown">{{nickname}}  </a>
-<span class="w3-opacity w3-medium">{{prettifyDate regdate}}
-</span>
-    
-{{#isMe userkey}}
-<span class="w3-opacity w3-medium"><a onclick="replySubBtn({{commentkey}})">답글</a></span>
-
-<ul class="dropdown-menu">
-      <li><a onclick="informationBtn({{commentkey}})">회원정보</a></li>
-
-      <li><a onclick="requestDealBtn({{commentkey}})">거래신청</a></li>
-
-
-    </ul>
-  </div>
-{{/isMe}}
-
-{{#isMeq userkey}}
-<span class="w3-opacity w3-medium"> <a 
-		onclick="replyModifyBtn({{commentkey}})">수정</a> | <a
-		 onclick="replyDelete({{commentkey}})">삭제</a>
-	</span>
-
-
-  </div>
-{{/isMeq}}
-<p style="margin-left: 10px">{{context}}</p>
-
-
-{{else}}
-<p>
-비밀 댓글입니다.<span class="w3-opacity w3-medium"> {{prettifyDate regdate}}
-	</span>
-</p>
-{{/isBoarduser}}
-
-</div>
-{{/unless}}
-
-<hr style="border: dotted 0.5px; opacity: 0.1; width: 95%;">
-</script>
 <script id="listReply2d" type="text/x-handlebars-template">
 <br>
 <table>
@@ -399,48 +352,82 @@ class="w3-blue w3-button">완료</button></td>
 </table>
 </script>
 
-<script>
-	//정보보기
-	function informationBtn(cmtkey) {
-		console.log("userinfomation");
 
-		window.name = "parentForm";
-		window.open("/sboard/information?commentkey=" + cmtkey,
-				"informationform",
-				"width=550, height=350, resizable = no, scrollbars = no");
-	}
-	//거래신청
-	function requestDealBtn(cmtkey) {
-		console.log("requestDeal");
+<script id="replyread" type="text/x-handlebars-template"> 
 
-		window.name = "parentForm";
-		window.open("/sboard/requestDeal?commentkey=" + cmtkey,
-				"requestDealform",
-				"width=600, height=650, resizable = no, scrollbars = no");
-	}
+{{#unless parent_key}}
+<div id="reply_div">
+
+{{else}}		
+<div id="reply_div" style="margin-left: 30px">
+
+{{/unless}}
+
+{{#issecret userkey secret}}		
+	<p>
+	비밀 댓글입니다.<span class="w3-opacity w3-medium"> {{prettifyDate regdate}}	</span>
+	</p>
+
+{{else}}	
+	{{#isBoarduserMe }}
+			{{#iscommentMe userkey}}		
+				{{nickname}}
+				<span class="w3-opacity w3-medium">{{prettifyDate regdate}}</span>
+				<span class="w3-opacity w3-medium"> <a onclick="replyModifyBtn({{commentkey}})">수정</a> | <a
+		 		onclick="replyDelete({{commentkey}})">삭제</a>	</span>
+				
+			{{else}}
+				<div class="dropdown">																
+    			<a href="#" class=" dropdown-toggle" data-toggle="dropdown">{{nickname}}  </a>
+				<span class="w3-opacity w3-medium">{{prettifyDate regdate}}</span>
+				<c:if test="${not empty sessionScope.userinfo}">
+				<span class="w3-opacity w3-medium"><a  onclick="replySubBtn({{commentkey}})">답글</a></span>
+				</c:if>
+			{{/iscommentMe}}
+		<ul class="dropdown-menu">
+        <li><a onclick="informationBtn({{commentkey}})">회원정보</a></li>
+      	<li><a onclick="requestDealBtn({{commentkey}})">거래신청</a></li>	
+    	</ul>
+		</div>
+
+	{{else}}	
+		{{nickname}}
+		<span class="w3-opacity w3-medium">{{prettifyDate regdate}}</span>
+		
+		{{#iscommentMe userkey}}		
+			<span class="w3-opacity w3-medium"> <a onclick="replyModifyBtn({{commentkey}})">수정</a> | <a
+		 	onclick="replyDelete({{commentkey}})">삭제</a>	</span>
+				
+		{{else}}
+			<c:if test="${not empty sessionScope.userinfo}">
+			<span class="w3-opacity w3-medium"><a  onclick="replySubBtn({{commentkey}})">답글</a></span>
+			</c:if>
+		{{/iscommentMe}}
+
+	{{/isBoarduserMe}}	
+
+<p style="margin-left: 10px">{{context}}</p>
+
+{{/issecret}}
+</div>
+
+<hr style="border: dotted 0.5px; opacity: 0.1; width: 95%;">
 </script>
+
+
 <script>
-	Handlebars.registerHelper('BoarduserMe', function(salestate, options) {			//애가이상함
+	Handlebars.registerHelper('isBoarduserMe', function(options) {
 		var uuserkey = "${userinfo.userkey}";
 		var buserkey = "${boardinfo.userkey}";
+		var salestate = "${boardinfo.salestate}";
 		if (uuserkey == buserkey && salestate == 0) {
 			return options.fn(this);
 		} else {
 			return options.inverse(this);
 		}
 	});
-	Handlebars.registerHelper('isMe', function(userkey, options) {
 
-		var uuserkey = "${userinfo.userkey}";
-		if (userkey != uuserkey && uuserkey != null) {
-			return options.fn(this);
-		} else {
-			return options.inverse(this);
-		}
-	});
-
-	Handlebars.registerHelper('isMeq', function(userkey, options) {
-
+	Handlebars.registerHelper('iscommentMe', function(userkey, options) {
 		var uuserkey = "${userinfo.userkey}";
 		if (userkey == uuserkey) {
 			return options.fn(this);
@@ -448,18 +435,16 @@ class="w3-blue w3-button">완료</button></td>
 			return options.inverse(this);
 		}
 	});
-	Handlebars.registerHelper('isBoarduser',
-			function(userkey, secret, options) {
-				var buserkey = "${boardinfo.userkey}";
-				var uuserkey = "${userinfo.userkey}";
-				if (buserkey == uuserkey || uuserkey == userkey
-						|| secret == false) {
-					return options.fn(this);
-
-				} else {
-					return options.inverse(this);
-				}
-			});
+	Handlebars.registerHelper('issecret', function(userkey, secret, options) {
+		var uuserkey = "${userinfo.userkey}";
+		var buserkey = "${boardinfo.userkey}";
+		if (((uuserkey == null || uuserkey != userkey) && secret == true)
+				&& buserkey != uuserkey) {
+			return options.fn(this);
+		} else {
+			return options.inverse(this);
+		}
+	});
 	Handlebars.registerHelper("prettifyDate", function(timeValue) {
 		var dateObj = new Date(timeValue);
 		var year = dateObj.getFullYear();

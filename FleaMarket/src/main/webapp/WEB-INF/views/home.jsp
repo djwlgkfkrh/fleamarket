@@ -5,7 +5,7 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 <center style="margin-top: 50px">
-	<img src="/resources/image/Flea90.png" width="95%" height="650">
+	<img src="/resources/image/Flea90.png" width="90%" height="650">
 </center>
 <br>
 <br>
@@ -44,11 +44,11 @@
 				style="text-align: center">
 				<thead>
 					<tr>
-						<th style="width: 100px;">글 번호</th>
-						<th style="width: 100px;">판매상태</th>
-						<th>글 제목</th>
-						<th style="width: 100px;">조회수</th>
-						<th style="width: 200px;">날짜</th>
+						<th>글 번호</th>
+						<th>판매상태</th>
+						<th style="width: 40%">글 제목</th>
+						<th>조회수</th>
+						<th>날짜</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -57,18 +57,20 @@
 						<tr>
 							<td>${popularBoard.boardkey}</td>
 							<c:choose>
-							<c:when test="${popularBoard.salestate==0}">
-							<td>거래전</td>
-							<td><a href='/sboard/read?boardkey=${popularBoard.boardkey}'>${popularBoard.title}</a></td>
-							</c:when>
-							<c:when test="${popularBoard.salestate==1}">
-							<td>거래중</td>
-							<td><a href='/sboard/read?boardkey=${popularBoard.boardkey}'>${popularBoard.title}</a></td>
-							</c:when>
-							<c:when test="${popularBoard.salestate==2}">
-							<td>거래완료</td>
-							<td>${popularBoard.title}</td>
-							</c:when>
+								<c:when test="${popularBoard.salestate==0}">
+									<td>거래전</td>
+									<td><a
+										href='/sboard/read?boardkey=${popularBoard.boardkey}'>${popularBoard.title}</a></td>
+								</c:when>
+								<c:when test="${popularBoard.salestate==1}">
+									<td>거래중</td>
+									<td><a
+										href='/sboard/read?boardkey=${popularBoard.boardkey}'>${popularBoard.title}</a></td>
+								</c:when>
+								<c:when test="${popularBoard.salestate==2}">
+									<td>거래완료</td>
+									<td>${popularBoard.title}</td>
+								</c:when>
 							</c:choose>
 							<td>${popularBoard.viewcnt}</td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm"
@@ -79,32 +81,40 @@
 				</tbody>
 			</table>
 		</div>
+		<div class="col-sm-6">
+			<h3>
+				About <span class="w3-text-red">FLEA MARKET</span>
+			</h3>
+			<br>
+			<table class="table table-bordered" style="text-align: center">
+				<tr>
+					<td>회원수</td>
+					<td>${fleaMarket.usercount}</td>
+				</tr>
+				<tr>
+					<td>게시글 수</td>
+					<td>${fleaMarket.boardcount}</td>
+				</tr>
+				<tr>
+					<td>총 거래수</td>
+					<td>${fleaMarket.usercount}</td>
+				</tr>
+
+
+
+			</table>
+			<br>
+			<h4>안전 거래 기능이란?</h4>
+
+			<img src="/resources/image/deal.JPG"
+				style="margin-bottom: 50px; width: 60%; float: left;"> <br>
+			<p>안전거래 시스템이란 구매자와 판매자 사이의 거래에 FLEA MARKET 이 함께 참여하여
+			 판매자는 구매자의 입금을 걱정없이 배송할 수 있으며 구매자는 판매자의 물건에 점수를 매겨야 입금이 가능하도록 하는 시스템으로써
+			  구매자와 판매자 사이의 신뢰가능한 중고거래를 도와주는 시스템입니다.</p>
+		</div>
 
 	</div>
-
-
-	<div class="text-center">
-		<ul class="pagination">
-
-			<c:if test="${pageMaker.prev}">
-				<li><a
-					href="home/${pageMaker.makeSearch(pageMaker.startPage)-1 }">&laquo;</a></li>
-			</c:if>
-
-			<c:forEach begin="${pageMaker.startPage }"
-				end="${pageMaker.endPage }" var="idx">
-				<li <c:out value="${pageMaker.cri.page == idx?'class =active':''}"/>>
-					<a href="home/${pageMaker.makeSearch(idx)}">${idx}</a>
-				</li>
-			</c:forEach>
-
-			<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-				<li><a
-					href="home/${pageMaker.makeSearch(pageMaker.endPage +1) }">&raquo;</a></li>
-			</c:if>
-
-		</ul>
-	</div>
+	<br>
 
 
 </div>
@@ -119,7 +129,6 @@
 </script>
 
 <script>
-
 	$('#searchBtn').on(
 			"click",
 			function(event) {

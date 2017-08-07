@@ -112,4 +112,10 @@ public class UserDAOImpl implements UserDAO {
 		return result;
 	}
 
+	@Override
+	public int countuser() throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectOne(namespace + ".countuser");
+	}
+
 }

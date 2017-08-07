@@ -12,7 +12,7 @@
 	<h3>거래 내역</h3>
 	<br>
 	<div class="col-sm-12">
-		<table class="table table-hover w3-centered"
+		<table class="table table-hover w3-centered "
 			style="text-align: center">
 			<thead>
 				<tr>
@@ -116,7 +116,7 @@
 </div>
 
 <script id="stateTableTemplate" type="text/x-handlebars-template"> 
-<table style="width: 100%;">
+<table style="width: 100%;" >
 		<tr style="border: 1px solid black; border-collapse: collapse;">
 			<td>{{#istrue salestateNum 0}}
 						<h3 style="color: red">1.입금대기</h3>
@@ -155,13 +155,13 @@
 	</table>
 </script>
 <script id="detailDivTemplate" type="text/x-handlebars-template"> 
-<table class="table table-hover w3-centered"
+<table class="table table-hover w3-centered table-bordered"
 			style="text-align: center">
 <tr><td>주문번호</td><td>{{dealkey}}</td><td>날짜</td><td>{{regdate}}</td></tr>
 <tr><td>판매자</td><td>{{seller}}</td><td>구매자</td><td>{{buyer}}</td></tr>
 <tr><td>글제목</td><td>{{boardtitle}}</td><td>가격</td><td>{{money}}</td></tr>
 <tr><td>상태</td><td>{{salestate}}</td><td>운송장번호</td><td>{{deliverykey}}</td></tr>
-<tr><td>주소</td><td>{{address}}</td><td>전화번호</td><td>{{number}}</td></tr>
+<tr><td>주소</td><td>{{address}}</td><td>전화번호</td><td>0{{number}}</td></tr>
 			</table>
 
 </script>

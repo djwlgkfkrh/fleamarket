@@ -28,4 +28,5 @@ public interface UserDAO {
 	public UserVO find(Integer userkey) throws Exception;
 	
 	public boolean checkBoard(Integer boardkey) throws Exception;
+	public int countuser() throws Exception;
 }

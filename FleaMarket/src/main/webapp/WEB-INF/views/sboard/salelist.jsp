@@ -39,12 +39,14 @@ li {
 				style="text-align: center">
 				<thead>
 					<tr>
-						<th style="width: 100px;">글 번호</th>
-						<th style="width: 100px;">판매상태</th>
-						<th>글 제목</th>
-						<th style="width: 100px;">작성자</th>
-						<th style="width: 100px;">조회수</th>
-						<th style="width: 200px;">날짜</th>
+						<th style="width:70px;">글 번호</th>
+						<th>대분류</th>
+						<th >소분류</th>
+						<th >판매상태</th>
+						<th style="width:50%;">글 제목</th>
+						<th >작성자</th>
+						<th >조회수</th>
+						<th >날짜</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -54,20 +56,22 @@ li {
 						<c:choose>
 							<c:when test="${report==true}">
 								<tr>
-									<td colspan="5">신고된 글입니다.</td>
+									<td colspan="8">신고된 글입니다.</td>
 								</tr>
 							</c:when>
 							<c:otherwise>
 								<tr>
 									<td>${board.boardkey}</td>
+									<td>${board.group1}</td>
+									<td>${board.group2}</td>
 									<c:choose>
 										<c:when test="${board.salestate==0}">
 											<td>판매중</td>
-											<td><a href='/sboard/read?boardkey=${board.boardkey}'>${board.title}</a></td>
+											<td><a href='/sboard/read?boardkey=${board.boardkey}'>${board.title}</a>[${board.commentcnt}]</td>
 										</c:when>
 										<c:when test="${board.salestate==1}">
 											<td>거래중</td>
-											<td><a href='/sboard/read?boardkey=${board.boardkey}'>${board.title}</a></td>
+											<td><a href='/sboard/read?boardkey=${board.boardkey}'>${board.title}</a>[${board.commentcnt}]</td>
 										</c:when>
 										<c:when test="${board.salestate==2}">
 											<td>거래완료</td>

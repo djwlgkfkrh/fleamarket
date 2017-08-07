@@ -55,7 +55,7 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int reportSearchCount(SearchCriteria cri) throws Exception {
 		// TODO Auto-generated method stub
-		return dao.listSearchCount(cri);
+		return dao.reportlistSearchCount(cri);
 	}
 
 	@Override
@@ -232,6 +232,12 @@ public class BoardServiceImpl implements BoardService {
 	public void adminreturn(int boardkey) throws Exception {
 		// TODO Auto-generated method stub
 		dao.adminreturn(boardkey);
+	}
+
+	@Override
+	public int countboard() throws Exception {
+		// TODO Auto-generated method stub
+		return dao.countboard();
 	}
 
 }

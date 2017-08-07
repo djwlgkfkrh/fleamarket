@@ -89,6 +89,12 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		return dao.checkBoard(boardkey);
 	}
+
+	@Override
+	public int countuser() throws Exception {
+		// TODO Auto-generated method stub
+		return dao.countuser();
+	}
 	
 }
 

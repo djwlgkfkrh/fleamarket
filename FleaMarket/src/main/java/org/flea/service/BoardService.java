@@ -80,6 +80,8 @@ public interface BoardService {
 
 	public void adminreturn(int boardkey)throws Exception;
 
+	public int countboard() throws Exception;
+
 	
 
 

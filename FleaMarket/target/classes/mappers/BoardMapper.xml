@@ -95,12 +95,32 @@
 
 	<update id="finish">
 		update board set salestate = 2
-		where boardkey =
-		#{boardkey}
+		where boardkey = #{boardkey}
 	</update>
 
 	<!-- sale Board List start -->
 
+	
+	
+	<!-- reportlist start-->
+	<select id="reportlistSearch" resultType="org.flea.domain.BoardVO">  <!-- board랑 sale을 연결해야함. 받는 파라미터가 SearchCriteria 이건데 -->
+		<![CDATA[  
+		select * 
+		from (board b) 
+		where (report=1)
+  		order by boardkey desc 
+  		limit #{pageStart}, #{perPageNum} ]]>
+	</select>
+	
+	<select id="reportlistSearchCount" resultType="int">  <!-- board랑 sale을 연결해야함. 받는 파라미터가 SearchCriteria 이건데 -->
+		<![CDATA[  
+		select count(*) 
+		from (board b) 
+		where (report=1) ]]>
+	</select>
+	<!-- reportlist end-->
+	
+	
 	
 
 	<!-- sale Board Search List start -->
@@ -117,18 +137,9 @@
 		<![CDATA[ and (b.title like CONCAT('%', #{keyword}, '%'))]]></if>
   		<![CDATA[ order by s.salekey desc limit #{pageStart}, #{perPageNum} ]]>
 	</select>
-	<select id="reportlistSearch" resultType="org.flea.domain.BoardVO">  <!-- board랑 sale을 연결해야함. 받는 파라미터가 SearchCriteria 이건데 -->
-		<![CDATA[  
-		 select * 
-		 from (board b) 
-		where report=true
-		]]>
-		<include refid="search"></include>
-		
-  		<![CDATA[    
-  		order by boardkey desc 
-  		limit #{pageStart}, #{perPageNum} ]]>
-	</select>
+	
+
+	
 	<select id="salelistSearchCount" resultType="int">
 	 <![CDATA[ 
 	 	select count(salekey) 
@@ -172,7 +183,7 @@
 
 	<!-- Include search Start-->
 	<sql id="search">
-		and report=false
+		
 		<if test="group1 != null">
 		and b.group1 = #{group1}</if>
 		<if test=" group2 != null">
@@ -326,5 +337,9 @@
 		where boardkey =
 		#{boardkey}
 	</update>
+	
+	<select id="countboard" resultType="int">
+		select count(*) from board
+	</select>
 </mapper>
 

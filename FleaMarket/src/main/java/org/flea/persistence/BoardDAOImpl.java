@@ -64,6 +64,18 @@ public class BoardDAOImpl implements BoardDAO {
 
 		return session.selectList(namespace + ".listSearch", cri);
 	}
+	
+	@Override
+	public List<BoardVO> reportlistSearch(SearchCriteria cri) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectList(namespace + ".reportlistSearch", cri);
+	}
+	
+	@Override /* sale Board List */
+	public int reportlistSearchCount(SearchCriteria cri) throws Exception {
+
+		return session.selectOne(namespace + ".reportlistSearchCount", cri);
+	}
 
 	@Override /* sale Board List */
 	public List<BoardVO> salelistSearch(SearchCriteria cri) throws Exception {
@@ -71,11 +83,6 @@ public class BoardDAOImpl implements BoardDAO {
 		return session.selectList(namespace + ".salelistSearch", cri);
 	}
 
-	@Override
-	public List<BoardVO> reportlistSearch(SearchCriteria cri) throws Exception {
-		// TODO Auto-generated method stub
-		return session.selectList(namespace + ".reportlistSearch", cri);
-	}
 
 	@Override /* sale Board List */
 	public int salelistSearchCount(SearchCriteria cri) throws Exception {
@@ -276,6 +283,12 @@ public class BoardDAOImpl implements BoardDAO {
 	public void adminreturn(int boardkey) throws Exception {
 		// TODO Auto-generated method stub
 		session.update(namespace + ".adminreturn", boardkey);
+	}
+
+	@Override
+	public int countboard() throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectOne(namespace + ".countboard");
 	}
 
 }
