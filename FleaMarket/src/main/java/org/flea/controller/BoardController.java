@@ -85,7 +85,7 @@ public class BoardController {
 		logger.info("salelist keyword ::" + cri.getKeyword() + " cri.group1 : " + cri.getGroup1() + " cri.group2 : "
 				+ cri.getGroup2());
 
-	}
+	}  
 
 	// Buy List
 	@RequestMapping(value = "/buylist", method = { RequestMethod.POST, RequestMethod.GET })
