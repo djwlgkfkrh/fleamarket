@@ -68,6 +68,8 @@ public class BoardServiceImpl implements BoardService {
 	public void createSale(Integer boardkey) throws Exception {
 		dao.createSale(boardkey);
 	}
+	
+	
 
 	@Override
 	public List<BoardVO> salelistSearchCriteria(SearchCriteria cri) throws Exception {
