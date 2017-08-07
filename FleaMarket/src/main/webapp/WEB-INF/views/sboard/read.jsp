@@ -3,8 +3,10 @@
 <%@ page isELIgnored="false"%>
 
 <%@include file="../include/header.jsp"%>
+
+
 <script
-	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js">	</script>
 
 <center style="margin-top: 50px">
 	<img src="/resources/image/FleaLogo1.png" style="margin-bottom: 50px">
@@ -60,7 +62,7 @@
 										width="300" height="300">
 									<br>
 								</c:forEach>
-								<br> <br> ${boardinfo.text}
+								<br><br> ${boardinfo.text}
 							</div>
 					</span></td>
 				</tr>
@@ -616,6 +618,8 @@ class="w3-blue w3-button">완료</button></td>
 			}
 		});
 	}
+	
+
 </script>
 
 <%@include file="../include/footer.jsp"%>

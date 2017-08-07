@@ -15,6 +15,7 @@
 
 
 		<!--  포스팅 폼 시작  -->
+
 		<form name="group" action="/sboard/salepost" method="post"
 			enctype="multipart/form-data" onsubmit="return checkValue()">
 			<input type="hidden" name="group2">
@@ -35,7 +36,8 @@
 					<tr>
 						<td style="width: 100px;"><span class="w3-text-grey">작성자</span></td>
 						<td>${userinfo.nickname}<input type="hidden"
-							value="${userinfo.userkey}" name="userkey" /></td>
+							value="${userinfo.nickname}" name="nickname" /> <input
+							type="hidden" value="${userinfo.userkey}" name="userkey" /></td>
 						<!--  사진 첨부 버튼 시작  -->
 					<tr>
 						<td><span class="w3-text-grey">사진첨부</span></td>
@@ -86,11 +88,10 @@
 
 	//상위 셀렉트로 하위 셀렉트 제어하기
 
-		function showSub(obj) {
-		
+	function showSub(obj) {
 
 		console.log(obj);
-		
+
 		f = document.forms.group;
 
 		if (obj == null) {
@@ -139,31 +140,28 @@
 		document.location.href = '/sboard/buylist';
 	});
 
-	
-	
-		function checkValue() {
-					
-		   if (!$('#file1').val()) {
-			         alert("파일1을 첨부하세요.");
-			         return false;
-			         }
-		   if (!$('#file2').val()) {
-		         alert("파일2을 첨부하세요.");
-		         return false;
-		         }
-		   if (!$('#file3').val()) {
-		         alert("파일3을 첨부하세요.");
-		         return false;
-		         }
-		      if (!form.text.value) {
-			         alert("글내용을 입력하세요.");
-			         return false;
-			
-		   }
-		}
-	
+	function checkValue() {
 
+		if (!$('#file1').val()) {
+			alert("파일1을 첨부하세요.");
+			return false;
+		}
+		if (!$('#file2').val()) {
+			alert("파일2을 첨부하세요.");
+			return false;
+		}
+		if (!$('#file3').val()) {
+			alert("파일3을 첨부하세요.");
+			return false;
+		}
+		if (!form.text.value) {
+			alert("글내용을 입력하세요.");
+			return false;
+
+		}
+	}
 </script>
 
 
 <%@include file="../include/footer.jsp"%>
+

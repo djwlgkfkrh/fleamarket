@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
 <%@include file="../include/header.jsp"%>
 <center style="margin-top: 50px">
 	<img src="/resources/image/FleaLogo1.png" style="margin-bottom: 50px">
@@ -15,7 +16,7 @@
 
 		<!--  포스팅 폼 시작  -->
 
-		<form name="group" action="/sboard/buypost"  method="post"
+		<form name="group" action="/sboard/buypost" method="post"
 			enctype="multipart/form-data">
 			<input type="hidden" name="group2"> <input type="hidden"
 				name="nickname" value="${userinfo.nickname}" />
@@ -36,20 +37,18 @@
 					<tr>
 						<td style="width: 100px;"><span class="w3-text-grey">작성자
 						</span></td>
-
-
 						<td>${userinfo.nickname}<input type="hidden"
-							value="${userinfo.userkey}" name="userkey" /></td>
-
-
+							value="${userinfo.nickname}" name="nickname" /> <input
+							type="hidden" value="${userinfo.userkey}" name="userkey" /></td>
 					</tr>
 				</table>
 				<!--  사진 첨부 버튼 끝 -->
 
 				<!--  게시글 시작  -->
 				<br>
-				<textarea class="w3-input w3-border w3-round" name="text" rows="30%"
+				<textarea name="text" class="w3-input w3-border w3-round" rows="30%"
 					cols="75%" style="margin-top: 5px"></textarea>
+
 				<!--  게시글 끝 -->
 
 			</div>
@@ -128,6 +127,7 @@
 
 		}
 	}
+
 	$("#cancel").click(function() {
 		document.location.href = '/sboard/salelist';
 	});

@@ -24,6 +24,8 @@
 	<div class="row">
 		<div class="col-sm-12">
 
+
+
 			<!--  Search start -->
 
 
@@ -153,7 +155,7 @@
 </script>
 
 <script>
-	var group2; /* $(document).ready(function() { */
+	var group2=""; /* $(document).ready(function() { */
 
 	function getSubValue(obj) {
 
@@ -171,8 +173,13 @@
 						+ "&group1=" + $("#group1 option:selected").val()
 						+ "&group2=" + group2 + "&keyword="
 						+ $('#keywordInput').val();
+				
 
 			});
+	
+	$("#group1 option:eq(0)").attr("selected", "selected");
+	$("#group2 option:eq(0)").attr("selected", "selected");
+	
 </script>
 
 
