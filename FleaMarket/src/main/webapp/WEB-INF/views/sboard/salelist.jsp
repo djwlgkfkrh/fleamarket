@@ -127,7 +127,7 @@ li {
 
 
 <script>
-	var group2=""; /* $(document).ready(function() { */
+	var group2=""; 
 
 	function getSubValue(obj) {
 

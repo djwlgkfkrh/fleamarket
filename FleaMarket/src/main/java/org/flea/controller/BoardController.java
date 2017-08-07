@@ -104,9 +104,7 @@ public class BoardController {
 		logger.info("로그 ====================================================================================");
 		logger.info("buylist keyword ::" + cri.getKeyword() + " cri.group1 : " + cri.getGroup1() + " cri.group2 : "
 				+ cri.getGroup2());
-		
-		//cri.setKeyword(cri.getKeyword());
-		
+	
 
 	}
 
