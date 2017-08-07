@@ -127,7 +127,7 @@ li {
 
 
 <script>
-	var group2; /* $(document).ready(function() { */
+	var group2=""; /* $(document).ready(function() { */
 
 	function getSubValue(obj) {
 
@@ -147,6 +147,10 @@ li {
 						+ $('#keywordInput').val();
 
 			});
+	
+	$("#group1 option:eq(0)").attr("selected", "selected");
+	$("#group2 option:eq(0)").attr("selected", "selected");
+	
 </script>
 
 

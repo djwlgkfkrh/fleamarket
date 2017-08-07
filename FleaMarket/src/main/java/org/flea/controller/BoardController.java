@@ -51,6 +51,8 @@ public class BoardController {
 	private FileService fileservice;
 	@Inject
 	private DealService dservice;
+	
+	int modifytag=0;
 
 	UploadFile FileUP = new UploadFile();
 
@@ -97,9 +99,14 @@ public class BoardController {
 
 		pageMaker.setTotalCount(service.buylistSearchCount(cri));
 		model.addAttribute("pageMaker", pageMaker);
+		
+		
 		logger.info("로그 ====================================================================================");
 		logger.info("buylist keyword ::" + cri.getKeyword() + " cri.group1 : " + cri.getGroup1() + " cri.group2 : "
 				+ cri.getGroup2());
+		
+		//cri.setKeyword(cri.getKeyword());
+		
 
 	}
 
@@ -110,6 +117,13 @@ public class BoardController {
 
 		BoardVO boardinfo = service.read(boardkey);
 		model.addAttribute("boardinfo", boardinfo);
+		
+		if(modifytag == 1){
+			
+			boardinfo.setText(boardinfo.getText().replaceAll("<br/>", "\r\n"));
+			
+		}else{
+		
 		UserVO boarduser = service.find(boardinfo.getUserkey());
 		model.addAttribute("boarduser", boarduser);
 		session = request.getSession(true);
@@ -124,15 +138,17 @@ public class BoardController {
 
 		logger.info("read 상태 : ======= comment Read 완료 =========");
 
+		
 		logger.info("FileVO  : ======= file read 시작 =========");
-
-		// null일 경우도 생각하기
-
 		List<FileVO> fileinfo = fileservice.postFile(boardkey);
-		model.addAttribute("fileinfo", fileinfo);
-
-		logger.info("FileVO 상태 : ======= file read 완료 =========");
-
+		if(fileinfo.isEmpty()==true){		
+			logger.info("FileVO 상태 : ======= file 없음 =========");		
+		}else{
+			model.addAttribute("fileinfo", fileinfo);
+			logger.info("FileVO 상태 : ======= file read 완료 =========");
+		}
+	}modifytag = 0;
+		
 	}
 
 	// Create Post /* @@@@@@ file handling */
@@ -140,7 +156,9 @@ public class BoardController {
 			throws IllegalStateException, Exception {
 
 		logger.info(" =======   createPOST 진입    ========");
-
+		
+		bvo.setText(bvo.getText().replaceAll("\r\n", "<br/>"));
+		
 		service.createPost(bvo);
 
 		logger.info("FileVO  ====   진입  =====");
@@ -205,6 +223,7 @@ public class BoardController {
 		bvo.setGroup2(group2);
 		service.createSale(service.getboardKey(bvo)); // board 키만 있으면 됨
 
+		
 		logger.info(" =======   salePOST 완료    ========");
 		logger.info("...group1 : " + bvo.getGroup1() + "......group2 : " + bvo.getGroup2());
 
@@ -254,16 +273,19 @@ public class BoardController {
 			HttpServletRequest request) throws IllegalStateException, Exception {
 
 		logger.info(" =======   Modify Start =====");
+		modifytag = 1;
 		read(boardkey, model, session, request);
+
 	}
 
 	// Modify Board POST
 	@RequestMapping(value = "/boardmodify", method = RequestMethod.POST)
 	public String ModifyPOST(BoardVO bvo, MultipartHttpServletRequest mfile, HttpServletRequest request)
 			throws IllegalStateException, Exception {
-
+		
 		int boardkey = service.getboardKey(bvo);
 		bvo.setBoardkey(boardkey);
+		bvo.setText(bvo.getText().replaceAll("\r\n", "<br/>"));
 		service.modifyBoard(bvo);
 
 		logger.info(" =======   Modify END========");
