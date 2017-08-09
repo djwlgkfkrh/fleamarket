@@ -90,6 +90,11 @@
 		update board set salestate = 2
 		where boardkey = #{boardkey}
 	</update>
+	
+	<update id="returnfinish">
+		update board set salestate = 0
+		where boardkey = #{boardkey}
+	</update>
 
 	<!-- sale Board List start -->
 

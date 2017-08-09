@@ -13,12 +13,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 
 @Controller
 @RequestMapping("/reply/*")
@@ -59,10 +57,11 @@ public class CommentController {
 		return entity;
 	}
 
-	@RequestMapping(value = "/modify/{commentkey}", method =  RequestMethod.POST )
-	public ResponseEntity<String> modify( @PathVariable("commentkey") Integer commentkey, CommentVO vo) throws Exception {
+	@RequestMapping(value = "/modify/{commentkey}", method = RequestMethod.POST)
+	public ResponseEntity<String> modify(@PathVariable("commentkey") Integer commentkey, CommentVO vo)
+			throws Exception {
 		logger.info("reply modify  ...........");
-		logger.info("dd"+vo.getContext());
+		logger.info("dd" + vo.getContext());
 		vo.setCommentkey(commentkey);
 		ResponseEntity<String> entity = null;
 		service.modifyReply(vo);
@@ -70,15 +69,21 @@ public class CommentController {
 		return entity;
 
 	}
+
 	@RequestMapping(value = "/replySub/{commentkey}", method = { RequestMethod.POST })
-	public ResponseEntity<String> replySub( @PathVariable("commentkey") Integer commentkey, CommentVO vo) throws Exception {
+	public ResponseEntity<String> replySub(@PathVariable("commentkey") Integer commentkey, CommentVO vo)
+			throws Exception {
 		logger.info("replySub  ...........");
-		vo.setParent_key(commentkey);
+		
+		if (vo.getParent_key() == 0)
+			vo.setParent_key(commentkey);
+		else
+			vo.setParent_key(vo.getParent_key());
 		ResponseEntity<String> entity = null;
 		service.replySub(vo);
 		entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		return entity;
 
 	}
-	
+
 }

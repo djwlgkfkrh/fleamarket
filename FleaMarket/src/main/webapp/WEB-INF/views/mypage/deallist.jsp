@@ -19,7 +19,7 @@
 					<th style="width: 100px;">거래번호</th>
 					<th style="width: 100px;">글번호</th>
 					<th>글 제목</th>
-					<th style="width: 120px;">글쓴이</th>
+					<th style="width: 120px;">작성자</th>
 					<th style="width: 120px;">주문상태</th>
 					<th style="width: 120px;">조회</th>
 				</tr>
@@ -29,7 +29,7 @@
 				<c:forEach items="${deal_list}" var="deal" varStatus="status">
 					<c:set var="buyuserkey" value="${deal.buyuserkey}" />
 					<c:set var="saleuserkey" value="${deal.saleuserkey}" />
-					<c:if test="${deal.salestate!=5}">
+					
 						<!-- 거래테이블에 내 유저키가 맞는게 있으면 -->
 						<c:if test="${buyuserkey==userkey||saleuserkey==userkey}">
 							<tr>
@@ -96,12 +96,19 @@
 										</c:when>
 									</c:choose>
 								</c:when>
+								<c:when test="${deal.salestate eq 5}">
+									<input type="button" class="btn w3-blue" value="반품완료"
+										disabled />
+									<input type="hidden" id="buyuserkey${status.count}"
+										value="${buyuserkey}" />
+									</td>
+								</c:when>
 								</c:choose>
 								<td><button type="button" class="btn w3-blue" id="step1"
 										onclick="detail(${deal.dealkey})">조회</button></td>
 							</tr>
 						</c:if>
-					</c:if>
+					
 				</c:forEach>
 			</tbody>
 		</table>
@@ -158,7 +165,7 @@
 <table class="table table-hover w3-centered table-bordered"
 			style="text-align: center">
 <tr><td>주문번호</td><td>{{dealkey}}</td><td>날짜</td><td>{{regdate}}</td></tr>
-<tr><td>판매자</td><td>{{seller}}</td><td>구매자</td><td>{{buyer}}</td></tr>
+<tr><td>작성자</td><td>{{seller}}</td><td>거래상대</td><td>{{buyer}}</td></tr>
 <tr><td>글제목</td><td>{{boardtitle}}</td><td>가격</td><td>{{money}}</td></tr>
 <tr><td>상태</td><td>{{salestate}}</td><td>운송장번호</td><td>{{deliverykey}}</td></tr>
 <tr><td>주소</td><td>{{address}}</td><td>전화번호</td><td>0{{number}}</td></tr>

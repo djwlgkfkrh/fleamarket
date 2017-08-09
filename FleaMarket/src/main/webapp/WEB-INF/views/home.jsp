@@ -54,28 +54,38 @@
 				<tbody>
 
 					<c:forEach items="${popularBoard}" var="popularBoard">
-						<tr>
-							<td>${popularBoard.boardkey}</td>
-							<c:choose>
-								<c:when test="${popularBoard.salestate==0}">
-									<td>거래전</td>
-									<td><a
-										href='/sboard/read?boardkey=${popularBoard.boardkey}'>${popularBoard.title}</a></td>
-								</c:when>
-								<c:when test="${popularBoard.salestate==1}">
-									<td>거래중</td>
-									<td><a
-										href='/sboard/read?boardkey=${popularBoard.boardkey}'>${popularBoard.title}</a></td>
-								</c:when>
-								<c:when test="${popularBoard.salestate==2}">
-									<td>거래완료</td>
-									<td>${popularBoard.title}</td>
-								</c:when>
-							</c:choose>
-							<td>${popularBoard.viewcnt}</td>
-							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm"
-									value="${popularBoard.regdate}" /></td>
-						</tr>
+						<c:set value="${popularBoard.report}" var="report" />
+						<c:choose>
+							<c:when test="${report==true}">
+								<tr>
+									<td colspan="8">신고된 글입니다.</td>
+								</tr>
+							</c:when>
+							<c:otherwise>
+								<tr>
+									<td>${popularBoard.boardkey}</td>
+									<c:choose>
+										<c:when test="${popularBoard.salestate==0}">
+											<td>거래전</td>
+											<td><a
+												href='/sboard/read?boardkey=${popularBoard.boardkey}'>${popularBoard.title}</a></td>
+										</c:when>
+										<c:when test="${popularBoard.salestate==1}">
+											<td>거래중</td>
+											<td><a
+												href='/sboard/read?boardkey=${popularBoard.boardkey}'>${popularBoard.title}</a></td>
+										</c:when>
+										<c:when test="${popularBoard.salestate==2}">
+											<td>거래완료</td>
+											<td>${popularBoard.title}</td>
+										</c:when>
+									</c:choose>
+									<td>${popularBoard.viewcnt}</td>
+									<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm"
+											value="${popularBoard.regdate}" /></td>
+								</tr>
+							</c:otherwise>
+						</c:choose>
 					</c:forEach>
 
 				</tbody>
@@ -97,7 +107,7 @@
 				</tr>
 				<tr>
 					<td>총 거래수</td>
-					<td>${fleaMarket.usercount}</td>
+					<td>${fleaMarket.dealcount}</td>
 				</tr>
 
 
@@ -108,9 +118,9 @@
 
 			<img src="/resources/image/deal.JPG"
 				style="margin-bottom: 50px; width: 60%; float: left;"> <br>
-			<p>안전거래 시스템이란 구매자와 판매자 사이의 거래에 FLEA MARKET 이 함께 참여하여
-			 판매자는 구매자의 입금을 걱정없이 배송할 수 있으며 구매자는 판매자의 물건에 점수를 매겨야 입금이 가능하도록 하는 시스템으로써
-			  구매자와 판매자 사이의 신뢰가능한 중고거래를 도와주는 시스템입니다.</p>
+			<p>안전거래 시스템이란 구매자와 판매자 사이의 거래에 FLEA MARKET 이 함께 참여하여 판매자는 구매자의
+				입금을 걱정없이 배송할 수 있으며 구매자는 판매자의 물건에 점수를 매겨야 입금이 가능하도록 하는 시스템으로써 구매자와
+				판매자 사이의 신뢰가능한 중고거래를 도와주는 시스템입니다.</p>
 		</div>
 
 	</div>

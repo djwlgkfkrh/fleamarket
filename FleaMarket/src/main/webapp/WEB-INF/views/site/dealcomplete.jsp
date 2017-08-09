@@ -210,13 +210,13 @@
 	<div class="modal fade" id="myModal" role="dialog">
 							<div class="modal-dialog modal-lg">
 								<div class="w3-modal-content" style="width: 400px !important">
-									<div class="modal-header ">
-										<h4 class="modal-title w3-text-blue">반품</h4>
+									<div class="modal-header w3-yellow">
+										<h4 class="modal-title w3-text-black">반품</h4>
 									</div>
 									
 										<div class="modal-body " style="float: center !important">
 
-											<table class="table w3-text-blue" style="padding: 15px;">
+											<table class="w3-text-black w3-table" style="padding: 15px;">
 												<tr>
 													<td>반품 사유</td>
 													<td><input type="text" size="20" name="reason" id="reason" />
@@ -229,9 +229,9 @@
 											</table>
 
 										</div>
-										<div class="modal-footer ">
-											<input type="button" value="반품하기" id="returnGoods" onclick="returnGoods()" />
-											<button type="button" data-dismiss="modal">닫기</button>
+										<div class="modal-footer w3-yellow">
+											<input type="button" class="w3-button w3-white w3-text-red" value="반품하기" id="returnGoods" onclick="returnGoods()" />
+											<button type="button" class="w3-button w3-white w3-text-red" data-dismiss="modal">닫기</button>
 										</div>
 									
 								</div>

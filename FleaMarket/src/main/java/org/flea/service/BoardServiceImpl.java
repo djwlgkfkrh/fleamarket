@@ -121,6 +121,13 @@ public class BoardServiceImpl implements BoardService {
 		// TODO Auto-generated method stub
 		dao.complete(boardkey);
 	}
+	
+	@Transactional
+	@Override
+	public void returncomplete(Integer boardkey) throws Exception {
+		// TODO Auto-generated method stub
+		dao.returncomplete(boardkey);
+	}
 
 	@Override
 	public void putcart(CartVO vo) throws Exception {

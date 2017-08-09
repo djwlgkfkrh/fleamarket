@@ -28,6 +28,8 @@ public interface BoardDAO {
 	public void updateCommentCnt(Integer boardkey, int amount) throws Exception;
 
 	public void complete(Integer boardkey) throws Exception;
+	
+	public void returncomplete(Integer boardkey) throws Exception;
 
 	public List<CartVO> listCart(Integer userkey) throws Exception;
 

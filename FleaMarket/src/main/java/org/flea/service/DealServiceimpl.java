@@ -74,4 +74,10 @@ public class DealServiceimpl implements DealService {
 		dao.makedeal(vo);
 	}
 
+	@Override
+	public int listAll() throws Exception {
+		// TODO Auto-generated method stub
+		return dao.listAll();
+	}
+
 }

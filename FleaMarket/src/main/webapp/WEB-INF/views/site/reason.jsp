@@ -90,7 +90,7 @@
 </head>
 <body>
 	<div id="wrap">
-		<br> <b><font size="4" color="gray">반품 사유</font></b>
+		<br> <b><font size="4" color="gray">반품 </font></b>
 		<hr size="1" width="460">
 		<div id="chk">
 

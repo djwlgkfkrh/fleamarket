@@ -38,11 +38,11 @@
 						</tr>
 					</tbody>
 				</table>
-				<input type="submit" value="완료" />
+				<input type="submit" class="w3-button w3-yellow" value="완료" />
 				<!-- <button type="button" id="cancle">취소</button> -->
-				<button type="button" id="pwmodify" data-toggle="modal"
+				<button type="button" class="w3-button w3-yellow" id="pwmodify" data-toggle="modal"
 					data-target="#pwModal">비밀번호 변경</button>
-				<button type="button" id="deletebtn" data-toggle="modal"
+				<button type="button" class="w3-button w3-yellow" id="deletebtn" data-toggle="modal"
 					data-target="#delModal">회원탈퇴</button>
 			</form>
 		</div>
@@ -50,17 +50,17 @@
 		<div class="modal fade" id="pwModal" role="dialog">
 			<div class="modal-dialog modal-lg">
 				<div class="w3-modal-content" style="width: 400px !important">
-					<div class="modal-header ">
+					<div class="modal-header w3-yellow">
 						<button type="button" class="close w3-text-white"
 							data-dismiss="modal">&times;</button>
-						<h4 class="modal-title w3-text-blue">비밀번호 변경</h4>
+						<h4 class="modal-title w3-text-black">비밀번호 변경</h4>
 					</div>
 					<form name="changePw" action="/mypage/changePw" method="post"
 						onSubmit="return checkIt()">
 						<div class="modal-body " style="float: center !important">
 							<input type="hidden" name="mid" value="${userinfo.id}" /> <input
 								type="hidden" name="id" value="${userinfo.id}" />
-							<table class="w3-text-blue" style="padding: 15px;">
+							<table class="w3-table w3-text-black" style="padding: 15px;">
 								<tr>
 									<td>현재 비밀번호</td>
 									<td><input type="password" name="mpw"></td>
@@ -75,10 +75,10 @@
 								</tr>
 							</table>
 						</div>
-						<div class="modal-footer ">
+						<div class="modal-footer w3-yellow">
 							<input type="submit" value="변경"
-								class="btn btn-default w3-text-blue" />
-							<button type="button" class="btn btn-default w3-text-blue"
+								class="w3-button w3-white w3-text-red" />
+							<button type="button" class="w3-button w3-white w3-text-red"
 								data-dismiss="modal">취소</button>
 						</div>
 					</form>
@@ -91,25 +91,25 @@
 		<div class="modal fade" id="delModal" role="dialog">
 			<div class="modal-dialog modal-lg">
 				<div class="w3-modal-content" style="width: 400px !important">
-					<div class="modal-header ">
+					<div class="modal-header w3-yellow">
 						<button type="button" class="close w3-text-white"
 							data-dismiss="modal">&times;</button>
-						<h4 class="modal-title w3-text-blue">회원탈퇴</h4>
+						<h4 class="modal-title w3-text-black">회원탈퇴</h4>
 					</div>
 					<form name="deleteUserForm" method="post">
 						<div class="modal-body " style="float: center !important">
 							<input type="hidden" name="did" value="${userinfo.id}" />
-							<table class="w3-text-blue" style="padding: 15px;">
+							<table class="w3-table w3-text-black" style="padding: 15px;">
 								<tr>
 									<td>현재 비밀번호</td>
 									<td><input type="password" name="dpw"></td>
 								</tr>
 							</table>
 						</div>
-						<div class="modal-footer ">
+						<div class="modal-footer w3-yellow">
 							<input type="button" value="탈퇴" id="deleteUser"
-								class="btn btn-default w3-text-blue" />
-							<button type="button" class="btn btn-default w3-text-blue"
+								class="w3-button w3-white w3-text-red" />
+							<button type="button" class="w3-button w3-white w3-text-red"
 								data-dismiss="modal">취소</button>
 						</div>
 					</form>
@@ -131,6 +131,15 @@
 			<p>
 				총 댓글 : <span style="color: red;">${c_mycount}</span> 개
 			</p>
+			<p>
+				거래 횟수 :<span style="color: red;">${deal_list.size()}</span> 회
+			</p>
+			<p>
+				거래 완료 :<span style="color: red;"> ${salestatecnt}</span> 회
+			</p>
+			<p>
+				거래 중 :<span style="color: red;"> ${saleing}</span> 회
+			</p>			
 		</div>
 	</div>
 </div>
@@ -144,9 +153,9 @@
 				<thead>
 					<tr>
 						<th>글 번호</th>
-						<th>글 제목</th>
+						<th style="text-align:center" width="50%">글 제목</th>
 						<th>조회수</th>
-						<th>날짜</th>
+						<th style="text-align:center">날짜</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -169,9 +178,8 @@
 					<thead>
 						<tr>
 							<th>글 번호</th>
-							<th>글 제목</th>
-							<th>조회수</th>
-							<th>날짜</th>
+							<th style="text-align:center" width="50%">댓글 내용</th>
+							<th style="text-align:center">날짜</th>
 						</tr>
 					</thead>
 					<tbody>

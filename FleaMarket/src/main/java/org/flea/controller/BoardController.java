@@ -51,8 +51,8 @@ public class BoardController {
 	private FileService fileservice;
 	@Inject
 	private DealService dservice;
-	
-	int modifytag=0;
+
+	int modifytag = 0;
 
 	UploadFile FileUP = new UploadFile();
 
@@ -85,7 +85,7 @@ public class BoardController {
 		logger.info("salelist keyword ::" + cri.getKeyword() + " cri.group1 : " + cri.getGroup1() + " cri.group2 : "
 				+ cri.getGroup2());
 
-	}  
+	}
 
 	// Buy List
 	@RequestMapping(value = "/buylist", method = { RequestMethod.POST, RequestMethod.GET })
@@ -99,12 +99,10 @@ public class BoardController {
 
 		pageMaker.setTotalCount(service.buylistSearchCount(cri));
 		model.addAttribute("pageMaker", pageMaker);
-		
-		
+
 		logger.info("로그 ====================================================================================");
 		logger.info("buylist keyword ::" + cri.getKeyword() + " cri.group1 : " + cri.getGroup1() + " cri.group2 : "
 				+ cri.getGroup2());
-	
 
 	}
 
@@ -115,38 +113,38 @@ public class BoardController {
 
 		BoardVO boardinfo = service.read(boardkey);
 		model.addAttribute("boardinfo", boardinfo);
-		
-		if(modifytag == 1){
-			
+
+		if (modifytag == 1) {
+
 			boardinfo.setText(boardinfo.getText().replaceAll("<br/>", "\r\n"));
-			
-		}else{
-		
-		UserVO boarduser = service.find(boardinfo.getUserkey());
-		model.addAttribute("boarduser", boarduser);
-		session = request.getSession(true);
-		UserVO userinfo = (UserVO) session.getAttribute("userinfo");
-		int cart = 0;
-		if (userinfo != null) {
-			cart = service.getcart(boardkey, userinfo.getUserkey());
+
+		} else {
+
+			UserVO boarduser = service.find(boardinfo.getUserkey());
+			model.addAttribute("boarduser", boarduser);
+			session = request.getSession(true);
+			UserVO userinfo = (UserVO) session.getAttribute("userinfo");
+			int cart = 0;
+			if (userinfo != null) {
+				cart = service.getcart(boardkey, userinfo.getUserkey());
+			}
+			model.addAttribute("cart", cart);
+
+			model.addAttribute("reply", cservice.commentRead(boardkey));
+
+			logger.info("read 상태 : ======= comment Read 완료 =========");
+
+			logger.info("FileVO  : ======= file read 시작 =========");
+			List<FileVO> fileinfo = fileservice.postFile(boardkey);
+			if (fileinfo.isEmpty() == true) {
+				logger.info("FileVO 상태 : ======= file 없음 =========");
+			} else {
+				model.addAttribute("fileinfo", fileinfo);
+				logger.info("FileVO 상태 : ======= file read 완료 =========");
+			}
 		}
-		model.addAttribute("cart", cart);
+		modifytag = 0;
 
-		model.addAttribute("reply", cservice.commentRead(boardkey));
-
-		logger.info("read 상태 : ======= comment Read 완료 =========");
-
-		
-		logger.info("FileVO  : ======= file read 시작 =========");
-		List<FileVO> fileinfo = fileservice.postFile(boardkey);
-		if(fileinfo.isEmpty()==true){		
-			logger.info("FileVO 상태 : ======= file 없음 =========");		
-		}else{
-			model.addAttribute("fileinfo", fileinfo);
-			logger.info("FileVO 상태 : ======= file read 완료 =========");
-		}
-	}modifytag = 0;
-		
 	}
 
 	// Create Post /* @@@@@@ file handling */
@@ -154,9 +152,9 @@ public class BoardController {
 			throws IllegalStateException, Exception {
 
 		logger.info(" =======   createPOST 진입    ========");
-		
+
 		bvo.setText(bvo.getText().replaceAll("\r\n", "<br/>"));
-		
+
 		service.createPost(bvo);
 
 		logger.info("FileVO  ====   진입  =====");
@@ -165,12 +163,9 @@ public class BoardController {
 
 		logger.info("========board그룹 1: " + bvo.getGroup1() + "그룹2 :" + bvo.getGroup2());
 
-
 		/* file 없어도 출력할 수 있도록 만들기 */
 
-
-		if (mfile.getFiles("file").isEmpty()==true) {
-			
+		if (mfile.getFiles("file").isEmpty() == true) {
 
 			logger.info("FileVO  상태 : ====   파일없음    =====");
 
@@ -200,7 +195,7 @@ public class BoardController {
 					filevo.setBoardkey(service.getboardKey(bvo));
 					fileservice.saveFile(filevo);
 
-					logger.info("====File "+(i+1)+"번째  완료 =====");
+					logger.info("====File " + (i + 1) + "번째  완료 =====");
 
 				}
 			}
@@ -221,7 +216,6 @@ public class BoardController {
 		bvo.setGroup2(group2);
 		service.createSale(service.getboardKey(bvo)); // board 키만 있으면 됨
 
-		
 		logger.info(" =======   salePOST 완료    ========");
 		logger.info("...group1 : " + bvo.getGroup1() + "......group2 : " + bvo.getGroup2());
 
@@ -280,15 +274,15 @@ public class BoardController {
 	@RequestMapping(value = "/boardmodify", method = RequestMethod.POST)
 	public String ModifyPOST(BoardVO bvo, MultipartHttpServletRequest mfile, HttpServletRequest request)
 			throws IllegalStateException, Exception {
-		
-		int boardkey = service.getboardKey(bvo);
-		bvo.setBoardkey(boardkey);
+
+		/*int boardkey = service.getboardKey(bvo);
+		bvo.setBoardkey(boardkey);*/
 		bvo.setText(bvo.getText().replaceAll("\r\n", "<br/>"));
 		service.modifyBoard(bvo);
 
 		logger.info(" =======   Modify END========");
 
-		if (service.getBuyState(boardkey) == 0) {
+		if (service.getBuyState(bvo.getBoardkey()) == 0) {
 			return "redirect:/sboard/salelist";
 		} else {
 			return "redirect:/sboard/buylist";
@@ -339,19 +333,29 @@ public class BoardController {
 	}
 
 	@RequestMapping(value = "/information", method = { RequestMethod.GET, RequestMethod.POST })
-	public void information(@RequestParam int commentkey, Model model) throws Exception {
-
-		CommentVO cvo = cservice.find(commentkey);
-		UserVO uvo = uservice.find(cvo.getUserkey());
-		model.addAttribute("cuserinfo", uvo);
-		List<DealVO> deallist = dservice.getDeal(cvo.getUserkey());
+	public void information(@RequestParam int commentkey,boolean isuserkey, Model model)
+			throws Exception {
+		logger.info("information ..........."+isuserkey+"....");
+		List<DealVO> deallist;
+		if (!isuserkey) {
+			logger.info("information if ..........."+isuserkey+"....");
+			CommentVO cvo = cservice.find(commentkey);
+			UserVO uvo = uservice.find(cvo.getUserkey());
+			model.addAttribute("cuserinfo", uvo);
+			deallist = dservice.getDeal(cvo.getUserkey());
+		} else {
+			logger.info("information else ..........."+isuserkey+"....");
+			UserVO uvo = uservice.find(commentkey);
+			model.addAttribute("cuserinfo", uvo);
+			deallist = dservice.getDeal(commentkey);
+		}
 		model.addAttribute("deal_list", deallist);
 		int salestatecnt = 0;
 		int saleing = 0;
 		for (int i = 0; i < deallist.size(); i++) {
 			if (deallist.get(i).getSalestate() == 3) {
 				salestatecnt++;
-			} else if (deallist.get(i).getSalestate() != 3) {
+			} else if (deallist.get(i).getSalestate() != 3 &&deallist.get(i).getSalestate() != 5) {
 				saleing++;
 			}
 		}

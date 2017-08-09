@@ -24,5 +24,7 @@ public interface DealService {
 	public void returngoods(DealVO vo) throws Exception;
 	
 	public void makedeal(DealVO vo) throws Exception;
+	
+	public int listAll() throws Exception;
 
 }

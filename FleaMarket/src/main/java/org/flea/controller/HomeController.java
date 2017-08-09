@@ -14,6 +14,7 @@ import org.flea.domain.BoardVO;
 import org.flea.domain.PageMaker;
 import org.flea.domain.SearchCriteria;
 import org.flea.service.BoardService;
+import org.flea.service.DealService;
 import org.flea.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +36,8 @@ public class HomeController {
 	private BoardService service;
 	@Inject
 	private UserService uservice;
+	@Inject
+	private DealService dservice;
 
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -55,6 +58,7 @@ public class HomeController {
 		Map<String, String> fleaMarket = new HashMap<String, String>();
 		fleaMarket.put("usercount", "" + uservice.countuser());
 		fleaMarket.put("boardcount", "" + service.countboard());
+		fleaMarket.put("dealcount", "" + dservice.listAll());
 		
 		model.addAttribute("fleaMarket", fleaMarket);
 

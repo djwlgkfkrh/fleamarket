@@ -15,7 +15,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <div class="container-fluid bg-3 text-center" style="max-width: 1400px">
 	<div class="row">
-		<h2 class="w3-text-grey w3-padding-16">${boardinfo.title}</h2>
+		<h2 class="w3-text-blue w3-padding-16">${boardinfo.title}</h2>
 		<!--  포스팅 폼 시작  -->
 		<div style="padding: 30px">
 			<table class="w3-table w3-bordered w3-large w3-centered">
@@ -30,7 +30,11 @@
 				<tr>
 					<td style="width: 100px;"><span class="w3-text-grey">작성자
 					</span></td>
-					<td colspan="2">${boarduser.nickname}</td>
+					<td colspan="2">
+						${boardinfo.nickname}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+						type="button" class="w3-button w3-text-blue"
+						onclick="informationBtn(${boardinfo.userkey},true)" value="회원정보" />
+					</td>
 				</tr>
 				<tr>
 					<td><span class="w3-text-grey">작성날짜</span></td>
@@ -41,7 +45,7 @@
 					<td style="width: 100px;"><span class="w3-text-grey">판매상태</span></td>
 					<c:set var="salestate" value="${boardinfo.salestate }" />
 					<c:if test="${salestate==0}">
-						<td colspan="2">판매중</td>
+						<td colspan="2">거래전</td>
 					</c:if>
 					<c:if test="${salestate==1}">
 						<td colspan="2">거래중</td>
@@ -62,7 +66,7 @@
 										width="300" height="300">
 									<br>
 								</c:forEach>
-								<br><br> ${boardinfo.text}
+								<br> <br> ${boardinfo.text}
 							</div>
 					</span></td>
 				</tr>
@@ -93,7 +97,7 @@
 									</c:when>
 									<c:otherwise>
 										<form action="/admin/return">
-										<input type="hidden" name="boardkey"
+											<input type="hidden" name="boardkey"
 												value="${boardinfo.boardkey}" />
 											<button class="w3-button w3-dark-grey">복원하기</button>
 										</form>
@@ -304,13 +308,13 @@
 </script>
 <script>
 	//정보보기
-	function informationBtn(cmtkey) {
-		console.log("userinfomation");
+	function informationBtn(cmtkey,isuserkey) {
+		console.log("userinfomation"+isuserkey);
 
 		window.name = "parentForm";
-		window.open("/sboard/information?commentkey=" + cmtkey,
+		window.open("/sboard/information?commentkey=" + cmtkey+"&isuserkey="+isuserkey,
 				"informationform",
-				"width=550, height=350, resizable = no, scrollbars = no");
+				"width=550, height=550, resizable = no, scrollbars = no");
 	}
 	//거래신청
 	function requestDealBtn(cmtkey) {
@@ -319,7 +323,7 @@
 		window.name = "parentForm";
 		window.open("/sboard/requestDeal?commentkey=" + cmtkey,
 				"requestDealform",
-				"width=600, height=650, resizable = no, scrollbars = no");
+				"width=600, height=300, resizable = no, scrollbars = no");
 	}
 </script>
 <!--   끝 -->
@@ -348,7 +352,7 @@ class="w3-blue w3-button">수정</button></td>
 type="checkbox" id="rsecret" name="rsecret">비밀댓글
 </td>
 <td>&nbsp;&nbsp;&nbsp;&nbsp;
-<button type="button" onclick="replySub({{commentkey}})"
+<button type="button" onclick="replySub({{commentkey}},{{parent_key}})"
 class="w3-blue w3-button">완료</button></td>
 </tr>
 </table>
@@ -385,12 +389,13 @@ class="w3-blue w3-button">완료</button></td>
 				<c:if test="${not empty sessionScope.userinfo}">
 				<span class="w3-opacity w3-medium"><a  onclick="replySubBtn({{commentkey}})">답글</a></span>
 				</c:if>
+				<ul class="dropdown-menu">
+     		   <li><a onclick="informationBtn({{commentkey}},false)">회원정보</a></li>
+      		   <li><a onclick="requestDealBtn({{commentkey}})">거래신청</a></li>	
+    		   </ul>
+			   </div>
 			{{/iscommentMe}}
-		<ul class="dropdown-menu">
-        <li><a onclick="informationBtn({{commentkey}})">회원정보</a></li>
-      	<li><a onclick="requestDealBtn({{commentkey}})">거래신청</a></li>	
-    	</ul>
-		</div>
+		
 
 	{{else}}	
 		{{nickname}}
@@ -562,8 +567,7 @@ class="w3-blue w3-button">완료</button></td>
 						document.getElementById("listReply").innerHTML = "";
 						for ( var i in result) {
 							if (commentkey == result[i].commentkey) {
-								printData2(result[i], $("#listReply"),
-										$("#replyread2"));
+								printData2(result[i], $("#listReply"));
 							} else {
 								printData1(result[i], $("#listReply"),
 										$("#replyread"));
@@ -589,8 +593,7 @@ class="w3-blue w3-button">완료</button></td>
 							if (commentkey == result[i].commentkey) {
 								printData1(result[i], $("#listReply"),
 										$("#replyread"));
-								printData3(result[i], $("#listReply"),
-										$("#replyread2"));
+								printData3(result[i], $("#listReply"));
 							} else {
 								printData1(result[i], $("#listReply"),
 										$("#replyread"));
@@ -599,15 +602,15 @@ class="w3-blue w3-button">완료</button></td>
 					}
 				});
 	}
-	function replySub(commentkey) {
-		console.log("replySub들어옴");
+	function replySub(commentkey,parent_key) {
+		console.log("replySub들어옴"+parent_key);
 		var boardkey = "${boardinfo.boardkey}";
 		var nickname = "${userinfo.nickname}";
 		var userkey = "${userinfo.userkey}";
 		var context = $('#rcontext').val();
 		var secret = $('input:checkbox[id="rsecret"]').is(":checked");
 		var vo = "boardkey=" + boardkey + "&userkey=" + userkey + "&context="
-				+ context + "&secret=" + secret + "&nickname=" + nickname;
+				+ context + "&secret=" + secret + "&nickname=" + nickname+"&parent_key=" + parent_key;
 		$.ajax({
 			type : 'post',
 			data : vo,

@@ -157,7 +157,16 @@ public class SiteController {
 		entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		return entity;
 	}
-	
+
+	// 반품
+	@RequestMapping(value = "/returngoods", method = RequestMethod.POST)
+	public String returnGoods(DealVO vo, Model model) throws Exception {
+
+		logger.info("return goods ...........");
+		dservice.returngoods(vo);
+		return "error/return_error";
+	}
+
 	// 반품 확인 창
 	@RequestMapping(value = "/reason", method = RequestMethod.GET)
 	public void returnView(@RequestParam int boardkey, @RequestParam int dealkey, @RequestParam int buyuserkey,
@@ -179,15 +188,16 @@ public class SiteController {
 
 		ResponseEntity<String> entity = null;
 		uservice.deposit(user);
+		logger.info("returncomplete deal................");
 		dservice.returncomplete(dealkey);
+		logger.info("returncomplete board................");
+		bservice.returncomplete(boardkey);
 		entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		return entity;
 	}
 
-
 	@RequestMapping(value = "/makedeal", method = RequestMethod.POST)
-	public ResponseEntity<String> makedeal(DealVO deal,Integer boardkey)
-			throws Exception {
+	public ResponseEntity<String> makedeal(DealVO deal, Integer boardkey) throws Exception {
 		logger.info("complete................");
 
 		ResponseEntity<String> entity = null;

@@ -68,12 +68,12 @@
 							<c:otherwise>
 
 								<tr>
-									<td>${board.boardkey}</td>
+									<td>${board.buykey}</td>
 									<td>${board.group1}</td>
 									<td>${board.group2}</td>
 									<c:choose>
 										<c:when test="${board.salestate==0}">
-											<td>판매중</td>
+											<td>구입중</td>
 											<td><a href='/sboard/read?boardkey=${board.boardkey}'>${board.title}</a>[${board.commentcnt}]</td>
 										</c:when>
 										<c:when test="${board.salestate==1}">
@@ -83,7 +83,7 @@
 											</td>
 										</c:when>
 										<c:when test="${board.salestate==2}">
-											<td>거래완료</td>
+											<td class="w3-text-red">거래완료</td>
 											<td>${board.title}</td>
 										</c:when>
 									</c:choose>

@@ -25,4 +25,6 @@ public interface DealDAO {
 	
 	public void makedeal(DealVO vo) throws Exception;
 	
+	public int listAll() throws Exception;
+	
 }

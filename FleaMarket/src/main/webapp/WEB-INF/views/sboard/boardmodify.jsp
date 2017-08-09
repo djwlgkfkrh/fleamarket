@@ -16,6 +16,7 @@
 		<!--  포스팅 폼 시작  -->
 		<form action="/sboard/boardmodify" method="post" enctype="multipart/form-data">
 			<div style="padding: 30px">
+			<input type="hidden" name="boardkey" value="${boardinfo.boardkey }"/>
 				<table class="w3-table w3-bordered w3-large">
 					<tr>
 						<!-- 

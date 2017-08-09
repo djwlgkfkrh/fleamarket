@@ -52,7 +52,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 
 	<update id="deposit">
-		update user set money=#{money}
+		update user set money=(money+#{money})
 		where userkey =
 		#{userkey}
 	</update>

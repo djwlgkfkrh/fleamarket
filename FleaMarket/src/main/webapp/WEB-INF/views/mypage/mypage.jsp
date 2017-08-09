@@ -36,7 +36,7 @@
 						</tr>
 						<tr>
 							<td colspan="2"><input type="button" id="modify"
-								value="정보수정" /></td>
+								class="w3-button w3-yellow" value="정보수정" /></td>
 						</tr>
 					</tbody>
 				</table>
@@ -53,7 +53,15 @@
 			<p>
 				총 댓글 : <span style="color: red;">${c_mycount}</span> 개
 			</p>
-
+			<p>
+				거래 횟수 :<span style="color: red;">${deal_list.size()}</span> 회
+			</p>
+			<p>
+				거래 완료 :<span style="color: red;"> ${salestatecnt}</span> 회
+			</p>
+			<p>
+				거래 중 :<span style="color: red;"> ${saleing}</span> 회
+			</p>			
 		</div>
 	</div>
 </div>
@@ -65,13 +73,13 @@
 			<p>
 			<h4>내가 쓴 글</h4>
 			</p>
-			<table class="table table-hover">
-				<thead>
+			<table class="table table-hover" >
+				<thead >
 					<tr>
 						<th>글 번호</th>
-						<th>글 제목</th>
+						<th style="text-align:center" width="50%">글 제목</th>
 						<th>조회수</th>
-						<th>날짜</th>
+						<th style="text-align:center">날짜</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -95,8 +103,8 @@
 					<thead>
 						<tr>
 							<th>글 번호</th>
-							<th>댓글 내용</th>
-							<th>날짜</th>
+							<th style="text-align:center" width="50%">댓글 내용</th>
+							<th style="text-align:center">날짜</th>
 						</tr>
 					</thead>
 					<tbody>

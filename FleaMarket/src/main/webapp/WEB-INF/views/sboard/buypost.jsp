@@ -37,8 +37,7 @@
 					<tr>
 						<td style="width: 100px;"><span class="w3-text-grey">작성자
 						</span></td>
-						<td>${userinfo.nickname}<input type="hidden"
-							value="${userinfo.nickname}" name="nickname" /> <input
+						<td>${userinfo.nickname}<input
 							type="hidden" value="${userinfo.userkey}" name="userkey" /></td>
 					</tr>
 				</table>

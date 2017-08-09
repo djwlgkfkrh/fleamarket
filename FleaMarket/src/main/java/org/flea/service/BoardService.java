@@ -45,6 +45,8 @@ public interface BoardService {
 	public int after(Integer boardkey) throws Exception;
 
 	public void complete(Integer boardkey) throws Exception;
+	
+	public void returncomplete(Integer boardkey) throws Exception;
 
 	public void putcart(CartVO vo) throws Exception;
 

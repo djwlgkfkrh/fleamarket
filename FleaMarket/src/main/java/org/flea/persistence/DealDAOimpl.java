@@ -84,4 +84,10 @@ public class DealDAOimpl implements DealDAO {
 		session.insert(namespace+".makedeal",vo);
 	}
 
+	@Override
+	public int listAll() throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectOne(namespace + ".countdeal");
+	}
+
 }

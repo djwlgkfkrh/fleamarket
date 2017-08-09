@@ -44,12 +44,13 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	public void deleteReply(Integer commentkey) throws Exception {
-
+		CommentVO cvo = this.find(commentkey);
 		// TODO Auto-generated method stub
 
-	//	boardDAO.updateCommentCnt(vo.getBoardkey(), -1);
+		// boardDAO.updateCommentCnt(vo.getBoardkey(), -1);
 
 		dao.deleteReply(commentkey);
+		boardDAO.updateCommentCnt(cvo.getBoardkey(), -1);
 	}
 
 	@Override
@@ -62,6 +63,7 @@ public class CommentServiceImpl implements CommentService {
 	public void replySub(CommentVO vo) throws Exception {
 		// TODO Auto-generated method stub
 		dao.replySub(vo);
+		boardDAO.updateCommentCnt(vo.getBoardkey(), 1);
 
 	}
 

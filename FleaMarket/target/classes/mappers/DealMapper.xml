@@ -58,4 +58,8 @@
 		insert into deal (buyuserkey,saleuserkey,boardkey,title,money,nickname)
 		values(#{buyuserkey},#{saleuserkey}, #{boardkey}, #{title}, #{money}, #{nickname})
 	</insert>
+	
+	<select id="countdeal" resultType="int">
+		select count(*) from deal 
+	</select>
 </mapper>

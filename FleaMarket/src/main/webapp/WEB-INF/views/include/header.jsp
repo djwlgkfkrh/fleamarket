@@ -223,7 +223,7 @@ li.dropdown {
 
 						<div class="modal fade" id="myModal" role="dialog">
 							<div class="modal-dialog modal-lg">
-								<div class="w3-modal-content" style="width: 400px !important">
+								<div class="w3-modal-content" style="width: 450px !important">
 									<div class="modal-header w3-yellow">
 										<button type="button" class="close w3-text-black"
 											data-dismiss="modal">&times;</button>
@@ -236,19 +236,19 @@ li.dropdown {
 											<table class="w3-text-black w3-table" style="padding: 15px;text-align:center">
 												<tr>
 													<td>이름</td>
-													<td><input type="text" size="20" name="name" />
+													<td ><input type="text" size="20" name="name" />
 												</tr>
 												<tr>
 													<td>아이디</td>
 													<td><input type="text" size="20" name="id" onkeydown="inputIdChk()" />
-													<input type="button" value="중복확인" onclick="openIdChk()"/>    
+													<input type="button" class="w3-button w3-text-red" value="중복확인" onclick="openIdChk()"/> 
                    								    <input type="hidden" name="idDuplication" value="idUncheck" />
 
 												</tr>
 												<tr>
 													<td>닉네임</td>
 													<td><input type="text" size="20" name="nickname" onkeydown="inputNickChk()" />
-													<input type="button" value="중복확인" onclick="openNickChk()"/>    
+													<input type="button" class="w3-button w3-text-red" value="중복확인" onclick="openNickChk()"/>    
                    								    <input type="hidden" name="nickDuplication" value="nickUncheck" />
 												</tr>
 												<tr>
@@ -261,8 +261,8 @@ li.dropdown {
 										</div>
 										<div class="modal-footer w3-yellow ">
 											<input type="submit" value="Join"
-												class="btn btn-default w3-text-red" />
-											<button type="button" class="btn btn-default w3-text-red"
+												class="w3-button w3-white w3-text-red" />
+											<button type="button" class="w3-button w3-white w3-text-red"
 												data-dismiss="modal">Close</button>
 										</div>
 									</form>

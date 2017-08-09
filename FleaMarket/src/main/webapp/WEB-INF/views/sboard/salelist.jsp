@@ -61,7 +61,7 @@ li {
 							</c:when>
 							<c:otherwise>
 								<tr>
-									<td>${board.boardkey}</td>
+									<td>${board.salekey}</td>
 									<td>${board.group1}</td>
 									<td>${board.group2}</td>
 									<c:choose>
@@ -74,8 +74,8 @@ li {
 											<td><a href='/sboard/read?boardkey=${board.boardkey}'>${board.title}</a>[${board.commentcnt}]</td>
 										</c:when>
 										<c:when test="${board.salestate==2}">
-											<td>거래완료</td>
-											<td>${board.title}</td>
+											<td class="w3-text-red">거래완료</td>
+											<td>${board.title}[${board.commentcnt}]</td>
 										</c:when>
 									</c:choose>
 									<td>${board.nickname}</td>

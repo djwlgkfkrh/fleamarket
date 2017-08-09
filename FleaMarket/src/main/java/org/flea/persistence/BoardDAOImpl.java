@@ -130,6 +130,12 @@ public class BoardDAOImpl implements BoardDAO {
 		// TODO Auto-generated method stub
 		session.update(namespace + ".finish", boardkey);
 	}
+	
+	@Override
+	public void returncomplete(Integer boardkey) throws Exception {
+		// TODO Auto-generated method stub
+		session.update(namespace + ".returnfinish", boardkey);
+	}
 
 	public void putcart(CartVO vo) throws Exception {
 		// TODO Auto-generated method stub

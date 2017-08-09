@@ -151,11 +151,23 @@ public class UserController {
 		if (user == null) {
 			return "error/login_error";
 		} else {
-			model.addAttribute("deal_list", dservice.getDeal(user.getUserkey()));
 			model.addAttribute("b_list", bservice.listMy(user.getUserkey()));
 			model.addAttribute("c_list", cservice.listMy(user.getUserkey()));
 			model.addAttribute("b_mycount", bservice.listCount(user.getUserkey()));
 			model.addAttribute("c_mycount", cservice.commentCount(user.getUserkey()));
+			List<DealVO> deallist = dservice.getDeal(user.getUserkey());
+			model.addAttribute("deal_list", deallist);
+			int salestatecnt = 0;
+			int saleing = 0;
+			for (int i = 0; i < deallist.size(); i++) {
+				if (deallist.get(i).getSalestate() == 3) {
+					salestatecnt++;
+				} else if (deallist.get(i).getSalestate() != 3 &&deallist.get(i).getSalestate() != 5 ) {
+					saleing++;
+				}
+			}
+			model.addAttribute("salestatecnt", salestatecnt);
+			model.addAttribute("saleing", saleing);
 			return "mypage/mypage";
 		}
 	}
@@ -181,7 +193,19 @@ public class UserController {
 		model.addAttribute("c_list", cservice.listMy(user.getUserkey()));
 		model.addAttribute("b_mycount", bservice.listCount(user.getUserkey()));
 		model.addAttribute("c_mycount", cservice.commentCount(user.getUserkey()));
-
+		List<DealVO> deallist = dservice.getDeal(user.getUserkey());
+		model.addAttribute("deal_list", deallist);
+		int salestatecnt = 0;
+		int saleing = 0;
+		for (int i = 0; i < deallist.size(); i++) {
+			if (deallist.get(i).getSalestate() == 3) {
+				salestatecnt++;
+			} else if (deallist.get(i).getSalestate() != 3 && deallist.get(i).getSalestate() != 5) {
+				saleing++;
+			}
+		}
+		model.addAttribute("salestatecnt", salestatecnt);
+		model.addAttribute("saleing", saleing);
 	}
 
 	// 더럽게 짜증나네
@@ -274,7 +298,7 @@ public class UserController {
 			salestate = "거래완료";
 			break;
 		case 4:
-			salestate = "반품";
+			salestate = "반품중";
 			break;
 		case 5:
 			salestate = "반품완료";
